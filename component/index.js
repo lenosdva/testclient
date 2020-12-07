@@ -1,0 +1,9 @@
+export { default as HomeBanner } from './HomeBanner/HomeBanner';
+export { default as HomeServices } from './HomeServices/HomeServices';
+export { default as HowItWorks } from './HowItWorks/HowItWorks';
+export { default as Layout } from './Layout/Layout';
+export { default as Navbar } from './Navbar/Navbar';
+export { default as SearchSection } from './SearchSection/SearchSection';
+export { default as ServicesInSpotlight } from './ServicesInSpotlight/ServicesInSpotlight';
+export { default as Testimonial } from './Testimonial/Testimonial';
+export { default as WhyChooseUs } from './WhyChooseUs/WhyChooseUs';

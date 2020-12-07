@@ -1,0 +1,169 @@
+//global css
+@import './globals.scss';
+
+//pages
+@import './home.scss';
+
+//component
+@import '../component/HowItWorks/HowItWorks.scss';
+@import '../component/HomeServices/HomeServices.scss';
+@import '../component/Navbar/Navbar.scss';
+@import '../component/SearchSection/SearchSection.scss';
+@import '../component/ServicesInSpotlight/ServicesInSpotlight.scss';
+@import '../component/Testimonial/Testimonial.scss';
+@import '../component/WhyChooseUs/WhyChooseUs.scss';
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+p,
+h1,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  background: $white-color;
+  font: {
+    // family: $primary-font;
+  }
+  color: $text-color;
+}
+
+.container-fluid {
+  padding-right: unset;
+  padding-left: unset;
+}
+
+h1,
+h2 {
+  font-size: 64px;
+}
+
+h3 {
+  font-size: 32px;
+  line-height: 42px;
+}
+
+h4 {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+button {
+  background-color: $primary-color;
+  color: $white-color;
+  border-radius: 10px;
+  border: unset;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  li {
+    width: 100%;
+  }
+}
+
+hr {
+  width: 150px;
+  height: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid $text-color;
+}
