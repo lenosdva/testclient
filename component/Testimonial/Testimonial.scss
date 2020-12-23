@@ -1,2 +1,26 @@
-.testimonial {
+.testimonials {
+  .testimonial-slider {
+    .full-container {
+      padding: 50px;
+      .row {
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 3px 3px 6px $box-background;
+        .col-md-9 {
+          padding: 10px;
+          .views {
+            text-align: justify;
+            color: $grey-color;
+          }
+          .name {
+            margin-top: 5px;
+          }
+          .job {
+            color: black;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+  }
 }

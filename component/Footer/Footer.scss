@@ -1,0 +1,27 @@
+.footer {
+  background-color: $primary-color;
+  padding: 20px 100px;
+  color: $white-color;
+  .branding {
+    width: 50%;
+  }
+  .services {
+    width: 50%;
+    .links {
+      margin-bottom: 14px;
+      &:hover {
+        color: $box-background;
+        text-decoration: none;
+      }
+    }
+  }
+  .copyright-policy {
+    .links {
+      &:hover {
+        color: $box-background;
+        transform: scale(1.1);
+        text-decoration: none;
+      }
+    }
+  }
+}

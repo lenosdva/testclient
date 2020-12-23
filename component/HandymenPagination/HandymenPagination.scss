@@ -1,0 +1,47 @@
+.handyman-pagination {
+  .row {
+    .btn {
+      border-radius: 50px;
+      padding: 15px 60px 10px 60px;
+      margin: 15px;
+
+      .add-icon {
+        font-size: 34px;
+        font-weight: 100;
+      }
+    }
+    .in-active {
+      border: 1px solid $grey-color;
+    }
+  }
+  .data-area {
+    .individual-data {
+      width: 400px;
+      overflow: hidden;
+      border-radius: 20px;
+      .image-area {
+        width: 350px;
+        height: 300px;
+        border-radius: 20px;
+      }
+      .details {
+        padding: 20px;
+        span {
+          font-weight: 400;
+          color: $text-color;
+        }
+        .name {
+          color: $primary-color;
+        }
+      }
+      .booking-section {
+        text-align: center;
+        .btn {
+          border-radius: 50px;
+          padding: 10px 60px 5px 60px;
+          margin: 15px;
+        }
+      }
+    }
+  }
+}

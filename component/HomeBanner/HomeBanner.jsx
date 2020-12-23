@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import SearchSection from '../SearchSection/SearchSection';
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function HomeBanner() {
   return (
@@ -13,7 +13,9 @@ export default function HomeBanner() {
         width={1440}
         height={543}
       />
-      {/* <SearchSection /> */}
+      <div className="home-search">
+        <SearchBar />
+      </div>
     </div>
-  )
+  );
 }

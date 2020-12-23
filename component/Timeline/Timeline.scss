@@ -1,0 +1,104 @@
+.timeline {
+  .timeline-title {
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0.28px;
+    color: #2f2f2f;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 70px;
+
+    .description {
+      font-weight: normal;
+    }
+
+    .view {
+      color: $primary-color;
+      text-decoration: underline;
+    }
+
+    .time {
+      font-weight: normal;
+      color: $border-color;
+    }
+  }
+  .withLine::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 40px;
+    left: 20px;
+    width: 3px;
+    height: calc(100% - 40px);
+    background-color: $primary-color;
+  }
+
+  .checkbox {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+  }
+
+  .timeline-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 3;
+  }
+
+  .timeline-item-info {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    z-index: 4;
+    width: 837px;
+    min-height: 409px;
+    border-radius: 25px;
+    background-color: $white-color;
+
+    .header {
+      .image {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: red;
+      }
+
+      .texts {
+        p {
+          font-weight: normal;
+        }
+      }
+    }
+
+    .amount {
+      text-align: center;
+      color: $primary-color;
+      font-weight: 600;
+      line-height: 64px;
+    }
+    .buttons {
+      button {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 0.28px;
+        text-align: center;
+        color: $text-color;
+        padding: 10px 45px;
+
+        &:hover {
+          color: $white-color;
+        }
+      }
+    }
+  }
+}

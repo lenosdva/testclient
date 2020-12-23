@@ -1,13 +1,13 @@
-@import '../../styles/globals.scss';
-
 .home-services-list {
-  h4 {
+  h5 {
     position: relative;
+    font-weight: 600;
+
     &:before {
-      content: '';
+      content: "";
       width: 5px;
       height: 22px;
-      left: -8px;
+      left: -12px;
       top: 6px;
       position: absolute;
       background: $primary-color;
@@ -19,6 +19,8 @@
     color: $text-color;
     border: 2px solid $primary-color;
     border-radius: unset;
+    padding: 8px;
+    font-weight: 500;
     text-transform: uppercase;
   }
 

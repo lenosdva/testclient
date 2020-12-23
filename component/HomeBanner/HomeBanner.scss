@@ -1,5 +1,19 @@
-@import '../../styles/globals.scss';
+.banner {
+  position: relative;
+  .banner-image {
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+  }
 
-.banner-image {
-  transform: matrix(-1, 0, 0, 1, 0, 0);
+  .home-search {
+    width: 100%;
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .searchbar {
+      border: none;
+    }
+  }
 }

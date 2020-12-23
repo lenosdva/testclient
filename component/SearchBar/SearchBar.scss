@@ -1,0 +1,48 @@
+.searchbar {
+  max-width: 824px;
+  margin: 0 auto;
+  border-radius: 50px;
+  box-sizing: border-box;
+  border: 1px solid $grey-color;
+  background-color: $white-color;
+  padding: 10px;
+
+  .search-area {
+    flex: 0.85;
+    .postal-code {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      .postal-value {
+        color: $grey-color;
+      }
+    }
+    .vertical-bar {
+      width: 2px;
+      height: 60px;
+      background-color: $grey-color;
+    }
+    .service {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      .service-value {
+        color: $grey-color;
+      }
+    }
+  }
+  .icon-area {
+    height: 70px;
+    width: 70px;
+    .btn {
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      font-size: 24px;
+    }
+  }
+}

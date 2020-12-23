@@ -1,6 +1,15 @@
-import Image from 'next/image';
-
-import { Layout, HomeBanner, HomeServices, HowItWorks, WhyChooseUs, ServicesInSpotlight, Testimonial } from '../component';
+import {
+  Layout,
+  HomeBanner,
+  HomeServices,
+  HowItWorks,
+  WhyChooseUs,
+  ServicesInSpotlight,
+  Testimonial,
+  AboutUs,
+  FAQ,
+  Footer,
+} from "../component";
 
 export default function Home() {
   return (
@@ -26,7 +35,16 @@ export default function Home() {
             <Testimonial />
           </div>
         </div>
+        <div className="home-section-padding">
+          <AboutUs />
+        </div>
+        <div className="home-section-padding">
+          <FAQ />
+        </div>
+        <div className="home-section-padding">
+          <Footer />
+        </div>
       </div>
     </Layout>
-  )
+  );
 }

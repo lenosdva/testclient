@@ -1,0 +1,21 @@
+.reviews {
+  margin: 20px;
+  .heading {
+    .service-image {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .title-section {
+      flex: 1;
+      .secondary {
+        color: $primary-color;
+      }
+
+      .fill {
+        svg {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
