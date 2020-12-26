@@ -1,0 +1,24 @@
+.how-it-works {
+  .how-it-work-slider {
+    margin-top: 70px;
+
+    .how-it-work-slide {
+      position: relative;
+      padding: 0 50px;
+      .image-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: $primary-color;
+        color: $white-color;
+        border-radius: 50%;
+        border: 9px solid $white-color;
+        width: 104px;
+        height: 104px;
+        font-size: 32px;
+        line-height: 42px;
+        padding: 20px;
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import "../../styles/globals.scss";
+
+.payment-card {
+  border: 1px solid $grey-color;
+  border-radius: 5px;
+  .label {
+    font-size: 24px;
+  }
+  .input {
+    color: $primary-color;
+    height: 20px;
+    width: 20px;
+    background-color: $primary-color;
+  }
+  .bank {
+    border: 1px solid $grey-color;
+    border-radius: 10px;
+    padding: 12px;
+    width: 40%;
+    outline: none;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+  .bank-upi {
+    border: 1px solid $grey-color;
+    border-radius: 10px;
+    padding: 12px;
+    width: 40%;
+    color: $grey-color;
+    outline: none;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+}

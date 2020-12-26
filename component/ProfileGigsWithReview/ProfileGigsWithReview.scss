@@ -1,0 +1,57 @@
+.profile-gigs {
+  .row {
+    .profile-card {
+      border: 1px solid $grey-color;
+      height: 900px;
+
+      .report {
+        align-self: flex-end;
+
+        .title {
+          text-decoration: underline;
+          color: $primary-color;
+        }
+      }
+
+      .image-area {
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+      }
+
+      .rating-star {
+        p {
+          font-weight: 500;
+
+          span {
+            color: $grey-color;
+            font-weight: 300;
+          }
+        }
+      }
+
+      .btn {
+        margin: 20px auto;
+        border-radius: 5px;
+        width: 224px;
+        text-align: center;
+        background: #9043c3;
+        border-radius: 5px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 26px;
+      }
+
+      .left-title {
+        width: 125px;
+      }
+
+      .horizontal-line {
+        width: 90%;
+        height: 1px;
+        background-color: $box-background;
+      }
+    }
+  }
+}

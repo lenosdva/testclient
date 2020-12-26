@@ -1,0 +1,29 @@
+.accordion {
+  width: 50%;
+  margin: 16px auto;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid $box-background;
+  cursor: pointer;
+  .title {
+    .accordion-title {
+      margin: 5px 0;
+    }
+  }
+  .content {
+    color: $grey-color;
+    margin-top: 6px;
+    text-align: justify;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s linear;
+  }
+  .show {
+    height: auto;
+    text-align: justify;
+    max-height: 120px;
+    transition: all 0.3s linear;
+  }
+}

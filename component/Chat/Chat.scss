@@ -1,0 +1,60 @@
+.chat {
+  border: 1px solid $border-color;
+  padding: 23px;
+
+  .chat-header {
+    .online {
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      background: $green-color;
+    }
+    p,
+    h6 {
+      line-height: 16px;
+    }
+    p {
+      font-weight: normal;
+    }
+  }
+
+  .line {
+    border-color: $border-color;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    width: 275px;
+  }
+
+  .chat-box {
+    height: 430px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .chat-footer {
+    border: 1px solid $border-color;
+    padding: 12px 20px;
+
+    input {
+      font-size: 16px;
+      color: $text-color;
+      padding: 0;
+      font-family: inherit;
+      outline: none;
+      flex: 1;
+    }
+
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.28px;
+
+      color: #9d9d9d;
+    }
+  }
+}
