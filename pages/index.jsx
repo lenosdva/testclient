@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Layout,
   HomeBanner,
@@ -10,8 +11,18 @@ import {
   FAQ,
   Footer,
 } from "../component";
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Home() {
+  const dispatch = useDispatch()
+  const { isLoading, userData } = useSelector(state => ({
+    isLoading: state.user.isLoading,
+    userData: state.user.data
+  }));
+  // useEffect(()=>{
+  //   dispatch({ type: 'GET_USER',  payload: {}})
+  // }, [])
+  // console.log("userData======>", userData)
   return (
     <Layout>
       <div className="home">
