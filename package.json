@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start"
   },
+   "engines": {
+    "node": "14.15.3"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@zeit/next-sass": "^1.0.1",
