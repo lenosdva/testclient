@@ -1,31 +1,69 @@
 .home-services-list {
-  h5 {
-    position: relative;
-    font-weight: 600;
-
-    &:before {
-      content: "";
-      width: 5px;
-      height: 22px;
-      left: -12px;
-      top: 6px;
-      position: absolute;
-      background: $primary-color;
+  .service-txt {
+    @media (max-width:991px) {
+      margin-bottom: 50px;
+    }
+    h5 {
+      font-family: Neue Haas Grotesk Display Pro;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 26px;
+      color: #252525;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      &:before {
+        content: "";
+        width: 5px;
+        height: 22px;
+        left: -12px;
+        top: 6px;
+        position: absolute;
+        background: $primary-color;
+      }
+    }
+    p {
+      font-family: Neue Haas Grotesk Display Pro;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.28px;
+      color: #252525;
+      margin: 20px 0 60px 0;
+      width: 215px;
+      max-width: 100%;
+      @media (max-width:991px) {
+        width: 100%;
+        margin: 20px 0 20px 0;
+      }
     }
   }
-
-  .view-more-service {
-    background: unset;
-    color: $text-color;
-    border: 2px solid $primary-color;
-    border-radius: unset;
-    padding: 8px;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .serivce-box {
-    border: 1px solid $grey-color;
-    padding: 32px 75px;
+  .service-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    li {
+      width: 32%;
+      text-align: center;
+      border: 1px solid $gray-border;
+      padding: 32px 5px;
+      margin-bottom: 15px;
+      @media (max-width:767px) {
+        width: 100%;
+      }
+      h4 {
+        font-family: $font-family-base;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: $black-color;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }
