@@ -8,7 +8,7 @@ import {Provider as StoreProvider} from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import appReducer from '../store';
-import rootSaga from '../Store/sagas';
+import rootSaga from '../store/sagas';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(appReducer, applyMiddleware(sagaMiddleware, logger));
 sagaMiddleware.run(rootSaga);
