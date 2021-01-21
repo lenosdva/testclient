@@ -1,10 +1,12 @@
 $primary-color: #9043c3;
 $grey-color: #8d8d8d;
 $light-grey: #b0b0b0;
+$gray-border: rgba(37, 37, 37, 0.1);
 $white-color: #ffffff;
 $green-color: #1dbf73;
 $red-color: #d8171f;
 $orange-color: #ee7d31;
+$black-color: #000000;
 $text-color: #252525;
 $box-background: #ededed;
 $border-color: #c4c4c4;
@@ -246,3 +248,23 @@ $headings-line-height: 42px;
 $input-btn-focus-width: 0px;
 
 $font-family-base: "Neue Haas Grotesk Display Pro";
+
+// global css open
+.btnprimary {
+  background: $white-color;
+  min-height: 40px;
+  padding: 10px 15px;
+  border: 2px solid $primary-color;
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.28px;
+  color: $text-color;
+  text-transform: uppercase;
+  &:hover, &:focus {
+    background: $primary-color;
+    color: $white-color;
+  }
+}
+// global css close
