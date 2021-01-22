@@ -16,7 +16,7 @@
       font-weight: 600;
       line-height: 26px;
       margin: 0 10px;
-
+      color: #9043C3;
       a {
         color: $primary-color;
         &:hover {
@@ -42,7 +42,75 @@
     }
   }
 }
-
+.hide-mob {
+  @media (max-width:768px) {
+    display: none;
+  }
+}
+.show-mob {
+  display: none;
+  @media (max-width:768px) {
+    display: block;
+  }
+}
+.mob-menu-wrapper.show {
+  transform: translateX(0);
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+}
+.mob-menu-wrapper {
+  width: 100%;
+  height: 70px;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  padding: 20px;
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .hide {
+    transform: translateX(120%);
+    transition: all .3s ease-in-out;
+  }
+  .hide.show {
+    transform: translateX(0);
+    transition: all .3s ease-in-out;
+    background: #fff;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    height: calc(100vh - 50px);
+  }
+  ul {
+    margin: 20px 0 0 0;
+    list-style: none;
+    padding: 0;
+    li {
+      width: 100%;
+      color: #9043C3 !important;
+      &:first-child {
+        a {
+          border-top: 1px solid #f1f1f1;
+        }
+      }
+      a {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 26px;
+        color: #9043C3 !important;
+        padding: 20px 0;
+        display: block;
+        border-bottom: 1px solid #f1f1f1;
+      }
+    }
+  }
+}
 // React Modal Css
 .ReactModal__Body--open{
   overflow: hidden;

@@ -1,5 +1,18 @@
 .service-spotlight {
   .heading-text {
     padding: 0 170px;
+    @media (max-width:767px) {
+      padding: 0;
+    }
+  }
+  .pr-0 {
+    @media (max-width:767px) {
+      padding-right: 15px !important;
+    }
+  }
+  .pl-0 {
+    @media (max-width:767px) {
+      padding-left: 15px !important;
+    }
   }
 }

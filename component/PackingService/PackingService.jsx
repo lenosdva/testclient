@@ -59,28 +59,28 @@ export default function PackingService() {
             <p className="mb-3 h5 font-weight-bold">
               Fill this form & get a free price quote
             </p>
-            <input type="text" class="input small" placeholder="Name" />
-            <input type="email" class="input small" placeholder="Email" />
+            <input type="text" className="input small" placeholder="Name" />
+            <input type="email" className="input small" placeholder="Email" />
             <div className="d-flex">
               <input
                 type="text"
-                class="input mr-2"
+                className="input mr-2"
                 placeholder="Shifting From?"
               />
               <input
                 type="text"
-                class="input ml-2"
+                className="input ml-2"
                 placeholder="Shifting To?"
               />
             </div>
             <input
               type="text"
-              class="input large"
+              className="input large"
               placeholder="Date of Service"
             />
             <input
               type="text"
-              class="input large"
+              className="input large"
               placeholder="Time of Service"
             />
 
@@ -133,10 +133,10 @@ export default function PackingService() {
       <div className="rating-section p-5">
         <h3 className="text-center mb-5">Customer Reviews and Ratings</h3>
         <div className="row ">
-          <div class="col">
+          <div className="col">
             <Reviews />
           </div>
-          <div class="col">
+          <div className="col">
             <Reviews />
           </div>
         </div>
@@ -149,10 +149,10 @@ export default function PackingService() {
           More Services by <span className="name">monika99</span>
         </h1>
         <div className="row ">
-          <div class="col-md-4">
+          <div className="col-md-4">
             <ServiceCard />
           </div>
-          <div class="col-md-4">
+          <div className="col-md-4">
             <ServiceCard />
           </div>
         </div>

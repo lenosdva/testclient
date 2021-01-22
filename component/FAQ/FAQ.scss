@@ -7,6 +7,9 @@
   border-radius: 10px;
   border: 1px solid $box-background;
   cursor: pointer;
+  @media (max-width: 980px) {
+    width: 90%;
+  }
   .title {
     .accordion-title {
       margin: 5px 0;
