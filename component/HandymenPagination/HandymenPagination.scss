@@ -1,10 +1,43 @@
 .handyman-pagination {
+  h4 {
+    font-family: Neue Haas Grotesk Display Pro;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.0018em;
+    color: #252525;
+    margin: 0 0 28px 0;
+  }
+  h1 {
+    font-family: Neue Haas Grotesk Display Pro;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: normal;
+    letter-spacing: -0.0018em;
+    color: #252525;
+    margin: 0 0 50px 0;
+    @media (max-width:767px) {
+      font-size: 40px;
+    }
+  }
   .row {
     .btn {
       border-radius: 50px;
-      padding: 15px 60px 10px 60px;
-      margin: 15px;
-
+      padding: 8px 10px 8px 10px;
+      margin: 10px;
+      min-width: 274px;
+      @media (max-width:767px) {
+        width: 100%;
+      }
+      h4 {
+        margin: 0;
+        font-family: Neue Haas Grotesk Display Pro;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: -0.0018em;
+        color: #FFFFFF;
+      }
       .add-icon {
         font-size: 34px;
         font-weight: 100;
@@ -12,6 +45,15 @@
     }
     .in-active {
       border: 1px solid $grey-color;
+      h4 {
+        margin: 0;
+        font-family: Neue Haas Grotesk Display Pro;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: -0.0018em;
+        color: #252525;
+      }
     }
   }
   .data-area {
@@ -43,5 +85,14 @@
         }
       }
     }
+  }
+  h5 {
+    font-family: Neue Haas Grotesk Display Pro;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 26px;
+    letter-spacing: -0.0018em;
+    color: #252525;
+    margin: 80px 0 24px 0;
   }
 }

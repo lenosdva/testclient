@@ -4,7 +4,7 @@ export default function AboutUs() {
   return (
     <div className="aboutus">
       <div className="d-flex justify-content-start">
-        <div className="col-md-3">
+        <div className="col-md-3 col-xs-12">
           <Image
             src="/assets/images/spotlight2.jpg"
             alt="aboutus photo"
@@ -13,7 +13,7 @@ export default function AboutUs() {
             width={410}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 col-xs-12">
           <Image
             src="/assets/images/spotlight2.jpg"
             alt="aboutus photo"
@@ -22,7 +22,7 @@ export default function AboutUs() {
             width={410}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 col-xs-12">
           <Image
             src="/assets/images/spotlight2.jpg"
             alt="aboutus photo"
@@ -31,8 +31,8 @@ export default function AboutUs() {
             width={410}
           />
         </div>
-        <div className="col-md-3 pr-10 info">
-          <h5 className="ml-2 mb-5">About Dein Hausman</h5>
+        <div className="col-md-3 col-xs-12 pr-10 info">
+          <h5 className="ml-2">About Dein Hausman</h5>
           <p className="mb-4">
             Meet your service experts. Regardless of the size of your home,
             forget about any worries that come with maintaining it.

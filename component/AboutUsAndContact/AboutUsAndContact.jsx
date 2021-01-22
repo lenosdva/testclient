@@ -36,12 +36,12 @@ export default function AboutUsAndContact() {
         </h3>
         <div className="form">
           <div className="d-flex">
-            <input type="text" class="input large mr-2" placeholder="Name" />
-            <input type="text" class="input large ml-2" placeholder="Phone" />
+            <input type="text" className="input large mr-2" placeholder="Name" />
+            <input type="text" className="input large ml-2" placeholder="Phone" />
           </div>
           <div className="d-flex">
-            <input type="text" class="input large mr-2" placeholder="Email" />
-            <input type="text" class="input large ml-2" placeholder="Subject" />
+            <input type="text" className="input large mr-2" placeholder="Email" />
+            <input type="text" className="input large ml-2" placeholder="Subject" />
           </div>
           <textarea
             type="text"
@@ -60,38 +60,38 @@ export default function AboutUsAndContact() {
         <div className="icon-section d-flex align-items-center justify-content-center">
           <div className="m-3">
             <a className="btn facebook ">
-              <i class="fab fa-facebook-f"></i>
+              <i className="fab fa-facebook-f"></i>
             </a>
           </div>
           <div className="m-3">
             <a className="btn google ">
-              <i class="fab fa-google-plus-g"></i>
+              <i className="fab fa-google-plus-g"></i>
             </a>
           </div>
           <div className="m-3">
             <a className="btn btn-primary ">
-              <i class="fab fa-instagram"></i>
+              <i className="fab fa-instagram"></i>
             </a>
           </div>
           <div className="m-3">
             <a className="btn linkedin ">
-              <i class="fab fa-linkedin-in"></i>
+              <i className="fab fa-linkedin-in"></i>
             </a>
           </div>
         </div>
       </div>
       <div className="map-area ">
-        <div class="mapouter">
-          <div class="gmap_canvas">
+        <div className="mapouter">
+          <div className="gmap_canvas">
             <iframe
               width="600"
               height="1150"
               id="gmap_canvas"
               src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              frameborder="0"
+              frameBorder="0"
               scrolling="no"
-              marginheight="0"
-              marginwidth="0"></iframe>
+              marginHeight="0"
+              marginWidth="0"></iframe>
             <a href="#"></a>
           </div>
         </div>

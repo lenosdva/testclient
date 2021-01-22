@@ -1,18 +1,28 @@
 .aboutus {
   width: 95%;
   margin-top: 20px;
-
+  @media (max-width:767px) {
+    width: 100%;
+    padding: 0 15px;
+  }
+  .d-flex {
+    @media (max-width:767px) {
+      flex-wrap: wrap;
+    }
+  }
   img {
     object-fit: cover !important;
   }
-
   .col-md-3 {
     margin: 0;
     padding: 0;
   }
-
   h5 {
     position: relative;
+    margin-bottom: 40px;
+    @media (max-width:767px) {
+      margin: 20px 0 10px 0;
+    }
     &:before {
       content: "";
       width: 5px;
@@ -23,7 +33,6 @@
       background: $primary-color;
     }
   }
-
   .get-in-touch {
     background: unset;
     color: $text-color;
@@ -32,9 +41,14 @@
     padding: 8px;
     font-weight: 500;
     text-transform: uppercase;
+    @media (max-width:767px) {
+      width: 100%;
+    }
   }
-
   .info {
     padding: 0px 40px;
+    @media (max-width:767px) {
+      padding: 0px;
+    }
   }
 }
