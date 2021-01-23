@@ -32,7 +32,7 @@ export default function Reviews() {
             <div className="mr-2">
               <i className="fa fa-star " aria-hidden="true"></i>
             </div>
-            <p className="h6 mb-0">|&nbsp; 4.3</p>
+            <p className="h6 mb-0 lh">|&nbsp; 4.3</p>
           </div>
         </div>
       </div>
