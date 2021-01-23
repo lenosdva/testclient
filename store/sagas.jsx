@@ -1,10 +1,10 @@
 import * as Users from '../api/users';
 import {takeLatest, takeEvery, all} from 'redux-saga/effects';
 
-function* actionWatcher() {
-  yield takeLatest('GET_USER', Users.getUser);
+function* userActionWatcher() {
+  yield takeLatest('SIGNUP_REQUEST', Users.registerByMobile);
  }
 
 export default function* rootSaga() {
-  yield all([actionWatcher()]);
+  yield all([userActionWatcher()]);
 }

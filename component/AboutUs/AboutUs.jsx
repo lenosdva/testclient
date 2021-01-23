@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function AboutUs() {
+function AboutUs({t}) {
   return (
     <div className="aboutus">
       <div className="d-flex justify-content-start">
@@ -32,14 +33,15 @@ export default function AboutUs() {
           />
         </div>
         <div className="col-md-3 col-xs-12 pr-10 info">
-          <h5 className="ml-2">About Dein Hausman</h5>
+          <h5 className="ml-2">{t('about.title')}</h5>
           <p className="mb-4">
-            Meet your service experts. Regardless of the size of your home,
-            forget about any worries that come with maintaining it.
+            {t('about.text1')}
+            {t('about.text2')}
           </p>
-          <button className="get-in-touch">View More Services</button>
+          <button className="get-in-touch">{t("about.button")}</button>
         </div>
       </div>
     </div>
   );
 }
+export default withTranslation('common')(AboutUs)

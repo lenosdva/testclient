@@ -1,7 +1,12 @@
 import { put } from 'redux-saga/effects';
-export function* getUser() {
-  const data = yield fetch(`https://api.covid19india.org/v4/min/timeseries.min.json`, {
-    method: 'GET',
+const { NEXT_PUBLIC_API_HOST } = process.env
+const HOST = NEXT_PUBLIC_API_HOST
+
+export function* registerByMobile({payload}) {
+  const data = yield fetch(`${HOST}/v1/auth/registerByMobile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
   })
     .then((res) => {
       return res.json();
@@ -12,5 +17,5 @@ export function* getUser() {
     .catch((error) => {
       throw error;
     });
-  yield put({type: 'USER', data});
+  yield put({type: 'SIGNUP', data});
 }

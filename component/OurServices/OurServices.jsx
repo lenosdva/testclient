@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function OurServices() {
+function OurServices({t}) {
   return (
     <div className="our-services">
       <h1>Our Services</h1>
@@ -175,3 +176,4 @@ export default function OurServices() {
     </div>
   );
 }
+export default withTranslation('common')(OurServices)

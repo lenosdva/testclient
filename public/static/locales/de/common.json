@@ -1,0 +1,21 @@
+{
+    "services":{
+        "title": "Meet your service experts. Regardless of the size of your home, \n forget about any worries that come with maintaining it.",
+        "clean-service": "Cleaning Services",
+        "roof-service": "Roof Services",
+        "bathroom-installation": "Bathroom Installation & Repair",
+        "computer-setup": "Computer Setup & Repair",
+        "restoration-services": "Restoration Services",
+        "electronic-service": "Electronic Installation & Repai",
+        "moreButton": "View More Services"
+    },
+    "howItWorks":{
+        "title": "How It Works"
+    },
+    "about":{
+        "title": "About Dein Hausman",
+        "text1": "Meet your service experts. Regardless of the size of your home,",
+        "text2": "forget about any worries that come with maintaining it.",
+        "button": "View More Services"
+    }
+}

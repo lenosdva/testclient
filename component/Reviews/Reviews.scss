@@ -1,19 +1,39 @@
 .reviews {
   margin: 20px;
+  @media (max-width:767px) {
+    margin: 20px 0;
+  }
   .heading {
+    @media (max-width:767px) {
+      flex-wrap: wrap;
+    }
     .service-image {
       border-radius: 20px;
       overflow: hidden;
     }
     .title-section {
       flex: 1;
+      @media (max-width:767px) {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        display: unset !important;
+        text-align: center;
+        margin-top: 20px;
+      }
       .secondary {
         color: $primary-color;
       }
-
       .fill {
         svg {
           color: $primary-color;
+        }
+      }
+      .lh {
+        line-height: 24px;
+      }
+      .rating-star {
+        @media (max-width:767px) {
+          justify-content: center;
         }
       }
     }

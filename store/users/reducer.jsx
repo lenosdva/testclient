@@ -1,22 +1,22 @@
 // Set initial state
 const initialState = {
-  data: [],
-  isLoading: false
+  mobileSignData: {},
+  mobileSignLoading: false
 };
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case 'GET_USER': {
+    case 'SIGNUP_REQUEST': {
         return {
           ...state,
-          isLoading: true,
+          mobileSignLoading: true,
         };
     }
-    case 'USER': {
+    case 'REGISTER': {
       return {
         ...state,
-        isLoading: false,
-        data: action.data
+        mobileSignLoading: false,
+        mobileSignData: action.data
       };
     }
     default:
