@@ -6,6 +6,9 @@
     height: 300px;
     overflow: hidden;
     border-radius: 20px;
+    img {
+      object-fit: cover;
+    }
   }
   .details {
     padding: 20px;

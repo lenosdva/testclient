@@ -9,7 +9,6 @@ export default function ServiceCard() {
           alt="handyman1"
           layout="responsive"
           width="100%"
-          style={{ objectFit: "cover" }}
           height="100%"
         />
       </div>

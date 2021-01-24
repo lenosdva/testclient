@@ -1,7 +1,8 @@
 .reviews {
   margin: 20px;
-  @media (max-width:767px) {
+  @media (max-width:768px) {
     margin: 20px 0;
+    padding: 0;
   }
   .heading {
     @media (max-width:767px) {

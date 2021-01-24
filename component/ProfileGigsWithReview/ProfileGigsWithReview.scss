@@ -1,9 +1,15 @@
 .profile-gigs {
+  @media (max-width:767px) {
+    margin: 0;
+    padding: 0;
+  }
   .row {
     .profile-card {
-      border: 1px solid $grey-color;
+      border: 1px solid $light-grey;
       height: 900px;
-
+      @media (max-width:768px) {
+        height: auto;
+      }
       .report {
         align-self: flex-end;
 
@@ -51,6 +57,22 @@
         width: 90%;
         height: 1px;
         background-color: $box-background;
+      }
+    }
+  }
+  .gigsp {
+    @media (max-width:768px) {
+      padding-top: 30px;
+      padding-left: 0 !important;
+    }
+    button {
+      @media (max-width:768px) {
+        padding-left: 0;
+        padding-right: 30px;
+      }
+      h4 {
+        font-size: 18px;
+        margin: 0;
       }
     }
   }

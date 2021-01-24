@@ -5,7 +5,7 @@ import ServiceCard from "../ServiceCard/ServiceCard";
 export default function PackingService() {
   return (
     <div className="packing-service">
-      <div className="heading d-flex align-items-center justify-content-start">
+      <div className="heading d-flex align-items-center justify-content-start flexwrap">
         <div className="col-md-2 mr-4 service-image">
           <Image
             src="/assets/images/howitwork2.jpg"
@@ -15,10 +15,10 @@ export default function PackingService() {
             height={100}
           />
         </div>
-        <div className="title-section d-flex flex-column justify-content-center">
+        <div className="title-section d-flex flex-column justify-content-center flexwrap">
           <h2 className="mb-3">Moving & Packing Service</h2>
-          <div className="d-flex justify-content-between">
-            <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-between flexwrap">
+            <div className="d-flex align-items-center flexwrap">
               <h4 className="secondary handyman-name"> Erika Hans</h4>{" "}
               <div className="ml-3 mr-3">
                 <i className="fa fa-star" aria-hidden="true"></i>
@@ -27,13 +27,13 @@ export default function PackingService() {
             </div>
             <div className="d-flex align-items-center justify-content-end flex-wrap">
               <div>
-                <button className="btn d-flex align-items-center justify-content-center">
+                <button className="btn d-flex align-items-center justify-content-center share-save">
                   <i className="fa fa-share-square" aria-hidden="true"></i>
                   <p className="ml-2 h4">Share</p>
                 </button>
               </div>
               <div>
-                <button className="btn m-2 d-flex align-items-center justify-content-center">
+                <button className="btn m-2 d-flex align-items-center justify-content-center share-save">
                   <i className="fa fa-heart" aria-hidden="true"></i>
                   <p className="ml-2 h4">Save</p>
                 </button>
@@ -42,7 +42,7 @@ export default function PackingService() {
           </div>
         </div>
       </div>
-      <div className="body mt-5 d-flex align-items-center justify-content-between">
+      <div className="body mt-5 d-flex align-items-center justify-content-between flexwrap">
         <div className="image m-4">
           <div className="image-area">
             <Image
@@ -54,14 +54,14 @@ export default function PackingService() {
             />
           </div>
         </div>
-        <div className="d-flex flex-column align-items-start justify-content-center">
-          <div className="form  p-5">
+        <div className="d-flex flex-column align-items-start justify-content-center width-full">
+          <div className="form p-5 form-full">
             <p className="mb-3 h5 font-weight-bold">
-              Fill this form & get a free price quote
+              Fill This Form & Get A Free Price Quote
             </p>
             <input type="text" className="input small" placeholder="Name" />
             <input type="email" className="input small" placeholder="Email" />
-            <div className="d-flex">
+            <div className="d-flex flexwrap">
               <input
                 type="text"
                 className="input mr-2"
@@ -98,7 +98,7 @@ export default function PackingService() {
               Southern Cargo Packers and Movers in Berlin is one of the leading Home and Office shifting companies that offers very exceptional transport services including packing, loading,  and assembling services, car carrier services, warehousing and various in-transit and third party insurance coverages. 
             </p>
             <p>
-              We aim at customer satisfaction and continual quality improvement. Therefore all our services are modified to suit client’s needs and requirements. 
+              We aim at customer satisfaction and continual quality improvement. Therefore all our services are modified to suit clientâ€™s needs and requirements. 
             </p>
         </div>
         <div className="col-lg-6 col-sm-12">
@@ -120,7 +120,15 @@ export default function PackingService() {
      
       <div className="rating-section p-5">
         <h3 className="text-center mb-5">Customer Reviews and Ratings</h3>
-        <div className="row ">
+        <div className="row">
+          <div className="col">
+            <Reviews />
+          </div>
+          <div className="col">
+            <Reviews />
+          </div>
+        </div>
+        <div className="row">
           <div className="col">
             <Reviews />
           </div>

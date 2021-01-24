@@ -347,7 +347,7 @@
         background: none;
       }
       h4 {
-        font-family: Neue Haas Grotesk Display Pro;
+        font-family: $font-family-base;
         font-weight: 600;
         font-size: 18px;
         line-height: 26px;
@@ -379,7 +379,7 @@
           border-radius: 5px;
           margin: 0 10px;
           padding: 10px;
-          font-family: Neue Haas Grotesk Display Pro;
+          font-family: $font-family-base;
           font-weight: 500;
           font-size: 18px;
           line-height: 24px;
@@ -389,7 +389,7 @@
         }
       }
       p {
-        font-family: Neue Haas Grotesk Display Pro;
+        font-family: $font-family-base;
         font-weight: normal;
         text-align: center;
         font-size: 16px;
@@ -402,7 +402,7 @@
           min-height: 50px;
           background: #9043C3;
           border-radius: 25px;
-          font-family: Neue Haas Grotesk Display Pro;
+          font-family: $font-family-base;
           font-weight: 500;
           font-size: 18px;
           line-height: 26px;
@@ -431,7 +431,7 @@
   margin: 25px auto;
   background: #ffffff;
   text-align: center;
-  font-family: Neue Haas Grotesk Display Pro;
+  font-family: $font-family-base;
   font-weight: normal;
   font-size: 16px;
   line-height: 26px;
@@ -455,7 +455,7 @@
   button {
     display: flex;
     align-items: center;
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: normal;
     font-size: 16px;
     line-height: 26px;
@@ -477,7 +477,7 @@
 .last-para {
   margin: 0 0 15px 0 !important;
   padding: 0;
-  font-family: Neue Haas Grotesk Display Pro;
+  font-family: $font-family-base;
   font-weight: 500;
   font-size: 16px;
   line-height: 26px;
@@ -485,7 +485,7 @@
   color: #000000;
   text-align: left !important;
   a, span {
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: 600;
     font-size: 16px;
     line-height: 26px;
@@ -547,7 +547,7 @@
   width: 100%;
   border-radius: 0;
   padding: 15px 15px 0 0;
-  font-family: Neue Haas Grotesk Display Pro;
+  font-family: $font-family-base;
   font-weight: 500;
   font-size: 18px;
   line-height: 26px;
@@ -560,7 +560,7 @@
   left: 0;
   padding: 14px 0 0 0;
   transition: all 200ms;
-  font-family: Neue Haas Grotesk Display Pro;
+  font-family: $font-family-base;
   font-weight: 500;
   font-size: 18px;
   line-height: 26px;

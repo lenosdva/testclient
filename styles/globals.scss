@@ -268,3 +268,20 @@ $font-family-base: "Neue Haas Grotesk Display Pro";
   }
 }
 // global css close
+
+.flexwrap {
+  @media (max-width:768px) {
+    flex-wrap: wrap !important;
+  }
+}
+.width-full {
+  @media (max-width:768px) {
+    width: 100%;
+  }
+}
+.form-full {
+  @media (max-width:768px) {
+    width: 100%;
+    padding: 30px 0 !important;
+  }
+}

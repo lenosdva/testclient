@@ -149,7 +149,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
     }
     setError(error)
     if(!Object.keys(error).length){
-      dispatch({ type: 'SIGNUP_REQUEST',  payload: {"mobile": country+phone.replace(/[^0-9]/g, '')}})
+      dispatch({ type: 'SIGNUP_REQUEST',  payload: {"mobile": phone.replace(/[^0-9]/g, '')}})
     }
   }
 

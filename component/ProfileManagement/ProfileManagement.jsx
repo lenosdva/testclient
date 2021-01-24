@@ -3,7 +3,7 @@ import PaymentCard from "../PaymentCard/PaymentCard";
 
 export default function ProfileManagement() {
   return (
-    <div className="profile-management d-flex">
+    <div className="profile-management">
       <div className="row">
         <div className="col-md-3">
           <div className="linked-accounts m-3">
@@ -46,7 +46,7 @@ export default function ProfileManagement() {
                 Find out more.
               </a>
             </p>
-            <div className="d-flex">
+            <div className="d-flex flexwrap">
               <div className="small d-flex flex-column">
                 <h3 className="label">Full Name</h3>
                 <input
@@ -121,7 +121,7 @@ export default function ProfileManagement() {
               An overview of your current default payment methods and settings
               with Dein Hausman
             </p>
-            <div className="payment-details d-flex">
+            <div className="payment-details d-flex flexwrap">
               <div className="location mr-5">
                 <h3 className="label">Your Location</h3>
                 <div className="d-flex">

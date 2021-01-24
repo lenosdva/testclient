@@ -1,8 +1,18 @@
 @import "../../styles/globals.scss";
-
+.paymentimg {
+  img {
+    @media (max-width:767px) {
+      max-width: 90% !important;
+      height: auto !important;
+    }
+  }
+}
 .payment-card {
   border: 1px solid $grey-color;
   border-radius: 5px;
+  @media (max-width:767px) {
+    padding: 20px !important;
+  }
   .label {
     font-size: 24px;
   }
@@ -21,6 +31,9 @@
     margin-bottom: 10px;
     font-size: 18px;
     line-height: 26px;
+    @media (max-width:767px) {
+      width: 85%;
+    }
   }
   .bank-upi {
     border: 1px solid $grey-color;
@@ -32,5 +45,8 @@
     margin-bottom: 10px;
     font-size: 18px;
     line-height: 26px;
+    @media (max-width:767px) {
+      width: 85%;
+    }
   }
 }

@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function AboutUsAndContact() {
   return (
-    <div className="about-us-and-contact d-flex align-items-center justify-content-end">
-      <div className="form-area p-5 m-3">
+    <div className="about-us-and-contact d-flex justify-content-end flexwrap">
+      <div className="form-area p-5">
         <h1 className="mb-4">About Us</h1>
         <p className="mb-3 mt-3">
           Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -35,11 +35,11 @@ export default function AboutUsAndContact() {
           We would love to help you start exceeding your CX
         </h3>
         <div className="form">
-          <div className="d-flex">
+          <div className="d-flex flexwrap">
             <input type="text" className="input large mr-2" placeholder="Name" />
             <input type="text" className="input large ml-2" placeholder="Phone" />
           </div>
-          <div className="d-flex">
+          <div className="d-flex flexwrap">
             <input type="text" className="input large mr-2" placeholder="Email" />
             <input type="text" className="input large ml-2" placeholder="Subject" />
           </div>
@@ -80,7 +80,7 @@ export default function AboutUsAndContact() {
           </div>
         </div>
       </div>
-      <div className="map-area ">
+      <div className="map-area">
         <div className="mapouter">
           <div className="gmap_canvas">
             <iframe
