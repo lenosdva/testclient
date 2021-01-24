@@ -17,15 +17,46 @@
       }
     }
   }
-
+  h2 {
+    @media (max-width:767px) {
+      font-size: 40px;
+      padding: 20px 0;
+    }
+  }
+  button {
+    @media (max-width:767px) {
+      padding-left: 0;
+      padding-right: 30px;
+    }
+  }
+.share-save {
+  p {
+    font-size: 18px;
+    margin: 0;
+  }
+}
   .body {
     .image {
-      overflow: hidden;
+      // overflow: hidden;
       border-radius: 20px;
+      max-width: 100%;
+      @media (max-width:768px) {
+          height: auto !important;
+          margin: 0 !important;
+        }
       .image-area {
         width: 600px;
         height: 550px;
         border-radius: 20px;
+        @media (max-width:768px) {
+          max-width: 100%;
+          height: auto !important;
+        }
+        img {
+          object-fit: cover;
+          border-radius: 20px;
+          max-width: 100% !important;
+        }
       }
     }
     .form {
@@ -38,9 +69,17 @@
         margin-bottom: 10px;
         font-size: 18px;
         line-height: 26px;
+        @media (max-width:767px) {
+          width: 100%;
+          margin-right: 0 !important;
+          margin-left: 0 !important;
+        }
       }
       .small {
         width: 60%;
+        @media (max-width:767px) {
+          width: 100%;
+        }
       }
       .large {
         width: 100%;
@@ -86,6 +125,9 @@
   line-height: 26px;
   letter-spacing: -0.0018em;
   color: $white-color;
+  &:hover {
+    color: $white-color;
+  }
   @media (max-width:767px) {
     width: 100%;
   } 
@@ -93,6 +135,9 @@
 .more-services {
   h1 {
     line-height: normal;
+    @media (max-width:767px) {
+      font-size: 40px;
+    }
     .name {
       color: $primary-color;
       text-decoration: underline;
@@ -101,24 +146,30 @@
 }
 .about-services {
   margin: 30px 0 0 0;
+  @media (max-width:767px) {
+    margin: 30px -15px 0 -15px;
+  }
   h3 {
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: 500;
     font-size: 32px;
     line-height: 26px;
     letter-spacing: -0.0018em;
-    color: #252525;
+    color:$text-color;
     margin: 0 0 30px 0;
   }
   p {
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.28px;
-    color: #252525;
+    color:$text-color;
     margin: 0 0 20px 0;
     padding-right: 75px;
+    @media (max-width:768px) {
+      padding-right: 0;
+    }
   }
   ul {
     list-style: none;
@@ -131,7 +182,7 @@
         margin: 0 0 22px 0;
       }
       h5 {
-        font-family: Neue Haas Grotesk Display Pro;
+        font-family: $font-family-base;
         font-weight: 400;
         font-size: 18px;
         line-height: 18px;
@@ -139,14 +190,17 @@
         color: #979494;
         margin: 0;
         width: 200px;
+        @media (max-width:767px) {
+          width: 150px;
+        }
       }
       h4 {
-        font-family: Neue Haas Grotesk Display Pro;
+        font-family: $font-family-base;
         font-weight: 500;
         font-size: 18px;
         line-height: 18px;
         letter-spacing: -0.0018em;
-        color: #252525;
+        color:$text-color;
         margin: 0;
       }
     }

@@ -6,7 +6,7 @@ export default function ProfileGigsWithReview() {
   return (
     <div className="profile-gigs col">
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-lg-4 col-md-12 col-sm-12">
           <div className="profile-card m-2 p-4 d-flex flex-column align-items-center ">
             <div className="report d-flex align-items-center justify-content-end mb-3">
               <i className="fa fa-flag" aria-hidden="true"></i>
@@ -65,9 +65,10 @@ export default function ProfileGigsWithReview() {
             </p>
           </div>
         </div>
-        <div className="col-md-8">
-          <div className="gigs pl-5">
-            <div className="gigs-title d-flex align-items-center justify-content-between">
+
+        <div className="col-lg-8 col-md-12 col-sm-12">
+          <div className="gigs pl-5 gigsp">
+            <div className="gigs-title d-flex align-items-center justify-content-between flexwrap">
               <h3 className="secondary">erikahans123's Gigs</h3>
               <div className="d-flex align-items-center justify-content-end flex-wrap">
                 <div>

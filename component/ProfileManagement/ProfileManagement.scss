@@ -1,5 +1,10 @@
 .profile-management {
   .linked-accounts {
+    img {
+      @media (max-width:767px) {
+        width: 100%;
+      }
+    }
     .thin {
       font-size: 24px;
     }
@@ -14,12 +19,20 @@
   }
   .profile-manager {
     flex: 1;
+    h3 {
+      @media (max-width:767px) {
+        font-size: 30px;
+      }
+    }
     .find-more {
       color: $primary-color;
       font-weight: bold;
     }
     .small {
       width: 50%;
+      @media (max-width:767px) {
+        width: 100%;
+      }
       .input {
         border: 1px solid $grey-color;
         border-radius: 10px;
@@ -75,6 +88,10 @@
         }
       }
       .location {
+        @media (max-width:767px) {
+          width: 100%;
+          margin-right: 0 !important;
+        }
         .details {
           line-height: 5px;
         }

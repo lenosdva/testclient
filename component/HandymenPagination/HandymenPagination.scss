@@ -1,20 +1,20 @@
 .handyman-pagination {
   h4 {
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: 500;
     font-size: 18px;
     line-height: 26px;
     letter-spacing: -0.0018em;
-    color: #252525;
+    color:$text-color;
     margin: 0 0 28px 0;
   }
   h1 {
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: 500;
     font-size: 64px;
     line-height: normal;
     letter-spacing: -0.0018em;
-    color: #252525;
+    color:$text-color;
     margin: 0 0 50px 0;
     @media (max-width:767px) {
       font-size: 40px;
@@ -31,12 +31,12 @@
       }
       h4 {
         margin: 0;
-        font-family: Neue Haas Grotesk Display Pro;
+        font-family: $font-family-base;
         font-weight: 500;
         font-size: 18px;
         line-height: 26px;
         letter-spacing: -0.0018em;
-        color: #FFFFFF;
+        color:$text-color;
       }
       .add-icon {
         font-size: 34px;
@@ -47,12 +47,12 @@
       border: 1px solid $grey-color;
       h4 {
         margin: 0;
-        font-family: Neue Haas Grotesk Display Pro;
+        font-family: $font-family-base;
         font-weight: 500;
         font-size: 18px;
         line-height: 26px;
         letter-spacing: -0.0018em;
-        color: #252525;
+        color:$text-color;
       }
     }
   }
@@ -87,12 +87,12 @@
     }
   }
   h5 {
-    font-family: Neue Haas Grotesk Display Pro;
+    font-family: $font-family-base;
     font-weight: 600;
     font-size: 32px;
     line-height: 26px;
     letter-spacing: -0.0018em;
-    color: #252525;
+    color:$text-color;
     margin: 80px 0 24px 0;
   }
 }

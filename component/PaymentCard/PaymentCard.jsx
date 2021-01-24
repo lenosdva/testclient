@@ -1,7 +1,7 @@
 export default function PaymentCard() {
   return (
     <div className="payment-card p-5 mt-4">
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column paymentimg">
         <div className="d-flex align-items-center">
           <input
             type="radio"

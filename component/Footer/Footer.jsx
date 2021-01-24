@@ -44,7 +44,7 @@ export default function Footer() {
                 <div className="row">
                     <div className="col-md-12 footer-btm">
                         <div className="left-sec">
-                            <p>Service with love © Dein Hausman 2021. All Rights Reserved</p>
+                            <p>Service with love Â© Dein Hausman 2021. All Rights Reserved</p>
                         </div>
                         <div className="right-sec">
                             <a href="">Claim</a>
