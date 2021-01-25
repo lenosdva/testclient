@@ -23,3 +23,6 @@ export { default as Inbox } from "./Inbox/Inbox";
 export { default as TimelineItem } from "./TimelineItem/TimelineItem";
 export { default as Timeline } from "./Timeline/Timeline";
 export { default as Chat } from "./Chat/Chat";
+export { default as ClientDashboard } from "./ClientDashboard/ClientDashboard";
+export { default as ClientMyOrders } from "./ClientMyOrders/ClientMyOrders";
+export { default as Support } from "./Support/Support";
