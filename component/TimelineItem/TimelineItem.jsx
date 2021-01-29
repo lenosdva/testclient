@@ -9,11 +9,11 @@ const TimelienItem = ({ withLine }) => {
         {Checkbox}
       </div>
       <h4>Quotation Received</h4>
-      <p className="mb-2 h5 description">
+      <p className="description">
         Vendor 11234 sent you his quotation for the service.
       </p>
       <div className="d-flex justify-content-between">
-        <p className="view h6">View</p> <p className="time h6">12:57pm</p>
+        <p className="view">View</p> <p className="time">12:57pm</p>
       </div>
 
       {showInfo && (

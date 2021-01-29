@@ -17,5 +17,5 @@ export function* registerByMobile({payload}) {
     .catch((error) => {
       throw error;
     });
-  yield put({type: 'SIGNUP', data});
+  yield put({type: 'REGISTER', data});
 }
