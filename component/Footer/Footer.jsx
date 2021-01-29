@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <div className='footer d-flex flex-column'>
             <div className="container">
-                <div className="row">
+                <div className="row marg170">
                     <div className="col-md-12">
                         <div className="left-sec">
                             <Image
@@ -41,6 +41,14 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
+                {/* footer payment */}
+                {/* <div className="row">
+                    <div className="col-md-12 footer-success">
+                        <h4>Can We Help You?</h4>
+                        <h5>Check Out Our <a href="">Help Pages</a> or <a href="">Contact Us 24/7</a> </h5>
+                    </div>
+                </div> */}
+                {/* footer payment */}
                 <div className="row">
                     <div className="col-md-12 footer-btm">
                         <div className="left-sec">

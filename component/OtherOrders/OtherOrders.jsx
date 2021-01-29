@@ -20,6 +20,13 @@ const settings = {
       }
     },
     {
+      breakpoint: 1000,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    },
+    {
       breakpoint: 600,
       settings: {
         slidesToShow: 2,
@@ -41,11 +48,11 @@ export default function ClientMyOrders() {
   return (
 
     <div className="client-dashboard-orders">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-10 col-sm-12 d-flex justify-content-between">
+      <div className="">
+        <div className="">
+          <div className="col-lg-10 col-md-12 d-flex justify-content-between flex-wrap">
             <div>
-              <h4>My Orders</h4>
+              <h4 className="head-other">Other Orders</h4>
             </div>
             <div>
               <h4>Sort By:</h4>
@@ -59,17 +66,13 @@ export default function ClientMyOrders() {
         </div>
 
         <div className="row">
-          <div className="col-md-10 col-sm-12">
+          <div className="col-lg-10 col-md-12">
             {/* slider open */}
             <Slider {...settings}>
             <div>
               <div className="myorder-slide">
-                <div className="labels-wrapper">
-                  <span className="labels completed-label">Completed</span>
-                </div>
-                <h4>Solar Panel Installation</h4>
+                <h4 className="mb-2">Moving Out Service</h4>
                 <p>Order ID: 12345678</p>
-                <p>Assigned Handyman: Annaliese Kempf</p>
                 <div className="timers">
                   <Image
                     src="/assets/svg/ic-clock.svg"
@@ -78,17 +81,21 @@ export default function ClientMyOrders() {
                     height={11}
                   />
                 Order Placed: Sep 29, 04:10 PM</div>
-                <button className="btn btnprimary-fill">View Project</button>
+                  <button className="btn btnprimary-fill">View Project 
+                  <Image
+                    src="/assets/svg/ic-white-arrow.svg"
+                    alt="howitwork1"
+                    width={32}
+                    height={12}
+                    className="ml-2"
+                  />
+                  </button>
               </div>
               </div>
               <div>
               <div className="myorder-slide">
-                <div className="labels-wrapper">
-                  <span className="labels cancelled-label">Cancelled</span>
-                </div>
-                <h4>Moving Out Service</h4>
+                <h4 className="mb-2">Computer Installation</h4>
                 <p>Order ID: 12345678</p>
-                <p>Assigned Handyman: Annaliese Kempf</p>
                 <div className="timers">
                   <Image
                     src="/assets/svg/ic-clock.svg"
@@ -97,17 +104,21 @@ export default function ClientMyOrders() {
                     height={11}
                   />
                 Order Placed: Sep 29, 04:10 PM</div>
-                <button className="btn btnprimary-fill">View Project</button>
+                  <button className="btn btnprimary-fill">View Project
+                  <Image
+                      src="/assets/svg/ic-white-arrow.svg"
+                      alt="howitwork1"
+                      width={32}
+                      height={12}
+                      className="ml-2"
+                    />
+                  </button>
               </div>
               </div>
               <div>
               <div className="myorder-slide">
-                <div className="labels-wrapper">
-                  <span className="labels progress-label">In Progress</span>
-                </div>
-                <h4>Computer Installation</h4>
+                <h4 className="mb-2">House Cleaning Service</h4>
                 <p>Order ID: 12345678</p>
-                <p>Assigned Handyman: Annaliese Kempf</p>
                 <div className="timers">
                   <Image
                     src="/assets/svg/ic-clock.svg"
@@ -116,7 +127,15 @@ export default function ClientMyOrders() {
                     height={11}
                   />
                 Order Placed: Sep 29, 04:10 PM</div>
-                <button className="btn btnprimary-fill">View Project</button>
+                  <button className="btn btnprimary-fill">View Project
+                  <Image
+                      src="/assets/svg/ic-white-arrow.svg"
+                      alt="howitwork1"
+                      width={32}
+                      height={12}
+                      className="ml-2"
+                    />
+                  </button>
               </div>
               </div>
             </Slider>

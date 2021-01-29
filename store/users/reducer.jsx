@@ -19,6 +19,13 @@ export default function userReducer(state = initialState, action) {
         mobileSignData: action.data
       };
     }
+    case 'RESET': {
+      return {
+        ...state,
+        mobileSignLoading: false,
+        mobileSignData: {}
+      };
+    }
     default:
       return state;
   }

@@ -13,12 +13,12 @@
       width: 52px;
       height: 52px;
       background: red;
-      border-radius: 26px;
+      border-radius: 50%;
+      margin-right: 15px;
     }
 
     .inbox-info {
-      flex: 1;
-
+      width: calc(100% - 67px);
       .inbox-info-top {
         display: flex;
         justify-content: space-between;
@@ -32,24 +32,35 @@
           align-items: center;
           letter-spacing: 0.28px;
           color: $text-color;
+          width: calc(100% - 80px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .project-status {
           width: 70px;
           height: 17px;
-          background: #ee7d31;
-          font-style: normal;
           margin: 0;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
           span {
-            font-weight: 600;
-            font-size: 8px;
+            font-weight: 500;
+            font-size: 9px;
             letter-spacing: 0.28px;
             color: #ffffff;
+            width: 70px;
+            height: 17px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
+        }
+        .orange-label {
+          background: $orange-color;
+        }
+        .red-label {
+          background: $red-color;
+        }
+        .green-label {
+          background: $green-color;
         }
       }
 
@@ -63,16 +74,13 @@
       }
 
       .inbox-name {
-        font-style: normal;
-        // font-weight: 500;
         font-size: 12px;
         line-height: 16px;
-
         display: flex;
         align-items: center;
         letter-spacing: 0.28px;
-
         color: #000000;
+        margin: 8px 0 0 0;
       }
     }
   }

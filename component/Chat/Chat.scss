@@ -9,12 +9,24 @@
       border-radius: 6px;
       background: $green-color;
     }
+    h4 {
+      font-family: Neue Haas Grotesk Display Pro;
+      font-weight: 500;
+      font-size: 24px;
+      letter-spacing: 0.28px;
+      color: #2F2F2F;
+      margin: 0 10px;
+      width: 165px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
     p,
     h6 {
       line-height: 16px;
     }
     p {
       font-weight: normal;
+      margin: 0;
     }
   }
 
@@ -30,6 +42,30 @@
     height: 430px;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
+    .chatbox-empty {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      p {
+        width: 487px;
+        height: 84px;
+        font-family: Neue Haas Grotesk Display Pro;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 28px;
+        text-align: center;
+        letter-spacing: 0.28px;
+        color: #2F2F2F;
+        margin: 0;
+        a {
+          font-weight: 500;
+          color: $primary-color;
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   .chat-footer {
@@ -56,5 +92,24 @@
 
       color: #9d9d9d;
     }
+  }
+}
+.heads {
+  @media (max-width:768px) {
+    width: 100%;
+    margin: 0 0 15px 0 !important;
+    font-size: 40px;
+  }
+  @media (max-width:767px) {
+    font-size: 30px;
+  }
+}
+.heading-download {
+  margin: 0 !important;
+  font-weight: 500;
+}
+.mt-10 {
+  @media (max-width:768px) {
+    margin-top: 10px;
   }
 }

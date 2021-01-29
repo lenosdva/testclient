@@ -6,12 +6,12 @@ export default function InboxWidePage() {
     <Layout>
       <div className="inbox-wide-page">
         <div className="container mb-4">
-          <div className="d-flex justify-content-between">
-            <div className="d-flex">
-              <h2 className="mb-0 mr-2">Solar Panel Installation</h2>
+          <div className="d-flex justify-content-between flexwrap">
+            <div className="d-flex flexwrap">
+              <h2 className="mb-0 mr-2 heads">Solar Panel Installation</h2>
               <button className="status-btn">Completed</button>
             </div>
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center mt-10">
               <svg
                 className="mr-2"
                 width="18"
@@ -25,16 +25,16 @@ export default function InboxWidePage() {
                   fill="black"
                 />
               </svg>
-              <p className="h5">Download Invoice</p>
+              <p className="heading-download">Download Invoice</p>
             </div>
           </div>
         </div>
         <div className="container">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-lg-4 col-md-12">
               <Timeline />
             </div>
-            <div className="col-md-8">
+            <div className="col-lg-8 col-md-12">
               <Chat />
             </div>
           </div>

@@ -4,15 +4,22 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="chat-header">
-        <div className="d-flex justify-content-between align-items-center mb-2">
-          <div className="online mr-2"></div>
-          <h6 className="mb-0 mr-1">Solar Panel Installation</h6>
-          <p className="name h6 mb-0">- Hellen Geller</p>
+        <div className="d-flex align-items-center mb-2">
+          <div className="online"></div>
+          <h4>Solar Panel Installation</h4>
+          <p className="name">- Hellen Geller</p>
         </div>
         <p className="h6 mb-0">Online | Local Time 11:30am, September 28</p>
       </div>
       <hr className="line" />
-      <div className="chat-box"></div>
+      <div className="chat-box">
+        <div className="chatbox-empty">
+          <p>
+            Your request for a quotation for <a href="">Moving Out Services</a> has been sent to <a href="">user1234</a>. You will be 
+            notified when the handyman confirms the booking.
+          </p>
+        </div>
+      </div>
       <div className="chat-footer d-flex justify-content-center align-items-center">
         {ATTACHMENT_ICON}
         <input type="text" placeholder="Type A Message Here" />

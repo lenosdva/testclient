@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from 'react-modal';
 import { useRouter } from 'next/router'
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
+import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
 
 const loginSubmit = (e) => {
@@ -53,20 +54,20 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
             <div className="box">
               <div className="form-group">
                 <div className="p-lr">
-                  <select value={country} onChange={(e) => setCountry(e.target.value)} type="text" id="name" className="field-input" required >
-                    <option disabled value=''></option>
+                  <div className="labels">Country/Region</div>
+                  <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
+                    {/* <option disabled value=''></option> */}
                     <option value="+49">Germany</option>
                   </select>
-                  <label className="form-control-placeholder">Country/Region</label>
                 </div>
               </div>
               <div className="form-divider"></div>
               <div className="form-group">
                 <div className="p-lr">
+                  <div className="labels">Phone Number</div>
                   <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                    {(inputProps) => <input {...inputProps} className="field-input" type="tel" />}
+                    {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
                   </InputMask>
-                  <label className="form-control-placeholder">Phone Number</label>
                 </div>
               </div>
             </div>
@@ -179,20 +180,21 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
             <div className="box">
               <div className="form-group">
                 <div className="p-lr">
-                  <select value={country} onChange={(e) => setCountry(e.target.value)} type="text" id="name" className="field-input" required >
+                <div className="labels">Country/Region</div>
+                  <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
                     <option value="+49">Germany(+49)</option>
                   </select>
-                  <label className="form-control-placeholder">Country/Region</label>
                 </div>
               </div>
               <div className="form-divider"></div>
               <div className="form-group">
                 <div className="p-lr">
+                  <div className="labels">Phone Number</div>
                   {/* <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="text" className="field-input" required /> */}
                   <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                    {(inputProps) => <input {...inputProps} className="field-input" type="tel" />}
+                    {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
                   </InputMask>
-                  <label className="form-control-placeholder">Phone Number</label>
+                  {/* <label className="form-control-placeholder">Phone Number</label> */}
                 </div>
               </div>
             </div>
@@ -242,6 +244,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
 }
 
 const otp = (otpModel, closeModal) => {
+  const [sotp, setOtp] = useState('')
   return (
     <div className="modal-wrapper">
       <Modal
@@ -250,7 +253,7 @@ const otp = (otpModel, closeModal) => {
         ariaHideApp={false}
         // style={customStyles}
         contentLabel="Example Modal"
-        className="modal-wrapper-sm"
+        className="modal-wrapper-sm otp-modal"
       >
         <header>
           <button onClick={closeModal} className="close-btn">
@@ -264,11 +267,20 @@ const otp = (otpModel, closeModal) => {
           <h4>Confirm your number</h4>
         </header>
         <div className="modalbody">
-        <div className="otp-wrapper">
-          <input type="text" className="otp-inp" />
+        {/* <div className="otp-wrapper"> */}
+        <div>
+          <OtpInput
+            value={sotp}
+            containerStyle="otp-wrapper"
+            onChange={(e)=> setOtp(e)}
+            numInputs={4}
+            className="otp-inp"
+            // separator={<span>-</span>}
+          />
+          {/* <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp"/>
-          <input type="text" className="otp-inp" />
+          <input type="text" className="otp-inp" /> */}
         </div>
           <p className="last-para">Didn’t got the code?  <span>Resend</span></p>
         </div>
@@ -278,12 +290,26 @@ const otp = (otpModel, closeModal) => {
 }
 
 export default function Navbar() {
+  const dispatch = useDispatch()
   const router = useRouter()
+  const { userData } = useSelector(state => ({
+    userData: state.user.mobileSignData
+  }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
   const [signUpModel, setSignUpModel] = useState(false);
   const [otpModel, setOtpModel] = useState(false);
   const [UserModel, setUserModel] = useState(false);
+
+ useEffect(()=>{
+
+  if(get(userData, 'success', false)){
+    dispatch({ type: 'RESET' })
+    setLoginModel(false)
+    setSignUpModel(false)
+    setOtpModel(true)
+  }
+ },[userData])
 
   const closeModal = () => {
     setOtpModel(false)
