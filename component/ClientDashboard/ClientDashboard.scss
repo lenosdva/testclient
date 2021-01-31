@@ -11,6 +11,10 @@
         color: $primary-color;
         border-bottom: 3px solid $primary-color;
       }
+      @media (max-width:767px) {
+        font-size: 45px;
+        line-height: normal;
+      }
     }
     .sub-heading {
       font-weight: normal;
@@ -37,6 +41,13 @@
       color: #252525;
       margin: 0 0 0 15px;
       width: 193px;
+    }
+  }
+  .flex-end {
+    justify-content: flex-end;
+    @media (max-width:767px) {
+      justify-content: flex-start;
+      margin-top: 40px;
     }
   }
 }

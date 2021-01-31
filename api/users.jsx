@@ -12,10 +12,47 @@ export function* registerByMobile({payload}) {
       return res.json();
     })
     .then((data) => {
+      data.mobile = payload.mobile
       return data;
     })
     .catch((error) => {
       throw error;
     });
   yield put({type: 'REGISTER', data});
+}
+
+export function* registerByEmail({payload}) {
+  const data = yield fetch(`${HOST}/v1/auth/registerByEmail`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'REGISTERWITHEMAIL', data});
+}
+
+export function* verifyOtp({payload}) {
+  const data = yield fetch(`${HOST}/v1/auth/verifyOtp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'VERIFYED_OTP', data});
 }

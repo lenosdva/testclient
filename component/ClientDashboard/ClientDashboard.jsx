@@ -11,7 +11,7 @@ export default function ClientDashboard() {
               <p className="sub-heading">Great to have you back. Let’s get you started for the day!</p>
             </div>
             <div className="col-md-4">
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center flex-end">
                 <div>
                   <Image
                     src="/assets/svg/ic-add.svg"

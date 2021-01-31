@@ -1,5 +1,8 @@
 .banner {
   position: relative;
+  @media (max-width:767px) {
+    margin-top: 70px;
+  }
   .banner-image {
     transform: matrix(-1, 0, 0, 1, 0, 0);
   }
@@ -19,6 +22,10 @@
     }
     .searchbar {
       border: none;
+      @media (max-width:767px) {
+        padding: 20px 0;
+        flex-wrap: wrap;
+      }
     }
   }
 }
