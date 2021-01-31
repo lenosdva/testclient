@@ -8,6 +8,7 @@
 @import "./home.scss";
 @import "./inbox-page.scss";
 @import "./inbox-wide-page.scss";
+@import "./common.scss";
 
 //component
 @import "../component/HomeBanner/HomeBanner.scss";
@@ -42,6 +43,8 @@
 @import "../component/PaymentSuccessful/PaymentSuccessful.scss";
 @import "../component/TimelineOrder/TimelineOrder.scss";
 @import "../component/OtherOrders/OtherOrders.scss";
+@import "../component/HandymanRegistration/HandymanRegistration.scss";
+@import "../component/HandymanRegistrationComplete/HandymanRegistrationComplete.scss";
 
 html {
   -webkit-text-size-adjust: 100%;

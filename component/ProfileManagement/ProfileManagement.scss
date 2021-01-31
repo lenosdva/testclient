@@ -35,7 +35,7 @@
       }
       .input {
         border: 1px solid $grey-color;
-        border-radius: 10px;
+        border-radius: 5px;
         padding: 12px;
         color: $grey-color;
         outline: none;
@@ -46,16 +46,27 @@
     }
     .input {
       border: 1px solid $grey-color;
-      border-radius: 10px;
+      border-radius: 5px;
+      padding: 12px;
+      color: $grey-color;
+      outline: none;
+      margin-bottom: 5px;
+      font-size: 18px;
+      line-height: 26px;
+    }
+    .large {
+      width: 100%;
+    }
+    .textarea {
+      border: 1px solid $grey-color;
+      border-radius: 5px;
       padding: 12px;
       color: $grey-color;
       outline: none;
       margin-bottom: 10px;
       font-size: 18px;
       line-height: 26px;
-    }
-    .large {
-      width: 100%;
+      height: 110px;
     }
     .horizontal-line {
       margin: 30px 0;
@@ -65,6 +76,7 @@
     }
     .label {
       font-size: 24px;
+      margin-top: 15px;
     }
     .email {
       color: $primary-color;

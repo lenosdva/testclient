@@ -7,6 +7,8 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const loginSubmit = (e) => {
   e.preventDefault()
@@ -243,8 +245,28 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
   );
 }
 
-const otp = (otpModel, closeModal) => {
+const otp = (otpModel, closeModal, mobile) => {
+  const dispatch = useDispatch()
   const [sotp, setOtp] = useState('')
+  const { otpData } = useSelector(state => ({
+    otpData: state.user.otpData
+  }));
+
+  function onChangeOtp(e){
+    setOtp(e)
+    if(e.length === 6){
+      dispatch({ type: 'VERIFY_OTP',  payload: {otp: e, mobile  }})
+    }
+  }
+
+  useEffect(()=>{
+    // 
+    if(get(otpData, 'result.error', false)){
+      dispatch({ type: 'RESET'})
+      NotificationManager.error('Error message', get(otpData, 'result.message', 'Please try again'))
+    }
+  },[otpData])
+  
   return (
     <div className="modal-wrapper">
       <Modal
@@ -272,8 +294,8 @@ const otp = (otpModel, closeModal) => {
           <OtpInput
             value={sotp}
             containerStyle="otp-wrapper"
-            onChange={(e)=> setOtp(e)}
-            numInputs={4}
+            onChange={onChangeOtp}
+            numInputs={6}
             className="otp-inp"
             // separator={<span>-</span>}
           />
@@ -299,7 +321,8 @@ export default function Navbar() {
   const [loginModel, setLoginModel] = useState(false);
   const [signUpModel, setSignUpModel] = useState(false);
   const [otpModel, setOtpModel] = useState(false);
-  const [UserModel, setUserModel] = useState(false);
+  const [mobile, setMobile] = useState(false);
+  const [menu, setMenu] = useState(false);
 
  useEffect(()=>{
 
@@ -307,8 +330,16 @@ export default function Navbar() {
     dispatch({ type: 'RESET' })
     setLoginModel(false)
     setSignUpModel(false)
-    setOtpModel(true)
+    if(get(userData, 'mobile', false)){
+      setMobile(userData.mobile)
+      setOtpModel(true)
+    }
   }
+  if(get(userData, 'error', false)){
+    dispatch({ type: 'RESET' })
+    NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
+  }
+
  },[userData])
 
   const closeModal = () => {
@@ -316,15 +347,6 @@ export default function Navbar() {
     setLoginModel(false)
     setSignUpModel(false)
   }
-
-  const menuClicked = () => {
-    setUserModel(true);
-    if (userLogged) {
-      //show userdata
-    } else {
-      //showButtons
-    }
-  };
 
   return (
     <div className="container">
@@ -368,48 +390,115 @@ export default function Navbar() {
                     About Us
                   </Link>
                 </li>
-                <li onClick={() => setLoginModel(true)} className="align-self-center">
+                {/* <li onClick={() => setLoginModel(true)} className="align-self-center">
                   Login
                 </li>
                 <li onClick={() => setSignUpModel(true)} className="align-self-center">
                   SignUp
-                </li>
-                <li onClick={() => setOtpModel(true)} className="align-self-center">
+                </li> */}
+                {/* <li onClick={() => setOtpModel(true)} className="align-self-center">
                   otp
-                </li>
+                </li> */}
               </>
             )}
 
-          <li>
+          {/* <li>
             <button
               onClick={menuClicked}
               className="btn btn-primary btn-rounded login-button">
               <i className="fa fa-bars" aria-hidden="true"></i>
               <i className="fa fa-user-circle" aria-hidden="true"></i>
             </button>
+          </li> */}
+          <li>
+
+          <div className="togglewrapper">
+              <label className="dropdown">
+                <div className="dd-button">
+                  <i className="fa fa-bars" aria-hidden="true"></i>
+                </div>
+                <input type="checkbox" className="dd-input" id="test" />
+                <ul className="dd-menu">
+                  <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
+                  <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
+                </ul>
+              </label>
+ 
+              <label className="dropdown1">
+                <div className="dd-button1">
+                  <Image
+                    src="/assets/svg/ic-menu-profile.svg"
+                    alt=""
+                    width={34}
+                    height={34}
+                  />
+                </div>
+                <input type="checkbox" className="dd-input1" id="test1" />
+                <ul className="dd-menu1">
+                  <li>
+                    <div>
+                      <Image
+                        src="/assets/images/profile-pic.png"
+                        alt=""
+                        width={134}
+                        height={134}
+                      />
+                    </div>
+                    <h4>Marie Antoinette</h4>
+                    <h6>marieantoinette99@gmail.com</h6>
+                    <button className="btn btn-manage">Manage Your Account</button>
+                    <div className="divi"></div>
+                    <p><a href="">Sign Out</a></p>
+                    <p><a href="">Switch To Selling</a></p>
+                    <p><a href="">My Dashboard</a></p>
+                  </li>
+                </ul>
+              </label>
+          </div>
+
+            {/* <label className="dropdown">
+              <div className="dd-button">
+                <i className="fa fa-bars" aria-hidden="true"></i>
+                <Image
+                  src="/assets/svg/ic-menu-profile.svg"
+                  alt=""
+                  width={34}
+                  height={34}
+                />
+              </div>
+
+              <input type="checkbox" className="dd-input" id="test"/>
+                <ul className="dd-menu">
+                  <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
+                  <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
+                </ul>
+  
+            </label> */}
           </li>
         </ul>
         {loginModal(loginModel, closeModal, setSignUpModel)}
         {signUpModal(signUpModel, closeModal, setLoginModel)}
-        {otp(otpModel, closeModal)}
+        {otp(otpModel, closeModal, mobile)}
       </div>
 
       <div className="mob-menu-wrapper show-mob">
-        <header>
+        <header onClick={()=> setMenu(!menu)}>
           <Image
             src="/assets/svg/logo.svg"
             alt="company logo"
             width={180}
             height={31}
           />
+          <div onClick={() => setMenu(!menu)}>
           <Image
             src="/assets/svg/ic-menu.svg"
             alt="company logo"
             width={34}
             height={34}
           />
+          </div>
         </header>
-        <ul className="hide">
+        <ul className={menu ? "" : 'hide'}>
           <li className="align-self-center">
             <Link href="/">
               <a>Become A Handyman</a>
@@ -431,13 +520,14 @@ export default function Navbar() {
             </Link>
           </li>
           <li onClick={() => setLoginModel(true)} className="align-self-center">
-            <a>Login</a>
+            <a>Log In</a>
           </li>
           <li onClick={() => setSignUpModel(true)} className="align-self-center">
-            <a>SignUp</a>
+            <a>Sign Up</a>
           </li>
         </ul>
       </div>
+      <NotificationContainer/>
     </div>
   );
 }

@@ -138,6 +138,52 @@ export default function ClientMyOrders() {
                   </button>
               </div>
               </div>
+              <div>
+                <div className="myorder-slide">
+                  <h4 className="mb-2">House Cleaning Service</h4>
+                  <p>Order ID: 12345678</p>
+                  <div className="timers">
+                    <Image
+                      src="/assets/svg/ic-clock.svg"
+                      alt="howitwork1"
+                      width={11}
+                      height={11}
+                    />
+                Order Placed: Sep 29, 04:10 PM</div>
+                  <button className="btn btnprimary-fill">View Project
+                  <Image
+                      src="/assets/svg/ic-white-arrow.svg"
+                      alt="howitwork1"
+                      width={32}
+                      height={12}
+                      className="ml-2"
+                    />
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div className="myorder-slide">
+                  <h4 className="mb-2">House Cleaning Service</h4>
+                  <p>Order ID: 12345678</p>
+                  <div className="timers">
+                    <Image
+                      src="/assets/svg/ic-clock.svg"
+                      alt="howitwork1"
+                      width={11}
+                      height={11}
+                    />
+                Order Placed: Sep 29, 04:10 PM</div>
+                  <button className="btn btnprimary-fill">View Project
+                  <Image
+                      src="/assets/svg/ic-white-arrow.svg"
+                      alt="howitwork1"
+                      width={32}
+                      height={12}
+                      className="ml-2"
+                    />
+                  </button>
+                </div>
+              </div>
             </Slider>
             {/* slider close */}
           </div>
