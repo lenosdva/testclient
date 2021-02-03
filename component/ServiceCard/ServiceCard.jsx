@@ -1,7 +1,9 @@
 import Image from "next/image";
+import Link from "next/link"
 
 export default function ServiceCard() {
   return (
+    <Link href='/products'>
     <div className="service-card">
       <div className="image-area">
         <Image
@@ -27,5 +29,6 @@ export default function ServiceCard() {
         <button className="btn btn-primary">Book Service</button>
       </div>
     </div>
+    </Link>
   );
 }

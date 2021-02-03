@@ -1,5 +1,7 @@
-import Image from "next/image";
+import Link from "next/link"
+import Image from "next/image"
 import { withTranslation } from "../../constent/i18n/i18n"
+
 
 function OurServices({t}) {
   return (
@@ -7,6 +9,7 @@ function OurServices({t}) {
       <h1>Our Services</h1>
       <div className="row">
         <div className="col-lg-12">
+          <Link href="/category">
           <ul className="service-list">
             <li>
               <Image
@@ -171,6 +174,7 @@ function OurServices({t}) {
               <h4>Electronic Installation & Repair</h4>
             </li>
           </ul>
+          </Link>
         </div>
       </div>
     </div>
