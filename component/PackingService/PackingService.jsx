@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link"
 import Reviews from "../Reviews/Reviews";
 import ServiceCard from "../ServiceCard/ServiceCard";
 
@@ -137,7 +138,7 @@ export default function PackingService() {
           </div>
         </div>
         <div className="mt-4">
-          <button className="btn btn-primary-rd">Read all 112+ Reviews</button>
+          <Link href='/sellerprofile'><button className="btn btn-primary-rd">Read all 112+ Reviews</button></Link>
         </div>
       </div>
       <div className="more-services mt-5">

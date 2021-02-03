@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 const loginSubmit = (e) => {
@@ -463,7 +463,7 @@ export default function Navbar() {
         </div>
         <ul className="menu">
           <li className="align-self-center">
-            <Link href="/">
+            <Link href="handyman-registration">
               Become A Handyman
             </Link>
           </li>
@@ -475,7 +475,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="align-self-center">
-                <Link href="/">
+                <Link href="/support">
                   Support
                 </Link>
               </li>
@@ -548,15 +548,15 @@ export default function Navbar() {
                     </div>
                     <h4>Marie Antoinette</h4>
                     <h6>marieantoinette99@gmail.com</h6>
-                    <button className="btn btn-manage">Manage Your Account</button>
+                    <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                     <div className="divi"></div>
-                    <p><a href="">Sign Out</a></p>
-                    <p><a href="">Switch To Selling</a></p>
-                    <p><a href="">My Dashboard</a></p>
+                    <p><Link href='/index'>Sign Out</Link></p>
+                    <p><Link href='/index'>Switch To Selling</Link></p>
+                    <p><Link href='/client-dashboard'>My Dashboard</Link></p>
                   </li>
                 </ul>
               </label>
-            </div>
+          </div>
 
             {/* <label className="dropdown">
               <div className="dd-button">
@@ -612,7 +612,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li className="align-self-center">
-            <Link href="/">
+            <Link href="/support">
               <a>Support</a>
             </Link>
           </li>
@@ -629,7 +629,7 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <NotificationContainer />
+      <NotificationContainer/>
     </div>
   );
 }

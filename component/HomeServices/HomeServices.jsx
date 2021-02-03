@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { withTranslation } from "../../constent/i18n/i18n"
 import Services from "../../constent/services"
+import Link from "next/link"
 
 const renderService = (t) => (
   Services.map((data, key)=>(
@@ -27,7 +28,7 @@ function HomeServices({t}) {
           <p>
            {t("services.title")}
           </p>
-          <button className="btn btnprimary">{t("services.moreButton")}</button>
+          <Link href='/category-services'><button className="btn btnprimary">{t("services.moreButton")}</button></Link>
         </div>
         <div className="col-lg-9 col-md-12">
           <ul className="service-list">

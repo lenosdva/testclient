@@ -35,3 +35,4 @@ export { default as OtherOrders } from "./OtherOrders/OtherOrders";
 export { default as HandymanRegistration } from "./HandymanRegistration/HandymanRegistration";
 export { default as HandymanRegistrationPayment } from "./HandymanRegistrationPayment/HandymanRegistrationPayment";
 export { default as HandymanRegistrationComplete } from "./HandymanRegistrationComplete/HandymanRegistrationComplete";
+
