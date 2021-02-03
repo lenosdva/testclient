@@ -56,3 +56,21 @@ export function* verifyOtp({payload}) {
     });
   yield put({type: 'VERIFYED_OTP', data});
 }
+
+export function* resendOtp({payload}) {
+  const data = yield fetch(`${HOST}/v1/auth/resendMobileOtp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'RESENT_OTP', data});
+}

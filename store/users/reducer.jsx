@@ -4,7 +4,8 @@ const initialState = {
   mobileSignLoading: false,
   emailSignData: {},
   emailSignLoading: false,
-  otpData: {}
+  otpData: {},
+  resendOtpData: {}
 };
 
 export default function userReducer(state = initialState, action) {
@@ -22,7 +23,7 @@ export default function userReducer(state = initialState, action) {
         mobileSignData: action.data
       };
     }
-    case 'SIGNUP_Email_REQUEST': {
+    case 'SIGNUP_EMAIL_REQUEST': {
       return {
         ...state,
         emailSignLoading: true,
@@ -35,12 +36,19 @@ export default function userReducer(state = initialState, action) {
         emailSignData: action.data
       };
     }
+    case 'RESENT_OTP':{
+      return {
+        ...state,
+        resendOtpData: action.data
+      };
+    }
     case 'RESET': {
       return {
         ...state,
         mobileSignLoading: false,
         mobileSignData: {},
         emailSignData: {},
+        resendOtpData: {},
         emailSignLoading: false,
         otpData: {}
       };

@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 const loginSubmit = (e) => {
@@ -124,6 +124,9 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
     userData: state.user.mobileSignData
   }));
   const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginWith, setloginWith] = useState('phone');
   const [country, setCountry] = useState('+49')
   const [error, setError] = useState({})
 
@@ -132,6 +135,14 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
     setLoginModel(true)
   }
 
+  // useEffect(() => {
+  //   if(signUpModel === false){
+  //     setError({})
+  //     setPhone('')
+  //     setCountry('')
+  //   }
+  // }, [signUpModel])
+
   function close() {
     closeModal()
     setError({})
@@ -139,20 +150,41 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
     setCountry('')
   }
 
+  function ValidateEmail(mail) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+      return (true)
+    }
+    return (false)
+  }
+
   function onSignUp(e) {
     e.preventDefault()
     let error = {}
-    if (phone === '') {
-      error.phone = 'Phone number is required'
-    } else if (phone.length < 6) {
-      error.phone = 'Invalid phone number'
-    }
-    if (country === '') {
-      error.phone = 'Phone number is required'
-    }
-    setError(error)
-    if(!Object.keys(error).length){
-      dispatch({ type: 'SIGNUP_REQUEST',  payload: {"mobile": phone.replace(/[^0-9]/g, '')}})
+    if (setloginWith === 'phone') {
+      if (phone === '') {
+        error.phone = 'Phone number is required'
+      } else if (phone.length < 6) {
+        error.phone = 'Invalid phone number'
+      }
+      if (country === '') {
+        error.phone = 'Phone number is required'
+      }
+      setError(error)
+      if (!Object.keys(error).length) {
+        dispatch({ type: 'SIGNUP_REQUEST', payload: { "mobile": phone.replace(/[^0-9]/g, '') } })
+      }
+    } else {
+      if (email === '') {
+        error.email = 'Email is required'
+      } else if (!ValidateEmail(email)) {
+        error.phone = 'Invalid Email'
+      } else if (password === '') {
+        error.password = 'Password is required'
+      }
+      setError(error)
+      if (!Object.keys(error).length) {
+        dispatch({ type: 'SIGNUP_EMAIL_REQUEST', payload: { email, password } })
+      }
     }
   }
 
@@ -178,34 +210,65 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
           <h4>Sign Up</h4>
         </header>
         <div className="modalbody">
-          <form onSubmit={onSignUp}>
-            <div className="box">
-              <div className="form-group">
-                <div className="p-lr">
-                <div className="labels">Country/Region</div>
-                  <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
-                    <option value="+49">Germany(+49)</option>
-                  </select>
+          {loginWith === 'phone' ?
+            <form onSubmit={onSignUp}>
+              <div className="box">
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Country/Region</div>
+                    <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
+                      <option value="+49">Germany(+49)</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-divider"></div>
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Phone Number</div>
+                    {/* <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="text" className="field-input" required /> */}
+                    <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
+                      {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
+                    </InputMask>
+                    {/* <label className="form-control-placeholder">Phone Number</label> */}
+                  </div>
                 </div>
               </div>
-              <div className="form-divider"></div>
-              <div className="form-group">
-                <div className="p-lr">
-                  <div className="labels">Phone Number</div>
-                  {/* <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="text" className="field-input" required /> */}
-                  <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                    {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
-                  </InputMask>
-                  {/* <label className="form-control-placeholder">Phone Number</label> */}
+              {get(error, 'phone', '') &&
+                <span>{get(error, 'phone', '')}</span>
+              }
+              <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+              <button className="btn btn-continue" disabled={isLoading}>Continue</button>
+            </form>
+            :
+
+            <form onSubmit={onSignUp}>
+              <div className="box">
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Email</div>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="field-input" />
+                  </div>
+                </div>
+                <div className="form-divider"></div>
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Password</div>
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="field-input" />
+                    {/* <label className="form-control-placeholder">Phone Number</label> */}
+                  </div>
                 </div>
               </div>
-            </div>
-            {get(error, 'phone', '') &&
-              <span>{get(error, 'phone', '')}</span>
-            }
-            <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
-            <button className="btn btn-continue" disabled={isLoading}>Continue</button>
-          </form>
+              {get(error, 'phone', '') &&
+                <span>{get(error, 'phone', '')}</span>
+              }{get(error, 'email', '') &&
+                <span>{get(error, 'email', '')}</span>
+              }{get(error, 'password', '') &&
+                <span>{get(error, 'password', '')}</span>
+              }
+              <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+              <button className="btn btn-continue" disabled={isLoading}>Continue</button>
+            </form>
+          }
           <div className="or">or</div>
 
           <div className="social-btns">
@@ -227,15 +290,27 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
               />
               <span>Continue with Facebook</span>
             </button>
-            <button>
-              <Image
-                src="/assets/svg/ic-email.svg"
-                alt=""
-                width={30}
-                height={30}
-              />
-              <span>Continue with E-Mail</span>
-            </button>
+            {loginWith === 'phone' ?
+              <button onClick={() => setloginWith('email')}>
+                <Image
+                  src="/assets/svg/ic-email.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <span>Continue with E-Mail</span>
+              </button>
+              :
+              <button onClick={() => setloginWith('phone')}>
+                <Image
+                  src="/assets/svg/ic-email.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <span>Continue with Phone</span>
+              </button>
+            }
           </div>
 
           <p className="last-para">Already Have An Account?  <span onClick={openLogin}>Log In</span></p>
@@ -248,25 +323,35 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
 const otp = (otpModel, closeModal, mobile) => {
   const dispatch = useDispatch()
   const [sotp, setOtp] = useState('')
-  const { otpData } = useSelector(state => ({
-    otpData: state.user.otpData
+  const { otpData, resendOtpData } = useSelector(state => ({
+    otpData: state.user.otpData,
+    resendOtpData: state.user.resendOtpData,
   }));
 
-  function onChangeOtp(e){
+  function onChangeOtp(e) {
     setOtp(e)
-    if(e.length === 6){
-      dispatch({ type: 'VERIFY_OTP',  payload: {otp: e, mobile  }})
+    if (e.length === 6) {
+      dispatch({ type: 'VERIFY_OTP', payload: { otp: e, mobile } })
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     // 
-    if(get(otpData, 'result.error', false)){
-      dispatch({ type: 'RESET'})
+    if (get(otpData, 'result.error', false)) {
+      dispatch({ type: 'RESET' })
       NotificationManager.error('Error message', get(otpData, 'result.message', 'Please try again'))
     }
-  },[otpData])
-  
+    if (get(resendOtpData, 'result.error', false)) {
+      dispatch({ type: 'RESET' })
+      NotificationManager.error('Error message', get(resendOtpData, 'result.message', 'Please try again'))
+    }
+    if (get(resendOtpData, 'result.success', false)) {
+      dispatch({ type: 'RESET' })
+      NotificationManager.success('Success message', get(resendOtpData, 'result.message', 'OTP sent to given number'));
+    }
+
+  }, [otpData, resendOtpData])
+
   return (
     <div className="modal-wrapper">
       <Modal
@@ -289,22 +374,22 @@ const otp = (otpModel, closeModal, mobile) => {
           <h4>Confirm your number</h4>
         </header>
         <div className="modalbody">
-        {/* <div className="otp-wrapper"> */}
-        <div>
-          <OtpInput
-            value={sotp}
-            containerStyle="otp-wrapper"
-            onChange={onChangeOtp}
-            numInputs={6}
-            className="otp-inp"
+          {/* <div className="otp-wrapper"> */}
+          <div>
+            <OtpInput
+              value={sotp}
+              containerStyle="otp-wrapper"
+              onChange={onChangeOtp}
+              numInputs={6}
+              className="otp-inp"
             // separator={<span>-</span>}
-          />
-          {/* <input type="text" className="otp-inp" />
+            />
+            {/* <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp"/>
           <input type="text" className="otp-inp" /> */}
-        </div>
-          <p className="last-para">Didn’t got the code?  <span>Resend</span></p>
+          </div>
+          <p className="last-para">Didn’t got the code?  <span onClick={() => dispatch({ type: 'RESEND_OTP', payload: { mobile } })}>Resend</span></p>
         </div>
       </Modal>
     </div>
@@ -314,8 +399,9 @@ const otp = (otpModel, closeModal, mobile) => {
 export default function Navbar() {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { userData } = useSelector(state => ({
-    userData: state.user.mobileSignData
+  const { userData, otpData } = useSelector(state => ({
+    userData: state.user.mobileSignData,
+    otpData: state.user.otpData
   }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
@@ -324,23 +410,39 @@ export default function Navbar() {
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
 
- useEffect(()=>{
-
-  if(get(userData, 'success', false)){
-    dispatch({ type: 'RESET' })
-    setLoginModel(false)
-    setSignUpModel(false)
-    if(get(userData, 'mobile', false)){
-      setMobile(userData.mobile)
-      setOtpModel(true)
+  useEffect(() => {
+    if (localStorage.getItem('token') !== null) {
+      setLoggedStatus(true)
     }
-  }
-  if(get(userData, 'error', false)){
-    dispatch({ type: 'RESET' })
-    NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
-  }
+  }, [])
 
- },[userData])
+  useEffect(() => {
+
+    if (get(userData, 'success', false)) {
+      dispatch({ type: 'RESET' })
+      setLoginModel(false)
+      setSignUpModel(false)
+      if (get(userData, 'mobile', false)) {
+        setMobile(userData.mobile)
+        setOtpModel(true)
+      }
+    }
+    if (get(userData, 'error', false)) {
+      dispatch({ type: 'RESET' })
+      NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
+    }
+    if (get(otpData, 'token', false)) {
+      dispatch({ type: 'RESET' })
+      if (typeof window !== "undefined") {
+        localStorage.setItem('token', JSON.stringify(get(otpData, 'token', {})))
+        localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
+        setOtpModel(false)
+        setLoggedStatus(true)
+      }
+      //NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
+    }
+
+  }, [userData, otpData])
 
   const closeModal = () => {
     setOtpModel(false)
@@ -412,7 +514,7 @@ export default function Navbar() {
           </li> */}
           <li>
 
-          <div className="togglewrapper">
+            <div className="togglewrapper">
               <label className="dropdown">
                 <div className="dd-button">
                   <i className="fa fa-bars" aria-hidden="true"></i>
@@ -423,7 +525,7 @@ export default function Navbar() {
                   <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
                 </ul>
               </label>
- 
+
               <label className="dropdown1">
                 <div className="dd-button1">
                   <Image
@@ -454,7 +556,7 @@ export default function Navbar() {
                   </li>
                 </ul>
               </label>
-          </div>
+            </div>
 
             {/* <label className="dropdown">
               <div className="dd-button">
@@ -482,7 +584,7 @@ export default function Navbar() {
       </div>
 
       <div className="mob-menu-wrapper show-mob">
-        <header onClick={()=> setMenu(!menu)}>
+        <header onClick={() => setMenu(!menu)}>
           <Image
             src="/assets/svg/logo.svg"
             alt="company logo"
@@ -490,12 +592,12 @@ export default function Navbar() {
             height={31}
           />
           <div onClick={() => setMenu(!menu)}>
-          <Image
-            src="/assets/svg/ic-menu.svg"
-            alt="company logo"
-            width={34}
-            height={34}
-          />
+            <Image
+              src="/assets/svg/ic-menu.svg"
+              alt="company logo"
+              width={34}
+              height={34}
+            />
           </div>
         </header>
         <ul className={menu ? "" : 'hide'}>
@@ -527,7 +629,7 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <NotificationContainer/>
+      <NotificationContainer />
     </div>
   );
 }
