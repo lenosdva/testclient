@@ -3,10 +3,12 @@ import {combineReducers} from 'redux';
 // Our custom reducers
 // We need to import each one here and add them to the combiner at the bottom
 import user from './users/reducer';
+import services from './services/reducer';
 
 // Combine all
 const appReducer = combineReducers({
-  user
+  user,
+  services
 });
 
 // Setup root reducer

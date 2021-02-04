@@ -4,6 +4,10 @@ const initialState = {
   mobileSignLoading: false,
   emailSignData: {},
   emailSignLoading: false,
+  mobileLoginData: {},
+  mobileLoginLoading: false,
+  emailLoginData: {},
+  emailLoginLoading: false,
   otpData: {},
   resendOtpData: {}
 };
@@ -36,6 +40,33 @@ export default function userReducer(state = initialState, action) {
         emailSignData: action.data
       };
     }
+    //login
+    case 'LOGIN_REQUEST': {
+      return {
+        ...state,
+        mobileLoginLoading: true,
+      };
+    }
+    case 'LOGIN': {
+      return {
+        ...state,
+        mobileLoginLoading: false,
+        mobileLoginData: action.data
+      };
+    }
+    case 'LOGIN_EMAIL_REQUEST': {
+      return {
+        ...state,
+        emailLoginLoading: true,
+      };
+    }
+    case 'LOGINWITHEMAIL': {
+      return {
+        ...state,
+        emailLoginLoading: false,
+        emailLoginData: action.data
+      };
+    }
     case 'RESENT_OTP':{
       return {
         ...state,
@@ -48,8 +79,12 @@ export default function userReducer(state = initialState, action) {
         mobileSignLoading: false,
         mobileSignData: {},
         emailSignData: {},
+        mobileLoginLoading: false,
+        mobileLoginData: {},
+        emailLoginData: {},
         resendOtpData: {},
         emailSignLoading: false,
+        emailLoginLoading: false,
         otpData: {}
       };
     }
