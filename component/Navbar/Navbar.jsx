@@ -7,17 +7,23 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
-const loginSubmit = (e) => {
-  e.preventDefault()
-  alert("call")
-}
 
 const loginModal = (loginModel, closeModal, setSignUpModel) => {
+  const dispatch = useDispatch()
+  const { isLoading, emailLoginLoading, userData } = useSelector(state => ({
+    isLoading: state.user.mobileLoginLoading,
+    userData: state.user.mobileLoginData,
+    emailLoginLoading: state.user.emailLoginLoading,
+  }));
   const [phone, setPhone] = useState('')
-  const [country, setCountry] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginWith, setloginWith] = useState('phone');
+  const [country, setCountry] = useState('+49')
+  const [error, setError] = useState({})
 
   function openSignup() {
     close()
@@ -28,6 +34,46 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
     closeModal()
     setPhone('')
     setCountry('')
+  }
+
+  function ValidateEmail(mail) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+      return (true)
+    }
+    return (false)
+  }
+
+  function onLogin(e) {
+    e.preventDefault()
+    let error = {}
+    if (loginWith === 'phone') {
+      if (phone === '') {
+        error.phone = 'Phone number is required'
+      } else if (phone.length < 6) {
+        error.phone = 'Invalid phone number'
+      }
+      if (country === '') {
+        error.phone = 'Phone number is required'
+      }
+      setError(error)
+      if (!Object.keys(error).length) {
+        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": phone.replace(/[^0-9]/g, '') } })
+      }
+    } else {
+      if (email === '') {
+        error.email = 'Email is required'
+      } else if (!ValidateEmail(email)) {
+        error.phone = 'Invalid Email'
+      } else if (password === '') {
+        error.password = 'Password is required'
+      } else if (password.length < 6) {
+        error.password = 'minimum password length should 6 characters'
+      }
+      setError(error)
+      if (!Object.keys(error).length) {
+        dispatch({ type: 'LOGIN_EMAIL_REQUEST', payload: { email, password } })
+      }
+    }
   }
 
   return (
@@ -52,31 +98,67 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
           <h4>Sign In</h4>
         </header>
         <div className="modalbody">
-          <form onSubmit={loginSubmit}>
-            <div className="box">
-              <div className="form-group">
-                <div className="p-lr">
-                  <div className="labels">Country/Region</div>
-                  <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
-                    {/* <option disabled value=''></option> */}
-                    <option value="+49">Germany</option>
-                  </select>
+          {loginWith === 'phone' ?
+            <form onSubmit={onLogin}>
+              <div className="box">
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Country/Region</div>
+                    <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
+                      {/* <option disabled value=''></option> */}
+                      <option value="+49">Germany</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-divider"></div>
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Phone Number</div>
+                    <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
+                      {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
+                    </InputMask>
+                  </div>
                 </div>
               </div>
-              <div className="form-divider"></div>
-              <div className="form-group">
-                <div className="p-lr">
-                  <div className="labels">Phone Number</div>
-                  <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                    {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
-                  </InputMask>
+              {get(error, 'phone', '') &&
+                <span>{get(error, 'phone', '')}</span>
+              }{get(error, 'email', '') &&
+                <span>{get(error, 'email', '')}</span>
+              }{get(error, 'password', '') &&
+                <span>{get(error, 'password', '')}</span>
+              }
+              <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+              <button className="btn btn-continue" disabled={isLoading}>Continue</button>
+            </form>
+            :
+            <form onSubmit={onLogin}>
+              <div className="box">
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Email</div>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="field-input" />
+                  </div>
                 </div>
-              </div>
-            </div>
+                <div className="form-divider"></div>
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Password</div>
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="field-input" />
 
-            <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
-            <button className="btn btn-continue">Continue</button>
-          </form>
+                  </div>
+                </div>
+              </div>
+              {get(error, 'phone', '') &&
+                <span>{get(error, 'phone', '')}</span>
+              }{get(error, 'email', '') &&
+                <span>{get(error, 'email', '')}</span>
+              }{get(error, 'password', '') &&
+                <span>{get(error, 'password', '')}</span>
+              }
+              <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+              <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
+            </form>
+          }
           <div className="or">or</div>
 
           <div className="social-btns">
@@ -98,19 +180,29 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
               />
               <span>Continue with Facebook</span>
             </button>
-            <button>
-              <Image
-                src="/assets/svg/ic-email.svg"
-                alt=""
-                width={30}
-                height={30}
-              />
-              <span>Continue with E-Mail</span>
-            </button>
+            {loginWith === 'phone' ?
+              <button onClick={() => setloginWith('email')}>
+                <Image
+                  src="/assets/svg/ic-email.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <span>Continue with E-Mail</span>
+              </button>
+              :
+              <button onClick={() => setloginWith('phone')}>
+                <Image
+                  src="/assets/svg/ic-email.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <span>Continue with Phone</span>
+              </button>
+            }
           </div>
-
           <p className="last-para">Don't Have An Account? <span onClick={openSignup}>Sign Up</span></p>
-
         </div>
       </Modal>
     </div>
@@ -119,9 +211,10 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
 
 const signUpModal = (signUpModel, closeModal, setLoginModel) => {
   const dispatch = useDispatch()
-  const { isLoading, userData } = useSelector(state => ({
+  const { isLoading, emailSignLoading, userData } = useSelector(state => ({
     isLoading: state.user.mobileSignLoading,
-    userData: state.user.mobileSignData
+    userData: state.user.mobileSignData,
+    emailSignLoading: state.user.emailSignLoading,
   }));
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -160,7 +253,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
   function onSignUp(e) {
     e.preventDefault()
     let error = {}
-    if (setloginWith === 'phone') {
+    if (loginWith === 'phone') {
       if (phone === '') {
         error.phone = 'Phone number is required'
       } else if (phone.length < 6) {
@@ -180,6 +273,8 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
         error.phone = 'Invalid Email'
       } else if (password === '') {
         error.password = 'Password is required'
+      } else if (password.length < 6) {
+        error.password = 'minimum password length should 6 characters'
       }
       setError(error)
       if (!Object.keys(error).length) {
@@ -266,7 +361,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
                 <span>{get(error, 'password', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
-              <button className="btn btn-continue" disabled={isLoading}>Continue</button>
+              <button className="btn btn-continue" disabled={emailSignLoading}>Continue</button>
             </form>
           }
           <div className="or">or</div>
@@ -399,9 +494,12 @@ const otp = (otpModel, closeModal, mobile) => {
 export default function Navbar() {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { userData, otpData } = useSelector(state => ({
+  const { userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
     userData: state.user.mobileSignData,
-    otpData: state.user.otpData
+    otpData: state.user.otpData,
+    emailSignData: state.user.emailSignData,
+    mobileLoginData: state.user.mobileLoginData,
+    emailLoginData: state.user.emailLoginData,
   }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
@@ -439,10 +537,39 @@ export default function Navbar() {
         setOtpModel(false)
         setLoggedStatus(true)
       }
-      //NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
+    }
+    if (get(emailSignData, 'token', false)) {
+      dispatch({ type: 'RESET' })
+      if (typeof window !== "undefined") {
+        localStorage.setItem('token', JSON.stringify(get(emailSignData, 'token', {})))
+        // localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
+        setSignUpModel(false)
+        setLoggedStatus(true)
+      }
     }
 
-  }, [userData, otpData])
+    if (get(mobileLoginData, 'result.error', false)) {
+      dispatch({ type: 'RESET' })
+      NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
+    }
+
+    if (get(emailLoginData, 'error', false)) {
+      dispatch({ type: 'RESET' })
+      NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
+    }
+
+    if (get(emailLoginData, 'token', false)) {
+      dispatch({ type: 'RESET' })
+      if (typeof window !== "undefined") {
+        localStorage.setItem('token', JSON.stringify(get(emailLoginData, 'token', {})))
+        localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))
+        setLoginModel(false)
+        setLoggedStatus(true)
+      }
+      
+    }
+
+  }, [userData, otpData, emailSignData, mobileLoginData, emailLoginData])
 
   const closeModal = () => {
     setOtpModel(false)
@@ -556,7 +683,7 @@ export default function Navbar() {
                   </li>
                 </ul>
               </label>
-          </div>
+            </div>
 
             {/* <label className="dropdown">
               <div className="dd-button">
@@ -629,7 +756,7 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <NotificationContainer/>
+      <NotificationContainer />
     </div>
   );
 }

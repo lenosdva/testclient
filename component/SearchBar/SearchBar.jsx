@@ -1,9 +1,22 @@
 import { useState } from "react"
+import { useDispatch, useSelector } from 'react-redux'
 import Image from "next/image";
 
 export default function SearchBar() {
+  const [keyword, setKeyword] = useState('')
   const [showAddress, setAddress] = useState('hide')
   const [showService, setService] = useState('hide')
+  const dispatch = useDispatch()
+  // const { isLoading, emailLoginLoading, userData } = useSelector(state => ({
+  //   isLoading: state.user.mobileLoginLoading,
+  //   userData: state.user.mobileLoginData,
+  //   emailLoginLoading: state.user.emailLoginLoading,
+  // }));
+
+  function onSearch(e){
+    setKeyword(e.target.value)
+    dispatch({ type: 'SEARCH_REQUEST', payload: e.target.value })
+  }
   return (
     <div className="searchbar d-flex justify-content-between align-items-center">
       <div className="search-area pl-4 d-flex justify-content-around align-items-center">
@@ -90,7 +103,7 @@ export default function SearchBar() {
         <div className="service mr-2">
           <h5 className="mb-0">Pick a Service</h5>
           {/* <h5 className="service-value">What can we assist you with ?</h5> */}
-          <input type="search" onBlur={()=> setService('hide')} onFocus={()=> setService('show')} className="input-search" placeholder="What can we assist you with?" />
+          <input type="search" onChange={onSearch} value={keyword} onBlur={()=> setService('hide')} onFocus={()=> setService('show')} className="input-search" placeholder="What can we assist you with?" />
           <div className={showService === 'hide' ? "searching-keywords": "searching-keywords searching-keywords-show"}>
             <ul>
               <li>Moving Out Service</li>

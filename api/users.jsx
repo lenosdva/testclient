@@ -39,6 +39,43 @@ export function* registerByEmail({payload}) {
   yield put({type: 'REGISTERWITHEMAIL', data});
 }
 
+export function* loginByMobile({payload}) {
+  const data = yield fetch(`${HOST}/v1/auth/loginWithMobile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      data.mobile = payload.mobile
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'LOGIN', data});
+}
+
+export function* loginByEmail({payload}) {
+  const data = yield fetch(`${HOST}/v1/auth/loginWithEmail`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'LOGINWITHEMAIL', data});
+}
+
 export function* verifyOtp({payload}) {
   const data = yield fetch(`${HOST}/v1/auth/verifyOtp`, {
     method: 'POST',
