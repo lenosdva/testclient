@@ -1,56 +1,40 @@
-import Image from "next/image";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function AboutUsAndContact() {
+function AboutUsAndContact({t}) {
   return (
     <div className="about-us-and-contact d-flex justify-content-end flexwrap">
       <div className="form-area p-5">
-        <h1 className="mb-4">About Us</h1>
+        <h1 className="mb-4">{t("aboutUs.title")}</h1>
         <p className="mb-3 mt-3">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+        {t("aboutUs.text1")}
         </p>
         <br />
         <p className="mb-3">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+        {t("aboutUs.text2")}
         </p>
         <br />
         <br />
-        <h1 className="mb-3">Let's Connect</h1>
+        <h1 className="mb-3">{t("aboutUs.cTitle")}</h1>
         <h3 className="subtitle mb-4">
-          We would love to help you start exceeding your CX
+        {t("aboutUs.cText")}
         </h3>
         <div className="form">
           <div className="d-flex flexwrap">
-            <input type="text" className="input large mr-2" placeholder="Name" />
-            <input type="text" className="input large ml-2" placeholder="Phone" />
+            <input type="text" className="input large mr-2" placeholder={t("aboutUs.name")} />
+            <input type="text" className="input large ml-2" placeholder={t("aboutUs.phone")} />
           </div>
           <div className="d-flex flexwrap">
-            <input type="text" className="input large mr-2" placeholder="Email" />
-            <input type="text" className="input large ml-2" placeholder="Subject" />
+            <input type="text" className="input large mr-2" placeholder={t("aboutUs.email")} />
+            <input type="text" className="input large ml-2" placeholder={t("aboutUs.subject")} />
           </div>
           <textarea
             type="text"
             className="input large"
-            placeholder="Type Your Message Here"
+            placeholder={t("aboutUs.message")}
           />
         </div>
         <div className="button-area text-center">
-          <button className="btn btn-primary">Send Us a Message</button>
+          <button className="btn btn-primary">{t("aboutUs.btn")}</button>
         </div>
         <div className="or mb-4 d-flex align-items-center justify-content-center">
           <div className="horizontal-line"></div>
@@ -99,3 +83,5 @@ export default function AboutUsAndContact() {
     </div>
   );
 }
+
+export default withTranslation('common')(AboutUsAndContact)

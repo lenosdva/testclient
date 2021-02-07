@@ -1,8 +1,9 @@
 import Reviews from "../Reviews/Reviews";
 import Image from "next/image";
 import ServiceCard from "../ServiceCard/ServiceCard";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function ProfileGigsWithReview() {
+function ProfileGigsWithReview({t}) {
   return (
     <div className="profile-gigs col">
       <div className="row">
@@ -10,7 +11,7 @@ export default function ProfileGigsWithReview() {
           <div className="profile-card m-2 p-4 d-flex flex-column align-items-center ">
             <div className="report d-flex align-items-center justify-content-end mb-3">
               <i className="fa fa-flag" aria-hidden="true"></i>
-              <h5 className="ml-2 title">Report</h5>
+              <h5 className="ml-2 title">{t("profileGig.title")}</h5>
             </div>
             <div className="image-area mb-3">
               <Image
@@ -43,25 +44,22 @@ export default function ProfileGigsWithReview() {
                 4.3<span>(140 Reviews)</span>
               </p>
             </div>
-            <button className="btn btn-primary h5">Contact Me</button>
+            <button className="btn btn-primary h5">{t("profileGig.contactMe")}</button>
 
             <div className="mb-3 mt-3 horizontal-line"></div>
             <div className="d-flex flex-column align-items-start">
               <div className="mr-2 d-flex align-items-start justify-content-center">
-                <p className="light left-title">From</p>
+                <p className="light left-title">{t("profileGig.from")}</p>
                 <h5>Berlin, Germany</h5>
               </div>
               <div className="d-flex align-items-start justify-content-center">
-                <p className="light left-title">Member Since</p>
+                <p className="light left-title">{t("profileGig.memberSince")}</p>
                 <h5>December 2019</h5>
               </div>
             </div>
             <div className="mt-3 mb-3 horizontal-line"></div>
             <p className="text-justify mt-3">
-              Marie Adolfo was our Handyman. She went above and beyond the
-              assigned call of duty. All of her work was first class, very quick
-              and extremely professional. She even worked on repairing a broken
-              window in our lawn outside in a rain storm!
+              {t("profileGig.text")}
             </p>
           </div>
         </div>
@@ -127,3 +125,4 @@ export default function ProfileGigsWithReview() {
     </div>
   );
 }
+export default withTranslation('common')(ProfileGigsWithReview)

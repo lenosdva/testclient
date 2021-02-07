@@ -462,6 +462,34 @@
   }
 }
 
+.border-divider {
+  border-top: 1px solid #B0B0B0;
+  margin: 45px 0 20px 0;
+}
+.fullwidth-inputs-wrapper {
+  margin: 0 0 30px 0;
+  .field-input {
+    min-height: 56px;
+    border: 2px solid #B0B0B0;
+    width: 100%;
+    border-radius: 4px;
+    padding: 0 15px;
+    font-family: $font-family-base;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.0018em;
+    color: #848484;
+  }
+  a {
+    text-decoration: underline;
+    color: $primary-color;
+  }
+}
+.mt5 {
+  margin-top: 5px !important;
+}
+
 .box {
   width: 100%;
   border: 2px solid #B0B0B0;
@@ -842,3 +870,98 @@
   }
 }
 /* Dropdown1 close */
+.posi-rel {
+  position: relative;
+  .message-list-hide {
+    display: none !important;
+  }
+  .message-list {
+    position: absolute;
+    top: 55px;
+    width: 650px;
+    max-height: 500px;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 50px;
+    right: -220px;
+    z-index: 9;
+    padding: 40px 35px;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: flex;
+        margin: 0 0 40px 0;
+        .bell-bg {
+          width: 100px;
+          height: 100px;
+          background: #F2F0F0;
+          border-radius: 50%;
+          margin-right: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .bell-txt {
+          width: calc(100% - 120px);
+          h4 {
+            font-family: Neue Haas Grotesk Display Pro;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            letter-spacing: -0.0018em;
+            color: #000000;
+            margin: 0 0 10px 0;
+            padding: 0 0 0 20px;
+            position: relative;
+            &::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 8px;
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              background: #1DBF73;
+            }
+          }
+          p {
+            font-family: Neue Haas Grotesk Display Pro;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 20px;
+            letter-spacing: 0.28px;
+            color: #2F2F2F;
+            margin: 0;
+            a {
+              color: $primary-color;
+              text-decoration: underline;
+              font-weight: 500;
+            }
+          }
+          h6 {
+            font-family: Neue Haas Grotesk Display Pro;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 16px;
+            letter-spacing: -0.0018em;
+            color: #C4C4C4;
+            margin: 15px 0 0 0;
+          }
+        }
+      }
+    }
+    .btn-primary {
+      align-items: center;
+      min-height: 60px;
+      width: 260px;
+      margin: 0 auto;
+      float: none;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      border-radius: 50px;
+    }
+  }
+}

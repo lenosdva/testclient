@@ -1,15 +1,16 @@
 import Image from "next/image";
 import PaymentCard from "../PaymentCard/PaymentCard";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function ProfileManagement() {
+function HandymanRegistrationPayment({t}) {
   return (
     <div className="profile-management">
       <div className="row">
         <div className="col-md-12">
           <div className="profile-manager m-3">
-            <h1 className="mb-3">Become A Handyman</h1>
+            <h1 className="mb-3">{t("handyRegis.title")}</h1>
             <p className="mb-5">
-              Please fill out the details in this form and submit your profile. Once your profile is reviewed and approved you will be notified.
+            {t("handyRegis.text")}
             </p>
             </div>
         </div>
@@ -30,10 +31,10 @@ export default function ProfileManagement() {
           </div>
         </div>
         <div className="col-lg-9 col-md-12 profile-manager">
-          <h5 className="head-regis">PERSONAL DETAILS</h5>
+          <h5 className="head-regis">{t("handyRegis.formTitle")}</h5>
             <div className="d-flex flexwrap">
               <div className="small d-flex flex-column">
-                <h3 className="label">Full Name</h3>
+                <h3 className="label">{t("handyRegis.fName")}</h3>
                 <input
                   type="text"
                   className="input mr-3"
@@ -41,7 +42,7 @@ export default function ProfileManagement() {
                 />
               </div>
               <div className="small d-flex flex-column">
-                <h3 className="label">Company Name (optional)</h3>
+                <h3 className="label">{t("handyRegis.cName")}</h3>
                 <input
                   type="text"
                   className="input"
@@ -52,7 +53,7 @@ export default function ProfileManagement() {
 
             <div className="d-flex flexwrap">
               <div className="small d-flex flex-column">
-                <h3 className="label">Location</h3>
+                <h3 className="label">{t("handyRegis.location")}</h3>
                 <input
                   type="text"
                   className="input mr-3"
@@ -61,13 +62,13 @@ export default function ProfileManagement() {
               </div>
             </div>
 
-            <h3 className="label">About You/Company</h3>
+            <h3 className="label">{t("handyRegis.about")}</h3>
             <textarea type="text" className="textarea large" placeholder="" />
 
-            <h5 className="head-regis mt-5">CONTACT DETAILS</h5>
+            <h5 className="head-regis mt-5">{t("handyRegis.cDetails")}</h5>
             <div className="d-flex flexwrap">
               <div className="small d-flex flex-column">
-              <h3 className="label">Phone Number</h3>
+              <h3 className="label">{t("handyRegis.phone")}</h3>
                 <input
                   type="text"
                   className="input mr-3"
@@ -75,7 +76,7 @@ export default function ProfileManagement() {
                 />
               </div>
               <div className="small d-flex flex-column">
-                <h3 className="label">E-Mail Address</h3>
+                <h3 className="label">{t("handyRegis.email")}</h3>
                 <input
                   type="text"
                   className="input"
@@ -85,7 +86,7 @@ export default function ProfileManagement() {
             </div>
 
 
-            <h5 className="head-regis mt-5">UPLOAD DOCUMENTS</h5>
+            <h5 className="head-regis mt-5">{t("handyRegis.dDetails")}</h5>
               <ul className="upload-list">
                 <li>
                   <div className="form-group checkbox-wrapper">
@@ -120,10 +121,11 @@ export default function ProfileManagement() {
 
               
             <PaymentCard />
-          <button className="btn primarybtn-fill mt-5">Save Changes</button>
+          <button className="btn primarybtn-fill mt-5">{t("handyRegis.SaveBtn")}</button>
           </div>
         </div>
       </div>
 
   );
 }
+export default withTranslation('common')(HandymanRegistrationPayment)

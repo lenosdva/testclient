@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-const Inbox = () => {
+const Inbox = ({t}) => {
   return (
     <div className="inbox">
-      <h4 className="text-center mt-4 mb-4">Your Inbox</h4>
+      <h4 className="text-center mt-4 mb-4">{t("inbox.title")}</h4>
       <div className="inbox-item">
         <div className="inbox-photo">
           <Image
@@ -18,10 +19,10 @@ const Inbox = () => {
           <div className="inbox-info-top">
             <p className="inbox-title text-truncate mb-0">Bathroom Repair</p>
             <p className="project-status orange-label">
-              <span>Awaiting Quote</span>
+              <span>{t("inbox.awaitingQuote")}</span>
             </p>
           </div>
-          <p className="project-id mb-0 mt-0">Project ID: N/A</p>
+          <p className="project-id mb-0 mt-0">{t("inbox.projectID")}: N/A</p>
           <p className="inbox-name">Heffen Geller</p>
         </div>
       </div>
@@ -39,10 +40,10 @@ const Inbox = () => {
           <div className="inbox-info-top">
             <p className="inbox-title text-truncate mb-0">Solar Panel Installation</p>
             <p className="project-status green-label">
-              <span>Completed</span>
+              <span>{t("inbox.compelete")}</span>
             </p>
           </div>
-          <p className="project-id mb-0 mt-0">Project ID: 123456789</p>
+          <p className="project-id mb-0 mt-0">{t("inbox.projectID")}: 123456789</p>
           <p className="inbox-name">Monica Gaztambide</p>
         </div>
       </div>
@@ -58,12 +59,12 @@ const Inbox = () => {
         </div>
         <div className="inbox-info">
           <div className="inbox-info-top">
-            <p className="inbox-title text-truncate mb-0">Moving Out Serller</p>
+            <p className="inbox-title text-truncate mb-0">{t("inbox.movingSerller")}</p>
             <p className="project-status red-label">
               <span>Cancelled</span>
             </p>
           </div>
-          <p className="project-id mb-0 mt-0">Project ID: 123456789</p>
+          <p className="project-id mb-0 mt-0">{t("inbox.projectID")}: 123456789</p>
           <p className="inbox-name">Erika Hans</p>
         </div>
       </div>
@@ -71,4 +72,4 @@ const Inbox = () => {
   );
 };
 
-export default Inbox;
+export default withTranslation('common')(Inbox)

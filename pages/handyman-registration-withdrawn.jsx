@@ -1,4 +1,4 @@
-import { Layout, Footer, ClientDashboard } from "../component";
+import { Layout, Footer } from "../component";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Image from "next/image";
 // import 'react-tabs/style/react-tabs.css';

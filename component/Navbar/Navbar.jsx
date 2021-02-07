@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 
@@ -203,6 +203,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
             }
           </div>
           <p className="last-para">Don't Have An Account? <span onClick={openSignup}>Sign Up</span></p>
+
         </div>
       </Modal>
     </div>
@@ -284,6 +285,83 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
   }
 
   return (
+
+    // Open Finish Signing Up
+    // <div className="modal-wrapper">
+    //   <Modal
+    //     isOpen={signUpModel}
+    //     onRequestClose={close}
+    //     ariaHideApp={false}
+    //     // style={customStyles}
+    //     contentLabel="Example Modal"
+    //     className="modal-wrapper-sm"
+    //   >
+    //     <header>
+    //       <button onClick={close} className="close-btn">
+    //         <Image
+    //           src="/assets/svg/close-modal.svg"
+    //           alt=""
+    //           width={24}
+    //           height={24}
+    //         />
+    //       </button>
+    //       <h4>Finish Signing Up</h4>
+    //     </header>
+    //     <div className="modalbody">
+    //         <form>
+    //           <div className="box">
+    //             <div className="form-group">
+    //               <div className="p-lr">
+    //               <input type="text" className="field-input" placeholder="First name" />
+    //               </div>
+    //             </div>
+    //             <div className="form-divider"></div>
+    //             <div className="form-group">
+    //               <div className="p-lr">
+    //               <input type="text" className="field-input" placeholder="Last name" />
+    //               </div>
+    //             </div>
+    //           </div>
+    //           <p className="text-left mt5">Make sure it matches the name on your government ID.</p>
+
+    //         <div className="fullwidth-inputs-wrapper">
+    //           <div className="form-group">
+    //             <input type="text" className="field-input" placeholder="Date of birth" />
+    //             <p className="text-left mt5">To sign up, you need to at least 18. Your birthday won't be shared with other people who use Dein Hausman.</p>
+    //           </div>
+              
+    //           <div className="form-group">
+    //             <input type="text" className="field-input" placeholder="Email" />
+    //             <p className="text-left mt5">We'll email you trip confirmations and receipts.</p>
+    //           </div>
+
+    //           <div className="form-group">
+    //             <input type="password" className="field-input" placeholder="Password" />
+    //             <p className="text-left mt5">By selecting Agree and continue below, I agree to Dein Hausman's <Link href={'/'}>Terms of Services</Link>,  
+    //             <Link href={'/'}>Payment Terms of Services</Link>,  
+    //             <Link href={'/'}>Privacy Policy</Link> and <Link href={'/'}>Nondiscrimination Policy</Link>.</p>
+    //           </div>
+    //         </div>
+
+    //           <button className="btn btn-continue">Agree and continue</button>
+    //         <div className="border-divider"></div>
+    //         <p className="text-left mt5">
+    //           Dein Hausman's will send members-only deals, inspiration, marketing emails, and push notifications. You
+    //           can opt out of receiving these at any time in your accout settings or directly from the marketing notification.
+    //         </p>
+
+    //         <div className="form-group mt-2 mb-2 checkbox-wrapper">
+    //           <input type="checkbox" id="html" />
+    //           <label for="html">I don't want to reveive marketing messages from Dein Hausman.</label>
+    //         </div>
+    //         </form>
+    //     </div>
+    //   </Modal>
+    // </div>
+    // Close Finish Signing Up
+
+
+
     <div className="modal-wrapper">
       <Modal
         isOpen={signUpModel}
@@ -501,7 +579,7 @@ export default function Navbar() {
     mobileLoginData: state.user.mobileLoginData,
     emailLoginData: state.user.emailLoginData,
   }));
-  const [userLogged, setLoggedStatus] = useState(false);
+  const [userLogged, setLoggedStatus] = useState(true);
   const [loginModel, setLoginModel] = useState(false);
   const [signUpModel, setSignUpModel] = useState(false);
   const [otpModel, setOtpModel] = useState(false);
@@ -597,19 +675,70 @@ export default function Navbar() {
           {userLogged ? (
             <React.Fragment>
               <li className="align-self-center">
-                <Link href="/">
+                <Link href="/client-dashboard">
                   My Bookings
                 </Link>
               </li>
               <li className="align-self-center">
-                <Link href="/support">
+                <Link href="/about">
                   Support
                 </Link>
               </li>
               <li className="align-self-center">
-                <Link href="/">
-                  Messages
-                </Link>
+                <span className="posi-rel">
+                  Messages 
+                  <span className="message-list message-list-hide">
+                    <ul>
+                      <li>
+                        <div className="bell-bg">
+                          <Image
+                            src="/assets/svg/ic-bell.svg"
+                            alt=""
+                            height={40}
+                            width={46}
+                          />
+                        </div>
+                        <div className="bell-txt">
+                          <h4>Moving Out Services</h4>
+                          <p>Your request for a quotation for <a href="">Moving Out Services</a> has been sent to u<a href="">ser1234</a>...</p>
+                          <h6>12:58pm 29-09-2020</h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="bell-bg">
+                          <Image
+                            src="/assets/svg/ic-bell.svg"
+                            alt=""
+                            height={40}
+                            width={46}
+                          />
+                        </div>
+                        <div className="bell-txt">
+                          <h4>user123456</h4>
+                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
+                          <h6>12:58pm 29-09-2020</h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="bell-bg">
+                          <Image
+                            src="/assets/svg/ic-bell.svg"
+                            alt=""
+                            height={40}
+                            width={46}
+                          />
+                        </div>
+                        <div className="bell-txt">
+                          <h4>user123456</h4>
+                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
+                          <h6>12:58pm 29-09-2020</h6>
+                        </div>
+                      </li>
+                    </ul>
+                    <button className="btn btn-primary">View My Inbox</button>
+                  </span> 
+                </span>
+                
               </li>
             </React.Fragment>
           ) : (
