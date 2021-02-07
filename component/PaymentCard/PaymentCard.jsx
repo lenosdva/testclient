@@ -1,4 +1,6 @@
-export default function PaymentCard() {
+import { withTranslation } from "../../constent/i18n/i18n"
+
+function PaymentCard({t}) {
   return (
     <div className="payment-card p-5 mt-4">
       <div className="d-flex flex-column paymentimg">
@@ -9,7 +11,7 @@ export default function PaymentCard() {
             name="payment"
             value="Debit/Credit/ATM"
           />
-          <h3 className="label">Add Debit/Credit/ATM Card</h3>
+          <h3 className="label">{t("payment.card")}</h3>
         </div>
         <img
           src="https://www.diversifiedpondsupplies.com/images/2020/03/31/payment-methods__1003x131.png"
@@ -27,11 +29,11 @@ export default function PaymentCard() {
             name="payment"
             value="Net Banking"
           />
-          <h3 className="label">Net Banking</h3>
+          <h3 className="label">{t("payment.netBanking")}</h3>
         </div>
         <select name="bank" className="bank ml-4">
           <option value="" selected disabled hidden>
-            Choose your Bank
+          {t("payment.chooseBank")}
           </option>
           <option value="swiss">Swiss Bank</option>
           <option value="Bank2">Bank2</option>
@@ -47,7 +49,7 @@ export default function PaymentCard() {
             name="payment"
             value="UPI"
           />
-          <h3 className="label">UPI</h3>
+          <h3 className="label">{t("payment.upi")}</h3>
         </div>
         <input
           type="text"
@@ -64,11 +66,11 @@ export default function PaymentCard() {
             name="payment"
             value="Net Banking"
           />
-          <h3 className="label">Net Banking</h3>
+          <h3 className="label">{t("payment.netBanking")}</h3>
         </div>
         <select name="bank" className="bank ml-4">
           <option value="" selected disabled hidden>
-            Select Your Card
+          {t("payment.selectCard")}
           </option>
           <option value="swiss">Swiss Bank</option>
           <option value="Bank2">Bank2</option>
@@ -78,3 +80,4 @@ export default function PaymentCard() {
     </div>
   );
 }
+export default withTranslation('common')(PaymentCard)

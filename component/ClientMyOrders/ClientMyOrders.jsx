@@ -1,6 +1,8 @@
 import React from 'react';
 import Slider from "react-slick";
+import Link from "next/link";
 import Image from 'next/image';
+import { withTranslation } from "../../constent/i18n/i18n"
 
 const settings = {
   dots: false,
@@ -36,8 +38,7 @@ const settings = {
   ]
 };
 
-
-export default function ClientMyOrders() {
+function ClientMyOrders({t}) {
   return (
 
     <div className="client-dashboard-orders">
@@ -45,10 +46,10 @@ export default function ClientMyOrders() {
         <div className="row">
           <div className="col-md-10 col-sm-12 d-flex justify-content-between">
             <div>
-              <h4>My Orders</h4>
+              <h4>{t("clienttOrder.title")}</h4>
             </div>
             <div>
-              <h4>Sort By:</h4>
+              <h4>{t("clienttOrder.sort")}:</h4>
               <select className="select-global">
                 <option>Most Recent</option>
                 <option>Most Recent</option>
@@ -65,11 +66,11 @@ export default function ClientMyOrders() {
             <div>
               <div className="myorder-slide">
                 <div className="labels-wrapper">
-                  <span className="labels completed-label">Completed</span>
+                  <span className="labels completed-label">{t("clienttOrder.compelete")}</span>
                 </div>
                 <h4>Solar Panel Installation</h4>
-                <p>Order ID: 12345678</p>
-                <p>Assigned Handyman: Annaliese Kempf</p>
+                <p>{t("clienttOrder.orderId")}: 12345678</p>
+                <p>{t("clienttOrder.assigned")}: Annaliese Kempf</p>
                 <div className="timers">
                   <Image
                     src="/assets/svg/ic-clock.svg"
@@ -77,18 +78,18 @@ export default function ClientMyOrders() {
                     width={11}
                     height={11}
                   />
-                Order Placed: Sep 29, 04:10 PM</div>
-                <button className="btn btnprimary-fill">View Project</button>
+                {t("clienttOrder.orderPlaced")}: Sep 29, 04:10 PM</div>
+                <Link href="/inbox-redesign-awaiting"><button className="btn btnprimary-fill">{t("clienttOrder.viewProject")}</button></Link>
               </div>
               </div>
               <div>
               <div className="myorder-slide">
                 <div className="labels-wrapper">
-                  <span className="labels cancelled-label">Cancelled</span>
+                  <span className="labels cancelled-label">{t("clienttOrder.cancelled")}</span>
                 </div>
                 <h4>Moving Out Service</h4>
-                <p>Order ID: 12345678</p>
-                <p>Assigned Handyman: Annaliese Kempf</p>
+                <p>{t("clienttOrder.orderId")}: 12345678</p>
+                <p>{t("clienttOrder.assigned")}: Annaliese Kempf</p>
                 <div className="timers">
                   <Image
                     src="/assets/svg/ic-clock.svg"
@@ -96,18 +97,18 @@ export default function ClientMyOrders() {
                     width={11}
                     height={11}
                   />
-                Order Placed: Sep 29, 04:10 PM</div>
-                <button className="btn btnprimary-fill">View Project</button>
+                {t("clienttOrder.orderPlaced")}: Sep 29, 04:10 PM</div>
+                  <Link href="/inbox-redesign-awaiting"><button className="btn btnprimary-fill">{t("clienttOrder.viewProject")}</button></Link>
               </div>
               </div>
               <div>
               <div className="myorder-slide">
                 <div className="labels-wrapper">
-                  <span className="labels progress-label">In Progress</span>
+                  <span className="labels progress-label">{t("clienttOrder.inProgress")}</span>
                 </div>
                 <h4>Computer Installation</h4>
-                <p>Order ID: 12345678</p>
-                <p>Assigned Handyman: Annaliese Kempf</p>
+                <p>{t("clienttOrder.orderId")}: 12345678</p>
+                <p>{t("clienttOrder.assigned")}: Annaliese Kempf</p>
                 <div className="timers">
                   <Image
                     src="/assets/svg/ic-clock.svg"
@@ -115,8 +116,8 @@ export default function ClientMyOrders() {
                     width={11}
                     height={11}
                   />
-                Order Placed: Sep 29, 04:10 PM</div>
-                <button className="btn btnprimary-fill">View Project</button>
+                {t("clienttOrder.orderPlaced")}: Sep 29, 04:10 PM</div>
+                  <Link href="/inbox-redesign-awaiting"><button className="btn btnprimary-fill">{t("clienttOrder.viewProject")}</button></Link>
               </div>
               </div>
             </Slider>
@@ -128,3 +129,5 @@ export default function ClientMyOrders() {
 
   );
 }
+
+export default withTranslation('common')(ClientMyOrders)

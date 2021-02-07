@@ -1,7 +1,8 @@
 import Image from "next/image";
 import PaymentCard from "../PaymentCard/PaymentCard";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function ProfileManagement() {
+function ProfileManagement({t}) {
   return (
     <div className="profile-management">
       <div className="row">
@@ -16,7 +17,7 @@ export default function ProfileManagement() {
                 height={500}
               />
             </div>
-            <h3 className="thin mb-3">Linked Accounts</h3>
+            <h3 className="thin mb-3">{t("ProfileManagement.linkedAccounts")}</h3>
 
             <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">&nbsp;&nbsp;&nbsp;&nbsp;</h5>
@@ -38,17 +39,16 @@ export default function ProfileManagement() {
         </div>
         <div className="col-md-9">
           <div className="profile-manager m-3">
-            <h3 className="mb-3">YOUR PROFILE</h3>
+            <h3 className="mb-3">{t("ProfileManagement.yourProfile")}</h3>
             <p>
-              Some of this information may be visible to other people using our
-              services.{" "}
+            {t("ProfileManagement.info")}.{" "}
               <a href="#" className="find-more">
-                Find out more.
+              {t("ProfileManagement.findOutMore")}
               </a>
             </p>
             <div className="d-flex flexwrap">
               <div className="small d-flex flex-column">
-                <h3 className="label">Full Name</h3>
+                <h3 className="label">{t("ProfileManagement.fullName")}</h3>
                 <input
                   type="text"
                   className="input mr-3"
@@ -56,7 +56,7 @@ export default function ProfileManagement() {
                 />
               </div>
               <div className="small d-flex flex-column">
-                <h3 className="label">Phone Number</h3>
+                <h3 className="label">{t("ProfileManagement.phoneNumber")}</h3>
                 <input
                   type="text"
                   className="input "
@@ -64,31 +64,30 @@ export default function ProfileManagement() {
                 />
               </div>
             </div>
-            <h3 className="label">About Me</h3>
+            <h3 className="label">{t("ProfileManagement.aboutMe")}</h3>
             <textarea type="text" className="input large mr-2" placeholder="" />
             <div className="horizontal-line"></div>
-            <h3 className="label">Email Address</h3>
+            <h3 className="label">{t("ProfileManagement.emailAddress")}</h3>
             <p className="email mb-3">erikahans99@gmail.com</p>
             <div className="horizontal-line"></div>
-            <h3 className="label">Current Password</h3>
+            <h3 className="label">{t("ProfileManagement.currentPassword")}</h3>
             <div className="d-flex">
               <p className="mr-3">***********</p>
               <p>(last changed 27 Feb 2020)</p>
             </div>
 
-            <h3 className="mt-5">NOTIFICATIONS</h3>
+            <h3 className="mt-5">{t("ProfileManagement.notification")}</h3>
             <p className="mb-4">
-              Control what you get notifications via your registered email for
+            {t("ProfileManagement.notiText")}
             </p>
             <div className="notifications d-flex">
               <h6 className="icon mr-3">
                 <i className="fa fa-check-square" aria-hidden="true"></i>
               </h6>
               <div>
-                <h6>Activity Updates</h6>
+                <h6>{t("ProfileManagement.activityUpdates")}</h6>
                 <p>
-                  New tasks assigned by you, delivery updates, and completion
-                  notifications for tasks you're assigned on
+                {t("ProfileManagement.activityText")}
                 </p>
               </div>
             </div>
@@ -97,10 +96,9 @@ export default function ProfileManagement() {
                 <i className="fa fa-check-square" aria-hidden="true"></i>
               </h6>
               <div>
-                <h6>Daily Summaries</h6>
+                <h6>{t("ProfileManagement.dailySummaries")}</h6>
                 <p>
-                  Task updates, approval requests for tasks assigned by you and
-                  their upcoming due dates
+                {t("ProfileManagement.dailyText")}
                 </p>
               </div>
             </div>
@@ -109,27 +107,25 @@ export default function ProfileManagement() {
                 <i className="fa fa-check-square" aria-hidden="true"></i>
               </h6>
               <div>
-                <h6>Promotional Emails</h6>
+                <h6>{t("ProfileManagement.promotionalEmails")}</h6>
                 <p>
-                  Discounts, Promotional offers, community updates with love
-                  from us for you.
+                {t("ProfileManagement.promotionalText")}
                 </p>
               </div>
             </div>
-            <h3 className="mt-5">PAYMENT SETTINGS</h3>
+            <h3 className="mt-5">{t("ProfileManagement.paymentSetting")}</h3>
             <p className="mb-4">
-              An overview of your current default payment methods and settings
-              with Dein Hausman
+            {t("ProfileManagement.paymentText")}
             </p>
             <div className="payment-details d-flex flexwrap">
               <div className="location mr-5">
-                <h3 className="label">Your Location</h3>
+                <h3 className="label">{t("ProfileManagement.yourLocation")}</h3>
                 <div className="d-flex">
                   <a href="#" className="link mr-3">
-                    Change
+                  {t("ProfileManagement.change")}
                   </a>
                   <a href="#" className="link ml-3">
-                    Add Service Instructions
+                  {t("ProfileManagement.addServiceInstructions")}
                   </a>
                 </div>
 
@@ -137,7 +133,7 @@ export default function ProfileManagement() {
                   Erika Hans
                   <br /> Fugger Strasse 63
                   <br /> Rheinland, Germany <br /> <br />
-                  Phone: +49 0261 59 65
+                  {t("ProfileManagement.phone")}: +49 0261 59 65
                 </p>
               </div>
               <div className="payment-method">
@@ -165,3 +161,4 @@ export default function ProfileManagement() {
     </div>
   );
 }
+export default withTranslation('common')(ProfileManagement)

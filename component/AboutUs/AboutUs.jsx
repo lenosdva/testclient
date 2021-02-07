@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { withTranslation } from "../../constent/i18n/i18n"
 
 function AboutUs({t}) {
@@ -38,7 +39,7 @@ function AboutUs({t}) {
             {t('about.text1')}
             {t('about.text2')}
           </p>
-          <button className="get-in-touch">{t("about.button")}</button>
+          <Link href="/about"><button className="get-in-touch">{t("about.button")}</button></Link>
         </div>
       </div>
     </div>

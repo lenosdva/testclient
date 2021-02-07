@@ -1,28 +1,32 @@
 import Image from "next/image";
+import Link from "next/link";
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function ClientDashboard() {
+function ClientDashboard({t}) {
   return (
     <div className="client-dashboard-wrapper">
       <div className="client-dashboard-top">
         <div className="container">
           <div className="row">
             <div className="col-md-8">
-              <h1 className="heading">Hello <span>%clientname%</span></h1>
-              <p className="sub-heading">Great to have you back. Let’s get you started for the day!</p>
+              <h1 className="heading">{t("clientDash.hello")} <span>%clientname%</span></h1>
+              <p className="sub-heading">{t("clientDash.text")}</p>
             </div>
             <div className="col-md-4">
               <div className="d-flex align-items-center flex-end">
                 <div>
+                  <Link href="/category-services">
                   <Image
                     src="/assets/svg/ic-add.svg"
                     alt="add"
                     width={72}
                     height={72}
                   />
+                  </Link>
                 </div>
                 <div>
-                  <h4>Place A New Order</h4>
-                  <h6>Choose from 1000+ handymen in and around your locality!</h6>
+                  <h4>{t("clientDash.oTitle")}</h4>
+                  <h6>{t("clientDash.oText")}</h6>
                 </div>
               </div>
             </div>
@@ -32,3 +36,5 @@ export default function ClientDashboard() {
     </div>
   );
 }
+
+export default withTranslation('common')(ClientDashboard)

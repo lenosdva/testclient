@@ -1,15 +1,18 @@
 import Image from "next/image";
+import Link from "next/link"
+import { withTranslation } from "../../constent/i18n/i18n"
 
-export default function ProfileManagement() {
+function HandymanRegistrationComplete({t}) {
   return (
       <div className="waiting-handyman">
         <div className="waiting-wrapper">
           <div className="waiting-text">
-            <h4>Your profile is under review.</h4>
-            <p>We will email you within 24 hours to let you know if your profile was approved.</p>
-            <button className="btn primarybtn-fill mt-5">Return to Homepage</button>
+            <h4>{t("registrationComplete.title")}</h4>
+            <p>{t("registrationComplete.text")}</p>
+          <Link href="/"><button className="btn primarybtn-fill mt-5">{t("registrationComplete.btn")}</button></Link>
           </div>
         </div>
       </div>
   );
 }
+export default withTranslation('common')(HandymanRegistrationComplete)
