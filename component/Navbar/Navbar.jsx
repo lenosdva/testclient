@@ -585,6 +585,7 @@ export default function Navbar() {
   const [otpModel, setOtpModel] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [showMessage, setMessage] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
@@ -685,9 +686,9 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="align-self-center">
-                <span className="posi-rel">
+                <span onClick={()=> setMessage(!showMessage)} className="posi-rel">
                   Messages 
-                  <span className="message-list message-list-hide">
+                  <span className={showMessage ? "message-list" : "message-list message-list-hide"}>
                     <ul>
                       <li>
                         <div className="bell-bg">
