@@ -632,6 +632,15 @@ export default function Navbar() {
       NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
     }
 
+    if (get(mobileLoginData, 'success', false)) {
+      dispatch({ type: 'RESET' })
+      setLoginModel(false)
+      if (get(mobileLoginData, 'mobile', false)) {
+        setMobile(mobileLoginData.mobile)
+        setOtpModel(true)
+      }
+    }
+
     if (get(emailLoginData, 'error', false)) {
       dispatch({ type: 'RESET' })
       NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
