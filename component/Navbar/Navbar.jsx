@@ -808,8 +808,8 @@ export default function Navbar() {
                       <Image
                         src="/assets/images/profile-pic.png"
                         alt=""
-                        width={134}
-                        height={134}
+                        width={80}
+                        height={80}
                       />
                     </div>
                     <h4>Marie Antoinette</h4>

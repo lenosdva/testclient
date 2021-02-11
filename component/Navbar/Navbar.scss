@@ -352,16 +352,16 @@
     width: 660px;
     max-width: 90%;
     background: #fff;
-    border-radius: 50px;
-    padding: 30px 45px;
+    border-radius: 12px;
+    padding: 20px 45px;
     @media (max-width:767px) {
-      padding: 30px 25px;
+      padding: 20px 25px;
     }
     header {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 0px;
       position: relative;
       .close-btn {
         position: absolute;
@@ -393,19 +393,19 @@
       }
     }
     .modalbody-otp {
-      height: calc(350px - 80px) !important;
+      height: calc(350px - 10px) !important;
     }
     .modalbody {
-      height: calc(560px - 80px);
+      height: calc(560px - 10px);
       overflow-y: auto;
       @media (max-width:1366px) {
-        height: calc(450px - 80px);
+        height: calc(450px - 10px);
       }
       @media (max-width:1280px) {
-        height: calc(350px - 80px);
+        height: calc(350px - 10px);
       }
       @media (max-width:767px) {
-        height: calc(75vh - 80px);
+        height: calc(75vh - 10px);
       }
       .otp-wrapper {
         display: flex;
@@ -444,7 +444,7 @@
         line-height: 26px;
         letter-spacing: -0.0018em;
         color: #000000;
-        margin: 18px 0;
+        margin: 10px 0;
       }
       .btn-continue {
           min-height: 50px;
@@ -507,7 +507,7 @@
 .or {
   width: 80px;
   position: relative;
-  margin: 25px auto;
+  margin: 5px auto;
   background: #ffffff;
   text-align: center;
   font-family: $font-family-base;
@@ -530,7 +530,7 @@
   }
 }
 .social-btns {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   button {
     display: flex;
     align-items: center;
@@ -546,7 +546,7 @@
     box-sizing: border-box;
     border-radius: 10px;
     padding: 6px 15px;
-    margin: 0 0 30px 0;
+    margin: 0 0 10px 0;
     span {
       text-align: center;
       width: calc(100% - 30px);
@@ -626,7 +626,7 @@
   color: #000;
 }
 .field-input {
-  min-height: 56px;
+  min-height: 38px;
   border: 0 solid #888;
   width: 100%;
   border-radius: 0;
@@ -662,7 +662,7 @@
 
 .custom-select {
   cursor: pointer;
-  padding: 15px 15px 0 0;
+  padding: 0px 15px 0 0;
   font-family: $font-family-base;
   font-weight: 500;
   font-size: 18px;
@@ -670,7 +670,7 @@
   letter-spacing: -0.0018em;
   color: #848484;
   border: 0;
-  margin: 0 0 15px 0;
+  margin: 0 0 5px 0;
   // background: #fff url(../images/caret.svg) no-repeat right 20px center/12px 12px;
 }
 
@@ -776,15 +776,15 @@
 .dd-menu1 {
   position: absolute;
   top: 60px;
-  left: -115px;
+  left: -225px;
   border: 1px solid #f1f1f1;
-  border-radius: 50px;
+  border-radius: 12px;
   padding: 0;
   margin: 2px 0 0 0;
   background-color: #ffffff;
   list-style-type: none;
   width: 270px;
-  height: 400px;
+  // height: 400px;
   z-index: 9;
 }
 .dd-input1 + .dd-menu1 {
@@ -794,7 +794,7 @@
   display: block;
 } 
 .dd-menu1 li {
-  padding: 20px 20px;
+  padding: 20px 0px;
   cursor: pointer;
   white-space: nowrap;
   border-bottom: 1px solid #B0B0B0;
