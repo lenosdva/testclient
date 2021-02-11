@@ -3,7 +3,7 @@ const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
 
 export function* search({payload}) {
-  const data = yield fetch(`${HOST}/search-services?q=${payload}`, {
+  const data = yield fetch(`${HOST}/v1/services/search?query=${payload}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
