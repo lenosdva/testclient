@@ -19,7 +19,19 @@ export default function userReducer(state = initialState, action) {
         searchData: action.data
       };
     }
-    
+    case 'SEARCH_BY_ID': {
+      return {
+        ...state,
+        searchByIdLoading: true,
+      };
+    }
+    case 'GOT_SERVICE': {
+      return {
+        ...state,
+        searchByIdLoading: false,
+        searchByIdData: action.data
+      };
+    }
     case 'RESET': {
       return {
         ...state,
