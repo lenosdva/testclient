@@ -13,6 +13,7 @@ function* userActionWatcher() {
 
  function* servicesActionWatcher() {
   yield takeLatest('SEARCH_REQUEST', Services.search);
+  yield takeLatest('SEARCH_BY_ID', Services.getServiceById);
   
  }
 
