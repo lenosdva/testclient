@@ -1,17 +1,34 @@
 import Link from "next/link"
 import Image from "next/image"
 import { withTranslation } from "../../constent/i18n/i18n"
+import { get } from "lodash"
+const renderServices= (services)=> (
+  services.map((data, key)=>(
+    <Link key={key} href={`/category?id=${get(data, '_id', '')}&name=${get(data, 'name', '')}`}>
+    <li>
+    <Image
+      src="/assets/svg/ic-clean-service.svg"
+      alt="clean-service"
+      width={80}
+      height={80}
+    />
+    <h4>{get(data, 'name', '')}</h4>
+  </li>
+  </Link>
+  ))
+)
 
-
-function OurServices({t}) {
+function OurServices(props, {t}) {
+  console.log("props====>", props)
   return (
     <div className="our-services">
       <h1>Our Services</h1>
       <div className="row">
         <div className="col-lg-12">
-          <Link href="/category">
+          
           <ul className="service-list">
-            <li>
+            {renderServices(get(props, 'data', []))}
+            {/* <li>
               <Image
                 src="/assets/svg/ic-clean-service.svg"
                 alt="clean-service"
@@ -172,9 +189,9 @@ function OurServices({t}) {
                 height={80}
               />
               <h4>Electronic Installation & Repair</h4>
-            </li>
+            </li> */}
           </ul>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
     </div>

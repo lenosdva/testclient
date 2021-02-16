@@ -13,8 +13,9 @@ function* userActionWatcher() {
 
  function* servicesActionWatcher() {
   yield takeLatest('SEARCH_REQUEST', Services.search);
-  yield takeLatest('SEARCH_BY_ID', Services.getServiceById);
-  
+  yield takeLatest('SEARCH_BY_ID', Services.getAllService);
+  yield takeLatest('SEARCH_BY_ID', Services.MovingOutServices);
+  yield takeLatest('SERVICE_DETAILS', Services.getServiceDetails);
  }
 
 export default function* rootSaga() {

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link"
-
-export default function ServiceCard() {
+import { get } from "lodash";
+export default function ServiceCard(props) {
   return (
-    <Link href='/products'>
+    <Link href={`/products?id=${get(props, 'data._id', '')}`}>
     <div className="service-card">
       <div className="image-area">
         <Image
@@ -16,13 +16,13 @@ export default function ServiceCard() {
       </div>
       <div className="details">
         <h5>
-          Service Title goes here | 4.6 <span>(110 Reviews)</span>
+          {get(props, 'data.title', '')} | {get(props, 'data.rating', '5')} <span>(110 Reviews)</span>
         </h5>
         <h5 className="name">
           <span>Handyman: </span>Erika Hans
         </h5>
         <h5>
-          <span>Price Range: </span> $250 - $450
+          <span>Price Range: </span> {get(props, 'data.priceRange', '$250 - $450')}
         </h5>
       </div>
       <div className="booking-section">

@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Image from "next/image";
 import _, { get } from "lodash"
 import PostalCode from "../../constent/postal"
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { useRouter } from 'next/router'
 
-
-export default function SearchBar() {
+export default function SearchBar(props) {
+  const router = useRouter()
   const [keyword, setKeyword] = useState('')
   const [filterCode, setFilterCode] = useState([])
   const [code, setCode] = useState('')
@@ -18,8 +19,12 @@ export default function SearchBar() {
     searchData: state.services.searchData,
     searchByIdLoading: state.services.searchByIdLoading,
     searchByIdData: state.services.searchByIdData,
-
   }));
+
+  useEffect(() => {
+    const category = get(props, 'category', '')
+    setKeyword(category)
+  }, [props.category])
 
   useEffect(() => {
     if (get(searchData, 'error', false)) {
@@ -39,7 +44,7 @@ export default function SearchBar() {
     console.log("searchByIdData", searchByIdData)
   }, [searchByIdData])
 
-  
+
 
   function onSearch(e) {
     setId('')
@@ -49,18 +54,20 @@ export default function SearchBar() {
 
   function onBlurInput() {
     setKeyword('')
-    dispatch({ type: 'SEARCH_REQUEST', payload: '' })
+    // dispatch({ type: 'SEARCH_REQUEST', payload: '' })
   }
 
   function onSearchService() {
-    if(id === ''){
-      NotificationManager.error('Please Pick a Service')      
-    }else{
-      dispatch({ type: 'SEARCH_BY_ID', payload: id })
+    if (id === '') {
+      NotificationManager.error('Please Pick a Service')
+    } else {
+      // dispatch({ type: 'SEARCH_BY_ID', payload: id })
+      router.push({ pathname: '/category', query: { id, code, name: keyword } })
     }
   }
 
   function onSelectSearch(value, id) {
+    dispatch({ type: 'RESET_SERVICE'})
     setService('hide')
     setKeyword(value)
     setId(id)
@@ -94,7 +101,7 @@ export default function SearchBar() {
     }
   }
 
-  function onSelctCode(data){
+  function onSelctCode(data) {
     setCode(data.code)
     setFilterCode([])
     setAddress('hide')
@@ -102,7 +109,7 @@ export default function SearchBar() {
 
   const renderPostalCode = () => (
     filterCode.length && filterCode.map((data, key) => (
-      <li key={key} onClick={()=> onSelctCode(data)}>
+      <li key={key} onClick={() => onSelctCode(data)}>
         <div className="search-keywords-img">
           <Image
             src="/assets/images/search-img.png"

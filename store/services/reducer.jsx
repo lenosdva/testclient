@@ -1,7 +1,10 @@
 // Set initial state
 const initialState = {
   searchLoading: false,
-  searchData: []
+  searchData: [],
+  movingOutData: [],
+  detailLoading: false,
+  serviceDetails: {}
 };
 
 export default function userReducer(state = initialState, action) {
@@ -32,7 +35,27 @@ export default function userReducer(state = initialState, action) {
         searchByIdData: action.data
       };
     }
-    case 'RESET': {
+    case 'GOT_MOVING_OUT': {
+      return {
+        ...state,
+        searchByIdLoading: false,
+        movingOutData: action.data
+      };
+    }
+    case 'SERVICE_DETAILS': {
+      return {
+        ...state,
+        detailLoading: true,
+      };
+    }
+    case 'GOT_SERVICE_DETAILS': {
+      return {
+        ...state,
+        detailLoading: false,
+        serviceDetails: action.data
+      };
+    }
+    case 'RESET_SERVICE': {
       return {
         ...state,
         searchLoading: false,
