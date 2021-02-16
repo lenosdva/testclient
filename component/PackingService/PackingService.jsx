@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link"
 import Reviews from "../Reviews/Reviews";
 import ServiceCard from "../ServiceCard/ServiceCard";
-
-export default function PackingService() {
+import { get } from "lodash"
+export default function PackingService(props) {
+  console.log("props=======>", props)
   return (
     <div className="packing-service">
       <div className="heading d-flex align-items-center justify-content-start flexwrap">
@@ -17,7 +18,7 @@ export default function PackingService() {
           />
         </div>
         <div className="title-section d-flex flex-column justify-content-center flexwrap">
-          <h2 className="mb-3">Moving & Packing Service</h2>
+          <h2 className="mb-3">{get(props, 'data.title', '')}</h2>
           <div className="d-flex justify-content-between flexwrap">
             <div className="d-flex align-items-center flexwrap">
               <h4 className="secondary handyman-name"> Erika Hans</h4>{" "}
@@ -96,11 +97,11 @@ export default function PackingService() {
         <div className="col-lg-6 col-sm-12">
             <h3>About This Service</h3>
             <p>
-              Southern Cargo Packers and Movers in Berlin is one of the leading Home and Office shifting companies that offers very exceptional transport services including packing, loading,  and assembling services, car carrier services, warehousing and various in-transit and third party insurance coverages. 
+              {get(props, 'data.description', '')}
             </p>
-            <p>
+            {/* <p>
               We aim at customer satisfaction and continual quality improvement. Therefore all our services are modified to suit client’s needs and requirements. 
-            </p>
+            </p> */}
         </div>
         <div className="col-lg-6 col-sm-12">
           <h3>About The Seller</h3>
