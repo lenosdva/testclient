@@ -1,6 +1,19 @@
 import { Layout, Footer, SearchBar, PackingService } from "../component";
+import { useEffect } from "react"
+import { useDispatch, useSelector } from 'react-redux'
+import { withRouter } from 'next/router'
+import { get } from "lodash"
+export default withRouter (function Category(props) {
+  const dispatch = useDispatch()
+  const { detailLoading, serviceDetails } = useSelector(state => ({
+    detailLoading: state.services.detailLoading,
+    serviceDetails: state.services.serviceDetails,
+  }));
+  useEffect(()=>{
+    const serId = get(props, 'router.query.id', '')
+    dispatch({ type: 'SERVICE_DETAILS', payload: serId })
+  },[])
 
-export default function Category() {
   return (
     <Layout>
       <div className="products">
@@ -9,7 +22,7 @@ export default function Category() {
             <SearchBar />
           </div>
           <div className="home-section-padding">
-            <PackingService />
+            <PackingService data={serviceDetails}/>
           </div>
         </div>
         <div className="home-section-padding">
@@ -18,4 +31,4 @@ export default function Category() {
       </div>
     </Layout>
   );
-}
+})
