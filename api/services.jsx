@@ -76,3 +76,42 @@ export function* getServiceDetails({payload}) {
   yield put({type: 'GOT_SERVICE_DETAILS', data});
 }
 
+export function* getMoreService({payload}) {
+  const data = yield fetch(`${HOST}/v1/gigs/getByHandyman`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'GOT_MORE_SERVICE', data});
+}
+
+export function* postServiceForm({payload}) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/gigs/apply`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({type: 'POST_INQUERY', data});
+}

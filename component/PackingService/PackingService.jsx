@@ -3,8 +3,91 @@ import Link from "next/link"
 import Reviews from "../Reviews/Reviews";
 import ServiceCard from "../ServiceCard/ServiceCard";
 import { get } from "lodash"
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from "react";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+const questions = [{
+  type: "field",
+  accept: "text",
+  name: "What is your age?",
+  required: true
+}, {
+  type: "option",
+  options: ["India", "Germany"],
+  name: "Select Country",
+  required: true
+}]
 export default function PackingService(props) {
-  console.log("props=======>", props)
+  const dispatch = useDispatch()
+  const { inqueryForm, inqueryData  } = useSelector(state => ({
+    inqueryForm: state.services.inqueryForm,
+    inqueryData: state.services.inqueryData,
+  }));
+
+  const moreService = () => (
+    get(props, 'moreService', []).map((data, key) => (
+      <div key={key} className="col-md-4">
+        <ServiceCard data={data} />
+      </div>
+    ))
+  )
+
+  const renderInputs = () => (
+    questions.map((data, key) => (
+      data.type === "field" ?
+        <input
+          key={key}
+          type="text"
+          className="input large"
+          name={data.name}
+          placeholder={data.name}
+          required={true}
+          validationMessage={data.name + 'is required'}
+        />
+        : data.type === "option" ?
+          <select
+            key={key}
+            className="input large"
+            name={data.name}
+            placeholder={data.name}
+            required={true}
+            validationMessage={data.name + 'is required'}
+          >
+            {data.options.map((opt, key) => (
+              <option key={key} value={opt}>{opt}</option>
+            ))
+            }
+          </select>
+          : <></>
+    ))
+  )
+
+  function submitForm(e){
+    e.preventDefault()
+    const allInput = e.target.querySelectorAll('input, select, textarea')
+    console.log("allInput",Array.prototype.slice.call(allInput))
+    const input = Array.prototype.slice.call(allInput)
+    const answers = []
+    input.map((data)=>{
+      answers.push(data.value)
+    })
+    console.log("data", props)
+    dispatch({ type: 'FORM_REQUEST', payload: { gigId: get(props, 'data._id', ''), answers  } })
+  } 
+
+  useEffect(()=>{
+    if(get(inqueryData, 'error', false)){
+      dispatch({ type: 'RESET_FORM'})
+      if(get(inqueryData, 'message', 'Please try again') === "No Auth Token"){
+        NotificationManager.error('Please login')
+        dispatch({ type: 'LOGIN_REQUIRED' })
+      }else{
+        NotificationManager.error(get(inqueryData, 'message', 'Please try again'))
+      }
+    }
+  },[inqueryData])
+
   return (
     <div className="packing-service">
       <div className="heading d-flex align-items-center justify-content-start flexwrap">
@@ -61,7 +144,9 @@ export default function PackingService(props) {
             <p className="mb-3 h5 font-weight-bold">
               Fill This Form & Get A Free Price Quote
             </p>
-            <input type="text" className="input small" placeholder="Name" />
+            <form onSubmit={submitForm}>
+            {renderInputs()}
+            {/* <input type="text" className="input small" placeholder="Name" />
             <input type="email" className="input small" placeholder="Email" />
             <div className="d-flex flexwrap">
               <input
@@ -84,22 +169,23 @@ export default function PackingService(props) {
               type="text"
               className="input large"
               placeholder="Time of Service"
-            />
+            /> */}
 
             <div className="m-4 text-center">
-              <button className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-primary" disabled={inqueryForm}>Submit</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
 
       <div className="row about-services">
         <div className="col-lg-6 col-sm-12">
-            <h3>About This Service</h3>
-            <p>
-              {get(props, 'data.description', '')}
-            </p>
-            {/* <p>
+          <h3>About This Service</h3>
+          <p>
+            {get(props, 'data.description', '')}
+          </p>
+          {/* <p>
               We aim at customer satisfaction and continual quality improvement. Therefore all our services are modified to suit client’s needs and requirements. 
             </p> */}
         </div>
@@ -119,7 +205,7 @@ export default function PackingService(props) {
         </div>
       </div>
 
-     
+
       <div className="rating-section p-5">
         <h3 className="text-center mb-5">Customer Reviews and Ratings</h3>
         <div className="row">
@@ -147,12 +233,13 @@ export default function PackingService(props) {
           More Services by <span className="name">monika99</span>
         </h1>
         <div className="row ">
-          <div className="col-md-4">
+          {moreService()}
+          {/* <div className="col-md-4">
             <ServiceCard />
           </div>
           <div className="col-md-4">
             <ServiceCard />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

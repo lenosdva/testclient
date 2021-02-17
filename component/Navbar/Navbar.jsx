@@ -572,12 +572,13 @@ const otp = (otpModel, closeModal, mobile) => {
 export default function Navbar() {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
+  const { needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
     emailSignData: state.user.emailSignData,
     mobileLoginData: state.user.mobileLoginData,
     emailLoginData: state.user.emailLoginData,
+    needLogin: state.user.needLogin,
   }));
   const [userLogged, setLoggedStatus] = useState(true);
   const [loginModel, setLoginModel] = useState(false);
@@ -592,6 +593,13 @@ export default function Navbar() {
       setLoggedStatus(true)
     }
   }, [])
+
+  useEffect(()=>{
+    if(needLogin === true){
+      dispatch({ type: 'LOGIN_RESET' })
+      setLoginModel(true)
+    }
+  }, [needLogin])
 
   useEffect(() => {
 

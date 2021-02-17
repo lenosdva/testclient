@@ -4,7 +4,11 @@ const initialState = {
   searchData: [],
   movingOutData: [],
   detailLoading: false,
-  serviceDetails: {}
+  serviceDetails: {},
+  moreServiceLoading: true,
+  moreServiceData: [],
+  inqueryForm: false,
+  inqueryData: {}
 };
 
 export default function userReducer(state = initialState, action) {
@@ -53,6 +57,38 @@ export default function userReducer(state = initialState, action) {
         ...state,
         detailLoading: false,
         serviceDetails: action.data
+      };
+    }
+    case 'MORE_SERVICE': {
+      return {
+        ...state,
+        moreServiceLoading: true,
+      };
+    }
+    case 'GOT_MORE_SERVICE': {
+      return {
+        ...state,
+        moreServiceLoading: false,
+        moreServiceData: action.data
+      };
+    }
+    case 'FORM_REQUEST': {
+      return {
+        ...state,
+        inqueryForm: true,
+      };
+    }
+    case 'POST_INQUERY': {
+      return {
+        ...state,
+        inqueryForm: false,
+        inqueryData: action.data
+      };
+    }
+    case 'RESET_FORM': {
+      return {
+        ...state,
+        inqueryData: {}
       };
     }
     case 'RESET_SERVICE': {
