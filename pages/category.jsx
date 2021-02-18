@@ -11,10 +11,10 @@ import {
 import { withRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
-const renderService = (movingOutData) =>(
-  movingOutData.map((data, key)=>(
+const renderService = (movingOutData) => (
+  movingOutData.map((data, key) => (
     <div key={key} className="col-md-4">
-      <ServiceCard data={data}/>
+      <ServiceCard data={data} />
     </div>
   ))
 )
@@ -22,32 +22,37 @@ const renderService = (movingOutData) =>(
 
 function Category(props) {
   const dispatch = useDispatch()
-  const [category, setCategory] = useState('') 
-  const { searchByIdData, searchByIdLoading, movingOutData } = useSelector(state => ({
+  const [category, setCategory] = useState('')
+  const { searchByIdData, searchByIdLoading, movingOutLoading, movingOutData } = useSelector(state => ({
     searchByIdData: state.services.searchByIdData,
     searchByIdLoading: state.services.searchByIdLoading,
     movingOutData: state.services.movingOutData,
+    movingOutLoading: state.services.movingOutLoading,
   }));
-  useEffect(()=>{
+  useEffect(() => {
     const serId = get(props, 'router.query.id', '')
     const category = get(props, 'router.query.name', '')
     setCategory(category)
-    dispatch({ type: 'SEARCH_BY_ID', payload: {serId} })
-  },[props.router.query])
+    dispatch({ type: 'SEARCH_BY_ID', payload: { serId } })
+  }, [props.router.query])
+  console.log(searchByIdLoading, movingOutLoading)
   return (
-    <Layout>
-      <div className="category">
-        <div className="container">
-          <div className="home-section-padding text-center">
-            <SearchBar category={category}/>
-          </div>
-          <div className="home-section-padding">
-            <HandymenPagination />
-          </div>
-          <div className="home-section-padding">
-            <div className="row">
-              {renderService(movingOutData)}
-              {/* <div className="col-md-4">
+    (searchByIdLoading || movingOutLoading) ?
+      <p>Loading ...</p>
+      :
+      <Layout>
+        <div className="category">
+          <div className="container">
+            <div className="home-section-padding text-center">
+              <SearchBar category={category} />
+            </div>
+            <div className="home-section-padding">
+              <HandymenPagination />
+            </div>
+            <div className="home-section-padding">
+              <div className="row">
+                {renderService(movingOutData)}
+                {/* <div className="col-md-4">
                 <ServiceCard />
               </div>
               <div className="col-md-4">
@@ -56,17 +61,17 @@ function Category(props) {
               <div className="col-md-4">
                 <ServiceCard />
               </div> */}
+              </div>
+            </div>
+            <div className="home-section-padding">
+              <OurServices data={searchByIdData} />
             </div>
           </div>
           <div className="home-section-padding">
-            <OurServices data={searchByIdData}/>
+            <Footer />
           </div>
         </div>
-        <div className="home-section-padding">
-          <Footer />
-        </div>
-      </div>
-    </Layout>
+      </Layout>
   );
 }
 export default withRouter(Category)

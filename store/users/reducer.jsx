@@ -9,11 +9,24 @@ const initialState = {
   emailLoginData: {},
   emailLoginLoading: false,
   otpData: {},
-  resendOtpData: {}
+  resendOtpData: {},
+  needLogin: false
 };
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
+    case 'LOGIN_REQUIRED': {
+      return {
+        ...state,
+        needLogin: true
+      }
+    }
+    case 'LOGIN_RESET': {
+      return {
+        ...state,
+        needLogin: false
+      }
+    }
     case 'SIGNUP_REQUEST': {
       return {
         ...state,
@@ -67,7 +80,7 @@ export default function userReducer(state = initialState, action) {
         emailLoginData: action.data
       };
     }
-    case 'RESENT_OTP':{
+    case 'RESENT_OTP': {
       return {
         ...state,
         resendOtpData: action.data
