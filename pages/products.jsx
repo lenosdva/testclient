@@ -24,7 +24,9 @@ export default withRouter(function Category(props) {
   }, [serviceDetails])
   return (
     (detailLoading || moreServiceLoading) ?
-      <p>Loading ...</p>
+      <div className="loading-wrapper">
+        <div className="loader"></div>
+      </div>
       :
       <Layout>
         <div className="products">

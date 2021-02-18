@@ -38,7 +38,9 @@ function Category(props) {
   console.log(searchByIdLoading, movingOutLoading)
   return (
     (searchByIdLoading || movingOutLoading) ?
-      <p>Loading ...</p>
+      <div className="loading-wrapper">
+        <div className="loader"></div>
+      </div>
       :
       <Layout>
         <div className="category">
