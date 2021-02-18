@@ -8,6 +8,7 @@ const initialState = {
   moreServiceLoading: true,
   moreServiceData: [],
   inqueryForm: false,
+  movingOutLoading: false,
   inqueryData: {}
 };
 
@@ -30,6 +31,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         searchByIdLoading: true,
+        movingOutLoading: true,
       };
     }
     case 'GOT_SERVICE': {
@@ -42,7 +44,7 @@ export default function userReducer(state = initialState, action) {
     case 'GOT_MOVING_OUT': {
       return {
         ...state,
-        searchByIdLoading: false,
+        movingOutLoading: false,
         movingOutData: action.data
       };
     }
