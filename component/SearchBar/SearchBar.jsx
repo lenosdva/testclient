@@ -142,7 +142,7 @@ export default function SearchBar(props) {
           {/* <h5 className="postal-value">Munich, Germany 80331</h5> */}
         </div>
         <div className="vertical-bar mr-2"></div>
-        <div className="service mr-2">
+        <div className="service ml-4">
           <h5 className="mb-0">Pick a Service</h5>
           {/* <h5 className="service-value">What can we assist you with ?</h5> */}
           <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search" placeholder="What can we assist you with?" />
