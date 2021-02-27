@@ -9,6 +9,8 @@ function* userActionWatcher() {
   yield takeLatest('LOGIN_EMAIL_REQUEST', Users.loginByEmail);
   yield takeLatest('VERIFY_OTP', Users.verifyOtp);
   yield takeLatest('RESEND_OTP', Users.resendOtp);
+  yield takeLatest('GET_USER', Users.getUser);
+  yield takeLatest('GET_ORDER', Users.getOrders);
  }
 
  function* servicesActionWatcher() {
@@ -18,6 +20,8 @@ function* userActionWatcher() {
   yield takeLatest('SERVICE_DETAILS', Services.getServiceDetails);
   yield takeLatest('MORE_SERVICE', Services.getMoreService);
   yield takeLatest('FORM_REQUEST', Services.postServiceForm);
+  yield takeLatest('ADD_WISH', Services.addWishList);
+  yield takeLatest('REMOVE_WISH', Services.removeWishList);
   
  }
 

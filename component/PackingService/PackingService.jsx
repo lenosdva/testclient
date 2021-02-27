@@ -4,8 +4,8 @@ import Reviews from "../Reviews/Reviews";
 import ServiceCard from "../ServiceCard/ServiceCard";
 import { get } from "lodash"
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from "react";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { useEffect, useState, useCallback } from "react";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 const questions = [{
   type: "field",
@@ -20,9 +20,14 @@ const questions = [{
 }]
 export default function PackingService(props) {
   const dispatch = useDispatch()
-  const { inqueryForm, inqueryData  } = useSelector(state => ({
+  const [formSubmit, setForm] = useState(false)
+  const [wishList, setWishList] = useState(false)
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+  const { inqueryForm, inqueryData, userData } = useSelector(state => ({
     inqueryForm: state.services.inqueryForm,
     inqueryData: state.services.inqueryData,
+    userData: state.user.user,
   }));
 
   const moreService = () => (
@@ -63,31 +68,55 @@ export default function PackingService(props) {
     ))
   )
 
-  function submitForm(e){
+  function submitForm(e) {
     e.preventDefault()
     const allInput = e.target.querySelectorAll('input, select, textarea')
-    console.log("allInput",Array.prototype.slice.call(allInput))
     const input = Array.prototype.slice.call(allInput)
     const answers = []
-    input.map((data)=>{
+    input.map((data) => {
       answers.push(data.value)
     })
-    console.log("data", props)
-    dispatch({ type: 'FORM_REQUEST', payload: { gigId: get(props, 'data._id', ''), answers  } })
-  } 
+    dispatch({ type: 'FORM_REQUEST', payload: { gigId: get(props, 'data._id', ''), answers } })
+  }
 
-  useEffect(()=>{
-    if(get(inqueryData, 'error', false)){
-      dispatch({ type: 'RESET_FORM'})
-      if(get(inqueryData, 'message', 'Please try again') === "No Auth Token"){
+  useEffect(() => {
+    if (get(inqueryData, 'error', false)) {
+      dispatch({ type: 'RESET_FORM' })
+      if (get(inqueryData, 'message', 'Please try again') === "No Auth Token") {
         NotificationManager.error('Please login')
         dispatch({ type: 'LOGIN_REQUIRED' })
-      }else{
+      } else {
+        dispatch({ type: 'RESET_FORM' })
         NotificationManager.error(get(inqueryData, 'message', 'Please try again'))
       }
+    } else if (get(inqueryData, 'code', false) == 401) {
+      dispatch({ type: 'RESET_FORM' })
+      NotificationManager.error('Please login')
+      dispatch({ type: 'LOGIN_REQUIRED' })
+    } else if (get(inqueryData, 'success', false)) {
+      dispatch({ type: 'RESET_FORM' })
+      setForm(true)
     }
-  },[inqueryData])
+  }, [inqueryData])
 
+  useEffect(() => {
+    const getWish = get(userData, 'wishlist', [])
+    const wish = getWish.includes(get(props, 'data._id', false))
+    setWishList(wish)
+  }, [userData.wishlist])
+
+  function setWish() {
+    const wish = !wishList
+    setTimeout(()=>{
+    if (wish) {
+      dispatch({ type: 'ADD_WISH', payload: { gigId: get(props, 'data._id', '') } })
+    } else {
+      dispatch({ type: 'REMOVE_WISH', payload: { gigId: get(props, 'data._id', '') } })
+    }
+    }, 500)
+    setWishList(wish)
+  }
+  console.log("wishList=======>", wishList)
   return (
     <div className="packing-service">
       <div className="heading d-flex align-items-center justify-content-start flexwrap">
@@ -118,10 +147,17 @@ export default function PackingService(props) {
                 </button>
               </div>
               <div>
-                <button className="btn m-2 d-flex align-items-center justify-content-center share-save">
-                  <i className="fa fa-heart" aria-hidden="true"></i>
+              {wishList === true ?
+                <button onClick={setWish} className="btn m-2 d-flex align-items-center justify-content-center share-save true">                  
+                    <i className="fa fa-heart selected" fill="#9043C3" style={{fill: "#9043C3"}} aria-hidden="true"></i>
                   <p className="ml-2 h4">Save</p>
                 </button>
+                :
+                <button onClick={setWish} className="btn m-2 d-flex align-items-center justify-content-center share-save false">                  
+                <i className="fa fa-heart" style={{fill :"#000"}} aria-hidden="true"></i>
+              <p className="ml-2 h4">Save</p>
+            </button>
+                }
               </div>
             </div>
           </div>
@@ -140,13 +176,16 @@ export default function PackingService(props) {
           </div>
         </div>
         <div className="d-flex flex-column align-items-start justify-content-center width-full">
-          <div className="form p-5 form-full">
-            <p className="mb-3 h5 font-weight-bold">
-              Fill This Form & Get A Free Price Quote
+          {formSubmit ?
+            <>Your details have been submitted, once the handyman confirms you will receive a notification in the messages tab on the menu.</>
+            :
+            <div className="form p-5 form-full">
+              <p className="mb-3 h5 font-weight-bold">
+                Fill This Form & Get A Free Price Quote
             </p>
-            <form onSubmit={submitForm}>
-            {renderInputs()}
-            {/* <input type="text" className="input small" placeholder="Name" />
+              <form onSubmit={submitForm}>
+                {renderInputs()}
+                {/* <input type="text" className="input small" placeholder="Name" />
             <input type="email" className="input small" placeholder="Email" />
             <div className="d-flex flexwrap">
               <input
@@ -171,11 +210,12 @@ export default function PackingService(props) {
               placeholder="Time of Service"
             /> */}
 
-            <div className="m-4 text-center">
-              <button type="submit" className="btn btn-primary" disabled={inqueryForm}>Submit</button>
+                <div className="m-4 text-center">
+                  <button type="submit" className="btn btn-primary" disabled={inqueryForm}>Submit</button>
+                </div>
+              </form>
             </div>
-            </form>
-          </div>
+          }
         </div>
       </div>
 
