@@ -511,15 +511,15 @@ const otp = (otpModel, closeModal, mobile) => {
   useEffect(() => {
     // 
     if (get(otpData, 'result.error', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       NotificationManager.error('Error message', get(otpData, 'result.message', 'Please try again'))
     }
     if (get(resendOtpData, 'result.error', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       NotificationManager.error('Error message', get(resendOtpData, 'result.message', 'Please try again'))
     }
     if (get(resendOtpData, 'result.success', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       NotificationManager.success('Success message', get(resendOtpData, 'result.message', 'OTP sent to given number'));
     }
 
@@ -589,9 +589,11 @@ export default function Navbar() {
   const [showMessage, setMessage] = useState(false);
 
   useEffect(() => {
+   
     if (localStorage.getItem('token') !== null) {
       setLoggedStatus(true)
     }
+    dispatch({ type: 'GET_USER'})
   }, [])
 
   useEffect(()=>{
@@ -602,9 +604,10 @@ export default function Navbar() {
   }, [needLogin])
 
   useEffect(() => {
-
+    dispatch({ type: 'GET_USER'})
     if (get(userData, 'success', false)) {
-      dispatch({ type: 'RESET' })
+      
+      dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
       setSignUpModel(false)
       if (get(userData, 'mobile', false)) {
@@ -613,11 +616,11 @@ export default function Navbar() {
       }
     }
     if (get(userData, 'error', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
     }
     if (get(otpData, 'token', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
         localStorage.setItem('token', JSON.stringify(get(otpData, 'token', {})))
         localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
@@ -626,7 +629,7 @@ export default function Navbar() {
       }
     }
     if (get(emailSignData, 'token', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
         localStorage.setItem('token', JSON.stringify(get(emailSignData, 'token', {})))
         // localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
@@ -636,12 +639,12 @@ export default function Navbar() {
     }
 
     if (get(mobileLoginData, 'result.error', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
     }
 
     if (get(mobileLoginData, 'success', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
       if (get(mobileLoginData, 'mobile', false)) {
         setMobile(mobileLoginData.mobile)
@@ -650,12 +653,12 @@ export default function Navbar() {
     }
 
     if (get(emailLoginData, 'error', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
     }
 
     if (get(emailLoginData, 'token', false)) {
-      dispatch({ type: 'RESET' })
+      dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
         localStorage.setItem('token', JSON.stringify(get(emailLoginData, 'token', {})))
         localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))

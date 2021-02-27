@@ -16,7 +16,6 @@ export default withRouter(function Category(props) {
     dispatch({ type: 'SERVICE_DETAILS', payload: serId })
   }, [props.router.query])
   useEffect(() => {
-    console.log("serviceDetails", serviceDetails)
     if (get(serviceDetails, 'userId', false)) {
       const userId = get(serviceDetails, 'userId', '')
       dispatch({ type: 'MORE_SERVICE', payload: { userId } })

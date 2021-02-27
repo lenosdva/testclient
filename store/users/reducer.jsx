@@ -10,8 +10,12 @@ const initialState = {
   emailLoginLoading: false,
   otpData: {},
   resendOtpData: {},
-  needLogin: false
-};
+  needLogin: false,
+  userLoading: false,
+  user: {},
+  orderLoading: false,
+  orders: []
+}
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
@@ -38,6 +42,32 @@ export default function userReducer(state = initialState, action) {
         ...state,
         mobileSignLoading: false,
         mobileSignData: action.data
+      };
+    }
+    case 'GET_USER': {
+      return {
+        ...state,
+        userLoading: true,
+      };
+    }
+    case 'GOT_USER': {
+      return {
+        ...state,
+        userLoading: false,
+        user: action.data
+      };
+    }
+    case 'GET_ORDER': {
+      return {
+        ...state,
+        orderLoading: true,
+      };
+    }
+    case 'GOT_ORDER': {
+      return {
+        ...state,
+        orderLoading: false,
+        orders: action.data
       };
     }
     case 'SIGNUP_EMAIL_REQUEST': {
@@ -86,7 +116,7 @@ export default function userReducer(state = initialState, action) {
         resendOtpData: action.data
       };
     }
-    case 'RESET': {
+    case 'RESET_LOG': {
       return {
         ...state,
         mobileSignLoading: false,

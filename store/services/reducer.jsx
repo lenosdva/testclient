@@ -5,11 +5,12 @@ const initialState = {
   movingOutData: [],
   detailLoading: false,
   serviceDetails: {},
-  moreServiceLoading: true,
+  moreServiceLoading: false,
   moreServiceData: [],
   inqueryForm: false,
   movingOutLoading: false,
-  inqueryData: {}
+  inqueryData: {},
+  wishLoading: false
 };
 
 export default function userReducer(state = initialState, action) {
@@ -18,6 +19,24 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         searchLoading: true,
+      };
+    }
+    case 'SET_WISHLIST': {
+      return {
+        ...state,
+        wishLoading: false,
+      };
+    }
+    case 'ADD_WISH': {
+      return {
+        ...state,
+        wishLoading: true,
+      };
+    }
+    case 'REMOVE_WISH': {
+      return {
+        ...state,
+        wishLoading: true,
       };
     }
     case 'SEARCH_RESULT': {
@@ -90,7 +109,9 @@ export default function userReducer(state = initialState, action) {
     case 'RESET_FORM': {
       return {
         ...state,
-        inqueryData: {}
+        inqueryData: {},
+        detailLoading: false,
+        moreServiceLoading: false
       };
     }
     case 'RESET_SERVICE': {
