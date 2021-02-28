@@ -1,3 +1,5 @@
+import cookieCutter from 'cookie-cutter'
+import { get } from "lodash"
 // Set initial state
 const initialState = {
   mobileSignData: {},
@@ -14,7 +16,11 @@ const initialState = {
   userLoading: false,
   user: {},
   orderLoading: false,
-  orders: []
+  orders: [],
+  inboxLoading: false,
+  inbox: [],
+  chatLoading: false,
+  chat: []
 }
 
 export default function userReducer(state = initialState, action) {
@@ -38,6 +44,9 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'REGISTER': {
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
+      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('path', '/')
       return {
         ...state,
         mobileSignLoading: false,
@@ -55,6 +64,32 @@ export default function userReducer(state = initialState, action) {
         ...state,
         userLoading: false,
         user: action.data
+      };
+    }
+    case 'GET_CHAT': {
+      return {
+        ...state,
+        chatLoading: true,
+      };
+    }
+    case 'GOT_CHAT': {
+      return {
+        ...state,
+        chatLoading: false,
+        chat: action.data
+      };
+    }
+    case 'GET_INBOX': {
+      return {
+        ...state,
+        inboxLoading: true,
+      };
+    }
+    case 'GOT_INBOX': {
+      return {
+        ...state,
+        inboxLoading: false,
+        inbox: action.data
       };
     }
     case 'GET_ORDER': {
@@ -77,6 +112,9 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'REGISTERWITHEMAIL': {
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
+      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('path', '/')
       return {
         ...state,
         emailSignLoading: false,
@@ -91,6 +129,9 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'LOGIN': {
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
+      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('path', '/')
       return {
         ...state,
         mobileLoginLoading: false,
@@ -104,6 +145,9 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'LOGINWITHEMAIL': {
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
+      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('path', '/')
       return {
         ...state,
         emailLoginLoading: false,
@@ -132,6 +176,9 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'VERIFYED_OTP': {
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
+      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('path', '/')
       return {
         ...state,
         otpData: action.data
