@@ -1,6 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MessageList } from 'react-chat-elements'
+import 'react-chat-elements/dist/main.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { get } from "lodash";
+import cookieCutter from 'cookie-cutter'
 
-const Chat = () => {
+const { NEXT_PUBLIC_WEB_SOCKET } = process.env
+const HOST = NEXT_PUBLIC_WEB_SOCKET
+var ws = ""
+const Chat = (props) => {
+  const dispatch = useDispatch()
+  const [chat, setChat] = useState([])
+  const [message, setMessage] = useState([])
+  const { user } = useSelector(state => ({
+    user: state.user.user,
+  }));
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    ws = new WebSocket('ws://ec2-13-126-85-208.ap-south-1.compute.amazonaws.com:4200/ws', get(token, 'accessToken', '') )
+    ws.addEventListener('message', function (event) {
+      let message = event;
+      dispatch({ type: "GET_CHAT", payload: {userId: get(props, 'chat.id', '')} })
+    })
+  }, [props.chat.id])
+
+  useEffect(() => {
+    const newMessage = []
+    get(props, 'chat.message', []).map((data)=> {
+      newMessage.unshift({
+        position: get(data, 'messageType', '') === "messageSent" ? 'right' : 'left',
+        type: 'text',
+        text: get(data, 'message', ''),
+        date: new Date()
+      })
+    })
+    setChat(newMessage)
+    var objDiv = document.getElementById("chat-box");
+    // console.log()
+    objDiv.scroll({ bottom: objDiv.scrollHeight, behavior: 'smooth' });
+  }, [props.chat.message])
+
+  function onSend() {
+    // message
+    // console.log("ws====>", ws)
+    console.log("user", user)
+    const SENDING_TO_USER_ID = get(props, 'chat.id', '')
+    const USER_ID = get(user, 'id', '')
+    let messageH = JSON.stringify({
+      request: "sendMessage",
+      user: USER_ID,
+      sendTo: SENDING_TO_USER_ID,
+      message: message
+    })
+    ws.send(messageH)
+    setMessage('')
+  }
+
   return (
     <div className="chat">
       <div className="chat-header">
@@ -12,18 +68,23 @@ const Chat = () => {
         <p className="h6 mb-0">Online | Local Time 11:30am, September 28</p>
       </div>
       <hr className="line" />
-      <div className="chat-box">
-        <div className="chatbox-empty">
-          <p>
+      <div id="chat-box" className="chat-box">
+        {/* <div className="chatbox-empty"> */}
+        <MessageList
+          className='message-list'
+          // lockable={true}
+          toBottomHeight={'100%'}
+          dataSource={chat} />
+        {/* <p>
             Your request for a quotation for <a href="">Moving Out Services</a> has been sent to <a href="">user1234</a>. You will be 
             notified when the handyman confirms the booking.
-          </p>
-        </div>
+          </p> */}
+        {/* </div> */}
       </div>
       <div className="chat-footer d-flex justify-content-center align-items-center">
         {ATTACHMENT_ICON}
-        <input type="text" placeholder="Type A Message Here" />
-        <p className="h6 mb-0">Send</p>
+        <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Type A Message Here" />
+        <p onClick={onSend} className="h6 mb-0">Send</p>
       </div>
     </div>
   );

@@ -151,11 +151,57 @@ export function* getOrders({ payload }) {
       return res.json();
     })
     .then((data) => {
-      data.mobile = payload.mobile
       return data;
     })
     .catch((error) => {
       throw error;
     });
-  yield put({ type: 'GOT_ORDERS', data });
+  yield put({ type: 'GOT_ORDER', data });
+}
+
+export function* getInbox({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/getKnownUsers`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_INBOX', data });
+}
+
+export function* getChat({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/getChatsBetween`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      const message = {
+        id: payload.userId,
+        message: data
+      }
+      return message;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_CHAT', data });
 }

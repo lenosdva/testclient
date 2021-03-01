@@ -572,21 +572,31 @@ const otp = (otpModel, closeModal, mobile) => {
 export default function Navbar() {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
+  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
+    user: state.user.user,
     emailSignData: state.user.emailSignData,
     mobileLoginData: state.user.mobileLoginData,
     emailLoginData: state.user.emailLoginData,
     needLogin: state.user.needLogin,
   }));
-  const [userLogged, setLoggedStatus] = useState(true);
+  const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
   const [signUpModel, setSignUpModel] = useState(false);
   const [otpModel, setOtpModel] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
   const [showMessage, setMessage] = useState(false);
+
+  useEffect(()=>{
+    if(get(user, 'code', false) === 401){
+      if(userLogged === true){
+        setLoggedStatus(false)
+        localStorage.clear()
+      }
+    }
+  },[user])
 
   useEffect(() => {
    
@@ -689,9 +699,13 @@ export default function Navbar() {
         </div>
         <ul className="menu">
           <li className="align-self-center">
+          {userLogged ?
             <Link href="handyman-registration">
               Become A Handyman
             </Link>
+            :
+            <span onClick={()=> setLoginModel(true)}> Become A Handyman</span>
+          }
           </li>
           {userLogged ? (
             <React.Fragment>

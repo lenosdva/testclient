@@ -1,5 +1,6 @@
 import * as Users from '../api/users';
 import * as Services from '../api/services';
+import * as Hyndyman from '../api/hyndyman';
 import {takeLatest, takeEvery, all} from 'redux-saga/effects';
 
 function* userActionWatcher() {
@@ -11,6 +12,8 @@ function* userActionWatcher() {
   yield takeLatest('RESEND_OTP', Users.resendOtp);
   yield takeLatest('GET_USER', Users.getUser);
   yield takeLatest('GET_ORDER', Users.getOrders);
+  yield takeLatest('GET_INBOX', Users.getInbox);
+  yield takeLatest('GET_CHAT', Users.getChat);
  }
 
  function* servicesActionWatcher() {
@@ -22,12 +25,17 @@ function* userActionWatcher() {
   yield takeLatest('FORM_REQUEST', Services.postServiceForm);
   yield takeLatest('ADD_WISH', Services.addWishList);
   yield takeLatest('REMOVE_WISH', Services.removeWishList);
-  
+ }
+
+ function* handymanActionWatcher() {
+  yield takeLatest('UPLOAD', Hyndyman.uploadDocument);
+  yield takeLatest('BECOME_HYNDYMAN', Hyndyman.registerHandyman);
  }
 
 export default function* rootSaga() {
   yield all([
     userActionWatcher(),
-    servicesActionWatcher()
+    servicesActionWatcher(),
+    handymanActionWatcher()
   ]);
 }
