@@ -6,6 +6,7 @@ import { get } from "lodash"
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useCallback } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import moment from "moment"
 
 const questions = [{
   type: "field",
@@ -116,7 +117,7 @@ export default function PackingService(props) {
     }, 500)
     setWishList(wish)
   }
-  console.log("wishList=======>", wishList)
+
   return (
     <div className="packing-service">
       <div className="heading d-flex align-items-center justify-content-start flexwrap">
@@ -133,7 +134,7 @@ export default function PackingService(props) {
           <h2 className="mb-3">{get(props, 'data.title', '')}</h2>
           <div className="d-flex justify-content-between flexwrap">
             <div className="d-flex align-items-center flexwrap">
-              <h4 className="secondary handyman-name"> Erika Hans</h4>{" "}
+              <h4 className="secondary handyman-name">{get(props, 'data.sellerPersonalInfo.fname', '')}</h4>{" "}
               <div className="ml-3 mr-3">
                 <i className="fa fa-star" aria-hidden="true"></i>
               </div>
@@ -234,11 +235,11 @@ export default function PackingService(props) {
           <ul>
             <li>
               <h5>From</h5>
-              <h4>Berlin, Germany</h4>
+              <h4>{get(props, 'data.sellerPersonalInfo.state', '')}, {get(props, 'data.sellerPersonalInfo.country', '')}</h4>
             </li>
             <li>
               <h5>Member Since</h5>
-              <h4>Dec 2019</h4>
+              <h4>{moment(get(props, 'data.sellerPersonalInfo.createdAt', '')).format('MMM YYYY')}</h4>
             </li>
           </ul>
           <p>Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm! </p>
@@ -270,7 +271,7 @@ export default function PackingService(props) {
       </div>
       <div className="more-services mt-5">
         <h1 className="mb-5">
-          More Services by <span className="name">monika99</span>
+          More Services by <Link href={`/sellerprofile?id=${get(props, 'gig._id', '')}`}><span className="name">{get(props, 'gig.sellerPersonalInfo.fname', '')}</span></Link>
         </h1>
         <div className="row ">
           {moreService()}

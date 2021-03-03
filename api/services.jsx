@@ -23,6 +23,7 @@ export function* search({ payload }) {
 }
 
 export function* getAllService({ payload }) {
+  console.log("APAI calledddddd")
   const data = yield fetch(`${HOST}/v1/service/`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -31,7 +32,7 @@ export function* getAllService({ payload }) {
       return res.json();
     })
     .then((data) => {
-      data.mobile = payload.mobile
+      // data.mobile = payload.mobile
       return data;
     })
     .catch((error) => {

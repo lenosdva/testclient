@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import {
   Layout,
   Footer,
@@ -6,9 +7,26 @@ import {
   HandymenPagination,
   ServiceCard,
 } from "../component";
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Category() {
+
+  const dispatch = useDispatch()
+  const { searchByIdData, searchByIdLoading } = useSelector(state => ({
+    searchByIdData: state.services.searchByIdData,
+    searchByIdLoading: state.services.searchByIdLoading,
+  }));
+
+  useEffect(() => {
+    dispatch({ type: 'GET_SERVICE' })
+  }, [])
+  console.log("searchByIdLoading========>", searchByIdLoading)
   return (
+    (searchByIdLoading) ?
+      <div className="loading-wrapper">
+        <div className="loader"></div>
+      </div>
+      :
     <Layout>
       <div className="category">
         <div className="container">
@@ -16,7 +34,7 @@ export default function Category() {
             <SearchBar />
           </div>
           <div className="home-section-padding">
-            <OurServices />
+            <OurServices data={searchByIdData}/>
           </div>
         </div>
         <div className="home-section-padding">

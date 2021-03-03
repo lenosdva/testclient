@@ -2,8 +2,18 @@ import Reviews from "../Reviews/Reviews";
 import Image from "next/image";
 import ServiceCard from "../ServiceCard/ServiceCard";
 import { withTranslation } from "../../constent/i18n/i18n"
+import { get } from "lodash"
+import moment from "moment"
 
-function ProfileGigsWithReview({t}) {
+const renderService = (movingOutData) => (
+  movingOutData.map((data, key) => (
+    <div key={key} className="col-md-6">
+      <ServiceCard data={data} />
+    </div>
+  ))
+)
+
+function ProfileGigsWithReview(props) {
   return (
     <div className="profile-gigs col">
       <div className="row">
@@ -11,7 +21,7 @@ function ProfileGigsWithReview({t}) {
           <div className="profile-card m-2 p-4 d-flex flex-column align-items-center ">
             <div className="report d-flex align-items-center justify-content-end mb-3">
               <i className="fa fa-flag" aria-hidden="true"></i>
-              <h5 className="ml-2 title">{t("profileGig.title")}</h5>
+              <h5 className="ml-2 title">{props.t("profileGig.title")}</h5>
             </div>
             <div className="image-area mb-3">
               <Image
@@ -22,7 +32,7 @@ function ProfileGigsWithReview({t}) {
                 height={200}
               />
             </div>
-            <h3>erikahans123</h3>
+            <h3>{get(props, 'gig.sellerPersonalInfo.fname', '')}</h3>
             <p>Your very own python geek</p>
             <div className="rating-star d-flex ">
               <div className="mr-2">
@@ -44,22 +54,22 @@ function ProfileGigsWithReview({t}) {
                 4.3<span>(140 Reviews)</span>
               </p>
             </div>
-            <button className="btn btn-primary h5">{t("profileGig.contactMe")}</button>
+            <button className="btn btn-primary h5">{props.t("profileGig.contactMe")}</button>
 
             <div className="mb-3 mt-3 horizontal-line"></div>
             <div className="d-flex flex-column align-items-start">
               <div className="mr-2 d-flex align-items-start justify-content-center">
-                <p className="light left-title">{t("profileGig.from")}</p>
-                <h5>Berlin, Germany</h5>
+                <p className="light left-title">{props.t("profileGig.from")}</p>
+                <h5>{get(props, 'gig.sellerPersonalInfo.state', '')}, {get(props, 'gig.sellerPersonalInfo.country', '')}</h5>
               </div>
               <div className="d-flex align-items-start justify-content-center">
-                <p className="light left-title">{t("profileGig.memberSince")}</p>
-                <h5>December 2019</h5>
+                <p className="light left-title">{props.t("profileGig.memberSince")}</p>
+                <h5>{moment(get(props, 'gig.sellerPersonalInfo.createdAt', '')).format('MMM YYYY')}</h5>
               </div>
             </div>
             <div className="mt-3 mb-3 horizontal-line"></div>
             <p className="text-justify mt-3">
-              {t("profileGig.text")}
+              {props.t("profileGig.text")}
             </p>
           </div>
         </div>
@@ -67,7 +77,7 @@ function ProfileGigsWithReview({t}) {
         <div className="col-lg-8 col-md-12 col-sm-12">
           <div className="gigs pl-5 gigsp">
             <div className="gigs-title d-flex align-items-center justify-content-between flexwrap">
-              <h3 className="secondary">erikahans123's Gigs</h3>
+              <h3 className="secondary">{get(props, 'gig.sellerPersonalInfo.fname', '')}'s Gigs</h3>
               <div className="d-flex align-items-center justify-content-end flex-wrap">
                 <div>
                   <button className="btn m-2 d-flex align-items-center justify-content-center">
@@ -84,7 +94,8 @@ function ProfileGigsWithReview({t}) {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-6">
+              {renderService(get(props, 'moreServiceData', []))}
+              {/* <div className="col-md-6">
                 <ServiceCard />
               </div>
               <div className="col-md-6">
@@ -97,7 +108,7 @@ function ProfileGigsWithReview({t}) {
               </div>
               <div className="col-md-6">
                 <ServiceCard />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

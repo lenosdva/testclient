@@ -53,6 +53,12 @@ export default function userReducer(state = initialState, action) {
         movingOutLoading: true,
       };
     }
+    case 'GET_SERVICE': {
+      return {
+        ...state,
+        searchByIdLoading: true,
+      };
+    }
     case 'GOT_SERVICE': {
       return {
         ...state,

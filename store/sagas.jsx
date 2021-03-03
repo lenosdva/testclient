@@ -25,11 +25,15 @@ function* userActionWatcher() {
   yield takeLatest('FORM_REQUEST', Services.postServiceForm);
   yield takeLatest('ADD_WISH', Services.addWishList);
   yield takeLatest('REMOVE_WISH', Services.removeWishList);
+  yield takeLatest('GET_SERVICE', Services.getAllService);
+  
  }
 
  function* handymanActionWatcher() {
   yield takeLatest('UPLOAD', Hyndyman.uploadDocument);
   yield takeLatest('BECOME_HYNDYMAN', Hyndyman.registerHandyman);
+  yield takeLatest('GET_GIG', Hyndyman.getGig);
+  
  }
 
 export default function* rootSaga() {
