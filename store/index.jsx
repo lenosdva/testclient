@@ -4,11 +4,13 @@ import {combineReducers} from 'redux';
 // We need to import each one here and add them to the combiner at the bottom
 import user from './users/reducer';
 import services from './services/reducer';
+import handyman from './handyman/reducer';
 
 // Combine all
 const appReducer = combineReducers({
   user,
-  services
+  services,
+  handyman
 });
 
 // Setup root reducer

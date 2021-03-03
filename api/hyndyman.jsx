@@ -31,7 +31,8 @@ export function* uploadDocument({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const data = yield axios.post(`${HOST}/v1/users/addDocument`, payload,{
     headers: { 
-      'Content-Type': 'application/json'
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
     }
   })
     .then((res) => {
@@ -42,3 +43,23 @@ export function* uploadDocument({ payload }) {
     });
   yield put({ type: 'UPLOADED', data });
 }
+
+export function* getGig({ payload }) {
+  const data = yield fetch(`${HOST}/v1/gigs/${payload}`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json',
+     }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_GIG', data });
+}
+

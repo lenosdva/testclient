@@ -11,7 +11,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 
-const loginModal = (loginModel, closeModal, setSignUpModel) => {
+const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
   const dispatch = useDispatch()
   const { isLoading, emailLoginLoading, userData } = useSelector(state => ({
     isLoading: state.user.mobileLoginLoading,
@@ -126,7 +126,10 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
                 <span>{get(error, 'email', '')}</span>
               }{get(error, 'password', '') &&
                 <span>{get(error, 'password', '')}</span>
+              }{get(serverError, 'serverError', '') &&
+              <span>{get(serverError, 'serverError', '')}</span>
               }
+
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={isLoading}>Continue</button>
             </form>
@@ -154,6 +157,8 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
                 <span>{get(error, 'email', '')}</span>
               }{get(error, 'password', '') &&
                 <span>{get(error, 'password', '')}</span>
+              }{get(serverError, 'serverError', '') &&
+              <span>{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
@@ -210,7 +215,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel) => {
   );
 }
 
-const signUpModal = (signUpModel, closeModal, setLoginModel) => {
+const signUpModal = (signUpModel, closeModal, setLoginModel, serverError) => {
   const dispatch = useDispatch()
   const { isLoading, emailSignLoading, userData } = useSelector(state => ({
     isLoading: state.user.mobileSignLoading,
@@ -283,7 +288,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
       }
     }
   }
-
+  console.log("serverError======>", serverError)
   return (
 
     // Open Finish Signing Up
@@ -408,6 +413,8 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
               </div>
               {get(error, 'phone', '') &&
                 <span>{get(error, 'phone', '')}</span>
+              }{get(serverError, 'serverError', '') &&
+              <span>{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={isLoading}>Continue</button>
@@ -437,6 +444,8 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
                 <span>{get(error, 'email', '')}</span>
               }{get(error, 'password', '') &&
                 <span>{get(error, 'password', '')}</span>
+              }{get(serverError, 'serverError', '') &&
+              <span>{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={emailSignLoading}>Continue</button>
@@ -496,6 +505,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel) => {
 const otp = (otpModel, closeModal, mobile) => {
   const dispatch = useDispatch()
   const [sotp, setOtp] = useState('')
+  const [error, setError] = useState({})
   const { otpData, resendOtpData } = useSelector(state => ({
     otpData: state.user.otpData,
     resendOtpData: state.user.resendOtpData,
@@ -503,6 +513,7 @@ const otp = (otpModel, closeModal, mobile) => {
 
   function onChangeOtp(e) {
     setOtp(e)
+    setError({})
     if (e.length === 6) {
       dispatch({ type: 'VERIFY_OTP', payload: { otp: e, mobile } })
     }
@@ -512,15 +523,21 @@ const otp = (otpModel, closeModal, mobile) => {
     // 
     if (get(otpData, 'result.error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      NotificationManager.error('Error message', get(otpData, 'result.message', 'Please try again'))
+      const error = {}
+      error.serverError = get(otpData, 'result.message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(otpData, 'result.message', 'Please try again'))
     }
     if (get(resendOtpData, 'result.error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      NotificationManager.error('Error message', get(resendOtpData, 'result.message', 'Please try again'))
+      const error ={}
+      error.serverError = get(resendOtpData, 'result.message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(resendOtpData, 'result.message', 'Please try again'))
     }
     if (get(resendOtpData, 'result.success', false)) {
       dispatch({ type: 'RESET_LOG' })
-      NotificationManager.success('Success message', get(resendOtpData, 'result.message', 'OTP sent to given number'));
+      // NotificationManager.success('Success message', get(resendOtpData, 'result.message', 'OTP sent to given number'));
     }
 
   }, [otpData, resendOtpData])
@@ -557,6 +574,9 @@ const otp = (otpModel, closeModal, mobile) => {
               className="otp-inp"
             // separator={<span>-</span>}
             />
+            {get(error, 'serverError', '') &&
+              <span>{get(error, 'serverError', '')}</span>
+              }
             {/* <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp"/>
@@ -588,6 +608,11 @@ export default function Navbar() {
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
   const [showMessage, setMessage] = useState(false);
+  const [error, setError] = useState({});
+
+  useEffect(()=>{
+    setError({})
+  },[loginModel, signUpModel, otpModel])
 
   useEffect(()=>{
     if(get(user, 'code', false) === 401){
@@ -627,7 +652,10 @@ export default function Navbar() {
     }
     if (get(userData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
+      const error ={}
+      error.serverError = get(userData, 'message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
     }
     if (get(otpData, 'token', false)) {
       dispatch({ type: 'RESET_LOG' })
@@ -650,7 +678,10 @@ export default function Navbar() {
 
     if (get(mobileLoginData, 'result.error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
+      const error ={}
+      error.serverError = get(mobileLoginData, 'result.message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
     }
 
     if (get(mobileLoginData, 'success', false)) {
@@ -664,7 +695,10 @@ export default function Navbar() {
 
     if (get(emailLoginData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
+      const error ={}
+      error.serverError = get(emailLoginData, 'message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
     }
 
     if (get(emailLoginData, 'token', false)) {
@@ -869,9 +903,9 @@ export default function Navbar() {
             </label> */}
           </li>
         </ul>
-        {loginModal(loginModel, closeModal, setSignUpModel)}
-        {signUpModal(signUpModel, closeModal, setLoginModel)}
-        {otp(otpModel, closeModal, mobile)}
+        {loginModal(loginModel, closeModal, setSignUpModel, error)}
+        {signUpModal(signUpModel, closeModal, setLoginModel, error)}
+        {otp(otpModel, closeModal, mobile, error)}
       </div>
 
       <div className="mob-menu-wrapper show-mob">

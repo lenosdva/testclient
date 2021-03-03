@@ -5,15 +5,19 @@ import { withRouter } from 'next/router'
 import { get } from "lodash"
 export default withRouter(function Category(props) {
   const dispatch = useDispatch()
-  const { detailLoading, serviceDetails, moreServiceData, moreServiceLoading } = useSelector(state => ({
+  const { gigLoading, gig, detailLoading, serviceDetails, moreServiceData, moreServiceLoading } = useSelector(state => ({
     moreServiceLoading: state.services.moreServiceLoading,
     moreServiceData: state.services.moreServiceData,
     serviceDetails: state.services.serviceDetails,
     detailLoading: state.services.detailLoading,
+    gigLoading: state.handyman.gigLoading,
+    gig: state.handyman.gig,
   }));
   useEffect(() => {
     const serId = get(props, 'router.query.id', '')
     dispatch({ type: 'SERVICE_DETAILS', payload: serId })
+    dispatch({ type: 'GET_GIG', payload: serId })
+    
   }, [props.router.query])
   useEffect(() => {
     if (get(serviceDetails, 'userId', false)) {
@@ -21,6 +25,7 @@ export default withRouter(function Category(props) {
       dispatch({ type: 'MORE_SERVICE', payload: { userId } })
     }
   }, [serviceDetails])
+  console.log("gig=========>", gig)
   return (
     (detailLoading || moreServiceLoading) ?
       <div className="loading-wrapper">
@@ -34,7 +39,7 @@ export default withRouter(function Category(props) {
               <SearchBar />
             </div>
             <div className="home-section-padding">
-              <PackingService moreService={moreServiceData} data={serviceDetails} />
+              <PackingService gig={gig} moreService={moreServiceData} data={serviceDetails} />
             </div>
           </div>
           <div className="home-section-padding">

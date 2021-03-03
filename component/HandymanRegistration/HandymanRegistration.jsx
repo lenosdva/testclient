@@ -101,9 +101,9 @@ function ProfileManagement({ t }) {
           formData.append('doc[]', data)
         }
       })
-      router.push('/handyman-registration-complete')
-      // dispatch({ type: "BECOME_HYNDYMAN", payload: user })
-      // dispatch({ type: "UPLOAD", payload: formData })
+      // router.push('/handyman-registration-complete')
+      dispatch({ type: "BECOME_HYNDYMAN", payload: user })
+      dispatch({ type: "UPLOAD", payload: formData })
       
       
     }
