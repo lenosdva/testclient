@@ -5,7 +5,9 @@ const initialState = {
   uploadDocLoading: false,
   uploadDoc: {},
   gigLoading: false,
-  gig: {}
+  gig: {},
+  addGigLoading: false,
+  addGigData: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -21,6 +23,19 @@ export default function userReducer(state = initialState, action) {
         ...state,
         hyndymanLoading: false,
         hyndyman: action.data
+      }
+    }
+    case 'ADD_GIG': {
+      return {
+        ...state,
+        addGigLoading: true
+      }
+    }
+    case 'ADDED_GIG': {
+      return {
+        ...state,
+        addGigLoading: true,
+        addGigData: action.data
       }
     }
     case 'UPLOAD': {

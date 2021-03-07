@@ -21,7 +21,7 @@ function ClientDashboard({t}) {
             <div className="col-md-4">
               <div className="d-flex align-items-center flex-end">
                 <div>
-                  <Link href="/category-services">
+                  <Link href="/handyman-registration-withdrawn">
                   <Image
                     src="/assets/svg/ic-add.svg"
                     alt="add"

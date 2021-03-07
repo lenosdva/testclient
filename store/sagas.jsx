@@ -33,6 +33,7 @@ function* userActionWatcher() {
   yield takeLatest('UPLOAD', Hyndyman.uploadDocument);
   yield takeLatest('BECOME_HYNDYMAN', Hyndyman.registerHandyman);
   yield takeLatest('GET_GIG', Hyndyman.getGig);
+  yield takeLatest('ADD_GIG', Hyndyman.addGig);
   
  }
 
