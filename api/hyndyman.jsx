@@ -63,3 +63,20 @@ export function* getGig({ payload }) {
   yield put({ type: 'GOT_GIG', data });
 }
 
+export function* addGig({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data =  yield axios.post(`${HOST}/v1/gigs/add`, payload,{
+    headers: { 
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+     },
+  })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'ADDED_GIG', data });
+}
+

@@ -20,7 +20,7 @@ export default function Category() {
   useEffect(() => {
     dispatch({ type: 'GET_SERVICE' })
   }, [])
-  console.log("searchByIdLoading========>", searchByIdLoading)
+  
   return (
     (searchByIdLoading) ?
       <div className="loading-wrapper">
