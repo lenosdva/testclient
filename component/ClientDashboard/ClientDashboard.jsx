@@ -21,7 +21,7 @@ function ClientDashboard({t}) {
             <div className="col-md-4">
               <div className="d-flex align-items-center flex-end">
                 <div>
-                  <Link href="/handyman-registration-withdrawn">
+                  <Link href={get(userData, 'role','') === "handyman" ? "/handyman-registration-withdrawn" : "/category-services"}>
                   <Image
                     src="/assets/svg/ic-add.svg"
                     alt="add"
@@ -31,7 +31,7 @@ function ClientDashboard({t}) {
                   </Link>
                 </div>
                 <div>
-                  <h4>{t("clientDash.oTitle")}</h4>
+                  <h4>{get(userData, 'role', '') !== "handyman" ? t("clientDash.oTitle") : "Add A New Gig"}</h4>
                   <h6>{t("clientDash.oText")}</h6>
                 </div>
               </div>

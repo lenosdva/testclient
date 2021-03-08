@@ -10,8 +10,9 @@ import { useRouter } from 'next/router'
 function ProfileManagement({ t }) {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { userData } = useSelector(state => ({
+  const { userData, uploadDoc } = useSelector(state => ({
     userData: state.user.user,
+    uploadDoc: state.handyman.uploadDoc
   }));
 
   const [name, setName] = useState('')
@@ -50,7 +51,7 @@ function ProfileManagement({ t }) {
     certificate.map((data, key) => (
       <li key={key}>
         <div className="form-group checkbox-wrapper">
-          {/* <input type="checkbox" id="html" /> */}
+          <input checked={get(uploadDoc,'success', false)} disabled={true} type="checkbox" id="html" />
           <label for="html">Certificate {key + 1} (optional)</label>
         </div>
         { get(data, 'name', false) !== false ?
@@ -213,7 +214,7 @@ function ProfileManagement({ t }) {
           <ul className="upload-list">
             <li>
               <div className="form-group checkbox-wrapper">
-                <input type="checkbox" id="html" />
+                <input checked={get(uploadDoc,'success', false)} disabled={true} type="checkbox" id="html" />
                 <label for="html">Work License</label>
               </div>
               {get(workLicense, 'name', false) === false ?
@@ -228,7 +229,7 @@ function ProfileManagement({ t }) {
             </li>
             <li>
               <div className="form-group checkbox-wrapper">
-                <input type="checkbox" id="html" />
+                <input checked={get(uploadDoc,'success', false)} disabled={true} type="checkbox" id="html" />
                 <label for="html">Taxation Identity Card</label>
               </div>
                {get(taxationIdentityCard, 'name', false) === false ?
@@ -237,7 +238,7 @@ function ProfileManagement({ t }) {
                 <div className="remove-btn" onClick={() => addCertificate('taxationIdentityCard')}>Add</div>
                 </>
                 :
-                <div className="remove-btn" onChange={(e) => setTaxationIdentityCard({})}>Remove</div>
+                <div className="remove-btn" onClick={(e) => setTaxationIdentityCard({})}>Remove</div>
               }
               <p>{get(error, 'taxationIdentityCard', '')}</p>
             </li>
@@ -262,7 +263,9 @@ function ProfileManagement({ t }) {
           {/* <Link href="/handyman-registration-complete"> */}
             <button className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>
             {/* </Link> */}
-          {/* <PaymentCard /> */}
+          {get(userData, 'approved', false) === "approved" &&  
+            <PaymentCard />
+          }
         </div>
       </div>
     </div>

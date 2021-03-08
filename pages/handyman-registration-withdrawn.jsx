@@ -121,7 +121,7 @@ export default function Category() {
     if (!Object.keys(Terror).length && !Object.keys(mainError).length) {
       const data = new FormData()
       data.append('title', title);
-      data.append('category', category);
+      data.append('service', category);
       data.append('radius', radius);
       data.append('pincode', pincode);
       data.append('fromDate', from);
@@ -145,8 +145,11 @@ export default function Category() {
     console.log("acceptedFiles", acceptedFiles)
     const file = images
     const image = acceptedFiles[0]
-    const blob = new Blob([image], {type: 'image/png'})
-    image.url =  URL.createObjectURL(blob)
+    // const blob = new Blob([image], {type: 'image/png'})
+    // image.url =  URL.createObjectURL(image)
+    var reader = new FileReader();
+    image.url = reader.readAsDataURL(image);
+    console.log("image", image)
     file.push(image)
     setImages([...file])
   }, [])
@@ -366,7 +369,7 @@ export default function Category() {
                           : <li>
                             {get(images[0], 'url', '') &&
                               <Image
-                                src={get(images[0], 'url', '')}
+                                src={`${get(images[0], 'url', '')}`}
                                 alt="testimonial2"
                                 width={111}
                                 height={129}
