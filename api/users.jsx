@@ -138,6 +138,49 @@ export function* getUser({ payload }) {
   yield put({ type: 'GOT_USER', data });
 }
 
+export function* getUserInfo({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '') 
+    }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_USER_INFO', data });
+}
+
+export function* updateUser({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/update`, {
+    method: 'PATCH',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '') 
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'UPDATED_USER', data });
+}
+
 export function* getOrders({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const data = yield fetch(`${HOST}/v1/orders`, {

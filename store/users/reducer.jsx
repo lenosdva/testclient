@@ -20,7 +20,9 @@ const initialState = {
   inboxLoading: false,
   inbox: [],
   chatLoading: false,
-  chat: []
+  chat: [],
+  userInfoLoading: false,
+  userInfo: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -66,6 +68,20 @@ export default function userReducer(state = initialState, action) {
         user: action.data
       };
     }
+    case 'GET_USER_INFO': {
+      return {
+        ...state,
+        userInfoLoading: true,
+      };
+    }
+    case 'GOT_USER_INFO': {
+      return {
+        ...state,
+        userInfoLoading: false,
+        userInfo: action.data
+      };
+    }
+    
     case 'GET_CHAT': {
       return {
         ...state,
