@@ -162,7 +162,7 @@ export function* getUserInfo({ payload }) {
 export function* updateUser({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const data = yield fetch(`${HOST}/v1/users/update`, {
-    method: 'PATCH',
+    method: 'POST',
     headers: { 
       'Content-Type': 'application/json', 
       'Authorization': 'Bearer ' + get(token, 'accessToken', '') 

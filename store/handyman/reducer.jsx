@@ -48,7 +48,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         uploadDocLoading: true,
-        uploadDoc: action.data
+        uploadDoc: action.data.data
       }
     }
     case 'GET_GIG': {

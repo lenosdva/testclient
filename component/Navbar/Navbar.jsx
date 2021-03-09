@@ -9,7 +9,7 @@ import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-
+import cookie from 'cookie-cutter';
 
 const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
   const dispatch = useDispatch()
@@ -121,13 +121,13 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
                 </div>
               </div>
               {get(error, 'phone', '') &&
-                <span>{get(error, 'phone', '')}</span>
+                <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(error, 'email', '') &&
-                <span>{get(error, 'email', '')}</span>
+                <span className="errormsg">{get(error, 'email', '')}</span>
               }{get(error, 'password', '') &&
-                <span>{get(error, 'password', '')}</span>
+                <span className="errormsg">{get(error, 'password', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span>{get(serverError, 'serverError', '')}</span>
+              <span >{get(serverError, 'serverError', '')}</span>
               }
 
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
@@ -152,13 +152,13 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
                 </div>
               </div>
               {get(error, 'phone', '') &&
-                <span>{get(error, 'phone', '')}</span>
+                <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(error, 'email', '') &&
-                <span>{get(error, 'email', '')}</span>
+                <span className="errormsg">{get(error, 'email', '')}</span>
               }{get(error, 'password', '') &&
-                <span>{get(error, 'password', '')}</span>
+                <span className="errormsg">{get(error, 'password', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span>{get(serverError, 'serverError', '')}</span>
+              <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
@@ -412,9 +412,9 @@ const signUpModal = (signUpModel, closeModal, setLoginModel, serverError) => {
                 </div>
               </div>
               {get(error, 'phone', '') &&
-                <span>{get(error, 'phone', '')}</span>
+                <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span>{get(serverError, 'serverError', '')}</span>
+              <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={isLoading}>Continue</button>
@@ -439,13 +439,13 @@ const signUpModal = (signUpModel, closeModal, setLoginModel, serverError) => {
                 </div>
               </div>
               {get(error, 'phone', '') &&
-                <span>{get(error, 'phone', '')}</span>
+                <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(error, 'email', '') &&
-                <span>{get(error, 'email', '')}</span>
+                <span className="errormsg">{get(error, 'email', '')}</span>
               }{get(error, 'password', '') &&
-                <span>{get(error, 'password', '')}</span>
+                <span className="errormsg">{get(error, 'password', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span>{get(serverError, 'serverError', '')}</span>
+              <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={emailSignLoading}>Continue</button>
@@ -575,7 +575,7 @@ const otp = (otpModel, closeModal, mobile) => {
             // separator={<span>-</span>}
             />
             {get(error, 'serverError', '') &&
-              <span>{get(error, 'serverError', '')}</span>
+              <span className="errormsg">{get(error, 'serverError', '')}</span>
               }
             {/* <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp" />
@@ -718,6 +718,15 @@ export default function Navbar() {
     setOtpModel(false)
     setLoginModel(false)
     setSignUpModel(false)
+  }
+
+  function signOut(){
+    localStorage.clear()
+    cookie.set('token', '/')
+    cookie.set('expires', '')
+    cookie.set('path', '/')
+    setLoggedStatus(false)
+    router.push('/')
   }
 
   return (
@@ -875,7 +884,7 @@ export default function Navbar() {
                     <h6>marieantoinette99@gmail.com</h6>
                     <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                     <div className="divi"></div>
-                    <p><Link href='/index'>Sign Out</Link></p>
+                    <p onClick={signOut}>Sign Out</p>
                     <p><Link href='/index'>Switch To Selling</Link></p>
                     <p><Link href='/client-dashboard'>My Dashboard</Link></p>
                   </li>
