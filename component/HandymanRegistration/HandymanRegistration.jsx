@@ -149,7 +149,7 @@ function ProfileManagement({ t }) {
                 className="input mr-3"
                 placeholder="Erika Hans"
               />
-              <p>{get(error, 'name', '')}</p>
+              <p className="errormsg">{get(error, 'name', '')}</p>
             </div>
             <div className="small d-flex flex-column">
               <h3 className="label">{t("handyRegis.cName")}</h3>
@@ -160,7 +160,7 @@ function ProfileManagement({ t }) {
                 className="input"
                 placeholder="Erika  Home Services Inc."
               />
-              <p>{get(error, 'companyName', '')}</p>
+              <p className="errormsg">{get(error, 'companyName', '')}</p>
             </div>
           </div>
 
@@ -174,13 +174,13 @@ function ProfileManagement({ t }) {
                 className="input mr-3"
                 placeholder="Berlin, Germany"
               />
-              <p>{get(error, 'location', '')}</p>
+              <p className="errormsg">{get(error, 'location', '')}</p>
             </div>
           </div>
 
           <h3 className="label">{t("handyRegis.about")}</h3>
           <textarea onChange={(e)=> setAbout(e.target.value)} value={about} type="text" className="textarea large" placeholder="" />
-          <p>{get(error, 'about', '')}</p>
+          <p className="errormsg">{get(error, 'about', '')}</p>
           <h5 className="head-regis mt-5">{t("handyRegis.cDetails")}</h5>
           <div className="d-flex flexwrap">
             <div className="small d-flex flex-column">
@@ -193,7 +193,7 @@ function ProfileManagement({ t }) {
                 className="input mr-3"
                 placeholder="+49 | 597 - 567 - 1235"
               />
-              <p>{get(error, 'phone', '')}</p>
+              <p className="errormsg">{get(error, 'phone', '')}</p>
             </div>
             <div className="small d-flex flex-column">
               <h3 className="label">{t("handyRegis.phone")}</h3>
@@ -205,7 +205,7 @@ function ProfileManagement({ t }) {
                 readOnly={true}
                 placeholder="erikahans99@gmail.com"
               />
-              <p>{get(error, 'email', '')}</p>
+              <p className="errormsg">{get(error, 'email', '')}</p>
             </div>
           </div>
 
@@ -225,7 +225,7 @@ function ProfileManagement({ t }) {
                 :
                 <div className="remove-btn" onClick={() => setWorkLicense({})}>Remove</div>
               }
-              <p>{get(error, 'workLicense', '')}</p>
+              <p className="errormsg">{get(error, 'workLicense', '')}</p>
             </li>
             <li>
               <div className="form-group checkbox-wrapper">
@@ -240,7 +240,7 @@ function ProfileManagement({ t }) {
                 :
                 <div className="remove-btn" onClick={(e) => setTaxationIdentityCard({})}>Remove</div>
               }
-              <p>{get(error, 'taxationIdentityCard', '')}</p>
+              <p className="errormsg">{get(error, 'taxationIdentityCard', '')}</p>
             </li>
             {renserCertificate()}
             {/* <li>
