@@ -10,11 +10,14 @@ import { useRouter } from 'next/router'
 function ProfileManagement({ t }) {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { userData, uploadDoc } = useSelector(state => ({
+  const { userData, uploadDoc, hyndyman, hyndymanLoading, uploadDocLoading } = useSelector(state => ({
     userData: state.user.user,
-    uploadDoc: state.handyman.uploadDoc
+    uploadDoc: state.handyman.uploadDoc,
+    uploadDocLoading: state.handyman.uploadDoc,
+    hyndymanLoading: state.handyman.hyndymanLoading,
+    hyndyman: state.handyman.hyndyman
   }));
-
+  console.log(uploadDoc, hyndymanLoading, hyndyman)
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [location, setLocation] = useState('')
@@ -31,6 +34,12 @@ function ProfileManagement({ t }) {
     setEmail(get(userData, 'mobile', ''))
     setPhone(get(userData, 'email', ''))
   }, [userData])
+
+  useEffect(()=>{
+    if(get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)){
+      router.push('/handyman-registration-complete')
+    }
+  }, [hyndyman, uploadDoc])
 
   function removeCertificate(key) {
     certificate[key] = {}
@@ -51,7 +60,7 @@ function ProfileManagement({ t }) {
     certificate.map((data, key) => (
       <li key={key}>
         <div className="form-group checkbox-wrapper">
-          <input checked={get(uploadDoc,'success', false)} disabled={true} type="checkbox" id="html" />
+          <input checked={get(data, 'name', false)} disabled={true} type="checkbox" id="html" />
           <label for="html">Certificate {key + 1} (optional)</label>
         </div>
         { get(data, 'name', false) !== false ?
@@ -92,7 +101,7 @@ function ProfileManagement({ t }) {
         fname: name,
         cname: companyName,
         location: location,
-        about: about,
+        description: about,
       }
       const formData = new FormData();
       formData.append('doc[]', workLicense)
@@ -214,7 +223,7 @@ function ProfileManagement({ t }) {
           <ul className="upload-list">
             <li>
               <div className="form-group checkbox-wrapper">
-                <input checked={get(uploadDoc,'success', false)} disabled={true} type="checkbox" id="html" />
+                <input checked={get(workLicense, 'name', false)} disabled={true} type="checkbox" id="html" />
                 <label for="html">Work License</label>
               </div>
               {get(workLicense, 'name', false) === false ?
@@ -229,7 +238,7 @@ function ProfileManagement({ t }) {
             </li>
             <li>
               <div className="form-group checkbox-wrapper">
-                <input checked={get(uploadDoc,'success', false)} disabled={true} type="checkbox" id="html" />
+                <input checked={get(taxationIdentityCard, 'name', false)} disabled={true} type="checkbox" id="html" />
                 <label for="html">Taxation Identity Card</label>
               </div>
                {get(taxationIdentityCard, 'name', false) === false ?
@@ -261,7 +270,7 @@ function ProfileManagement({ t }) {
           <div onClick={addMore} className="addmore-btn">Add More</div>
           <p className="note"><span>{t("handyRegis.note")}:</span>{t("handyRegis.nText")}</p>
           {/* <Link href="/handyman-registration-complete"> */}
-            <button className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>
+            <button disabled={(hyndymanLoading && uploadDocLoading)} className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>
             {/* </Link> */}
           {get(userData, 'approved', false) === "approved" &&  
             <PaymentCard />
