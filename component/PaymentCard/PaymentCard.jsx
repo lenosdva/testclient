@@ -1,12 +1,21 @@
 import { withTranslation } from "../../constent/i18n/i18n"
+import  { useState } from "react"
+import {Elements, CardElement} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
+const { NEXT_PUBLIC_STRIP_KEY } = process.env
+const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
 function PaymentCard({t}) {
+  const [ paymentMethod, setPaymentMethod ] = useState('')
   return (
     <div className="payment-card p-5 mt-4">
       <div className="d-flex flex-column paymentimg">
         <div className="d-flex align-items-center">
           <input
             type="radio"
+            onChange={(e)=> setPaymentMethod('card')}
+            checked={paymentMethod === 'card'}
             className="card input mr-3"
             name="payment"
             value="Debit/Credit/ATM"
@@ -19,12 +28,35 @@ function PaymentCard({t}) {
           height="50px"
           width="450px"
         />
+        {paymentMethod === 'card' &&
+        <Elements stripe={stripePromise}>
+          <CardElement
+          options={{
+            style: {
+              base: {
+                padding: 10,
+                fontSize: '20px',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
+              },
+            },
+          }}
+        />
+        </Elements>
+        }
       </div>
       <br />
       <div className="d-flex flex-column">
         <div className="d-flex align-items-center">
           <input
             type="radio"
+            onChange={(e)=> setPaymentMethod('Net Banking')}
+            checked={paymentMethod === 'Net Banking'}
             className="net-banking input mr-3"
             name="payment"
             value="Net Banking"
@@ -45,6 +77,8 @@ function PaymentCard({t}) {
         <div className="d-flex align-items-center">
           <input
             type="radio"
+            onChange={(e)=> setPaymentMethod('upi')}
+            checked={paymentMethod === 'upi'}
             className="UPI input mr-3"
             name="payment"
             value="UPI"
@@ -62,6 +96,8 @@ function PaymentCard({t}) {
         <div className="d-flex align-items-center">
           <input
             type="radio"
+            onChange={(e)=> setPaymentMethod('netBanking')}
+            checked={paymentMethod === 'netBanking'}
             className="net-banking input mr-3"
             name="payment"
             value="Net Banking"
