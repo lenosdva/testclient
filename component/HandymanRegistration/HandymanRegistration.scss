@@ -32,6 +32,7 @@
       flex-wrap: wrap;
     }
     .checkbox-wrapper {
+      width: 450px;
       label {
         font-size: 24px !important;
       }
@@ -96,4 +97,10 @@
     padding: 0 20px;
     width: 100%;
   }
+}
+.errormsg {
+  color: red;
+  display: block;
+  float: left;
+  width: 100%;
 }
