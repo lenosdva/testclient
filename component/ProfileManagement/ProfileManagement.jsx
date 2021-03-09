@@ -106,7 +106,7 @@ function ProfileManagement(props) {
                   onBlur={submitData}
                 />
                 {get(error, 'fullName', false) &&
-                  <span> {get(error, 'fullName', false)}</span>
+                  <span className="errormsg"> {get(error, 'fullName', false)}</span>
                   }
               </div>
               <div className="small d-flex flex-column">
@@ -115,7 +115,7 @@ function ProfileManagement(props) {
                   {(inputProps) => <input {...inputProps} name="phone" className="input"  type="tel" placeholder="(000) 000 0000" />}
                 </InputMask>
                 {get(error, 'phone', false) &&
-                  <span> {get(error, 'phone', false)}</span>
+                  <span className="errormsg"> {get(error, 'phone', false)}</span>
                 }
                 {/* <input
                   type="text"
@@ -128,7 +128,7 @@ function ProfileManagement(props) {
             <h3 className="label">{props.t("ProfileManagement.aboutMe")}</h3>
             <textarea name="about" type="text" value={about} onChange={(e) => setAbout(e.target.value)} className="input large mr-2" placeholder="" />
             {get(error, 'about', false) &&
-              <span> {get(error, 'about', false)}</span>
+              <span className="errormsg"> {get(error, 'about', false)}</span>
             }
             <div className="horizontal-line"></div>
             <h3 className="label">{props.t("ProfileManagement.emailAddress")}</h3>

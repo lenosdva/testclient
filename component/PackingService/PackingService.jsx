@@ -134,7 +134,7 @@ export default function PackingService(props) {
           <h2 className="mb-3">{get(props, 'data.title', '')}</h2>
           <div className="d-flex justify-content-between flexwrap">
             <div className="d-flex align-items-center flexwrap">
-              <h4 className="secondary handyman-name">{get(props, 'data.sellerPersonalInfo.fname', '')}</h4>{" "}
+              <h4 className="secondary handyman-name"><Link href={`/sellerprofile?id=${get(props, 'gig._id', '')}`}>{get(props, 'data.sellerPersonalInfo.fname', '')}</Link></h4>{" "}
               <div className="ml-3 mr-3">
                 <i className="fa fa-star" aria-hidden="true"></i>
               </div>
