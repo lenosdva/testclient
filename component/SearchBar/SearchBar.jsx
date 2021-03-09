@@ -155,7 +155,7 @@ export default function SearchBar(props) {
       </div>
       <div className="icon-area">
         <button onClick={onSearchService} className="btn btn-primary">
-          <span className="hidemobile">
+          <span className="hidemobile iconsearch">
             <Image
               src="/assets/svg/ic-search.svg"
               alt="search"
