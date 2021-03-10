@@ -4,6 +4,7 @@ import { withTranslation } from "../../constent/i18n/i18n"
 
 function Footer({t}) {
     return (
+        <div>
         <div className='footer d-flex flex-column'>
             <div className="container">
                 <div className="row marg170">
@@ -63,6 +64,20 @@ function Footer({t}) {
                     </div>
                 </div>
             </div>
+        </div>
+        <div className="payment-succes">
+            <span className="profilepic">
+                    <Image
+                        src="/assets/images/profile-pic.png"
+                        alt="clean-service"
+                        width={100}
+                        height={100}
+                    />
+            </span>
+                <h1>USER112345</h1>
+                <h6>User112345 has requested a quotation for your moving out service.</h6>
+            <p>12:57pm</p>
+        </div>
         </div>
     );
 }
