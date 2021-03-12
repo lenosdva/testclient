@@ -8,7 +8,10 @@ const Inbox = (props) => {
   const dispatch = useDispatch()
   function getChat(_id){
     dispatch({ type: "GET_CHAT", payload: {userId: _id} })
+    props.onSelectChat(_id)
   }
+
+
 
   const renderInbox=() =>(
     get(props, 'inbox' , []).map((data, key)=>(
