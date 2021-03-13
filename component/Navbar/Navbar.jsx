@@ -848,28 +848,33 @@ export default function Navbar() {
           </li> */}
           <li>
 
-            <div className="togglewrapper">
-              <label className="dropdown">
-                <div className="dd-button">
-                  <i className="fa fa-bars" aria-hidden="true"></i>
-                </div>
-                <input type="checkbox" className="dd-input" id="test" />
-                <ul className="dd-menu">
-                  <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
-                  <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
-                </ul>
-              </label>
 
-              <label className="dropdown1">
-                <div className="dd-button1">
-                  <Image
+
+          <div className="togglewrapper">
+          <label className="dropdown">
+            <div className="dd-button d-flex">
+              <i className="fa fa-bars" aria-hidden="true"></i>
+              <Image
                     src="/assets/svg/ic-menu-profile.svg"
                     alt=""
                     width={34}
                     height={34}
                   />
-                </div>
-                <input type="checkbox" className="dd-input1" id="test1" />
+            </div>
+
+
+            {/* login modal wrapper open */}
+            <input type="checkbox" className="dd-input" id="test" />
+            <ul className="dd-menu">
+              <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
+              <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
+            </ul>
+            {/* login modal wrapper close */}
+
+
+
+            {/* profile modal wrapper open */}
+            {/* <input type="checkbox" className="dd-input1" id="test1" />
                 <ul className="dd-menu1">
                   <li>
                     <div>
@@ -884,32 +889,16 @@ export default function Navbar() {
                     <h6>marieantoinette99@gmail.com</h6>
                     <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                     <div className="divi"></div>
-                    <p onClick={signOut}>Sign Out</p>
-                    <p><Link href='/index'>Switch To Selling</Link></p>
-                    <p><Link href='/client-dashboard'>My Dashboard</Link></p>
+                    <p onClick={signOut} className="text-center mb-2">Sign Out</p>
+                    <p className="text-center"><Link href='/index'>Switch To Selling</Link></p>
+                    <p className="text-center"><Link href='/client-dashboard'>My Dashboard</Link></p>
                   </li>
-                </ul>
-              </label>
-            </div>
+                </ul> */}
+              {/* profile modal wrapper close */}
 
-            {/* <label className="dropdown">
-              <div className="dd-button">
-                <i className="fa fa-bars" aria-hidden="true"></i>
-                <Image
-                  src="/assets/svg/ic-menu-profile.svg"
-                  alt=""
-                  width={34}
-                  height={34}
-                />
-              </div>
+           </label>
+          </div>
 
-              <input type="checkbox" className="dd-input" id="test"/>
-                <ul className="dd-menu">
-                  <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
-                  <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
-                </ul>
-  
-            </label> */}
           </li>
         </ul>
         {loginModal(loginModel, closeModal, setSignUpModel, error)}

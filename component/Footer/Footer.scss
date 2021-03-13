@@ -146,6 +146,10 @@
     }
   }
 }
+.payment-hide {
+  display: none;
+  transition: all .3s ease-in-out;
+}
 .payment-succes {
   width: 489px;
   max-width: 90%;
@@ -155,6 +159,8 @@
   bottom: 30px;
   right: 40px;
   padding: 30px 40px;
+  transition: all .3s ease-in-out;
+  border: 1px solid rgba(37, 37, 37, 0.1);
   @media (max-width:767px) {
       max-width: 100%;
       background: #FFFFFF;

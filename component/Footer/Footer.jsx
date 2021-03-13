@@ -65,7 +65,7 @@ function Footer({t}) {
                 </div>
             </div>
         </div>
-        <div className="payment-succes">
+        <div className="payment-succes payment-hide">
             <span className="profilepic">
                     <Image
                         src="/assets/images/profile-pic.png"

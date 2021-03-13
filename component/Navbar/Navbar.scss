@@ -685,13 +685,15 @@
   border-radius: 50px;
   display: flex;
   align-items: center;
-  padding: 8px 8px 8px 20px;
+  // padding: 8px 8px 8px 20px;
   cursor: pointer;
 }
 .dropdown {
   display: inline-block;
   position: relative;
   margin: 0;
+  padding:8px 8px 8px 20px;
+  cursor: pointer;
 }
 .dd-button {
   white-space: nowrap;
@@ -776,7 +778,7 @@
 .dd-menu1 {
   position: absolute;
   top: 60px;
-  left: -225px;
+  left: -175px;
   border: 1px solid #f1f1f1;
   border-radius: 12px;
   padding: 0;
@@ -786,6 +788,7 @@
   width: 270px;
   // height: 400px;
   z-index: 9;
+  text-align: center;
 }
 .dd-input1 + .dd-menu1 {
   display: none;
