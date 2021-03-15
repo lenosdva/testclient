@@ -1,8 +1,8 @@
 import { Layout, Footer, Support, FAQ } from "../component";
 
-export default function Category() {
+export default function Category(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="products">
         <div className="support-section">
           <div className="container">

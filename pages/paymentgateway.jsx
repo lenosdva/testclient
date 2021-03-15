@@ -4,9 +4,9 @@ import {loadStripe} from '@stripe/stripe-js';
 const { NEXT_PUBLIC_STRIP_KEY } = process.env
 const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
-export default function Category() {
+export default function Category(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="category">
         <div className="container">
           <div className="row">

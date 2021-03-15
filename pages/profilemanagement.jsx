@@ -1,7 +1,7 @@
 import { Layout, Footer, ProfileManagement } from "../component";
 import { useDispatch, useSelector } from 'react-redux'
 
-export default function Category() {
+export default function Category(props) {
 
   const dispatch = useDispatch()
   const { userLoading, user } = useSelector(state => ({
@@ -9,7 +9,7 @@ export default function Category() {
     user: state.user.user
   }));
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       {userLoading ?
         <div className="loading-wrapper">
           <div className="loader"></div>

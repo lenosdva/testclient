@@ -6,6 +6,7 @@ import { get } from "lodash"
 
 export default function InboxWidePage(props) {
   const [request, setRequest] =useState({})
+  const [selectedChatId, setId] =useState('')
   const dispatch = useDispatch()
   const { inbox, inboxLoading, chatLoading, chat } = useSelector(state => ({
     inbox: state.user.inbox,
@@ -14,10 +15,9 @@ export default function InboxWidePage(props) {
     chat: state.user.chat,
   }));
 
-  function onSelectChat(id){
+  function onSelectChat(id, mainID){
+    setId(mainID)
     if('addEventListener' in  props.ws){
-      // send data
-      //p
       props.ws.addEventListener('message', function (event) {
         let message = JSON.parse(event.data);
         if(event.request === "notificationReceived"){
@@ -27,18 +27,28 @@ export default function InboxWidePage(props) {
     }
   }
 
+  function getOrderStatus(){
+    if(selectedChatId !== ''){
+      console.log("selectedChatId", selectedChatId)
+      const index = inbox.findIndex(x => x._id === selectedChatId)
+      console.log("index", index)
+      return inbox[index]
+    }
+      return false
+  }
+
   useEffect(() => {
     dispatch({ type: "GET_INBOX" })
-   
   }, [])
 
+  console.log("inbox", getOrderStatus())
   return (
     (inboxLoading) ?
       <div className="loading-wrapper">
         <div className="loader"></div>
       </div>
       :
-      <Layout>
+      <Layout setWebSoket={props.setWebSoket}>
         <div className="inbox-wide-page">
           <div className="container">
             <div className="row">
@@ -46,9 +56,11 @@ export default function InboxWidePage(props) {
                 <Inbox  onSelectChat={onSelectChat} ws={props.ws} inbox={inbox} />
               </div>
               <div className="col-lg-4 col-md-12">
-
-                {/* <TimelineOrder ws={props.ws}/> */}
-                {/* <Timeline /> */}
+                {getOrderStatus() ?
+                   <Timeline orderStatus={getOrderStatus()}/>
+                :
+                  <TimelineOrder  ws={props.ws}/>
+                }
               </div>
               <div className="col-lg-4 col-md-12">
                 {get(chat, 'id', false) ?

@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { Layout, Footer, ClientDashboard, ClientMyOrders, FAQ } from "../component";
 import { useDispatch, useSelector } from 'react-redux'
 
-export default function Category() {
+export default function Category(props) {
   const dispatch = useDispatch()
   const { userData, orderLoading, userLoading, orders } = useSelector(state => ({
     userData: state.user.user,
@@ -20,7 +20,7 @@ export default function Category() {
         <div className="loader"></div>
       </div>
       :
-      <Layout>
+      <Layout setWebSoket={props.setWebSoket}>
         <div className="products">
           <div className="about-section-padding">
             <ClientDashboard />

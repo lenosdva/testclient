@@ -1,9 +1,9 @@
 import { Layout, Footer } from "../component";
 import { Inbox, Timeline, Chat } from "../component";
 
-export default function InboxPage() {
+export default function InboxPage(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="inbox-page">
         <div className="container">
           <div className="row">

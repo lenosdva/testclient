@@ -35,14 +35,10 @@ const Chat = (props) => {
     })
     setChat(newMessage)
     var objDiv = document.getElementById("chat-box");
-    // console.log()
     objDiv.scroll({ bottom: objDiv.scrollHeight, behavior: 'smooth' });
   }, [props.chat.message])
 
   function onSend() {
-    // message
-    // console.log("ws====>", ws)
-    console.log("user", user)
     const SENDING_TO_USER_ID = get(props, 'chat.id', '')
     const USER_ID = get(user, 'id', '')
     let messageH = JSON.stringify({

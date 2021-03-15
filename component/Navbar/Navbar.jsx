@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { get } from 'lodash'
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import cookie from 'cookie-cutter';
 
@@ -127,7 +127,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
               }{get(error, 'password', '') &&
                 <span className="errormsg">{get(error, 'password', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span >{get(serverError, 'serverError', '')}</span>
+                <span >{get(serverError, 'serverError', '')}</span>
               }
 
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
@@ -158,7 +158,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
               }{get(error, 'password', '') &&
                 <span className="errormsg">{get(error, 'password', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span className="errormsg">{get(serverError, 'serverError', '')}</span>
+                <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
@@ -334,7 +334,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel, serverError) => {
     //             <input type="text" className="field-input" placeholder="Date of birth" />
     //             <p className="text-left mt5">To sign up, you need to at least 18. Your birthday won't be shared with other people who use Dein Hausman.</p>
     //           </div>
-              
+
     //           <div className="form-group">
     //             <input type="text" className="field-input" placeholder="Email" />
     //             <p className="text-left mt5">We'll email you trip confirmations and receipts.</p>
@@ -414,7 +414,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel, serverError) => {
               {get(error, 'phone', '') &&
                 <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span className="errormsg">{get(serverError, 'serverError', '')}</span>
+                <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={isLoading}>Continue</button>
@@ -445,7 +445,7 @@ const signUpModal = (signUpModel, closeModal, setLoginModel, serverError) => {
               }{get(error, 'password', '') &&
                 <span className="errormsg">{get(error, 'password', '')}</span>
               }{get(serverError, 'serverError', '') &&
-              <span className="errormsg">{get(serverError, 'serverError', '')}</span>
+                <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
               <button className="btn btn-continue" disabled={emailSignLoading}>Continue</button>
@@ -530,7 +530,7 @@ const otp = (otpModel, closeModal, mobile) => {
     }
     if (get(resendOtpData, 'result.error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      const error ={}
+      const error = {}
       error.serverError = get(resendOtpData, 'result.message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(resendOtpData, 'result.message', 'Please try again'))
@@ -576,7 +576,7 @@ const otp = (otpModel, closeModal, mobile) => {
             />
             {get(error, 'serverError', '') &&
               <span className="errormsg">{get(error, 'serverError', '')}</span>
-              }
+            }
             {/* <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp" />
           <input type="text" className="otp-inp"/>
@@ -589,7 +589,7 @@ const otp = (otpModel, closeModal, mobile) => {
   );
 }
 
-export default function Navbar() {
+export default function Navbar(props) {
   const dispatch = useDispatch()
   const router = useRouter()
   const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
@@ -610,38 +610,44 @@ export default function Navbar() {
   const [showMessage, setMessage] = useState(false);
   const [error, setError] = useState({});
 
-  useEffect(()=>{
+  useEffect(() => {
     setError({})
-  },[loginModel, signUpModel, otpModel])
+  }, [loginModel, signUpModel, otpModel])
 
-  useEffect(()=>{
-    if(get(user, 'code', false) === 401){
-      if(userLogged === true){
+  useEffect(() => {
+    if (get(user, 'code', false) === 401) {
+      if (userLogged === true) {
         setLoggedStatus(false)
         localStorage.clear()
       }
     }
-  },[user])
+  }, [user])
 
   useEffect(() => {
-   
+    if (userLogged) {
+      props.setWebSoket()
+    }
+  }, [userLogged])
+
+  useEffect(() => {
+
     if (localStorage.getItem('token') !== null) {
       setLoggedStatus(true)
     }
-    dispatch({ type: 'GET_USER'})
+    dispatch({ type: 'GET_USER' })
   }, [])
 
-  useEffect(()=>{
-    if(needLogin === true){
+  useEffect(() => {
+    if (needLogin === true) {
       dispatch({ type: 'LOGIN_RESET' })
       setLoginModel(true)
     }
   }, [needLogin])
 
   useEffect(() => {
-    dispatch({ type: 'GET_USER'})
+    dispatch({ type: 'GET_USER' })
     if (get(userData, 'success', false)) {
-      
+
       dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
       setSignUpModel(false)
@@ -652,7 +658,7 @@ export default function Navbar() {
     }
     if (get(userData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      const error ={}
+      const error = {}
       error.serverError = get(userData, 'message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
@@ -678,7 +684,7 @@ export default function Navbar() {
 
     if (get(mobileLoginData, 'result.error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      const error ={}
+      const error = {}
       error.serverError = get(mobileLoginData, 'result.message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
@@ -695,7 +701,7 @@ export default function Navbar() {
 
     if (get(emailLoginData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
-      const error ={}
+      const error = {}
       error.serverError = get(emailLoginData, 'message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
@@ -709,7 +715,7 @@ export default function Navbar() {
         setLoginModel(false)
         setLoggedStatus(true)
       }
-      
+
     }
 
   }, [userData, otpData, emailSignData, mobileLoginData, emailLoginData])
@@ -720,7 +726,7 @@ export default function Navbar() {
     setSignUpModel(false)
   }
 
-  function signOut(){
+  function signOut() {
     localStorage.clear()
     cookie.set('token', '/')
     cookie.set('expires', '')
@@ -742,13 +748,13 @@ export default function Navbar() {
         </div>
         <ul className="menu">
           <li className="align-self-center">
-          {userLogged ?
-            <Link href="handyman-registration">
-              Become A Handyman
+            {userLogged ?
+              <Link href="handyman-registration">
+                Become A Handyman
             </Link>
-            :
-            <span onClick={()=> setLoginModel(true)}> Become A Handyman</span>
-          }
+              :
+              <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
+            }
           </li>
           {userLogged ? (
             <React.Fragment>
@@ -763,8 +769,8 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="align-self-center">
-                <span onClick={()=> setMessage(!showMessage)} className="posi-rel">
-                  Messages 
+                <span onClick={() => setMessage(!showMessage)} className="posi-rel">
+                  Messages
                   <span className={showMessage ? "message-list" : "message-list message-list-hide"}>
                     <ul>
                       <li>
@@ -814,29 +820,29 @@ export default function Navbar() {
                       </li>
                     </ul>
                     <button className="btn btn-primary">View My Inbox</button>
-                  </span> 
+                  </span>
                 </span>
-                
+
               </li>
             </React.Fragment>
           ) : (
-              <>
-                <li className="align-self-center">
-                  <Link href="/about">
-                    About Us
+            <>
+              <li className="align-self-center">
+                <Link href="/about">
+                  About Us
                   </Link>
-                </li>
-                {/* <li onClick={() => setLoginModel(true)} className="align-self-center">
+              </li>
+              {/* <li onClick={() => setLoginModel(true)} className="align-self-center">
                   Login
                 </li>
                 <li onClick={() => setSignUpModel(true)} className="align-self-center">
                   SignUp
                 </li> */}
-                {/* <li onClick={() => setOtpModel(true)} className="align-self-center">
+              {/* <li onClick={() => setOtpModel(true)} className="align-self-center">
                   otp
                 </li> */}
-              </>
-            )}
+            </>
+          )}
 
           {/* <li>
             <button
@@ -848,20 +854,12 @@ export default function Navbar() {
           </li> */}
           <li>
 
+
+
             <div className="togglewrapper">
               <label className="dropdown">
-                <div className="dd-button">
+                <div className="dd-button d-flex">
                   <i className="fa fa-bars" aria-hidden="true"></i>
-                </div>
-                <input type="checkbox" className="dd-input" id="test" />
-                <ul className="dd-menu">
-                  <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
-                  <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
-                </ul>
-              </label>
-
-              <label className="dropdown1">
-                <div className="dd-button1">
                   <Image
                     src="/assets/svg/ic-menu-profile.svg"
                     alt=""
@@ -869,47 +867,52 @@ export default function Navbar() {
                     height={34}
                   />
                 </div>
-                <input type="checkbox" className="dd-input1" id="test1" />
-                <ul className="dd-menu1">
-                  <li>
-                    <div>
-                      <Image
-                        src="/assets/images/profile-pic.png"
-                        alt=""
-                        width={80}
-                        height={80}
-                      />
-                    </div>
-                    <h4>Marie Antoinette</h4>
-                    <h6>marieantoinette99@gmail.com</h6>
-                    <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
-                    <div className="divi"></div>
-                    <p onClick={signOut}>Sign Out</p>
-                    <p><Link href='/index'>Switch To Selling</Link></p>
-                    <p><Link href='/client-dashboard'>My Dashboard</Link></p>
-                  </li>
-                </ul>
+
+
+                {/* login modal wrapper open */}
+                {!userLogged &&
+                  <>
+                    <input type="checkbox" className="dd-input" id="test" />
+                    <ul className="dd-menu">
+                      <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
+                      <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
+                    </ul>
+                  </>
+                }
+                {/* login modal wrapper close */}
+
+
+
+                {/* profile modal wrapper open */}
+                {userLogged &&
+                  <>
+                    <input type="checkbox" className="dd-input1" id="test1" />
+                    <ul className="dd-menu1">
+                      <li>
+                        <div>
+                          <Image
+                            src="/assets/images/profile-pic.png"
+                            alt=""
+                            width={80}
+                            height={80}
+                          />
+                        </div>
+                        <h4>Marie Antoinette</h4>
+                        <h6>marieantoinette99@gmail.com</h6>
+                        <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
+                        <div className="divi"></div>
+                        <p onClick={signOut} className="text-center mb-2">Sign Out</p>
+                        <p className="text-center"><Link href='/index'>Switch To Selling</Link></p>
+                        <p className="text-center"><Link href='/client-dashboard'>My Dashboard</Link></p>
+                      </li>
+                    </ul>
+                  </>
+                }
+                {/* profile modal wrapper close */}
+
               </label>
             </div>
 
-            {/* <label className="dropdown">
-              <div className="dd-button">
-                <i className="fa fa-bars" aria-hidden="true"></i>
-                <Image
-                  src="/assets/svg/ic-menu-profile.svg"
-                  alt=""
-                  width={34}
-                  height={34}
-                />
-              </div>
-
-              <input type="checkbox" className="dd-input" id="test"/>
-                <ul className="dd-menu">
-                  <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
-                  <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
-                </ul>
-  
-            </label> */}
           </li>
         </ul>
         {loginModal(loginModel, closeModal, setSignUpModel, error)}

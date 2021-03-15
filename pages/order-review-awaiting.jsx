@@ -1,9 +1,9 @@
 import { Layout, Footer } from "../component";
 import { TimelineOrder, Chat, OtherOrders } from "../component";
 
-export default function InboxWidePage() {
+export default function InboxWidePage(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="inbox-wide-page">
         <div className="container mb-4">
           <div className="d-flex justify-content-between flexwrap">

@@ -32,7 +32,7 @@ export default withRouter(function Category(props) {
         <div className="loader"></div>
       </div>
       :
-      <Layout>
+      <Layout setWebSoket={props.setWebSoket}>
         <div className="products">
           <div className="container">
             <div className="home-section-padding text-center">
