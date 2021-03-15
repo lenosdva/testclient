@@ -1,8 +1,8 @@
 import { Layout, Footer, HandymanRegistrationComplete } from "../component";
 
-export default function Category() {
+export default function Category(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="category">
         <div className="container">
           <HandymanRegistrationComplete />

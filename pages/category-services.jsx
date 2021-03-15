@@ -9,7 +9,7 @@ import {
 } from "../component";
 import { useDispatch, useSelector } from 'react-redux'
 
-export default function Category() {
+export default function Category(props) {
 
   const dispatch = useDispatch()
   const { searchByIdData, searchByIdLoading } = useSelector(state => ({
@@ -27,7 +27,7 @@ export default function Category() {
         <div className="loader"></div>
       </div>
       :
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="category">
         <div className="container">
           <div className="home-section-padding text-center">

@@ -1,8 +1,8 @@
 import { Layout, Footer, ReviewYourOrder, OrderSummary } from "../component";
 
-export default function Category() {
+export default function Category(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="revieworder">
         <div className="container">
           <div className="row">

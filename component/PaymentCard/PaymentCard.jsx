@@ -1,13 +1,26 @@
 import { withTranslation } from "../../constent/i18n/i18n"
 import  { useState } from "react"
-import {Elements, CardElement} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
-
-const { NEXT_PUBLIC_STRIP_KEY } = process.env
-const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
-
+import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import { useDispatch, useSelector } from 'react-redux'
+import { get } from "lodash"
 function PaymentCard({t}) {
+  const stripe = useStripe();
+  const elements = useElements();
   const [ paymentMethod, setPaymentMethod ] = useState('')
+  const dispatch = useDispatch()
+  const handleSubmit = async (event) => {
+    
+    event.preventDefault();
+    if (!stripe || !elements) {
+      return;
+    }
+    const cardElement = elements.getElement(CardElement);
+    stripe.createToken(cardElement).then(function(result) {
+      if(get(result, 'token.id', false)){
+        dispatch({ type: "DO_PAYMENT", payload: {orderId: '603d32140516367eb446ed69', token: result.token.id}})
+      }
+    });
+  }
   return (
     <div className="payment-card p-5 mt-4">
       <div className="d-flex flex-column paymentimg">
@@ -29,25 +42,26 @@ function PaymentCard({t}) {
           width="450px"
         />
         {paymentMethod === 'card' &&
-        <Elements stripe={stripePromise}>
+        <form onSubmit={handleSubmit}>
           <CardElement
-          options={{
-            style: {
-              base: {
-                padding: 10,
-                fontSize: '20px',
-                color: '#424770',
-                '::placeholder': {
-                  color: '#aab7c4',
+            options={{
+              style: {
+                base: {
+                  padding: 10,
+                  fontSize: '20px',
+                  color: '#424770',
+                  '::placeholder': {
+                    color: '#aab7c4',
+                  },
+                },
+                invalid: {
+                  color: '#9e2146',
                 },
               },
-              invalid: {
-                color: '#9e2146',
-              },
-            },
-          }}
-        />
-        </Elements>
+            }}
+          />
+        <button className="btn btn-primary-rd" type="submit">Add</button>
+        </form>
         }
       </div>
       <br />

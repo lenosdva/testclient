@@ -12,9 +12,9 @@ import {
   Footer,
 } from "../component";
 
-export default function Home() {
+export default function Home(props) {
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="home">
         <div className="container-fluid">
           <HomeBanner />

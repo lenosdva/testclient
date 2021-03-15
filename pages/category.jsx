@@ -42,7 +42,7 @@ function Category(props) {
         <div className="loader"></div>
       </div>
       :
-      <Layout>
+      <Layout setWebSoket={props.setWebSoket}>
         <div className="category">
           <div className="container">
             <div className="home-section-padding text-center">

@@ -8,7 +8,7 @@ import { get, toPath } from "lodash";
 import Select from 'react-select';
 import { useDropzone } from 'react-dropzone'
 
-export default function Category() {
+export default function Category(props) {
   const [pincode, setPincode] = useState([])
   const [city, setCity] = useState([])
   const [radius, setRedius] = useState('')
@@ -156,7 +156,7 @@ export default function Category() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ maxSize: 26214400, onDrop, multiple: false, accept: "image/*" })
   return (
-    <Layout>
+    <Layout setWebSoket={props.setWebSoket}>
       <div className="category">
 
         <div>

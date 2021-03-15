@@ -17,9 +17,7 @@ const Chat = (props) => {
   }));
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'))
-    ws = new WebSocket('ws://ec2-13-126-85-208.ap-south-1.compute.amazonaws.com:4200/ws', get(token, 'accessToken', '') )
-    ws.addEventListener('message', function (event) {
+    props.ws.addEventListener('message', function (event) {
       let message = event;
       dispatch({ type: "GET_CHAT", payload: {userId: get(props, 'chat.id', '')} })
     })
@@ -37,14 +35,10 @@ const Chat = (props) => {
     })
     setChat(newMessage)
     var objDiv = document.getElementById("chat-box");
-    // console.log()
     objDiv.scroll({ bottom: objDiv.scrollHeight, behavior: 'smooth' });
   }, [props.chat.message])
 
   function onSend() {
-    // message
-    // console.log("ws====>", ws)
-    console.log("user", user)
     const SENDING_TO_USER_ID = get(props, 'chat.id', '')
     const USER_ID = get(user, 'id', '')
     let messageH = JSON.stringify({
@@ -53,7 +47,7 @@ const Chat = (props) => {
       sendTo: SENDING_TO_USER_ID,
       message: message
     })
-    ws.send(messageH)
+    props.ws.send(messageH)
     setMessage('')
   }
 

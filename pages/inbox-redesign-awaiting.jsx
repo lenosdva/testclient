@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Layout, Footer } from "../component";
-import { Inbox, TimelineOrder, Chat } from "../component";
+import { Inbox, Chat, Timeline, TimelineItem, TimelineOrder } from "../component";
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
 
-export default function InboxWidePage() {
+export default function InboxWidePage(props) {
+  const [request, setRequest] =useState({})
+  const [selectedChatId, setId] =useState('')
   const dispatch = useDispatch()
   const { inbox, inboxLoading, chatLoading, chat } = useSelector(state => ({
     inbox: state.user.inbox,
@@ -13,29 +15,56 @@ export default function InboxWidePage() {
     chat: state.user.chat,
   }));
 
+  function onSelectChat(id, mainID){
+    setId(mainID)
+    if('addEventListener' in  props.ws){
+      props.ws.addEventListener('message', function (event) {
+        let message = JSON.parse(event.data);
+        if(event.request === "notificationReceived"){
+          dispatch({ type: "GET_INBOX" })
+        }
+      })
+    }
+  }
+
+  function getOrderStatus(){
+    if(selectedChatId !== ''){
+      console.log("selectedChatId", selectedChatId)
+      const index = inbox.findIndex(x => x._id === selectedChatId)
+      console.log("index", index)
+      return inbox[index]
+    }
+      return false
+  }
+
   useEffect(() => {
     dispatch({ type: "GET_INBOX" })
   }, [])
 
+  console.log("inbox", getOrderStatus())
   return (
     (inboxLoading) ?
       <div className="loading-wrapper">
         <div className="loader"></div>
       </div>
       :
-      <Layout>
+      <Layout setWebSoket={props.setWebSoket}>
         <div className="inbox-wide-page">
           <div className="container">
             <div className="row">
               <div className="col-lg-4 col-md-12">
-                <Inbox inbox={inbox} />
+                <Inbox  onSelectChat={onSelectChat} ws={props.ws} inbox={inbox} />
               </div>
               <div className="col-lg-4 col-md-12">
-                <TimelineOrder />
+                {getOrderStatus() ?
+                   <Timeline orderStatus={getOrderStatus()}/>
+                :
+                  <TimelineOrder  ws={props.ws}/>
+                }
               </div>
               <div className="col-lg-4 col-md-12">
                 {get(chat, 'id', false) ?
-                  <Chat chat={chat} />
+                  <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws}/>
                   : <></>
                 }
               </div>

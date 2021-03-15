@@ -6,13 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Inbox = (props) => {
   const dispatch = useDispatch()
-  function getChat(_id){
+  function getChat(_id, mainId){
     dispatch({ type: "GET_CHAT", payload: {userId: _id} })
+    props.onSelectChat(_id, mainId)
   }
+
+
 
   const renderInbox=() =>(
     get(props, 'inbox' , []).map((data, key)=>(
-      <div key={key} onClick={()=> getChat(get(data, 'partyUserRole', '') === "handyman" ? get(data, 'sellerUser', '') : get(data, 'toUser', ''))} className="inbox-item">
+      <div key={key} onClick={()=> getChat(get(data, 'partyUserRole', '') === "handyman" ? get(data, 'sellerUser', '') : get(data, 'toUser', ''), get(data, '_id', ''))} className="inbox-item">
         <div className="inbox-photo">
           <Image
             src="/assets/images/howitwork2.jpg"

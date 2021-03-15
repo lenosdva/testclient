@@ -248,3 +248,25 @@ export function* getChat({ payload }) {
     });
   yield put({ type: 'GOT_CHAT', data });
 }
+
+export function* payment({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/payments/chargeCustomer`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'applchargeCustomerication/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return message;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'Done_PAYMENT', data });
+}

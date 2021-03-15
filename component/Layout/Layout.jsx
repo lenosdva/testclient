@@ -9,7 +9,7 @@ export default function Layout(props) {
         <link rel="icon" href="/favicon.ico" />
 
       </Head>
-      <Navbar />
+      <Navbar setWebSoket={props.setWebSoket}/>
       {props.children}
     </div>
   )
