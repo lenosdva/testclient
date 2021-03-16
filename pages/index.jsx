@@ -43,7 +43,7 @@ export default function Home(props) {
           <FAQ />
         </div>
         <div className="home-section-padding">
-          <Footer />
+          <Footer ws={props.ws}/>
         </div>
       </div>
     </Layout>

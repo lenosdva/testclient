@@ -71,7 +71,7 @@ export default function InboxWidePage(props) {
             </div>
           </div>
           <div className="home-section-padding">
-            <Footer />
+            <Footer ws={props.ws}/>
           </div>
         </div>
       </Layout>

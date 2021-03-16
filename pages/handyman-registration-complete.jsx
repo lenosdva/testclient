@@ -8,7 +8,7 @@ export default function Category(props) {
           <HandymanRegistrationComplete />
         </div>
         <div className="home-section-padding">
-          <Footer />
+          <Footer ws={props.ws}/>
         </div>
       </div>
     </Layout>

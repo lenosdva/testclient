@@ -12,7 +12,7 @@ export default function Category(props) {
             </div>
           </div>
           </div>
-        <Footer />
+        <Footer ws={props.ws}/>
       </div>
     </Layout>
   );
