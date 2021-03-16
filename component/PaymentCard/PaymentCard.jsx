@@ -4,12 +4,11 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
 function PaymentCard({t}) {
+  const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
   const [ paymentMethod, setPaymentMethod ] = useState('')
-  const dispatch = useDispatch()
   const handleSubmit = async (event) => {
-    
     event.preventDefault();
     if (!stripe || !elements) {
       return;

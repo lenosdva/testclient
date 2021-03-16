@@ -31,7 +31,7 @@ export default function Category(props) {
           <div className="about-section-padding">
             <FAQ />
           </div>
-          <Footer />
+          <Footer ws={props.ws}/>
         </div>
       </Layout>
   );

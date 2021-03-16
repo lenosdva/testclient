@@ -1,4 +1,10 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from "react" 
 export default function PaymentCard() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch({ type: "GET_CARD"})
+  },[])
   return (
     <div>
       <h3>Review Your Order</h3>
