@@ -254,7 +254,7 @@ export function* payment({ payload }) {
   const data = yield fetch(`${HOST}/v1/payments/chargeCustomer`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'applchargeCustomerication/json',
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + get(token, 'accessToken', '')
     },
     body: JSON.stringify(payload)
@@ -268,5 +268,28 @@ export function* payment({ payload }) {
     .catch((error) => {
       throw error;
     });
-  yield put({ type: 'Done_PAYMENT', data });
+  yield put({ type: 'DID_PAYMENT', data });
+}
+
+
+export function* getCard({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/payments/getCards`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return message;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_CARD', data });
 }

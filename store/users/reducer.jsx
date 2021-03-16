@@ -22,7 +22,9 @@ const initialState = {
   chatLoading: false,
   chat: [],
   userInfoLoading: false,
-  userInfo: {}
+  userInfo: {},
+  getCardLoding:true,
+  getCardData: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -31,6 +33,32 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         needLogin: true
+      }
+    }
+    case 'DO_PAYMENT': {
+      return {
+        ...state,
+        cardLoding: true
+      }
+    }
+    case 'DID_PAYMENT': {
+      return {
+        ...state,
+        cardLoding: false,
+        cardData: action.data
+      }
+    }
+    case 'GET_CARD': {
+      return {
+        ...state,
+        getCardLoding: true
+      }
+    }
+    case 'GOT_CARD': {
+      return {
+        ...state,
+        getCardLoding: false,
+        getCardData: action.data
       }
     }
     case 'LOGIN_RESET': {
