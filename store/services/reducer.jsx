@@ -66,6 +66,19 @@ export default function userReducer(state = initialState, action) {
         searchByIdData: action.data
       };
     }
+    case 'GET_NOTIFICATION': {
+      return {
+        ...state,
+        notificationLoading: true,
+      };
+    }
+    case 'GOT_NOTIFICATION': {
+      return {
+        ...state,
+        searchByIdLoading: false,
+        searchByIdData: action.data
+      };
+    }
     case 'GOT_MOVING_OUT': {
       return {
         ...state,

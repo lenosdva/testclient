@@ -165,3 +165,24 @@ export function* removeWishList({ payload }) {
     });
   yield put({ type: 'SET_WISHLIST', data });
 }
+
+export function* getNotification({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/getNotifications`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_NOTIFICATION', data });
+}

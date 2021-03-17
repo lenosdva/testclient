@@ -729,6 +729,7 @@ export default function Navbar(props) {
       setLoggedStatus(true)
     }
     dispatch({ type: 'GET_USER' })
+    dispatch({ type: 'GET_NOTIFICATION' })
   }, [])
 
   useEffect(() => {

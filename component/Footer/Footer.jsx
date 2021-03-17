@@ -3,18 +3,21 @@ import Image from "next/image";
 import Link from 'next/link'
 import { withTranslation } from "../../constent/i18n/i18n"
 import { get } from "lodash"
+import moment from "moment";
 function Footer({ t, ws }) {
-    const { quotationNotification, setQuaNotification } = useState(false)
-    const { message, setMessage } = useState('')
-    const { buyerID, setBuyerID } = useState('')
+    const [ quotationNotification, setQuaNotification ] = useState(false)
+    const [ message, setMessage ] = useState('')
+    const [ buyerID, setBuyerID ] = useState('')
     useEffect(() => {
         if('addEventListener' in ws){
+            console.log("event calling")
         ws.addEventListener('message', function (event) {
-            let message = event;
-            if (get(event, 'data.request', '') === "notificationReceived") {
+            let message = JSON.parse(event.data);
+            console.log("event", message) 
+            if (get(message, 'request', '') === "notificationReceived") {
                 setQuaNotification(true)
-                setMessage(get(event, 'data.message.msg', ''))
-                setBuyerID(get(event, 'data.message.msg', ''))
+                setMessage(get(message, 'message', ''))
+                setBuyerID(get(message, 'from.fname', ''))
                 setTimeout(() => {
                     setQuaNotification(false)
                     setMessage('')
@@ -95,11 +98,11 @@ function Footer({ t, ws }) {
                         height={100}
                     />
                 </span>
-                {setBuyerID !== '' &&
-                    <h1>{setBuyerID}</h1>
+                {buyerID !== '' &&
+                    <h1>{buyerID}</h1>
                 }
                 <h6>{message}</h6>
-                <p>12:57pm</p>
+                <p>{moment().format('hh:mm A')}</p>
             </div>
         </div>
     );
