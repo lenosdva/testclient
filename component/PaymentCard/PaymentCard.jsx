@@ -16,6 +16,7 @@ function PaymentCard({t}) {
     const cardElement = elements.getElement(CardElement);
     stripe.createToken(cardElement).then(function(result) {
       if(get(result, 'token.id', false)){
+        // console.log("get(result, 'token.id', false)", get(result, 'token.id', false))
         dispatch({ type: "DO_PAYMENT", payload: {orderId: '603d32140516367eb446ed69', token: result.token.id}})
       }
     });
