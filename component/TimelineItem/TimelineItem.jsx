@@ -14,9 +14,9 @@ const TimelienItem = (props) => {
       </p>
         <div className="d-flex justify-content-between">
           {get(props, 'data.status', '') === "Order started" ?
-            <p className="view" onClick={()=> setShowInfo(true)}>View</p> 
+            <p className="view viewbtn" onClick={()=> setShowInfo(true)}>View</p> 
           :
-            <p className="view">View</p>
+            <p className="view viewbtn">View</p>
           }
           <p className="time">12:57pm</p>
           </div>
