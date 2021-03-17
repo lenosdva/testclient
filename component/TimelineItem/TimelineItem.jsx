@@ -78,6 +78,7 @@ const TimelienItem = (props) => {
       <p className="description">
         Vendor 11234 sent you his quotation for the service.
       </p>
+
       <div className="d-flex justify-content-between">
         {get(props, 'data.status', '') === "Quotation received" ?
           <p className="view" onClick={() => setShowInfo("Quotation received")}>View</p>
