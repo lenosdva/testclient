@@ -64,11 +64,11 @@ const Chat = (props) => {
       <hr className="line" />
       <div id="chat-box" className="chat-box">
         {/* <div className="chatbox-empty"> */}
-        <MessageList
+        {/* <MessageList
           className='message-list'
           // lockable={true}
           toBottomHeight={'100%'}
-          dataSource={chat} />
+          dataSource={chat} /> */}
         {/* <p>
             Your request for a quotation for <a href="">Moving Out Services</a> has been sent to <a href="">user1234</a>. You will be 
             notified when the handyman confirms the booking.

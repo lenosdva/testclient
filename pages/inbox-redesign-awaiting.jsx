@@ -55,7 +55,7 @@ export default function InboxWidePage(props) {
               </div>
               <div className="col-lg-4 col-md-12">
                 {getOrderStatus() ?
-                  <Timeline orderStatus={getOrderStatus()} />
+                  <Timeline orderStatus={getOrderStatus()} ws={props.ws}/>
                   :
                   <TimelineOrder ws={props.ws} />
                 }
