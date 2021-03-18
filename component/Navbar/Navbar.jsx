@@ -78,145 +78,145 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
 
   return (
     <div>
-    <div className="modal-wrapper">
-      <Modal
-        isOpen={loginModel}
-        onRequestClose={close}
-        ariaHideApp={false}
-        // style={customStyles}
-        contentLabel="Example Modal"
-        className="modal-wrapper-sm"
-      >
-        <header>
-          <button onClick={close} className="close-btn">
-            <Image
-              src="/assets/svg/close-modal.svg"
-              alt=""
-              width={24}
-              height={24}
-            />
-          </button>
-          <h4>Sign In</h4>
-        </header>
-        <div className="modalbody">
-
-          {loginWith === 'phone' ?
-            <form onSubmit={onLogin}>
-              <div className="box">
-                <div className="form-group">
-                  <div className="p-lr">
-                    <div className="labels">Country/Region</div>
-                    <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
-                      {/* <option disabled value=''></option> */}
-                      <option value="+49">Germany</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="form-divider"></div>
-                <div className="form-group">
-                  <div className="p-lr">
-                    <div className="labels">Phone Number</div>
-                    <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                      {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
-                    </InputMask>
-                  </div>
-                </div>
-              </div>
-              {get(error, 'phone', '') &&
-                <span className="errormsg">{get(error, 'phone', '')}</span>
-              }{get(error, 'email', '') &&
-                <span className="errormsg">{get(error, 'email', '')}</span>
-              }{get(error, 'password', '') &&
-                <span className="errormsg">{get(error, 'password', '')}</span>
-              }{get(serverError, 'serverError', '') &&
-                <span >{get(serverError, 'serverError', '')}</span>
-              }
-
-              <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
-              <button className="btn btn-continue" disabled={isLoading}>Continue</button>
-            </form>
-            :
-            <form onSubmit={onLogin}>
-              <div className="box">
-                <div className="form-group">
-                  <div className="p-lr">
-                    <div className="labels">Email</div>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="field-input" />
-                  </div>
-                </div>
-                <div className="form-divider"></div>
-                <div className="form-group">
-                  <div className="p-lr">
-                    <div className="labels">Password</div>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="field-input" />
-
-                  </div>
-                </div>
-              </div>
-              {get(error, 'phone', '') &&
-                <span className="errormsg">{get(error, 'phone', '')}</span>
-              }{get(error, 'email', '') &&
-                <span className="errormsg">{get(error, 'email', '')}</span>
-              }{get(error, 'password', '') &&
-                <span className="errormsg">{get(error, 'password', '')}</span>
-              }{get(serverError, 'serverError', '') &&
-                <span className="errormsg">{get(serverError, 'serverError', '')}</span>
-              }
-              <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
-              <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
-            </form>
-          }
-          <div className="or">or</div>
-
-          <div className="social-btns">
-            <button>
+      <div className="modal-wrapper">
+        <Modal
+          isOpen={loginModel}
+          onRequestClose={close}
+          ariaHideApp={false}
+          // style={customStyles}
+          contentLabel="Example Modal"
+          className="modal-wrapper-sm"
+        >
+          <header>
+            <button onClick={close} className="close-btn">
               <Image
-                src="/assets/svg/ic-google.svg"
+                src="/assets/svg/close-modal.svg"
                 alt=""
-                width={30}
-                height={30}
+                width={24}
+                height={24}
               />
-              <span>Continue with Google</span>
             </button>
-            <button>
-              <Image
-                src="/assets/svg/ic-facebook.svg"
-                alt=""
-                width={30}
-                height={30}
-              />
-              <span>Continue with Facebook</span>
-            </button>
+            <h4>Sign In</h4>
+          </header>
+          <div className="modalbody">
+
             {loginWith === 'phone' ?
-              <button onClick={() => setloginWith('email')}>
-                <Image
-                  src="/assets/svg/ic-email.svg"
-                  alt=""
-                  width={30}
-                  height={30}
-                />
-                <span>Continue with E-Mail</span>
-              </button>
+              <form onSubmit={onLogin}>
+                <div className="box">
+                  <div className="form-group">
+                    <div className="p-lr">
+                      <div className="labels">Country/Region</div>
+                      <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
+                        {/* <option disabled value=''></option> */}
+                        <option value="+49">Germany</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-divider"></div>
+                  <div className="form-group">
+                    <div className="p-lr">
+                      <div className="labels">Phone Number</div>
+                      <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
+                        {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
+                      </InputMask>
+                    </div>
+                  </div>
+                </div>
+                {get(error, 'phone', '') &&
+                  <span className="errormsg">{get(error, 'phone', '')}</span>
+                }{get(error, 'email', '') &&
+                  <span className="errormsg">{get(error, 'email', '')}</span>
+                }{get(error, 'password', '') &&
+                  <span className="errormsg">{get(error, 'password', '')}</span>
+                }{get(serverError, 'serverError', '') &&
+                  <span >{get(serverError, 'serverError', '')}</span>
+                }
+
+                <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+                <button className="btn btn-continue" disabled={isLoading}>Continue</button>
+              </form>
               :
-              <button onClick={() => setloginWith('phone')}>
+              <form onSubmit={onLogin}>
+                <div className="box">
+                  <div className="form-group">
+                    <div className="p-lr">
+                      <div className="labels">Email</div>
+                      <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="field-input" />
+                    </div>
+                  </div>
+                  <div className="form-divider"></div>
+                  <div className="form-group">
+                    <div className="p-lr">
+                      <div className="labels">Password</div>
+                      <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" className="field-input" />
+
+                    </div>
+                  </div>
+                </div>
+                {get(error, 'phone', '') &&
+                  <span className="errormsg">{get(error, 'phone', '')}</span>
+                }{get(error, 'email', '') &&
+                  <span className="errormsg">{get(error, 'email', '')}</span>
+                }{get(error, 'password', '') &&
+                  <span className="errormsg">{get(error, 'password', '')}</span>
+                }{get(serverError, 'serverError', '') &&
+                  <span className="errormsg">{get(serverError, 'serverError', '')}</span>
+                }
+                <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+                <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
+              </form>
+            }
+            <div className="or">or</div>
+
+            <div className="social-btns">
+              <button>
                 <Image
-                  src="/assets/svg/ic-email.svg"
+                  src="/assets/svg/ic-google.svg"
                   alt=""
                   width={30}
                   height={30}
                 />
-                <span>Continue with Phone</span>
+                <span>Continue with Google</span>
               </button>
-            }
+              <button>
+                <Image
+                  src="/assets/svg/ic-facebook.svg"
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <span>Continue with Facebook</span>
+              </button>
+              {loginWith === 'phone' ?
+                <button onClick={() => setloginWith('email')}>
+                  <Image
+                    src="/assets/svg/ic-email.svg"
+                    alt=""
+                    width={30}
+                    height={30}
+                  />
+                  <span>Continue with E-Mail</span>
+                </button>
+                :
+                <button onClick={() => setloginWith('phone')}>
+                  <Image
+                    src="/assets/svg/ic-email.svg"
+                    alt=""
+                    width={30}
+                    height={30}
+                  />
+                  <span>Continue with Phone</span>
+                </button>
+              }
+            </div>
+            <p className="last-para">Don't Have An Account? <span onClick={openSignup}>Sign Up</span></p>
+
           </div>
-          <p className="last-para">Don't Have An Account? <span onClick={openSignup}>Sign Up</span></p>
+        </Modal>
+      </div>
 
-        </div>
-      </Modal>
-    </div>
-
-    {/* request modal open */}
-    {/* <div className="modal-wrapper">
+      {/* request modal open */}
+      {/* <div className="modal-wrapper">
       <Modal
         isOpen={loginModel}
         onRequestClose={close}
@@ -304,7 +304,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
         </div>
       </Modal>
     </div> */}
-    {/* request modal close */}
+      {/* request modal close */}
     </div>
   );
 }
@@ -1034,31 +1034,47 @@ export default function Navbar(props) {
         </header>
         <ul className={menu ? "" : 'hide'}>
           <li className="align-self-center">
-            <Link href="/">
+          {userLogged ?
+            <Link href="/handyman-registration">
               <a>Become A Handyman</a>
             </Link>
+            :
+            <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
+          }
           </li>
-          <li className="align-self-center">
-            <Link href="/">
-              <a>My Bookings</a>
-            </Link>
-          </li>
-          <li className="align-self-center">
-            <Link href="/support">
-              <a>Support</a>
-            </Link>
-          </li>
-          <li className="align-self-center">
-            <Link href="/">
-              <a>Messages</a>
-            </Link>
-          </li>
-          <li onClick={() => setLoginModel(true)} className="align-self-center">
-            <a>Log In</a>
-          </li>
-          <li onClick={() => setSignUpModel(true)} className="align-self-center">
-            <a>Sign Up</a>
-          </li>
+          {userLogged && (
+            <>
+              <li className="align-self-center">
+                <Link href="/client-dashboard">
+                  <a>My Bookings</a>
+                </Link>
+              </li>
+              <li className="align-self-center">
+                <Link href="/about">
+                  <a>Support</a>
+                </Link>
+              </li>
+              <li className="align-self-center">
+                <span onClick={() => onClick={signOut}}>Logout</span>
+              </li>
+              {/* <li className="align-self-center">
+                <Link href="/">
+                  <a>Messages</a>
+                </Link>
+              </li> */}
+            </>
+          )
+        }
+          {!userLogged &&
+            <>
+              <li onClick={() => setLoginModel(true)} className="align-self-center">
+                <a>Log In</a>
+              </li>
+              <li onClick={() => setSignUpModel(true)} className="align-self-center">
+                <a>Sign Up</a>
+              </li>
+            </>
+          }
         </ul>
       </div>
       <NotificationContainer />
