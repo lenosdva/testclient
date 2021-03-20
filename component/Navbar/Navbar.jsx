@@ -85,7 +85,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
           ariaHideApp={false}
           // style={customStyles}
           contentLabel="Example Modal"
-          className="modal-wrapper-sm"
+          className="modal-wrapper-sm middle-modal"
         >
           <header>
             <button onClick={close} className="close-btn">

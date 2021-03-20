@@ -250,6 +250,7 @@ $input-btn-focus-width: 0px;
 
 $font-family-base: "Neue Haas Grotesk Display Pro";
 
+
 // global css open
 .btnprimary {
   background: $white-color;
@@ -263,6 +264,9 @@ $font-family-base: "Neue Haas Grotesk Display Pro";
   letter-spacing: 0.28px;
   color: $text-color;
   text-transform: uppercase;
+  @media (max-width:767px) {
+    width: 100%;
+  }
   &:hover, &:focus {
     background: $primary-color;
     color: $white-color;

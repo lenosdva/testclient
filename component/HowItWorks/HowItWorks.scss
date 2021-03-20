@@ -2,36 +2,44 @@
   .how-it-work-slider {
     margin-top: 70px;
     .slick-slide {
+      position: relative;
+      padding: 10px 0;
       &:nth-child(odd) {
+        @media (max-width:767px) {
+          // display: none;
+        }
         &:before {
           content: "";
-          background: url("/public/assets/svg/ic-down-agnle.svg");
+          background: url("/assets/svg/ic-up-agnle.svg") no-repeat;
           position: absolute;
-          right: 0;
-          top: 0;
+          right: -65px;
+          bottom: 190px;
           width: 120px;
           height: 120px;
           z-index: 9999;
-          background-size: 120px;
+          background-size: 100px;
         }
       }
       &:nth-child(even) {
         &:before {
           content: "";
-          background: url("/public/assets/svg/ic-up-agnle.svg");
+          background: url("/assets/svg/ic-down-agnle.svg") no-repeat;
           position: absolute;
-          right: 0;
+          right: -25px;
           top: 0;
           width: 120px;
           height: 120px;
           z-index: 9999;
-          background-size: 120px;
+          background-size: 100px;
+        }
+        @media (max-width:767px) {
+          // display: none;
         }
       }
     }
     .how-it-work-slide {
       position: relative;
-      padding: 0 50px;
+      padding: 0 30px;
       @media (max-width:767px) {
         padding: 0;
       }
@@ -64,6 +72,54 @@
         letter-spacing: 0.28px;
         color: #252525;
         margin: 35px 0 0 0;
+        text-align: center !important;
+      }
+    }
+    .slick-dots {
+      margin-top: 20px;
+    li {
+      width: auto;
+      height: auto;
+      margin: 0 1px;
+      button {
+        width: auto;
+        height: auto;
+        &::before {
+          font-size: 7px !important;
+          color: #c4c4c4 !important;
+          opacity: 100;
+        }
+      }
+    }
+    .slick-active {
+      button {
+        width: auto;
+        height: auto;
+        &::before {
+          font-size: 10px !important;
+          color: #c4c4c4 !important;
+          opacity: 100;
+        }
+      }
+    }
+  }
+    .slick-prev {
+      background: url("/assets/svg/left.svg");
+      background-size: 30px;
+      width: 29px;
+      height: 55px;
+      &::before {
+        content: "" !important;
+      }
+    }
+    .slick-next {
+      background: url("/assets/svg/left.svg");
+      background-size: 30px;
+      width: 29px;
+      height: 55px;
+      transform: rotate(180deg);
+      &::before {
+        content: "" !important;
       }
     }
   }

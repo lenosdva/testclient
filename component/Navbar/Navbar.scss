@@ -531,6 +531,9 @@
     transform: translate(-50%,-50%);
     width: 400px;
     z-index: -1;
+    @media (max-width:767px) {
+      width: 200px;
+    }
   }
 }
 .social-btns {
@@ -1073,4 +1076,19 @@ h4.blank {
 }
 .pointer {
   cursor: pointer;
+}
+.ReactModal__Content.ReactModal__Content--after-open.middle-modal {
+  position: absolute;
+  left: 50% !important;
+  top: 50% !important;
+  bottom: auto !important;
+  right: auto !important;
+  transform: translate(-50%,-50%) !important;
+  @media (max-width:767px) {
+    left: 50% !important;
+    top: 50% !important;
+    bottom: auto !important;
+    right: auto !important;
+    transform: translate(-50%,-50%) !important;
+  }
 }
