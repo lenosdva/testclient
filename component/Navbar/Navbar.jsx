@@ -833,7 +833,7 @@ export default function Navbar(props) {
   return (
     <div className="container">
       <div className="navbar hide-mob">
-        <div onClick={() => router.push('/')} className="logo">
+        <div onClick={() => router.push('/')} className="logo pointer">
           <Image
             src="/assets/svg/logo.svg"
             alt="company logo"
@@ -1016,17 +1016,19 @@ export default function Navbar(props) {
       </div>
 
       <div className="mob-menu-wrapper show-mob">
-        <header onClick={() => setMenu(!menu)}>
+        <header>
+          <div onClick={() => router.push('/')} className="pointer">
           <Image
             src="/assets/svg/logo.svg"
             alt="company logo"
             width={180}
             height={31}
           />
+          </div>
           <div onClick={() => setMenu(!menu)}>
             <Image
               src="/assets/svg/ic-menu.svg"
-              alt="company logo"
+              alt=""
               width={34}
               height={34}
             />

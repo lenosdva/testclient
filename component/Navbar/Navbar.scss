@@ -20,6 +20,7 @@
       color: #9043C3;
       &:hover {
         background: none;
+        cursor: pointer;
       }
       a {
         color: $primary-color;
@@ -900,8 +901,8 @@
         display: flex;
         margin: 0 0 40px 0;
         .bell-bg {
-          width: 100px;
-          height: 100px;
+          width: 80px;
+          height: 80px;
           background: #F2F0F0;
           border-radius: 50%;
           margin-right: 20px;
@@ -910,7 +911,7 @@
           justify-content: center;
         }
         .bell-txt {
-          width: calc(100% - 120px);
+          width: calc(100% - 100px);
           h4 {
             font-family: Neue Haas Grotesk Display Pro;
             font-weight: 500;
@@ -1069,4 +1070,7 @@ h4.blank {
       }
     }
   }
+}
+.pointer {
+  cursor: pointer;
 }

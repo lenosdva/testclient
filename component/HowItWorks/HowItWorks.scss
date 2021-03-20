@@ -32,6 +32,9 @@
     .how-it-work-slide {
       position: relative;
       padding: 0 50px;
+      @media (max-width:767px) {
+        padding: 0;
+      }
       .image-circle {
         position: absolute;
         top: 0;
@@ -46,6 +49,44 @@
         line-height: 42px;
         padding: 20px;
       }
+      h3 {
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 42px;
+        text-align: center;
+        color: #000000;
+      }
+      p {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
+        letter-spacing: 0.28px;
+        color: #252525;
+        margin: 35px 0 0 0;
+      }
     }
   }
 }
+hr {
+  border: 0 !important;
+  border-bottom: 1px solid #252525 !important;
+}
+.service-spotlight {
+  p {
+    width: 544px;
+    max-width: 100%;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.28px;
+    color: #252525;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0 !important;
+  }
+}
+p {
+  text-align: left !important;
+}
+
