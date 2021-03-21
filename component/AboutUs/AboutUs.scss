@@ -62,6 +62,15 @@
     line-height: 24px;
     letter-spacing: 0.28px;
     color: #252525;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    &:hover, &:focus {
+      background: #9043c3;
+      color: #ffffff;
+    }
     @media (max-width:767px) {
       width: 100%;
     }

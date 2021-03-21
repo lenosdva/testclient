@@ -19,7 +19,7 @@ function ClientDashboard({t}) {
               <p className="sub-heading">{t("clientDash.text")}</p>
             </div>
             <div className="col-md-4">
-              <div className="d-flex align-items-center flex-end">
+              <div className="d-flex align-items-center flex-end cursur-pointer">
                 <div>
                   <Link href={get(userData, 'role','') === "handyman" ? "/handyman-registration-withdrawn" : "/category-services"}>
                   <Image

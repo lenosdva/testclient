@@ -267,7 +267,7 @@ function ProfileManagement({ t }) {
               <div className="remove-btn">Remove</div>
             </li> */}
           </ul>
-          <div onClick={addMore} className="addmore-btn">Add More</div>
+          <div onClick={addMore} className="addmore-btn cursur-pointer">Add More</div>
           <p className="note"><span>{t("handyRegis.note")}:</span>{t("handyRegis.nText")}</p>
           {/* <Link href="/handyman-registration-complete"> */}
             <button disabled={(hyndymanLoading && uploadDocLoading)} className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>

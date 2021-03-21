@@ -15,6 +15,7 @@ import {
 export default function Home(props) {
   return (
     <Layout setWebSoket={props.setWebSoket}>
+    {/* <div className="loader-wrapper"></div> */}
       <div className="home">
         <div className="container-fluid">
           <HomeBanner />
