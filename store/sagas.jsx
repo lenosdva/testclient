@@ -31,6 +31,7 @@ function* userActionWatcher() {
   yield takeLatest('REMOVE_WISH', Services.removeWishList);
   yield takeLatest('GET_SERVICE', Services.getAllService);
   yield takeLatest('GET_NOTIFICATION', Services.getNotification);
+  yield takeLatest('GET_EARNING', Services.getEarnings)
  }
 
  function* handymanActionWatcher() {
