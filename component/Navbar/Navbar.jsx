@@ -886,6 +886,11 @@ export default function Navbar(props) {
                 </Link>
               </li>
               <li className="align-self-center">
+                <Link href="/handyman-registration-services">
+                  My Services
+                </Link>
+              </li>
+              <li className="align-self-center">
                 <Link href="/handyman-registration-list">
                   Earnings
                 </Link>
