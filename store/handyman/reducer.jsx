@@ -7,7 +7,17 @@ const initialState = {
   gigLoading: false,
   gig: {},
   addGigLoading: false,
-  addGigData: {}
+  addGigData: {},
+  serviceLoading:true,
+  service:[],
+  deleteLoading:true,
+  delete:[],
+  pauseLoading:true,
+  pause:[],
+  continueLoading:true,
+  continue:[],
+  updateLoading:true,
+  update:[]
 }
 
 export default function userReducer(state = initialState, action) {
@@ -64,6 +74,80 @@ export default function userReducer(state = initialState, action) {
         gig: action.data
       }
     }
+    case 'GET_SERVICES': {
+      return {
+        ...state,
+        serviceLoading: true,
+      };
+    }
+
+    case 'GOT_SERVICES': {
+      return {
+        ...state,
+        serviceLoading: false,
+        service:action.data
+      };
+    }
+    case 'DELETE_REQUEST': {
+      return {
+        ...state,
+        deleteLoading: true,
+        delete: action.data
+      }
+    };
+
+    case 'DELETED_REQUEST': {
+      return {
+        ...state,
+        deleteLoading: false,
+      
+      }
+    };
+    case 'UPDATE_REQUEST': {
+      return {
+        ...state,
+        updateLoading: true,
+        update: action.data
+      }
+    };
+
+    case 'UPDATED_REQUEST': {
+      return {
+        ...state,
+        updateLoading: false,
+        
+      }
+    };
+    case 'PAUSE_REQUEST': {
+      return {
+        ...state,
+        pauseLoading: false,
+        pause: action.data
+      }
+    };
+
+    case 'PAUSED_REQUEST': {
+      return {
+        ...state,
+        pauseLoading: false,
+        
+      }
+    };
+    case 'CONTINUE_REQUEST': {
+      return {
+        ...state,
+        continueLoading: true,
+        conitnue: action.data
+      }
+    };
+
+    case 'CONTINUED_REQUEST': {
+      return {
+        ...state,
+        continueLoading: false,
+        
+      }
+    };
     
         default:
       return state;

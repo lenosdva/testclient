@@ -10,7 +10,10 @@ const initialState = {
   inqueryForm: false,
   movingOutLoading: false,
   inqueryData: {},
-  wishLoading: false
+  wishLoading: false,
+  Notification:[],
+  earningLoading:true,
+  earning:[],
 };
 
 export default function userReducer(state = initialState, action) {
@@ -75,8 +78,8 @@ export default function userReducer(state = initialState, action) {
     case 'GOT_NOTIFICATION': {
       return {
         ...state,
-        searchByIdLoading: false,
-        searchByIdData: action.data
+        notificationLoading: false,
+        notification: action.data
       };
     }
     case 'GOT_MOVING_OUT': {
@@ -140,6 +143,19 @@ export default function userReducer(state = initialState, action) {
         searchData: []
       };
     }
+    case 'GET_EARNING': {
+      return {
+        ...state,
+        earningLoading: true,
+      }
+    };
+    case 'GOT_EARNING': {
+      return {
+        ...state,
+        earningLoading: false,
+        earning: action.data
+      }
+    };
     default:
       return state;
   }

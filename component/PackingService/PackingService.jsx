@@ -270,7 +270,7 @@ export default function PackingService(props) {
         </div>
       </div>
       <div className="more-services mt-5">
-        <h1 className="mb-5">
+        <h1 className="mb-5 span-cursur">
           More Services by <Link href={`/sellerprofile?id=${get(props, 'gig._id', '')}`}><span className="name">{get(props, 'gig.sellerPersonalInfo.fname', '')}</span></Link>
         </h1>
         <div className="row ">

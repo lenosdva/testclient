@@ -1,6 +1,11 @@
 .selected {
   fill: $primary-color !important
 }
+.span-cursur {
+  span {
+    cursor: pointer;
+  }
+}
 .packing-service {
   .heading {
     .service-image {
@@ -14,6 +19,11 @@
       }
       .secondary {
         color: $primary-color;
+        a {
+          &:hover {
+            color: $primary-color;
+          }
+        }
       }
       svg {
         fill: $primary-color;
@@ -36,6 +46,7 @@
   p {
     font-size: 18px;
     margin: 0;
+    color: #252525;
   }
 }
   .body {

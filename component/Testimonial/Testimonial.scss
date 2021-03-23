@@ -17,6 +17,9 @@
         }
         .col-md-9 {
           padding: 10px;
+          @media (max-width:767px) {
+            padding: 20px 0 0 0 !important;
+          }
           .views {
             text-align: justify;
             color: $grey-color;

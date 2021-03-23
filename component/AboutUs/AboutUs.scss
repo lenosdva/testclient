@@ -20,6 +20,13 @@
   h5 {
     position: relative;
     margin-bottom: 40px;
+    width: 189px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    color: #252525;
     @media (max-width:767px) {
       margin: 20px 0 10px 0;
     }
@@ -33,6 +40,13 @@
       background: $primary-color;
     }
   }
+  p {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
+    color: #252525;
+    text-align: left;
+  }
   .get-in-touch {
     background: unset;
     color: $text-color;
@@ -41,6 +55,22 @@
     padding: 8px;
     font-weight: 500;
     text-transform: uppercase;
+    width: 200px;
+    min-height: 40px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.28px;
+    color: #252525;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    &:hover, &:focus {
+      background: #9043c3;
+      color: #ffffff;
+    }
     @media (max-width:767px) {
       width: 100%;
     }

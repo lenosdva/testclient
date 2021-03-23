@@ -186,3 +186,28 @@ export function* getNotification({ payload }) {
     });
   yield put({ type: 'GOT_NOTIFICATION', data });
 }
+
+export function* getEarnings({payload}) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/getEarnings`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+  },
+  })
+    .then((res) => {
+      Users.getUser()
+      return res.json();
+    })
+    .then((data) => {
+    
+      return data;
+    })
+    .catch((error) => {
+      Users.getUser()
+      throw error;
+    });
+  yield put({ type: 'GOT_EARNING', data });
+}

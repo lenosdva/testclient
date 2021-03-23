@@ -10,6 +10,10 @@ import { get } from 'lodash'
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import cookie from 'cookie-cutter';
+import Moment from 'react-moment';
+import 'moment-timezone';
+import moment from "moment-timezone";
+
 
 const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
   const dispatch = useDispatch()
@@ -85,7 +89,7 @@ const loginModal = (loginModel, closeModal, setSignUpModel, serverError) => {
           ariaHideApp={false}
           // style={customStyles}
           contentLabel="Example Modal"
-          className="modal-wrapper-sm"
+          className="modal-wrapper-sm middle-modal"
         >
           <header>
             <button onClick={close} className="close-btn">
@@ -686,7 +690,7 @@ const otp = (otpModel, closeModal, mobile) => {
 export default function Navbar(props) {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData } = useSelector(state => ({
+  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
     user: state.user.user,
@@ -694,6 +698,7 @@ export default function Navbar(props) {
     mobileLoginData: state.user.mobileLoginData,
     emailLoginData: state.user.emailLoginData,
     needLogin: state.user.needLogin,
+    getNotification: state.services.notification,
   }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
@@ -830,10 +835,32 @@ export default function Navbar(props) {
     router.push('/')
   }
 
+  const renderNotification = () => (
+    getNotification && getNotification.map((data, key) => (
+      <li key={key}>
+        <div className="bell-bg">
+          <Image
+            src="/assets/svg/ic-bell.svg"
+            alt=""
+            height={40}
+            width={46}
+          />
+        </div>
+        <div className="bell-txt">
+          <h4>{get(data,'userId','')}</h4>
+          <p>{get(JSON.parse(get(data,'description', {})), 'msg', '')}</p>
+          <h6>{moment(get(data, 'createdAt', null)).format('Do MMMM YYYY, hh:mm:ss a')}</h6>
+          {/* <moment> {moment().format('Do MMMM YYYY, hh:mm:ss a')}</moment>  */}
+
+        </div>
+      </li>
+    ))
+  )
+
   return (
     <div className="container">
       <div className="navbar hide-mob">
-        <div onClick={() => router.push('/')} className="logo">
+        <div onClick={() => router.push('/')} className="logo pointer">
           <Image
             src="/assets/svg/logo.svg"
             alt="company logo"
@@ -859,6 +886,16 @@ export default function Navbar(props) {
                 </Link>
               </li>
               <li className="align-self-center">
+                <Link href="/handyman-registration-services">
+                  My Services
+                </Link>
+              </li>
+              <li className="align-self-center">
+                <Link href="/handyman-registration-list">
+                  Earnings
+                </Link>
+              </li>
+              <li className="align-self-center">
                 <Link href="/about">
                   Support
                 </Link>
@@ -868,7 +905,8 @@ export default function Navbar(props) {
                   Messages
                   <span className={showMessage ? "message-list" : "message-list message-list-hide"}>
                     <ul>
-                      <li>
+                    {renderNotification()}
+                      {/* <li>
                         <div className="bell-bg">
                           <Image
                             src="/assets/svg/ic-bell.svg"
@@ -877,13 +915,35 @@ export default function Navbar(props) {
                             width={46}
                           />
                         </div>
-                        <div className="bell-txt">
-                          <h4>Moving Out Services</h4>
-                          <p>Your request for a quotation for <a href="">Moving Out Services</a> has been sent to u<a href="">ser1234</a>...</p>
-                          <h6>12:58pm 29-09-2020</h6>
-                        </div>
-                      </li>
-                      <li>
+
+                        <div className="bell-txt" >
+                          {/* changes from here */}
+                          {/* render() {
+                          getNotification = this.state.toDoList.map(function(getNotification){
+                          return <li> {getNotification} </li>;
+                          }); */}
+
+                          {/* <h4>Moving Out Services</h4>
+                          <p>Your request for a quotation for <a href="">Moving Out Services</a> has been sent to<a href=""> user1234</a>...</p>
+                          <moment> {moment().format('Do MMMM YYYY, hh:mm:ss a')}</moment> */}
+
+                          {/* <Moment>{showMessage.dateToFormat }</Moment> */}
+                          {/* const dateToFormat = '1976-04-19T12:59-0500'; */}
+
+                          {/* <Moment>{showMessage}</Moment> */}
+                          {/* <h6>12:58pm 29-09-2020</h6> */}
+                          {/* {
+                           this.state.getNotification.map((getNotification)=>
+                           <div></div> */}
+
+
+                        {/* </div>
+
+
+                      </li>  */}
+
+
+                      {/* <li>
                         <div className="bell-bg">
                           <Image
                             src="/assets/svg/ic-bell.svg"
@@ -912,9 +972,10 @@ export default function Navbar(props) {
                           <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
                           <h6>12:58pm 29-09-2020</h6>
                         </div>
-                      </li>
+                      </li> */}
                     </ul>
-                    <button className="btn btn-primary">View My Inbox</button>
+                    <Link href = "inbox-redesign-awaiting">
+                    <button className="btn btn-primary">View My Inbox</button></Link>
                   </span>
                 </span>
 
@@ -1016,17 +1077,19 @@ export default function Navbar(props) {
       </div>
 
       <div className="mob-menu-wrapper show-mob">
-        <header onClick={() => setMenu(!menu)}>
+        <header>
+          <div onClick={() => router.push('/')} className="pointer">
           <Image
             src="/assets/svg/logo.svg"
             alt="company logo"
             width={180}
             height={31}
           />
+          </div>
           <div onClick={() => setMenu(!menu)}>
             <Image
               src="/assets/svg/ic-menu.svg"
-              alt="company logo"
+              alt=""
               width={34}
               height={34}
             />
@@ -1034,13 +1097,13 @@ export default function Navbar(props) {
         </header>
         <ul className={menu ? "" : 'hide'}>
           <li className="align-self-center">
-          {userLogged ?
-            <Link href="/handyman-registration">
-              <a>Become A Handyman</a>
-            </Link>
-            :
-            <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
-          }
+            {userLogged ?
+              <Link href="/handyman-registration">
+                <a>Become A Handyman</a>
+              </Link>
+              :
+              <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
+            }
           </li>
           {userLogged && (
             <>
@@ -1050,12 +1113,17 @@ export default function Navbar(props) {
                 </Link>
               </li>
               <li className="align-self-center">
+                <Link href="/handyman-registration-list">
+                  <a>Earnings</a>
+                </Link>
+              </li>
+              <li className="align-self-center">
                 <Link href="/about">
                   <a>Support</a>
                 </Link>
               </li>
               <li className="align-self-center">
-                <span onClick={() => onClick={signOut}}>Logout</span>
+                <span onClick={() => onClick = { signOut }}>Logout</span>
               </li>
               {/* <li className="align-self-center">
                 <Link href="/">
@@ -1064,7 +1132,7 @@ export default function Navbar(props) {
               </li> */}
             </>
           )
-        }
+          }
           {!userLogged &&
             <>
               <li onClick={() => setLoginModel(true)} className="align-self-center">
