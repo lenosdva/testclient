@@ -79,4 +79,111 @@ export function* addGig({ payload }) {
     });
   yield put({ type: 'ADDED_GIG', data });
 }
+// GET SERVICES
+export function* getServices() {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/gigs`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+     }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_SERVICES', data });
+}
+export function* getDelete({payload}) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/gigs/delete`, {
+    method: 'POST',
+    body:JSON.stringify(payload),
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+     }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'DELETED_REQUEST', data });
+}
+
+export function* getUpdate() {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`$POST /v1/gigs/update`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+     }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'UPDATED_REQUEST', data });
+}
+
+export function* getPause({payload}) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/gigs/pause`, {
+    method: 'POST',
+    body:JSON.stringify(payload),
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+     }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'PAUSED_REQUEST', data });
+}
+
+export function* getContinue() {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`$POST/v1/gigs/continue`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+     }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'CONTIUED_REQUEST', data });
+}
+
 

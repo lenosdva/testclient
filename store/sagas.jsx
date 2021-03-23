@@ -32,6 +32,7 @@ function* userActionWatcher() {
   yield takeLatest('GET_SERVICE', Services.getAllService);
   yield takeLatest('GET_NOTIFICATION', Services.getNotification);
   yield takeLatest('GET_EARNING', Services.getEarnings)
+  // yield takeLatest('GOT_SERVICES',Services.getServices)
  }
 
  function* handymanActionWatcher() {
@@ -39,7 +40,11 @@ function* userActionWatcher() {
   yield takeLatest('BECOME_HYNDYMAN', Hyndyman.registerHandyman);
   yield takeLatest('GET_GIG', Hyndyman.getGig);
   yield takeLatest('ADD_GIG', Hyndyman.addGig);
-  
+  yield takeLatest('GET_SERVICES',Hyndyman.getServices);
+  yield takeLatest('DELETE_REQUEST',Hyndyman.getDelete);
+  yield takeLatest('PAUSE_REQUEST',Hyndyman.getPause);
+  yield takeLatest('UPDATE_REQUEST',Hyndyman.getUpdate);
+  yield takeLatest('CONTINUE_REQUEST',Hyndyman.getContinue)
  }
 
 export default function* rootSaga() {
