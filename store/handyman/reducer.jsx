@@ -61,6 +61,14 @@ export default function userReducer(state = initialState, action) {
         uploadDoc: action.data.data
       }
     }
+    case 'RESET_HANDYMAN': {
+      return {
+        ...state,
+        uploadDoc: {},
+        hyndyman: {}
+      }
+    }
+    
     case 'GET_GIG': {
       return {
         ...state,

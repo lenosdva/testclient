@@ -4,9 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
 import { get } from "lodash";
-import Moment from 'react-moment';
-import 'moment-timezone';
-import moment from "moment-timezone";
+import Moment from 'moment';
 // import 'react-tabs/style/react-tabs.css';
 
 export default function Category(props) {

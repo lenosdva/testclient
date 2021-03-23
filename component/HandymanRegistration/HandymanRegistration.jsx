@@ -1,4 +1,4 @@
-import { useState,  useEffect } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image";
 import Link from "next/link"
 import PaymentCard from "../PaymentCard/PaymentCard";
@@ -6,6 +6,10 @@ import { withTranslation } from "../../constent/i18n/i18n"
 import { get } from "lodash";
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { Elements, CardElement } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+const { NEXT_PUBLIC_STRIP_KEY } = process.env
+const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
 function ProfileManagement({ t }) {
   const dispatch = useDispatch()
@@ -17,7 +21,6 @@ function ProfileManagement({ t }) {
     hyndymanLoading: state.handyman.hyndymanLoading,
     hyndyman: state.handyman.hyndyman
   }));
-  console.log(uploadDoc, hyndymanLoading, hyndyman)
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [location, setLocation] = useState('')
@@ -28,16 +31,17 @@ function ProfileManagement({ t }) {
   const [workLicense, setWorkLicense] = useState({})
   const [taxationIdentityCard, setTaxationIdentityCard] = useState({})
   const [certificate, setCertificate] = useState([])
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setName(get(userData, 'fname', ''))
     setEmail(get(userData, 'mobile', ''))
     setPhone(get(userData, 'email', ''))
   }, [userData])
 
-  useEffect(()=>{
-    if(get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)){
+  useEffect(() => {
+    if (get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)) {
       router.push('/handyman-registration-complete')
+      dispatch({ type: "RESET_HANDYMAN" })
     }
   }, [hyndyman, uploadDoc])
 
@@ -82,22 +86,22 @@ function ProfileManagement({ t }) {
     // setCertificate(data)
   }
 
-  function onSubmit(){
+  function onSubmit() {
     const error = {}
-    if(name == ''){
-      error.name ="Required"
-    }if(location == ''){
-      error.location ="Required"
-    }if(about == ''){
-      error.about ="Required"
-    }if(get(workLicense, 'name', false) === false){
-      error.workLicense ="Required"
-    }if(get(taxationIdentityCard, 'name', false) === false){
-      error.taxationIdentityCard ="Required"
+    if (name == '') {
+      error.name = "Required"
+    } if (location == '') {
+      error.location = "Required"
+    } if (about == '') {
+      error.about = "Required"
+    } if (get(workLicense, 'name', false) === false) {
+      error.workLicense = "Required"
+    } if (get(taxationIdentityCard, 'name', false) === false) {
+      error.taxationIdentityCard = "Required"
     }
     setError(error)
-    if(!Object.keys(error).length){
-      const user ={
+    if (!Object.keys(error).length) {
+      const user = {
         fname: name,
         cname: companyName,
         location: location,
@@ -106,16 +110,16 @@ function ProfileManagement({ t }) {
       const formData = new FormData();
       formData.append('doc[]', workLicense)
       formData.append('doc[]', taxationIdentityCard)
-      certificate.map((data)=>{
-        if(get(workLicense, 'name', false) !== false){
+      certificate.map((data) => {
+        if (get(workLicense, 'name', false) !== false) {
           formData.append('doc[]', data)
         }
       })
       // router.push('/handyman-registration-complete')
       dispatch({ type: "BECOME_HYNDYMAN", payload: user })
       dispatch({ type: "UPLOAD", payload: formData })
-      
-      
+
+
     }
   }
 
@@ -188,7 +192,7 @@ function ProfileManagement({ t }) {
           </div>
 
           <h3 className="label">{t("handyRegis.about")}</h3>
-          <textarea onChange={(e)=> setAbout(e.target.value)} value={about} type="text" className="textarea large" placeholder="" />
+          <textarea onChange={(e) => setAbout(e.target.value)} value={about} type="text" className="textarea large" placeholder="" />
           <p className="errormsg">{get(error, 'about', '')}</p>
           <h5 className="head-regis mt-5">{t("handyRegis.cDetails")}</h5>
           <div className="d-flex flexwrap">
@@ -241,10 +245,10 @@ function ProfileManagement({ t }) {
                 <input checked={get(taxationIdentityCard, 'name', false)} disabled={true} type="checkbox" id="html" />
                 <label for="html">Taxation Identity Card</label>
               </div>
-               {get(taxationIdentityCard, 'name', false) === false ?
-               <>
-                <input accept="image/*" type="file" id={'taxationIdentityCard'} onChange={(e) => setTaxationIdentityCard(e.target.files[0])} style={{ display: "none" }} />
-                <div className="remove-btn" onClick={() => addCertificate('taxationIdentityCard')}>Add</div>
+              {get(taxationIdentityCard, 'name', false) === false ?
+                <>
+                  <input accept="image/*" type="file" id={'taxationIdentityCard'} onChange={(e) => setTaxationIdentityCard(e.target.files[0])} style={{ display: "none" }} />
+                  <div className="remove-btn" onClick={() => addCertificate('taxationIdentityCard')}>Add</div>
                 </>
                 :
                 <div className="remove-btn" onClick={(e) => setTaxationIdentityCard({})}>Remove</div>
@@ -270,10 +274,12 @@ function ProfileManagement({ t }) {
           <div onClick={addMore} className="addmore-btn cursur-pointer">Add More</div>
           <p className="note"><span>{t("handyRegis.note")}:</span>{t("handyRegis.nText")}</p>
           {/* <Link href="/handyman-registration-complete"> */}
-            <button disabled={(hyndymanLoading && uploadDocLoading)} className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>
-            {/* </Link> */}
-          {get(userData, 'approved', false) === "approved" &&  
-            <PaymentCard />
+          <button disabled={(hyndymanLoading && uploadDocLoading)} className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>
+          {/* </Link> */}
+          {get(userData, 'approved', false) === "approved" &&
+            <Elements stripe={stripePromise}>
+              <PaymentCard type="handyman" />
+            </Elements>
           }
         </div>
       </div>
