@@ -3,14 +3,17 @@ import  { useState, useEffect } from "react"
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
+import { useRouter } from 'next/router'
 function PaymentCard({t, type=''}) {
   const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
-  const [ paymentMethod, setPaymentMethod ] = useState('')
 
+  const [ paymentMethod, setPaymentMethod ] = useState('')
+  const router = useRouter()
   const handleSubmit = async (event) => {
     event.preventDefault();
+    router.push('/paymentgateway-successful')
     if (!stripe || !elements) {
       return;
     }
@@ -54,7 +57,7 @@ function PaymentCard({t, type=''}) {
           width="450px"
         />
         {paymentMethod === 'card' &&
-        <form onSubmit={handleSubmit}>
+        <form onSubmit ={handleSubmit}>
           <CardElement
             options={{
               style: {
