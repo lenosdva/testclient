@@ -73,6 +73,7 @@ export default function Category(props) {
         <div className="anchor-box">
           {/* <h4>{get(data,'userId','')}</h4>
 <p>{get(JSON.parse(get(data,'description', {})), 'msg', '')}</p> */}
+
           <h6>{Moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</h6>
           <a href="">{get(data, 'orderId', '',)}</a>
           <div>{get(data, 'price', null)}</div>
@@ -110,20 +111,67 @@ export default function Category(props) {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 registration-tabs">
+                <span className="sort-bg">Sort By: 
+                  <select>
+                    <option>Most Recent</option>
+                  </select>
+                </span>
                 <Tabs>
                   <TabList>
                     <Tab>Cleared</Tab>
-                    <Tab>PendingClearance</Tab>
+                    <Tab>Pending Clearance</Tab>
                   </TabList>
 
                   <TabPanel>
-                    {/* <h5>SERVICES</h5> */}
-                    <div>DATE</div>
-                    <div>FOR</div>
-                    <div>PRICE</div>
-                    <ul className="regis-list">
+                  <table className="table-width">
+                    <thead>
+                      <tr>
+                          <th>DATE</th>
+                          <th>FOR</th>
+                          <th className="text-right">AMOUNT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <td>14-10-2020</td>
+                          <td><a href="" className="purple-color">One Line Service Title Goes Here</a></td>
+                          <td className="text-right">€ 650</td>
+                      </tr>
+                      <tr>
+                          <td>15-10-2020</td>
+                          <td><a href="" className="purple-color">One Line Service Title Goes Here</a></td>
+                          <td className="text-right">€ 650</td>
+                      </tr>
+                      <tr>
+                          <td>16-10-2020</td>
+                          <td><a href="" className="purple-color">One Line Service Title Goes Here</a></td>
+                          <td className="text-right">€ 650</td>
+                      </tr>
+                      <tr>
+                          <td>17-10-2020</td>
+                          <td><a href="" className="purple-color">One Line Service Title Goes Here</a></td>
+                          <td className="text-right">€ 650</td>
+                      </tr>
+                      <tr>
+                          <td>18-10-2020</td>
+                          <td><a href="" className="purple-color">One Line Service Title Goes Here</a></td>
+                          <td className="text-right">€ 650</td>
+                      </tr>
+                        <tr>
+                          <td colSpan="3" className="text-right padt20"><span className="grand-total">€ 3,250</span></td>
+                        </tr>
+                    </tbody>
+                  </table>
 
-                      {renderCleared()}
+
+
+                    {/* <h5>SERVICES</h5> */}
+                    {/* <div>DATE</div>
+                    <div>FOR</div>
+                    <div>AMOUNT</div>
+                    <ul className="regis-list"> */}
+
+                      {/* {renderCleared()} */}
                       {/* <li>
 <div className="imgbox">
 <Image
@@ -187,7 +235,7 @@ height={98}
 <button>Delete</button>
 </div>
 </li> */}
-                    </ul>
+                    {/* </ul> */}
                   </TabPanel>
                   <TabPanel>
                     {/* <h5>SERVICES</h5> */}

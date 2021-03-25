@@ -71,6 +71,10 @@
       background: #9043c3;
       color: #ffffff;
     }
+    @media (max-width:980px) {
+      width: 120px;
+      padding: 8px 0;
+    }
     @media (max-width:767px) {
       width: 100%;
     }

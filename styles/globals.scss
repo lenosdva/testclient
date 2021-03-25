@@ -293,7 +293,58 @@ p {
   }
 }
 // global css close
-
+.sort-bg {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.28px;
+    color: #252525;
+    position: absolute;
+    width: 540px;
+    right: 0;
+    top: 15px;
+    select {
+      width: 147px;
+      height: 32px;
+      background: #FFFFFF;
+      border: 0.3px solid #B0B0B0;
+      border-radius: 4px;
+      padding: 0 5px;
+      margin-left: 10px;
+    }
+}
+.table-width {
+  width: 800px;
+  max-width: 100%;
+  thead {
+    th {
+      padding-bottom: 70px;
+    }
+  }
+  td {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
+    color: #2F2F2F;
+    padding: 5px 0;
+  }
+  .purple-color {
+    color: #9043C3;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  .grand-total {
+    width: 107px;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 26px;
+    color: #9043C3;
+    border-top: 1px solid #c4c4c4;
+  }
+  .padt20 {
+    padding-top: 30px !important;
+  }
+}
 .flexwrap {
   @media (max-width:768px) {
     flex-wrap: wrap !important;

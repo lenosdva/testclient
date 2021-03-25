@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const renderService = (movingOutData) => (
   movingOutData.map((data, key) => (
-    <div key={key} className="col-md-4">
+    <div key={key} className="col-md-4 col-sm-6 col-xs-12">
       <ServiceCard data={data} />
     </div>
   ))
