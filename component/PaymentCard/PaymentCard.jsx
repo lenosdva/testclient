@@ -4,23 +4,25 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
 import { useRouter } from 'next/router'
+
 function PaymentCard({t, type=''}) {
   const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter()
 
   const [ paymentMethod, setPaymentMethod ] = useState('')
-  const router = useRouter()
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    router.push('/paymentgateway-successful')
+    // router.push('/paymentgateway-successful')
     if (!stripe || !elements) {
       return;
     }
     const cardElement = elements.getElement(CardElement);
     stripe.createToken(cardElement).then(function(result) {
       if(get(result, 'token.id', false)){
-        dispatch({ type: "DO_PAYMENT", payload: {orderId: '603d32140516367eb446ed69', token: result.token.id}})
+        dispatch({ type: "DO_PAYMENT", payload: {token: result.token.id}})
       }
     });
   }

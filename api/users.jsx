@@ -251,7 +251,7 @@ export function* getChat({ payload }) {
 
 export function* payment({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/payments/chargeCustomer`, {
+  const data = yield fetch(`${HOST}/v1/payments/addCards `, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -263,7 +263,7 @@ export function* payment({ payload }) {
       return res.json();
     })
     .then((data) => {
-      return message;
+      return data;
     })
     .catch((error) => {
       throw error;
@@ -286,10 +286,32 @@ export function* getCard({ payload }) {
       return res.json();
     })
     .then((data) => {
-      return message;
+      return data;
     })
     .catch((error) => {
       throw error;
     });
   yield put({ type: 'GOT_CARD', data });
+}
+
+export function* checkout({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/payments/chargeCustomer`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'PAYMENT', data });
 }
