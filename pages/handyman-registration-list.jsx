@@ -70,7 +70,7 @@ export default function Category(props) {
         <div className="anchor-box">
           {/* <h4>{get(data,'userId','')}</h4>
 <p>{get(JSON.parse(get(data,'description', {})), 'msg', '')}</p> */}
-          <moment>{moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</moment>
+          {/* <moment>{moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</moment> */}
           <a href="">{get(data, 'orderId', '',)}</a>
           <div>{get(data, 'price', null)}</div>
           <div>{get(data,'title','')}</div>
