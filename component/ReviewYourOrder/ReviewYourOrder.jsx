@@ -1,16 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from "react" 
+import { get } from "lodash"
+import { useRouter } from 'next/router'
+import Link from "next/link";
+
 export default function PaymentCard() {
+  const router = useRouter()
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch({ type: "GET_CARD"})
+    dispatch({ type: "GET_CARD", payload: {orderId: get(router, 'query.id', '')}})
   },[])
+  const { getCardLoading, getCardData } = useSelector(state => ({
+    getCardLoading: state.user.getCardLoading,
+    getCardData: state.user.getCardData,
+  }));
+  // console.log("getCardLoading", getCardData)
   return (
     <div>
       <h3>Review Your Order</h3>
       <div className="review-box">
         <ul className="review-box-list">
-          <li>
+          {/* <li>
             <h4>Shipping Address</h4>
             <div className="anchor-tag">
               <a href="">Change</a>
@@ -20,14 +30,14 @@ export default function PaymentCard() {
             <p>Fugger Strasse 63</p>
             <p>Rheinland, Germany</p>
             <p className="mt-3">Phone: +49 0261 59 65</p>
-          </li>
+          </li> */}
 
           <li>
             <h4>Payment Method</h4>
             <div className="anchor-tag">
-              <a href="">Change</a>
+              <Link href={`paymentgateway?id=${get(router, 'query.id', '')}`}>Change</Link>
             </div>
-            <p>Credit Card Ending <b>0507</b></p>
+            <p>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].funding`, 'Credit')} Card Ending <b>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].last4`, 'Credit')}</b></p>
           </li>
 
           <li>
@@ -40,10 +50,10 @@ export default function PaymentCard() {
 
 
       
-      <div className="form-group mt-5 mb-5 checkbox-wrapper">
+      {/* <div className="form-group mt-5 mb-5 checkbox-wrapper">
         <input type="checkbox" id="html" />
         <label for="html">Make these my default delivery options in the future</label>
-      </div>
+      </div> */}
       </div>
     </div>
   );

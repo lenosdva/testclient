@@ -6,10 +6,12 @@ const { NEXT_PUBLIC_STRIP_KEY } = process.env
 const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { get } from "lodash";
 
 
 export default function Category(props) {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [ nextButton, setStatus] = useState(false)
   const { cardLoding, cardData } = useSelector(state => ({
     cardLoding: state.user.cardLoding,
@@ -17,7 +19,11 @@ export default function Category(props) {
   }));
 
   useEffect(()=>{
-    console.log("cardData========>", cardData)
+    console.log("cardData", cardData)
+    if(get(cardData, 'success', false)){
+      router.push(`/paymentgateway-order?id=${get(router, 'query.id', '')}`)
+      dispatch({type: "RESET_CARD"})
+    }
   }, [cardData])
   return (
     <Layout setWebSoket={props.setWebSoket}>

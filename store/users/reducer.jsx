@@ -24,7 +24,9 @@ const initialState = {
   userInfoLoading: false,
   userInfo: {},
   getCardLoding:true,
-  getCardData: {}
+  getCardData: {},
+  paymentLoding: false,
+  paymentData: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -46,6 +48,26 @@ export default function userReducer(state = initialState, action) {
         ...state,
         cardLoding: false,
         cardData: action.data
+      }
+    }
+    case 'CHECKOUT': {
+      return {
+        ...state,
+        paymentLoding: true
+      }
+    }
+    case 'PAYMENT': {
+      return {
+        ...state,
+        paymentLoding: false,
+        paymentData: action.data
+      }
+    }
+    case 'RESET_CARD': {
+      return {
+        ...state,
+        cardLoding: false,
+        cardData: {}
       }
     }
     case 'GET_CARD': {
