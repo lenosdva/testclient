@@ -77,7 +77,7 @@ export default function Category(props) {
           <a href="">{get(data, 'orderId', '',)}</a>
           <div>{get(data, 'price', null)}</div>
           <div>{get(data,'title','')}</div>
-
+          
 
           {/* <h4>{get(data,'orderId','')}</h4>
           <p>{get(JSON.parse(get(data,'orderType', {})), '', '')}</p>

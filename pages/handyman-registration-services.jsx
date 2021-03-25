@@ -44,7 +44,7 @@ export default function Category(props) {
         <div className="btn-box">
      {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
 
-          <button onClick={() => router.push(`/handyman-registration-withdrawn/${data._id}`)}>Edit</button>
+          <button onClick={() => router.push(`/handyman-registration-withdrawn?id=${data._id}`)}>Edit</button>
           <button onClick={() => dispatch({ type: 'PAUSE_REQUEST', payload: { "gigId": data._id } })}>Pause</button>
           <button onClick={() => dispatch({ type: 'CONTINUE_REQUEST' })}>Share</button>
           <button onClick={() => dispatch({ type: 'DELETE_REQUEST', payload: { "gigId": data._id } })}>Delete</button>
@@ -74,7 +74,7 @@ export default function Category(props) {
         <div className="btn-box">
         {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
 
-          <button onClick={() => router.push(`/handyman-registration-withdrawn/${data._id}`)}>Edit</button>
+          <button onClick={() => router.push(`/handyman-registration-withdrawn?id=${data._id}`)}>Edit</button>
           <button onClick={() => dispatch({ type: 'PAUSE_REQUEST', payload: { "gigId": data._id } })}>Pause</button>
           <button onClick={() => dispatch({ type: 'CONTINUE_REQUEST' })}>Share</button>
           <button onClick={() => dispatch({ type: 'DELETE_REQUEST', payload: { "gigId": data._id } })}>Delete</button>

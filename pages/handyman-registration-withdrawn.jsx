@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { get, toPath } from "lodash";
 import Select from 'react-select';
 import { useDropzone } from 'react-dropzone'
+import { useRouter } from 'next/router'
+// import {get} from "lodash";
+
 
 export default function Category(props) {
   const [pincode, setPincode] = useState([])
@@ -25,17 +28,36 @@ export default function Category(props) {
   const [images, setImages] = useState([]);
   const [aggrement, setAggrement] = useState(false);
   const [mainError, setMainError] = useState(false);
-  
+
   const dispatch = useDispatch()
-  const { searchByIdData, searchByIdLoading } = useSelector(state => ({
+  const router = useRouter()
+  const { searchByIdData, searchByIdLoading, gig } = useSelector(state => ({
     searchByIdData: state.services.searchByIdData,
     searchByIdLoading: state.services.searchByIdLoading,
     addGigLoading: state.handyman.addGigLoading,
     addGigData: state.handyman.addGigData,
+    gigLoading: state.handyman.gigLoading,
+    gig: state.handyman.gig,
   }));
 
   useEffect(() => {
+    if (get(router, 'query.id', false)) {
+      setTitle(get(gig, 'title', ''))
+      setCategory(get(gig, 'category', ''))
+      setDescription(get(gig, 'description', ''))
+      setPincode(get, (gig, 'pincode', ''))
+      setRedius(get, (gig, 'radius', ''))
+      setFrom(get, (gig, 'from', ''))
+      setTo(get, (gig, 'to', ''))
+    }
+
+
+  }, [gig])
+  useEffect(() => {
     dispatch({ type: 'GET_SERVICE' })
+    if (get(router, 'query.id', false)) {
+      dispatch({ type: 'GET_GIG', payload: get(router, 'query.id', '') })
+    }
     const pin = []
     const pinCity = []
     PostalCode.map((data) => {
@@ -110,9 +132,9 @@ export default function Category(props) {
       Terror.to = "Please enter end price"
     } if (description === '') {
       Terror.description = "Please enter description"
-    } if (!aggrement){
+    } if (!aggrement) {
       mainError.aggrement = "Please accept term and conditions"
-    } if (images.length != 3){
+    } if (images.length != 3) {
       mainError.images = "Please upload all three images"
     }
 
@@ -124,20 +146,26 @@ export default function Category(props) {
       data.append('service', category);
       data.append('radius', radius);
       data.append('pincode', pincode);
-      data.append('fromDate', from);
-      data.append('toDate', to);
+      data.append('from', from);
+      data.append('to', to);
       data.append('description', description);
       data.append('description', description);
-      images.map((img)=>{
+      images.map((img) => {
         data.append('images[]', img);
       })
-      pincode.map((code)=>{
+      pincode.map((code) => {
         data.append('pincode[]', code.value)
       })
-      city.map((cit)=>{
+      city.map((cit) => {
         data.append('city[]', cit.value)
       })
-      dispatch({ type: 'ADD_GIG', payload: data })
+      if (get(router, 'query.id', false)) {
+        data.append('gigId', get(router, 'query.id', ''))
+        dispatch({ type: 'UPDATE_REQUEST', payload: data })
+      }
+      else {
+        dispatch({ type: 'ADD_GIG', payload: data })
+      }
     }
   }
 
@@ -332,7 +360,7 @@ export default function Category(props) {
                       </div>
                     </div>
                     <div className="col-md-12 margmin15 mt-5">
-                      <h3 className="label">Service Descriptione</h3>
+                      <h3 className="label">Service Description</h3>
                       <textarea onChange={(e) => setDescription(e.target.value)} value={description} type="text" className="textarea" placeholder="Add a description about your service here" />
                       {get(error, 'description', '') &&
                         <span>{get(error, 'description', '')}</span>
@@ -427,12 +455,12 @@ export default function Category(props) {
                       </ul>
 
                       <div className="form-group mt-5 mb-5 checkbox-wrapper">
-                        <input type="checkbox" checked={aggrement} onChange={(e)=> setAggrement(e.target.checked)} id="html" />
+                        <input type="checkbox" checked={aggrement} onChange={(e) => setAggrement(e.target.checked)} id="html" />
                         <label for="html">
                           I declare that these materials were created by myself or by my team and do not infringe on any 3rd party rights. I understand that the
                           illegal use of digital assets is against Dein Hausman’s Terms of Service and may result in blocking of my seller account.
                 </label>
-                {get(mainError, 'aggrement', '') &&
+                        {get(mainError, 'aggrement', '') &&
                           <span>{get(mainError, 'aggrement', '')}</span>
                         }
                       </div>
@@ -469,7 +497,7 @@ export default function Category(props) {
         </div>
 
         <div className="home-section-padding">
-          <Footer ws={props.ws}/>
+          <Footer ws={props.ws} />
         </div>
       </div>
     </Layout>

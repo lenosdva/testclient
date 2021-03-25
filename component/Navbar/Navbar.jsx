@@ -164,7 +164,7 @@ export default function Navbar(props) {
   }
 
   const renderNotification = () => (
-    getNotification && getNotification.map((data, key)=> (
+    getNotification &&getNotification.length&& getNotification.map((data, key)=> (
       <li key={key}>
         <div className="bell-bg">
           <Image

@@ -122,12 +122,11 @@ export function* getDelete({payload}) {
   yield put({ type: 'DELETED_REQUEST', data });
 }
 
-export function* getUpdate() {
+export function* getUpdate({payload}) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`$POST /v1/gigs/update`, {
-    method: 'POST',
+  const data = yield  yield axios.post(`${HOST}/v1/gigs/update`, payload, {
     headers: { 
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer ' + get(token, 'accessToken', '')
      }
   })
