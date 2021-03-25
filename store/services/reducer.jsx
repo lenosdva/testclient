@@ -11,7 +11,8 @@ const initialState = {
   movingOutLoading: false,
   inqueryData: {},
   wishLoading: false,
-  Notification:[],
+  notificationLoading:true,
+  notification:[],
   earningLoading:true,
   earning:[],
 };

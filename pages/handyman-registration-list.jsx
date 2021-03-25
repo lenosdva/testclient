@@ -4,7 +4,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
 import { get } from "lodash";
-import Moment from 'moment';
+import Moment from 'Moment';
+
+
 // import 'react-tabs/style/react-tabs.css';
 
 export default function Category(props) {
@@ -31,7 +33,8 @@ export default function Category(props) {
           />
         </div> */}
         <div className="anchor-box">
-          <moment>{moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</moment>
+        <h6>{Moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</h6>
+
           <a href="">{get(data, 'orderId', '')}</a>
           <div>{get(data, 'price', null)}</div>
           <div>{get(data,'title','')}</div>
@@ -70,11 +73,12 @@ export default function Category(props) {
         <div className="anchor-box">
           {/* <h4>{get(data,'userId','')}</h4>
 <p>{get(JSON.parse(get(data,'description', {})), 'msg', '')}</p> */}
-          {/* <moment>{moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</moment> */}
+
+          <h6>{Moment(get(data, 'clearingDate', null)).format('DD-MM-YYYY')}</h6>
           <a href="">{get(data, 'orderId', '',)}</a>
           <div>{get(data, 'price', null)}</div>
           <div>{get(data,'title','')}</div>
-
+          
 
           {/* <h4>{get(data,'orderId','')}</h4>
           <p>{get(JSON.parse(get(data,'orderType', {})), '', '')}</p>

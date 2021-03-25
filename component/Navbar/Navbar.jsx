@@ -164,7 +164,7 @@ export default function Navbar(props) {
   }
 
   const renderNotification = () => (
-    getNotification && getNotification.map((data, key) => (
+    getNotification &&getNotification.length&& getNotification.map((data, key)=> (
       <li key={key}>
         <div className="bell-bg">
           <Image
@@ -198,7 +198,7 @@ export default function Navbar(props) {
           {get(user, 'role', '') !== "handyman" &&
             <li className="align-self-center">
               {userLogged ?
-                <Link href="handyman-registration">
+                <Link href="/handyman-registration">
                   Become A Handyman
                 </Link>
                 :

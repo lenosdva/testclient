@@ -1,4 +1,10 @@
+import { Router } from "../../constent/i18n/i18n";
+
+import { useRouter } from 'next/router'
+
+
 export default function PaymentCard() {
+  const router = useRouter()
   return (
     <div>
       <h4 className="mt-order">Order Summary</h4>
@@ -19,7 +25,7 @@ export default function PaymentCard() {
       <div className="seperater"></div>
       <h4>Order Total: <span></span></h4>
 
-      <button className="btn btnprimary-fill">Place Order</button>
+      <button className="btn btnprimary-fill" onClick={() => router.push("/paymentgateway-successful")}  >Place Order</button>
     </div>
   );
 }
