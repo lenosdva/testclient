@@ -3,7 +3,7 @@ import Image from "next/image"
 import { withTranslation } from "../../constent/i18n/i18n"
 import { get } from "lodash"
 const renderServices= (services)=> (
-  services.map((data, key)=>(
+  services && services.length && services.map((data, key)=>(
     <Link key={key} href={`/category?id=${get(data, '_id', '')}&name=${get(data, 'name', '')}`}>
       <li className="cursur-pointer">
     <Image

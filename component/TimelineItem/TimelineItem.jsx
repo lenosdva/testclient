@@ -7,14 +7,17 @@ const TimelienItem = (props) => {
   function userAcceptOffer() {
     let offer = JSON.stringify({
       request: "acceptCustomOffer",
-      orderId: get(props, 'orderStatus._id', 0)
+      orderId: get(props, 'orderStatus._id', 0),
+      approved: true,
     })
     const data = props.ws.send(offer)
     setShowInfo('')
   }
+
   function askForRivision() {
     let offer = JSON.stringify({
-      request: "acceptCustomOffer",
+      request: "askForRevision", 
+      price: revisionAmount, 
       orderId: get(props, 'orderStatus._id', 0)
     })
     const data = props.ws.send(offer)
@@ -39,7 +42,17 @@ const TimelienItem = (props) => {
     setRevisionAmount('')
   }
 
-  function askForRivisionHandyman(){
+  // function askForRivisionHandyman(){
+  //   let offer = JSON.stringify({
+  //     request: "acceptCustomOffer",
+  //     orderId: get(props, 'orderStatus._id', 0)
+  //   })
+  //   const data = props.ws.send(offer)
+  //   setShowInfo('')
+  //   setRevisionAmount('')
+  // }
+
+  function acceptQuote() {
     let offer = JSON.stringify({
       request: "acceptCustomOffer",
       orderId: get(props, 'orderStatus._id', 0)
@@ -49,17 +62,7 @@ const TimelienItem = (props) => {
     setRevisionAmount('')
   }
 
-  function acceptQuote(){
-    let offer = JSON.stringify({
-      request: "acceptCustomOffer",
-      orderId: get(props, 'orderStatus._id', 0)
-    })
-    const data = props.ws.send(offer)
-    setShowInfo('')
-    setRevisionAmount('')
-  }
-
-  function declineQuote(){
+  function declineQuote() {
     let offer = JSON.stringify({
       request: "acceptCustomOffer",
       orderId: get(props, 'orderStatus._id', 0)
@@ -94,10 +97,10 @@ const TimelienItem = (props) => {
                   <p className="view" onClick={() => setShowInfo("Order Cancelled")}>View</p>
                   : get(props, 'data.status', '') === "Service Request" ?
                     <p className="view" onClick={() => setShowInfo("Service Request")}>View</p>
-                    :(get(props, 'data.status', '') === "Revision received" && get(props, 'data.for', '') === "handyman") ?
-                    <p className="view" onClick={() => setShowInfo("Revision Requested")}>View</p>
-                    :
-                    <p className="view">View</p>
+                    : (get(props, 'data.status', '') === "Revision received" && get(props, 'data.for', '') === "handyman") ?
+                      <p className="view" onClick={() => setShowInfo("Revision Requested")}>View</p>
+                      :
+                      <p className="view">View</p>
         }
         <p className="time">12:57pm</p>
       </div>
@@ -114,7 +117,7 @@ const TimelienItem = (props) => {
           <div
             className="timeline-item-info px-6 py-5"
           >
-            {showInfo === "Quotation received" ?
+            {showInfo === "Quotation received" ? //done
               <>
                 <div className="header d-flex">
                   <div className="image mr-4"></div>
@@ -219,37 +222,37 @@ const TimelienItem = (props) => {
                               </div>
                             </div>
                             <input value={revisionAmount} onChange={setAmount} placeholder="€450" />
-                            <button onClick={sendQuatation} className="btn btn-outline-primary mr-2">
+                            <button onClick={askForRivision} className="btn btn-outline-primary mr-2">
                               Send Quotation
                             </button>
                           </>
-                          :showInfo === "Revision Requested" ?
-                          <>
-                           <div className="header d-flex">
-                    <div className="image mr-4"></div>
-                    <div className="texts">
-                      <h4 className="mb-2">Quotation Received</h4>
-                      <p className="mb-0 h5">
-                        Vendor 11234 sent you his quotation for the service.
+                          : showInfo === "Revision Requested" ?
+                            <>
+                              <div className="header d-flex">
+                                <div className="image mr-4"></div>
+                                <div className="texts">
+                                  <h4 className="mb-2">Quotation Received</h4>
+                                  <p className="mb-0 h5">
+                                    Vendor 11234 sent you his quotation for the service.
                       </p>
-                    </div>
-                  </div>
-                  <del><p className="h1 amount mt-4 mb-5">€{get(props, 'orderStatus.price', 0)}</p></del>
-                  <input value={revisionAmount} onChange={setAmount} placeholder="€450" />
-                  <div className="buttons d-flex justify-content-center">
-                    <button onClick={askForRivisionHandyman} className="btn btn-outline-primary mr-2">
-                      Ask For Revision
+                                </div>
+                              </div>
+                              <del><p className="h1 amount mt-4 mb-5">€{get(props, 'orderStatus.price', 0)}</p></del>
+                              <input value={revisionAmount} onChange={setAmount} placeholder="€450" />
+                              <div className="buttons d-flex justify-content-center">
+                                <button onClick={askForRivision} className="btn btn-outline-primary mr-2">
+                                  Ask For Revision
                     </button>
-                    <button onClick={acceptQuote} className="btn btn-outline-primary mr-2">
-                      Accept the Quote
+                                <button onClick={userAcceptOffer} className="btn btn-outline-primary mr-2">
+                                  Accept the Quote
                     </button>
-                    <button onClick={declineQuote} className="btn btn-outline-primary mr-2">
-                      Decline the Quote
+                                <button onClick={declineQuote} className="btn btn-outline-primary mr-2">
+                                  Decline the Quote
                     </button>
-                  </div>
-                          </>
-                          :
-                          <></>
+                              </div>
+                            </>
+                            :
+                            <></>
             }
           </div>
         </>

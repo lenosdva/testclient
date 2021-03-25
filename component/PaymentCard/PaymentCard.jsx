@@ -1,13 +1,14 @@
 import { withTranslation } from "../../constent/i18n/i18n"
-import  { useState } from "react"
+import  { useState, useEffect } from "react"
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
-function PaymentCard({t}) {
+function PaymentCard({t, type=''}) {
   const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
   const [ paymentMethod, setPaymentMethod ] = useState('')
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
@@ -16,11 +17,22 @@ function PaymentCard({t}) {
     const cardElement = elements.getElement(CardElement);
     stripe.createToken(cardElement).then(function(result) {
       if(get(result, 'token.id', false)){
-        // console.log("get(result, 'token.id', false)", get(result, 'token.id', false))
         dispatch({ type: "DO_PAYMENT", payload: {orderId: '603d32140516367eb446ed69', token: result.token.id}})
       }
     });
   }
+
+  const { cardLoding, cardData } = useSelector(state => ({
+    cardLoding: state.user.cardLoding,
+    cardData: state.user.cardData,
+  }));
+
+  useEffect(()=>{
+    if(type === "handyman"){
+      console.log(cardData)
+    }
+  },[cardData])
+
   return (
     <div className="payment-card p-5 mt-4">
       <div className="d-flex flex-column paymentimg">
@@ -60,7 +72,7 @@ function PaymentCard({t}) {
               },
             }}
           />
-        <button className="btn btn-primary-rd" type="submit">Add</button>
+        <button className="btn btn-primary-rd" type="submit" disabled={cardLoding}>Add</button>
         </form>
         }
       </div>
