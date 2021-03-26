@@ -222,6 +222,28 @@ export function* getInbox({ payload }) {
     });
   yield put({ type: 'GOT_INBOX', data });
 }
+export function* addPayment({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/addPaymentMethod`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'ADDED_PAYMENT', data });
+}
+
 
 export function* getChat({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))

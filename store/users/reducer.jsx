@@ -26,7 +26,9 @@ const initialState = {
   getCardLoding:true,
   getCardData: {},
   paymentLoding: false,
-  paymentData: {}
+  paymentData: {},
+  addPaymentLoading:true,
+  addPayment:{},
 }
 
 export default function userReducer(state = initialState, action) {
@@ -232,6 +234,14 @@ export default function userReducer(state = initialState, action) {
         resendOtpData: action.data
       };
     }
+    case 'RESET_PAYMENTS': {
+      console.log("dataaaa")
+      return {
+        ...state,
+        addPayment: {}
+      };
+    }
+
     case 'RESET_LOG': {
       return {
         ...state,
@@ -255,6 +265,23 @@ export default function userReducer(state = initialState, action) {
         ...state,
         otpData: action.data
       }
+    }
+
+    case 'ADD_PAYMENT': {
+      return {
+        ...state,
+        addPaymentLoading: true,
+        };
+      
+    }
+    case 'ADDED_PAYMENT': {
+      return {
+        ...state,
+        addPaymentLoading: false,
+        addPayment: action.data
+     
+      };
+      
     }
     default:
       return state;

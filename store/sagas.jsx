@@ -19,6 +19,7 @@ function* userActionWatcher() {
   yield takeLatest('DO_PAYMENT', Users.payment);
   yield takeLatest('GET_CARD', Users.getCard);
   yield takeLatest('CHECKOUT', Users.checkout);
+  yield takeLatest('ADD_PAYMENT',Users.addPayment);
  }
 
  function* servicesActionWatcher() {

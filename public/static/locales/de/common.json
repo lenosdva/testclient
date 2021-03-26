@@ -33,7 +33,13 @@
         "note": "Note",
         "nText":  "Dein Hausman keeps 10% of your earnings as commision",
         "submitBtn": "Submit Profile For Review",
-        "SaveBtn": "Save Changes"
+        "SaveBtn": "Save Changes",
+        "bankName":"Bank Name",
+        "accountNumber":"Account Number of Holder",
+        "iFSCCode":"IFSC Code of Bank",
+        "saveChanges":"Save Bank Detail",
+        "bDetails":"BANK DETAILS"
+
     },
     "aboutUs": {
         "title": "About Us",

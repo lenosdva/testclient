@@ -8,18 +8,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { Elements, CardElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { Tab } from "react-tabs";
 const { NEXT_PUBLIC_STRIP_KEY } = process.env
 const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
+
 
 function ProfileManagement({ t }) {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { userData, uploadDoc, hyndyman, hyndymanLoading, uploadDocLoading } = useSelector(state => ({
+  const { userData, uploadDoc, hyndyman, hyndymanLoading, uploadDocLoading, addPaymentLoading ,addPayment} = useSelector(state => ({
     userData: state.user.user,
     uploadDoc: state.handyman.uploadDoc,
     uploadDocLoading: state.handyman.uploadDoc,
     hyndymanLoading: state.handyman.hyndymanLoading,
-    hyndyman: state.handyman.hyndyman
+    hyndyman: state.handyman.hyndyman,
+    addPaymentLoading:state.user.addPaymentLoading,
+    addPayment:state.user.addPayment,
   }));
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
@@ -27,16 +31,32 @@ function ProfileManagement({ t }) {
   const [about, setAbout] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [bankName,setbankName]=useState('')
+  const [accountNumber,setaccountNumber]=useState('')
+  const [iFSCCode,setiFSCCode]=useState('')
   const [error, setError] = useState({})
   const [workLicense, setWorkLicense] = useState({})
   const [taxationIdentityCard, setTaxationIdentityCard] = useState({})
   const [certificate, setCertificate] = useState([])
+  const [saveChanges, setsaveChanges]= useState([])
 
   useEffect(() => {
     setName(get(userData, 'fname', ''))
     setEmail(get(userData, 'mobile', ''))
     setPhone(get(userData, 'email', ''))
+    setbankName(get(userData,'bankname',''))
+    setaccountNumber(get(userData,'accountNumber',''))
+    
+    setiFSCCode(get(userData,'iFSCCode',''))
+  
   }, [userData])
+
+  useEffect(() => {
+    if (get(addPayment, 'success', false)) {
+      router.push('/paymentgateway-successful')
+      dispatch({ type: "RESET_PAYMENTS" })
+    }
+  }, [addPayment])
 
   useEffect(() => {
     if (get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)) {
@@ -45,6 +65,32 @@ function ProfileManagement({ t }) {
     }
   }, [hyndyman, uploadDoc])
 
+  function onChanges(key)
+  {
+    
+    // saveChanges[key] = {}
+    // setsaveChanges([...saveChanges])
+
+    const error = {}
+    if (accountNumber == '') {
+      error.accountNumber = "Required"
+    } if (bankName == '') {
+      error.bankName = "Required"
+    } if (iFSCCode == '') {
+      error.iFSCCode = "Required"
+    }
+    console.log("error", error)
+    setError(error)
+    if (!Object.keys(error).length) {
+    const data = {
+      bankName,
+      accountNumber,
+      iFSCCode
+    }
+    dispatch({type: "ADD_PAYMENT",payload:data})
+    
+  }
+  }
   function removeCertificate(key) {
     certificate[key] = {}
     setCertificate([...certificate])
@@ -194,7 +240,8 @@ function ProfileManagement({ t }) {
           <h3 className="label">{t("handyRegis.about")}</h3>
           <textarea onChange={(e) => setAbout(e.target.value)} value={about} type="text" className="textarea large" placeholder="" />
           <p className="errormsg">{get(error, 'about', '')}</p>
-          <h5 className="head-regis mt-5">{t("handyRegis.cDetails")}</h5>
+          <h5 className="head-regis mt-5">{t("handyRegis.cDetais")}</h5>
+          
           <div className="d-flex flexwrap">
             <div className="small d-flex flex-column">
               <h3 className="label">{t("handyRegis.email")}</h3>
@@ -257,21 +304,86 @@ function ProfileManagement({ t }) {
             </li>
             {renserCertificate()}
           </ul>
+          
+          
+
+
           <div onClick={addMore} className="addmore-btn cursur-pointer">Add More</div>
           <p className="note"><span>{t("handyRegis.note")}:</span>{t("handyRegis.nText")}</p>
           {/* <Link href="/handyman-registration-complete"> */}
           <button disabled={(hyndymanLoading && uploadDocLoading)} className="btn primarybtn-fill" onClick={onSubmit}>{t("handyRegis.submitBtn")}</button>
+         
+         
+         
+         
+         
+         
+         {/* <div>
+         <Tab>BANK DETAILS</Tab>
+         </div>
+                 */}
+          <div className="small d-flex flex-column">
+          <h5 className="head-regis mt-5">{t("BANK DETAILS")}</h5>
+              <h3 className="label">{t("Bank Name")}</h3>
+              <input
+                value={bankName}
+                onChange={(e) => setbankName(e.target.value)}
+                type="text"
+                className="input"
+                readOnly={false}
+                placeholder="BOI"
+              />
+              <p className="errormsg">{get(error, 'bankName', '')}</p>
+            </div>
+
+
+            <div className="small d-flex flex-column">
+              <h3 className="label">{t("Account Number")}</h3>
+              <input
+                value={accountNumber}
+                onChange={(e) => setaccountNumber(e.target.value)}
+                type="text"
+                className="input"
+                readOnly={false}
+                placeholder="8833101000000"
+              />
+              <p className="errormsg">{get(error, 'accountNumber', '')}</p>
+            </div>
+            
+
+            <div className="small d-flex flex-column">
+              <h3 className="label">{t("IFSC Code")}</h3>
+              <input
+                value={iFSCCode}
+                onChange={(e)=>setiFSCCode(e.target.value)}
+                type="text"
+                className="input"
+                readOnly={false}
+                placeholder="BKID23242"
+              />
+              <p className="errormsg">{get(error, 'iFSCCode', '')}</p>
+            </div>
+            
+      
+       
+          <button className="btn primarybtn-fill" onClick={onChanges}>{t("Save Bank Detail")}</button>
+         
           {/* </Link> */}
-          {get(userData, 'approved', false) === "approved" &&
-            <Elements stripe={stripePromise}>
+          {/* {get(userData, 'approved', false) === "approved" && */}
+            {/* <Elements stripe={stripePromise}>
               <PaymentCard type="handyman" />
-            </Elements>
-          }
+            </Elements> */}
+          {/* } */}
         </div>
+        
+
       </div>
-    </div>
+      
+  </div>
+    
 
   );
 }
+
 
 export default withTranslation('common')(ProfileManagement)
