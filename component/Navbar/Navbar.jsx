@@ -305,7 +305,7 @@ export default function Navbar(props) {
                         </div>
                       </li> */}
                     </ul>
-                    <Link href="inbox-redesign-awaiting">
+                    <Link href="/inbox-redesign-awaiting">
                       <button className="btn btn-primary">View My Inbox</button></Link>
                   </span>
                 </span>
