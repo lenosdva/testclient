@@ -15,12 +15,14 @@ export default function Category(props) {
     dispatch({ type: "GET_ORDER" })
   }, [])
   return (
-    (orderLoading) ?
+    
+      <Layout setWebSoket={props.setWebSoket}>
+      {
+      (orderLoading) &&
       <div className="loading-wrapper">
         <div className="loader"></div>
       </div>
-      :
-      <Layout setWebSoket={props.setWebSoket}>
+      }
         <div className="products">
           <div className="about-section-padding">
             <ClientDashboard />
@@ -33,6 +35,7 @@ export default function Category(props) {
           </div>
           <Footer ws={props.ws}/>
         </div>
+      
       </Layout>
   );
 }
