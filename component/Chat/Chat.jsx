@@ -17,15 +17,17 @@ const Chat = (props) => {
   }));
 
   useEffect(() => {
-    props.ws.addEventListener('message', function (event) {
-      let message = event;
-      dispatch({ type: "GET_CHAT", payload: {userId: get(props, 'chat.id', '')} })
-    })
+    if (get(props, 'ws.addEventListener', false)) {
+      props.ws.addEventListener('message', function (event) {
+        let message = event;
+        dispatch({ type: "GET_CHAT", payload: { userId: get(props, 'chat.id', '') } })
+      })
+    }
   }, [props.chat.id])
 
   useEffect(() => {
     const newMessage = []
-    get(props, 'chat.message', []).map((data)=> {
+    get(props, 'chat.message', []).map((data) => {
       newMessage.unshift({
         position: get(data, 'messageType', '') === "messageSent" ? 'right' : 'left',
         type: 'text',

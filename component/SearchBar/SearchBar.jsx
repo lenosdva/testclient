@@ -53,7 +53,13 @@ export default function SearchBar(props) {
   }
 
   function onBlurInput() {
-    setKeyword('')
+    // setKeyword('')
+    // setCode('')
+    setTimeout(() => {
+      setFilterCode([])
+      setAddress('hide')
+      setService('hide')
+    }, 500)
     // dispatch({ type: 'SEARCH_REQUEST', payload: '' })
   }
 
@@ -67,7 +73,7 @@ export default function SearchBar(props) {
   }
 
   function onSelectSearch(value, id) {
-    dispatch({ type: 'RESET_SERVICE'})
+    dispatch({ type: 'RESET_SERVICE' })
     setService('hide')
     setKeyword(value)
     setId(id)
@@ -133,7 +139,7 @@ export default function SearchBar(props) {
       <div className="search-area pl-4 d-flex justify-content-around align-items-center">
         <div className="postal-code mr-2">
           <h5 className="mb-0">Postal Code</h5>
-          <input type="search" value={code} onChange={onSearchPostalCode} className="input-search" placeholder="Munich, Germany 80331" />
+          <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
           <div className={showAddress === 'hide' ? "searching-keywords" : "searching-keywords searching-keywords-show"}>
             <ul>
               {renderPostalCode()}
