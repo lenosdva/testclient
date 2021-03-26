@@ -56,6 +56,12 @@ export default function userReducer(state = initialState, action) {
         paymentLoding: true
       }
     }
+    case 'RESET_PAYMENT': {
+      return {
+        ...state,
+        paymentData: {}
+      }
+    }
     case 'PAYMENT': {
       return {
         ...state,

@@ -359,7 +359,7 @@ export default function Navbar(props) {
                 {/* login modal wrapper open */}
                 {!userLogged &&
                   <>
-                    <input type="checkbox" className="dd-input" id="test" />
+                    <input type="checkbox" onBlur={()=> console.log("hide")} className="dd-input" id="test" />
                     <ul className="dd-menu">
                       <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
                       <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>

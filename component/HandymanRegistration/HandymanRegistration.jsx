@@ -256,20 +256,6 @@ function ProfileManagement({ t }) {
               <p className="errormsg">{get(error, 'taxationIdentityCard', '')}</p>
             </li>
             {renserCertificate()}
-            {/* <li>
-              <div className="form-group checkbox-wrapper">
-                <input type="checkbox" id="html" />
-                <label for="html">Certificate 1 (optional)</label>
-              </div>
-              <div className="remove-btn">Remove</div>
-            </li>
-            <li>
-              <div className="form-group checkbox-wrapper">
-                <input type="checkbox" id="html" />
-                <label for="html">Certificate 2 (optional)</label>
-              </div>
-              <div className="remove-btn">Remove</div>
-            </li> */}
           </ul>
           <div onClick={addMore} className="addmore-btn cursur-pointer">Add More</div>
           <p className="note"><span>{t("handyRegis.note")}:</span>{t("handyRegis.nText")}</p>
