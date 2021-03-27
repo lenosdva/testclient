@@ -17,7 +17,7 @@ export default withRouter(function Category(props) {
     const serId = get(props, 'router.query.id', '')
     dispatch({ type: 'SERVICE_DETAILS', payload: serId })
     dispatch({ type: 'GET_GIG', payload: serId })
-    
+
   }, [props.router.query])
   useEffect(() => {
     if (get(serviceDetails, 'userId', false)) {
@@ -27,25 +27,25 @@ export default withRouter(function Category(props) {
   }, [serviceDetails])
   console.log("gig=========>", gig)
   return (
-    (detailLoading || moreServiceLoading) ?
-      <div className="loading-wrapper">
-        <div className="loader"></div>
-      </div>
-      :
-      <Layout setWebSoket={props.setWebSoket}>
-        <div className="products">
-          <div className="container">
-            <div className="home-section-padding text-center">
-              <SearchBar />
-            </div>
-            <div className="home-section-padding">
-              <PackingService gig={gig} moreService={moreServiceData} data={serviceDetails} />
-            </div>
+    <Layout setWebSoket={props.setWebSoket}>
+      {  (detailLoading || moreServiceLoading) &&
+        <div className="loading-wrapper">
+          <div className="loader"></div>
+        </div>
+      }
+      <div className="products">
+        <div className="container">
+          <div className="home-section-padding text-center">
+            <SearchBar />
           </div>
           <div className="home-section-padding">
-            <Footer ws={props.ws}/>
+            <PackingService gig={gig} moreService={moreServiceData} data={serviceDetails} />
           </div>
         </div>
-      </Layout>
+        <div className="home-section-padding">
+          <Footer ws={props.ws} />
+        </div>
+      </div>
+    </Layout>
   );
 })

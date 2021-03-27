@@ -20,25 +20,25 @@ export default function Category(props) {
   useEffect(() => {
     dispatch({ type: 'GET_SERVICE' })
   }, [])
-  
+
   return (
-    (searchByIdLoading) ?
-      <div className="loading-wrapper">
-        <div className="loader"></div>
-      </div>
-      :
     <Layout setWebSoket={props.setWebSoket}>
+      {(searchByIdLoading) &&
+        <div className="loading-wrapper">
+          <div className="loader"></div>
+        </div>
+      }
       <div className="category">
         <div className="container">
           <div className="home-section-padding text-center">
             <SearchBar />
           </div>
           <div className="home-section-padding">
-            <OurServices data={searchByIdData}/>
+            <OurServices data={searchByIdData} />
           </div>
         </div>
         <div className="home-section-padding">
-          <Footer ws={props.ws}/>
+          <Footer ws={props.ws} />
         </div>
       </div>
     </Layout>

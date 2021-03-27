@@ -42,7 +42,7 @@ export default function Category(props) {
 
         </div>
         <div className="btn-box">
-     {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
+          {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
 
           <button onClick={() => router.push(`/handyman-registration-withdrawn?id=${data._id}`)}>Edit</button>
           <button onClick={() => dispatch({ type: 'PAUSE_REQUEST', payload: { "gigId": data._id } })}>Pause</button>
@@ -72,7 +72,7 @@ export default function Category(props) {
           <a href="">One Line Service Title Goes Here</a>
         </div>
         <div className="btn-box">
-        {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
+          {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
 
           <button onClick={() => router.push(`/handyman-registration-withdrawn?id=${data._id}`)}>Edit</button>
           <button onClick={() => dispatch({ type: 'PAUSE_REQUEST', payload: { "gigId": data._id } })}>Pause</button>
@@ -86,35 +86,35 @@ export default function Category(props) {
   )
 
   return (
-    (serviceLoading) ?
-      <div className="loading-wrapper">
-        <div className="loader"></div>
-      </div>
-      :
-      <Layout setWebSoket={props.setWebSoket}>
-        <div className="category">
-          <div className="container">
-            <div className="home-section-padding">
-              <ClientDashboard />
-            </div>
+    <Layout setWebSoket={props.setWebSoket}>
+      {(serviceLoading) &&
+        <div className="loading-wrapper">
+          <div className="loader"></div>
+        </div>
+      }
+      <div className="category">
+        <div className="container">
+          <div className="home-section-padding">
+            <ClientDashboard />
           </div>
+        </div>
 
-          <div>
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-12 registration-tabs">
-                  <Tabs>
-                    <TabList>
-                      <Tab>Active</Tab>
-                      <Tab>Paused</Tab>
-                    </TabList>
+        <div>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 registration-tabs">
+                <Tabs>
+                  <TabList>
+                    <Tab>Active</Tab>
+                    <Tab>Paused</Tab>
+                  </TabList>
 
-                    <TabPanel>
-                      <h5>SERVICES</h5>
-                      <ul className="regis-list">
+                  <TabPanel>
+                    <h5>SERVICES</h5>
+                    <ul className="regis-list">
 
-                        {renderActive()}
-                        {/* <li>
+                      {renderActive()}
+                      {/* <li>
                   <div className="imgbox">
                     <Image
                       src="/assets/images/regislist.png"
@@ -177,13 +177,13 @@ export default function Category(props) {
                     <button>Delete</button>
                   </div>
                 </li> */}
-                      </ul>
-                    </TabPanel>
-                    <TabPanel>
-                      <h5>SERVICES</h5>
-                      <ul className="regis-list">
-                        {renderPaused()}
-                        {/* <li>
+                    </ul>
+                  </TabPanel>
+                  <TabPanel>
+                    <h5>SERVICES</h5>
+                    <ul className="regis-list">
+                      {renderPaused()}
+                      {/* <li>
                         <div className="imgbox">
                           <Image
                             src="/assets/images/regislist3.png"
@@ -243,19 +243,19 @@ export default function Category(props) {
                           <button>Delete</button>
                         </div>
                       </li> */}
-                      </ul>
-                    </TabPanel>
-                  </Tabs>
+                    </ul>
+                  </TabPanel>
+                </Tabs>
 
-                </div>
               </div>
             </div>
           </div>
-
-          <div className="home-section-padding">
-            <Footer ws={props.ws} />
-          </div>
         </div>
-      </Layout>
+
+        <div className="home-section-padding">
+          <Footer ws={props.ws} />
+        </div>
+      </div>
+    </Layout>
   );
 }
