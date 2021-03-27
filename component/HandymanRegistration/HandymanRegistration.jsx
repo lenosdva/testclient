@@ -86,7 +86,7 @@ function ProfileManagement({ t }) {
         accountNumber,
         iFSCCode
       }
-      dispatch({ type: "ADD_PAYMENT", payload: data })
+      dispatch({ type: "ADD_PAYMENT", payload: [data] })
 
     }
   }
