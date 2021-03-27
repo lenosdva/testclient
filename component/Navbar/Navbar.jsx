@@ -464,7 +464,7 @@ export default function Navbar(props) {
                 </Link>
               </li>
               <li className="align-self-center">
-                <span onClick={() => onClick = { signOut }}>Logout</span>
+                <span onClick={signOut}>Logout</span>
               </li>
               {/* <li className="align-self-center">
                 <Link href="/">

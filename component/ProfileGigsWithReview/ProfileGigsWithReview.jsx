@@ -6,7 +6,7 @@ import { get } from "lodash"
 import moment from "moment"
 
 const renderService = (movingOutData) => (
-  movingOutData.map((data, key) => (
+  movingOutData && movingOutData.length && movingOutData.map((data, key) => (
     <div key={key} className="col-md-6">
       <ServiceCard data={data} />
     </div>

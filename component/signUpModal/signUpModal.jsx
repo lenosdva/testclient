@@ -5,7 +5,11 @@ import Modal from 'react-modal';
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from 'lodash'
+import { GoogleLogin } from 'react-google-login'
+import FacebookLogin from 'react-facebook-login';
 
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+const FB_AAP_ID = process.env.NEXT_PUBLIC_FB_AAP_ID
 
 export function signUpModal (signUpModel, closeModal, setLoginModel, serverError) {
   const dispatch = useDispatch()
@@ -246,24 +250,42 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
           <div className="or">or</div>
 
           <div className="social-btns">
-            <button>
-              <Image
-                src="/assets/svg/ic-google.svg"
-                alt=""
-                width={30}
-                height={30}
+          <GoogleLogin
+                clientId={CLIENT_ID}
+                onSuccess={(e) => console.log("e=========>", e)}
+                onFailure={(e) => console.log("err=========>", e)}
+                isSignedIn={true}
+                render={renderProps => (
+                  <button
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <Image
+                      src="/assets/svg/ic-google.svg"
+                      alt=""
+                      width={30}
+                      height={30}
+                    />
+                    <span>Continue with Google</span>
+                  </button>
+                )}
               />
-              <span>Continue with Google</span>
-            </button>
-            <button>
-              <Image
-                src="/assets/svg/ic-facebook.svg"
-                alt=""
-                width={30}
-                height={30}
+              <FacebookLogin
+                appId={FB_AAP_ID}
+                autoLoad={false}
+                callback={(e)=> console.log("e=========>", e)}
+                render={renderProps => (
+                  <button onClick={renderProps.onClick}>
+                    <Image
+                      src="/assets/svg/ic-facebook.svg"
+                      alt=""
+                      width={30}
+                      height={30}
+                    />
+                    <span>Continue with Facebook</span>
+                  </button>
+                )}
               />
-              <span>Continue with Facebook</span>
-            </button>
             {loginWith === 'phone' ?
               <button onClick={() => setloginWith('email')}>
                 <Image

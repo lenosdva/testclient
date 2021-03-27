@@ -5,6 +5,10 @@ import { withTranslation } from "../../constent/i18n/i18n"
 import { get } from "lodash"
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
+import { Elements, CardElement } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+const { NEXT_PUBLIC_STRIP_KEY } = process.env
+const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
 function ProfileManagement(props) {
   const [fullName, setName] = useState('')
@@ -13,7 +17,9 @@ function ProfileManagement(props) {
   const [about, setAbout] = useState('')
   const [address, setAddress] = useState('')
   const [error, setError] = useState({})
+  const [isChange, changePayment] = useState(false)
   const dispatch = useDispatch()
+  
   useEffect(() => {
     setName(get(props, 'user.fname', ''))
     setCompany(get(props, 'user.company', ''))
@@ -21,6 +27,15 @@ function ProfileManagement(props) {
     setAbout(get(props, 'user.description ', ''))
     setAddress(get(props, 'user.address ', ''))
   }, [props.user])
+
+  useEffect(()=>{
+    dispatch({ type: "GET_CARD" })
+  },[])
+
+  const { getCardLoading, getCardData } = useSelector(state => ({
+    getCardLoading: state.user.getCardLoading,
+    getCardData: state.user.getCardData,
+  }));
 
   function submitData(e) {
     const error = {}
@@ -49,6 +64,7 @@ function ProfileManagement(props) {
     }
     setError(error)
   }
+  console.log("issssss", isChange)
 
   return (
     <div className="profile-management">
@@ -107,12 +123,12 @@ function ProfileManagement(props) {
                 />
                 {get(error, 'fullName', false) &&
                   <span className="errormsg"> {get(error, 'fullName', false)}</span>
-                  }
+                }
               </div>
               <div className="small d-flex flex-column">
                 <h3 className="label">{props.t("ProfileManagement.phoneNumber")}</h3>
                 <InputMask mask="(999) 999 9999" value={phone} name="phone" onChange={(e) => setPhone(e.target.value)} onBlur={submitData}>
-                  {(inputProps) => <input {...inputProps} name="phone" className="input"  type="tel" placeholder="(000) 000 0000" />}
+                  {(inputProps) => <input {...inputProps} name="phone" className="input" type="tel" placeholder="(000) 000 0000" />}
                 </InputMask>
                 {get(error, 'phone', false) &&
                   <span className="errormsg"> {get(error, 'phone', false)}</span>
@@ -182,7 +198,7 @@ function ProfileManagement(props) {
               {props.t("ProfileManagement.paymentText")}
             </p>
             <div className="payment-details d-flex flexwrap">
-              <div className="location mr-5">
+              {/* <div className="location mr-5">
                 <h3 className="label">{props.t("ProfileManagement.yourLocation")}</h3>
                 <div className="d-flex">
                   <a href="#" className="link mr-3">
@@ -199,20 +215,28 @@ function ProfileManagement(props) {
                   <br /> Rheinland, Germany <br /> <br />
                   {props.t("ProfileManagement.phone")}: +49 0261 59 65
                 </p>
-              </div>
-              <div className="payment-method">
-                <h3 className="label">Payment Method</h3>
-                <a href="#" className="link">
-                  Change
-                </a>
-                <p className="mt-4">
-                  Credit Card Ending <span>0507</span>
-                </p>
-              </div>
+              </div> */}
+              {!isChange &&
+                <div className="payment-method">
+                  <h3 className="label">Payment Method</h3>
+                  <span onClick={() => changePayment(true)} className="link">
+                    Change
+                </span>
+                  <p className="mt-4">
+                  {get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].funding`, 'Credit')} Card Ending <span>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].last4`, '')}</span>
+                  </p>
+                </div>
+              }
             </div>
             <div className="horizontal-line"></div>
-            <h3 className="label">Add a new Payment Method</h3>
-            <PaymentCard />
+            {isChange === true &&
+              <>
+                <h3 className="label">Add a new Payment Method</h3>
+                <Elements stripe={stripePromise}>
+                  <PaymentCard changePayment={changePayment} edit={true} />
+                </Elements>
+              </>
+            }
             <h3 className="mt-5 mb-4">ACCOUNT SETTINGS</h3>
             <a className="settings-link">Delete My Account</a>
             <p>Delete and remove all your data linked with Dein Hausman</p>
