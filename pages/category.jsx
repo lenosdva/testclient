@@ -37,12 +37,12 @@ function Category(props) {
   }, [props.router.query])
   console.log(searchByIdLoading, movingOutLoading)
   return (
-    (searchByIdLoading || movingOutLoading) ?
-      <div className="loading-wrapper">
-        <div className="loader"></div>
-      </div>
-      :
       <Layout setWebSoket={props.setWebSoket}>
+        {(searchByIdLoading || movingOutLoading) &&
+        <div className="loading-wrapper">
+          <div className="loader"></div>
+        </div>
+      }
         <div className="category">
           <div className="container">
             <div className="home-section-padding text-center">

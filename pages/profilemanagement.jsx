@@ -10,22 +10,21 @@ export default function Category(props) {
   }));
   return (
     <Layout setWebSoket={props.setWebSoket}>
-      {userLoading ?
+      {userLoading &&
         <div className="loading-wrapper">
           <div className="loader"></div>
         </div>
-        :
-        <div className="category">
-          <div className="container">
-            <div className="home-section-padding">
-              <ProfileManagement user={user}/>
-            </div>
-          </div>
+      }
+      <div className="category">
+        <div className="container">
           <div className="home-section-padding">
-            <Footer ws={props.ws}/>
+            <ProfileManagement user={user} />
           </div>
         </div>
-      }
+        <div className="home-section-padding">
+          <Footer ws={props.ws} />
+        </div>
+      </div>
     </Layout>
   );
 }

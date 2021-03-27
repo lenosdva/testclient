@@ -20,32 +20,32 @@ export default withRouter(function Category(props) {
   }, [props.router.query])
 
   useEffect(() => {
-    if(get(gig,'sellerPersonalInfo._id', false)){
-      const userId = get(gig,'sellerPersonalInfo._id', '')
+    if (get(gig, 'sellerPersonalInfo._id', false)) {
+      const userId = get(gig, 'sellerPersonalInfo._id', '')
       dispatch({ type: 'MORE_SERVICE', payload: { userId } })
     }
-  }, [get(gig,'sellerPersonalInfo._id', '')])
+  }, [get(gig, 'sellerPersonalInfo._id', '')])
 
   return (
-    (gigLoading || moreServiceLoading) ?
-      <div className="loading-wrapper">
-        <div className="loader"></div>
-      </div>
-      :
-      <Layout setWebSoket={props.setWebSoket}>
-        <div className="products">
-          <div className="container">
-            <div className="home-section-padding">
-              <SearchBar />
-            </div>
-            <div className="home-section-padding">
-              <ProfileGigsWithReview moreServiceData={moreServiceData} gig={gig}/>
-            </div>
+    <Layout setWebSoket={props.setWebSoket}>
+      { (gigLoading || moreServiceLoading) &&
+        <div className="loading-wrapper">
+          <div className="loader"></div>
+        </div>
+      }
+      <div className="products">
+        <div className="container">
+          <div className="home-section-padding">
+            <SearchBar />
           </div>
           <div className="home-section-padding">
-            <Footer ws={props.ws}/>
+            <ProfileGigsWithReview moreServiceData={moreServiceData} gig={gig} />
           </div>
         </div>
-      </Layout>
+        <div className="home-section-padding">
+          <Footer ws={props.ws} />
+        </div>
+      </div>
+    </Layout>
   );
 })

@@ -41,37 +41,37 @@ export default function InboxWidePage(props) {
   }, [])
 
   return (
-    (inboxLoading) ?
-      <div className="loading-wrapper">
-        <div className="loader"></div>
-      </div>
-      :
-      <Layout setWebSoket={props.setWebSoket}>
-        <div className="inbox-wide-page">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-4 col-md-12">
-                <Inbox onSelectChat={onSelectChat} ws={props.ws} inbox={inbox} />
-              </div>
-              <div className="col-lg-4 col-md-12">
-                {getOrderStatus() ?
-                  <Timeline orderStatus={getOrderStatus()} ws={props.ws}/>
-                  :
-                  <TimelineOrder ws={props.ws} />
-                }
-              </div>
-              <div className="col-lg-4 col-md-12">
-                {get(chat, 'id', false) ?
-                  <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} />
-                  : <></>
-                }
-              </div>
+    <Layout setWebSoket={props.setWebSoket}>
+      { (inboxLoading) &&
+        <div className="loading-wrapper">
+          <div className="loader"></div>
+        </div>
+      }
+      <div className="inbox-wide-page">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4 col-md-12">
+              <Inbox onSelectChat={onSelectChat} ws={props.ws} inbox={inbox} />
+            </div>
+            <div className="col-lg-4 col-md-12">
+              {getOrderStatus() ?
+                <Timeline orderStatus={getOrderStatus()} ws={props.ws} />
+                :
+                <TimelineOrder ws={props.ws} />
+              }
+            </div>
+            <div className="col-lg-4 col-md-12">
+              {get(chat, 'id', false) ?
+                <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} />
+                : <></>
+              }
             </div>
           </div>
-          <div className="home-section-padding">
-            <Footer ws={props.ws} />
-          </div>
         </div>
-      </Layout>
+        <div className="home-section-padding">
+          <Footer ws={props.ws} />
+        </div>
+      </div>
+    </Layout>
   );
 }
