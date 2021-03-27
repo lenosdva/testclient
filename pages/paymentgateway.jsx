@@ -2,11 +2,11 @@ import { useEffect, useState }from "react"
 import { Layout, Footer, PaymentCard } from "../component";
 import { Elements, CardElement } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-const { NEXT_PUBLIC_STRIP_KEY } = process.env
-const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { get } from "lodash";
+const { NEXT_PUBLIC_STRIP_KEY } = process.env
+const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
 
 export default function Category(props) {

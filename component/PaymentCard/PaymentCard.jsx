@@ -1,18 +1,18 @@
 import { withTranslation } from "../../constent/i18n/i18n"
-import  { useState, useEffect } from "react"
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import { useState, useEffect } from "react"
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
 import { useRouter } from 'next/router'
 
-function PaymentCard({t, type=''}) {
+function PaymentCard({ t, type = '', edit = false, changePayment }) {
   const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter()
 
-  const [ paymentMethod, setPaymentMethod ] = useState('')
-  
+  const [paymentMethod, setPaymentMethod] = useState('')
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     // router.push('/paymentgateway-successful')
@@ -20,9 +20,9 @@ function PaymentCard({t, type=''}) {
       return;
     }
     const cardElement = elements.getElement(CardElement);
-    stripe.createToken(cardElement).then(function(result) {
-      if(get(result, 'token.id', false)){
-        dispatch({ type: "DO_PAYMENT", payload: {token: result.token.id}})
+    stripe.createToken(cardElement).then(function (result) {
+      if (get(result, 'token.id', false)) {
+          dispatch({ type: "DO_PAYMENT", payload: { token: result.token.id } })
       }
     });
   }
@@ -32,11 +32,16 @@ function PaymentCard({t, type=''}) {
     cardData: state.user.cardData,
   }));
 
-  useEffect(()=>{
-    if(type === "handyman"){
-      console.log(cardData)
+  useEffect(() => {
+    if (edit) {
+      if(get(cardData, 'success', false)){
+        changePayment(false)
+        dispatch({type: "RESET_CARD"})
+        dispatch({type: "GET_CARD"})
+      }
+      
     }
-  },[cardData])
+  }, [cardData])
 
   return (
     <div className="payment-card p-5 mt-4">
@@ -44,7 +49,7 @@ function PaymentCard({t, type=''}) {
         <div className="d-flex align-items-center">
           <input
             type="radio"
-            onChange={(e)=> setPaymentMethod('card')}
+            onChange={(e) => setPaymentMethod('card')}
             checked={paymentMethod === 'card'}
             className="card input mr-3"
             name="payment"
@@ -59,26 +64,30 @@ function PaymentCard({t, type=''}) {
           width="450px"
         />
         {paymentMethod === 'card' &&
-        <form onSubmit ={handleSubmit}>
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  padding: 10,
-                  fontSize: '20px',
-                  color: '#424770',
-                  '::placeholder': {
-                    color: '#aab7c4',
+          <form onSubmit={handleSubmit}>
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    padding: 10,
+                    fontSize: '20px',
+                    color: '#424770',
+                    '::placeholder': {
+                      color: '#aab7c4',
+                    },
+                  },
+                  invalid: {
+                    color: '#9e2146',
                   },
                 },
-                invalid: {
-                  color: '#9e2146',
-                },
-              },
-            }}
-          />
-        <button className="btn btn-primary-rd" type="submit" disabled={cardLoding}>Add</button>
-        </form>
+              }}
+            />
+            {edit ?
+              <button className="btn btn-primary-rd" type="submit" disabled={cardLoding}>Update</button>
+              :
+              <button className="btn btn-primary-rd" type="submit" disabled={cardLoding}>Add</button>
+            }
+          </form>
         }
       </div>
       <br />
@@ -86,7 +95,7 @@ function PaymentCard({t, type=''}) {
         <div className="d-flex align-items-center">
           <input
             type="radio"
-            onChange={(e)=> setPaymentMethod('Net Banking')}
+            onChange={(e) => setPaymentMethod('Net Banking')}
             checked={paymentMethod === 'Net Banking'}
             className="net-banking input mr-3"
             name="payment"
@@ -96,7 +105,7 @@ function PaymentCard({t, type=''}) {
         </div>
         <select name="bank" className="bank ml-4">
           <option value="" selected disabled hidden>
-          {t("payment.chooseBank")}
+            {t("payment.chooseBank")}
           </option>
           <option value="swiss">Swiss Bank</option>
           <option value="Bank2">Bank2</option>
@@ -108,7 +117,7 @@ function PaymentCard({t, type=''}) {
         <div className="d-flex align-items-center">
           <input
             type="radio"
-            onChange={(e)=> setPaymentMethod('upi')}
+            onChange={(e) => setPaymentMethod('upi')}
             checked={paymentMethod === 'upi'}
             className="UPI input mr-3"
             name="payment"
@@ -127,7 +136,7 @@ function PaymentCard({t, type=''}) {
         <div className="d-flex align-items-center">
           <input
             type="radio"
-            onChange={(e)=> setPaymentMethod('netBanking')}
+            onChange={(e) => setPaymentMethod('netBanking')}
             checked={paymentMethod === 'netBanking'}
             className="net-banking input mr-3"
             name="payment"
@@ -137,7 +146,7 @@ function PaymentCard({t, type=''}) {
         </div>
         <select name="bank" className="bank ml-4">
           <option value="" selected disabled hidden>
-          {t("payment.selectCard")}
+            {t("payment.selectCard")}
           </option>
           <option value="swiss">Swiss Bank</option>
           <option value="Bank2">Bank2</option>

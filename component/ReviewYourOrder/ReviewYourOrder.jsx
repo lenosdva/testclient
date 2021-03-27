@@ -37,7 +37,7 @@ export default function PaymentCard() {
             <div className="anchor-tag">
               <Link href={`paymentgateway?id=${get(router, 'query.id', '')}`}>Change</Link>
             </div>
-            <p>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].funding`, 'Credit')} Card Ending <b>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].last4`, 'Credit')}</b></p>
+            <p>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].funding`, 'Credit')} Card Ending <b>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].last4`, '')}</b></p>
           </li>
 
           <li>
