@@ -22,8 +22,9 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginWith, setloginWith] = useState('phone');
-  const [country, setCountry] = useState('+49')
+  const [country, setCountry] = useState('49')
   const [error, setError] = useState({})
+  const [cPassword, SetCPassword] = useState('')
 
   function openLogin() {
     close()
@@ -66,7 +67,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
       }
       setError(error)
       if (!Object.keys(error).length) {
-        dispatch({ type: 'SIGNUP_REQUEST', payload: { "mobile": phone.replace(/[^0-9]/g, '') } })
+        dispatch({ type: 'SIGNUP_REQUEST', payload: { "mobile": country+phone.replace(/[^0-9]/g, '') } })
       }
     } else {
       if (email === '') {
@@ -77,6 +78,10 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
         error.password = 'Password is required'
       } else if (password.length < 6) {
         error.password = 'minimum password length should 6 characters'
+      } else if (cPassword === '') {
+        error.password = 'Password is required'
+      } else if (password !== cPassword) {
+        error.password = 'Confirm password should match with password'
       }
       setError(error)
       if (!Object.keys(error).length) {
@@ -84,7 +89,18 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
       }
     }
   }
-  console.log("serverError======>", serverError)
+  
+  function googleReq(e){
+    console.log("e", e)
+    e.access_token = e.accessToken
+    dispatch({ type: 'GOOGLE_REQUEST', payload: e })
+  }
+
+  function facebookReq(e){
+    e.access_token = e.accessToken
+    dispatch({ type: 'FACEBOOK_REQUEST', payload: e })
+  }
+
   return (
 
     // Open Finish Signing Up
@@ -191,7 +207,8 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                   <div className="p-lr">
                     <div className="labels">Country/Region</div>
                     <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
-                      <option value="+49">Germany(+49)</option>
+                      <option value="49">Germany(+49)</option>
+                      <option value="91">India(+91)</option>
                     </select>
                   </div>
                 </div>
@@ -237,7 +254,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                 <div className="form-group">
                   <div className="p-lr">
                     <div className="labels">Confirm Password</div>
-                    <input type="password" id="password" className="field-input" />
+                    <input value={cPassword} onChange={(e)=> SetCPassword(e.target.value)}  type="password" id="password" className="field-input" />
                   </div>
                 </div>
               </div>
@@ -259,9 +276,9 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
           <div className="social-btns">
           <GoogleLogin
                 clientId={CLIENT_ID}
-                onSuccess={(e) => console.log("e=========>", e)}
+                onSuccess={(e)=> googleReq(e)}
                 onFailure={(e) => console.log("err=========>", e)}
-                isSignedIn={true}
+                // isSignedIn={true}
                 render={renderProps => (
                   <button
                     onClick={renderProps.onClick}
@@ -280,7 +297,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
               <FacebookLogin
                 appId={FB_AAP_ID}
                 autoLoad={false}
-                callback={(e)=> console.log("e=========>", e)}
+                callback={(e)=> facebookReq(e)}
                 render={renderProps => (
                   <button onClick={renderProps.onClick}>
                     <Image

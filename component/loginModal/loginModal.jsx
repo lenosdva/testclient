@@ -22,7 +22,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginWith, setloginWith] = useState('phone');
-  const [country, setCountry] = useState('+49')
+  const [country, setCountry] = useState('49')
   const [error, setError] = useState({})
 
   function openSignup() {
@@ -57,7 +57,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
       }
       setError(error)
       if (!Object.keys(error).length) {
-        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": phone.replace(/[^0-9]/g, '') } })
+        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": country+phone.replace(/[^0-9]/g, '') } })
       }
     } else {
       if (email === '') {
@@ -74,6 +74,17 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
         dispatch({ type: 'LOGIN_EMAIL_REQUEST', payload: { email, password } })
       }
     }
+  }
+  
+  function googleReq(e){
+    console.log("e", e)
+    e.access_token = e.accessToken
+    dispatch({ type: 'GOOGLE_REQUEST', payload: e })
+  }
+  
+  function facebookReq(e){
+    e.access_token = e.accessToken
+    dispatch({ type: 'FACEBOOK_REQUEST', payload: e })
   }
 
   return (
@@ -108,7 +119,8 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
                       <div className="labels">Country/Region</div>
                       <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
                         {/* <option disabled value=''></option> */}
-                        <option value="+49">Germany</option>
+                        <option value="49">Germany</option>
+                        <option value="91">India</option>
                       </select>
                     </div>
                   </div>
@@ -171,9 +183,9 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
             <div className="social-btns">
               <GoogleLogin
                 clientId={CLIENT_ID}
-                onSuccess={(e) => console.log("e=========>", e)}
+                onSuccess={(e)=> googleReq(e)}
                 onFailure={(e) => console.log("err=========>", e)}
-                isSignedIn={true}
+                // isSignedIn={true}
                 render={renderProps => (
                   <button
                     onClick={renderProps.onClick}
@@ -192,7 +204,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
               <FacebookLogin
                 appId={FB_AAP_ID}
                 autoLoad={false}
-                callback={(e)=> console.log("e=========>", e)}
+                callback={(e)=> facebookReq(e)}
                 render={renderProps => (
                   <button onClick={renderProps.onClick}>
                     <Image

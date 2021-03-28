@@ -20,6 +20,8 @@ function* userActionWatcher() {
   yield takeLatest('GET_CARD', Users.getCard);
   yield takeLatest('CHECKOUT', Users.checkout);
   yield takeLatest('ADD_PAYMENT',Users.addPayment);
+  yield takeLatest('GOOGLE_REQUEST', Users.registerByGoogle);
+  yield takeLatest('FACEBOOK_REQUEST',Users.registerByFacebook);
  }
 
  function* servicesActionWatcher() {
