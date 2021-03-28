@@ -179,15 +179,16 @@ export default function Category(props) {
     const file = images
     const image = acceptedFiles[0]
     // const blob = new Blob([image], {type: 'image/png'})
-    // image.url =  URL.createObjectURL(image)
+    image.url =  URL.createObjectURL(image)
     var reader = new FileReader();
-    image.url = reader.readAsDataURL(image);
+    // image.url = reader.readAsDataURL(image);
     console.log("image", image)
     file.push(image)
     setImages([...file])
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ maxSize: 26214400, onDrop, multiple: false, accept: "image/*" })
+  console.log(images.length, images[0])
   return (
     <Layout setWebSoket={props.setWebSoket}>
       <div className="category">
@@ -407,7 +408,7 @@ export default function Category(props) {
                           </li>
                           : <li>
                             {get(images[0], 'url', '') &&
-                              <Image
+                              <img
                                 src={`${get(images[0], 'url', '')}`}
                                 alt="testimonial2"
                                 width={111}
@@ -419,7 +420,7 @@ export default function Category(props) {
                           <li>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <Image
+                              <img
                                 src="/assets/svg/photo-img.svg"
                                 alt="testimonial2"
                                 width={111}
@@ -428,14 +429,17 @@ export default function Category(props) {
                             </div>
                           </li>
                           : <li>
+                            <div>
                             {get(images[1], 'url', '') &&
-                              <Image
+                              <img
                                 src={get(images[1], 'url', '')}
                                 alt="testimonial2"
                                 width={111}
                                 height={129}
                               />
+                            
                             }
+                              </div>
                           </li>
                         }{images.length === 2 ?
                           <li>
@@ -451,7 +455,7 @@ export default function Category(props) {
                           </li>
                           : <li>
                             {get(images[2], 'url', '') &&
-                              <Image
+                              <img
                                 src={get(images[2], 'url', '')}
                                 alt="testimonial2"
                                 width={111}
