@@ -140,7 +140,7 @@ export default function SearchBar(props) {
         <div className="postal-code mr-2">
           <h5 className="mb-0">Postal Code</h5>
           <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
-          <div className={showAddress === 'hide' ? "searching-keywords" : "searching-keywords searching-keywords-show"}>
+          <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
             <ul>
               {renderPostalCode()}
             </ul>
