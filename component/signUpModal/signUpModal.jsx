@@ -309,7 +309,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
             }
           </div>
 
-          <p className="last-para">Already Have An Account?  <span onClick={openLogin}>Log In</span></p>
+          <p className="last-para">Already Have An Account?  <span onClick={openLogin} className="cursur-pointer">Log In</span></p>
         </div>
       </Modal>
     </div>

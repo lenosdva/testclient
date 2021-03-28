@@ -11,6 +11,14 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   cssEase: "linear",
+  responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        arrows: false
+      }
+    }
+  ]
 };
 
 export default function Testimonial() {

@@ -361,8 +361,8 @@ export default function Navbar(props) {
                   <>
                     <input type="checkbox" onBlur={()=> console.log("hide")} className="dd-input" id="test" />
                     <ul className="dd-menu">
-                      <li onClick={() => setSignUpModel(true)} className="align-self-center">Sign Up</li>
-                      <li onClick={() => setLoginModel(true)} className="align-self-center">Log In</li>
+                    <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer">Sign Up</li>
+                    <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">Log In</li>
                     </ul>
                   </>
                 }
@@ -464,6 +464,86 @@ export default function Navbar(props) {
                 </Link>
               </li>
               <li className="align-self-center">
+                <span onClick={() => setMessage(!showMessage)} className="posi-rel">
+                  Messages
+                  <span className={showMessage ? "message-list" : "message-list message-list-hide"}>
+                    <ul>
+                      {renderNotification()}
+                      {/* <li>
+                        <div className="bell-bg">
+                          <Image
+                            src="/assets/svg/ic-bell.svg"
+                            alt=""
+                            height={40}
+                            width={46}
+                          />
+                        </div>
+
+                        <div className="bell-txt" >
+                          {/* changes from here */}
+                      {/* render() {
+                          getNotification = this.state.toDoList.map(function(getNotification){
+                          return <li> {getNotification} </li>;
+                          }); */}
+
+                      {/* <h4>Moving Out Services</h4>
+                          <p>Your request for a quotation for <a href="">Moving Out Services</a> has been sent to<a href=""> user1234</a>...</p>
+                          <moment> {moment().format('Do MMMM YYYY, hh:mm:ss a')}</moment> */}
+
+                      {/* <Moment>{showMessage.dateToFormat }</Moment> */}
+                      {/* const dateToFormat = '1976-04-19T12:59-0500'; */}
+
+                      {/* <Moment>{showMessage}</Moment> */}
+                      {/* <h6>12:58pm 29-09-2020</h6> */}
+                      {/* {
+                           this.state.getNotification.map((getNotification)=>
+                           <div></div> */}
+
+
+                      {/* </div>
+
+
+                      </li>  */}
+
+
+                      {/* <li>
+                        <div className="bell-bg">
+                          <Image
+                            src="/assets/svg/ic-bell.svg"
+                            alt=""
+                            height={40}
+                            width={46}
+                          />
+                        </div>
+                        <div className="bell-txt">
+                          <h4>user123456</h4>
+                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
+                          <h6>12:58pm 29-09-2020</h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="bell-bg">
+                          <Image
+                            src="/assets/svg/ic-bell.svg"
+                            alt=""
+                            height={40}
+                            width={46}
+                          />
+                        </div>
+                        <div className="bell-txt">
+                          <h4>user123456</h4>
+                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
+                          <h6>12:58pm 29-09-2020</h6>
+                        </div>
+                      </li> */}
+                    </ul>
+                    <Link href="/inbox-redesign-awaiting">
+                      <button className="btn btn-primary">View My Inbox</button></Link>
+                  </span>
+                </span>
+
+              </li>
+              <li className="align-self-center">
                 <span onClick={signOut}>Logout</span>
               </li>
               {/* <li className="align-self-center">
@@ -476,10 +556,10 @@ export default function Navbar(props) {
           }
           {!userLogged &&
             <>
-              <li onClick={() => setLoginModel(true)} className="align-self-center">
+            <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">
                 <a>Log In</a>
               </li>
-              <li onClick={() => setSignUpModel(true)} className="align-self-center">
+            <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer">
                 <a>Sign Up</a>
               </li>
             </>
