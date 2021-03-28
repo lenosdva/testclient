@@ -94,7 +94,7 @@ export default function Category(props) {
       Terror.category = "Please select a category"
     } if (radius === '' && !city.length) {
       Terror.radius = "Please enter radius or select a city"
-    } if (!pincode.length) {
+    } if (!pincode) {
       Terror.pincode = "Please select pincode"
     } if (from === '') {
       Terror.from = "Please enter start price"
@@ -124,9 +124,10 @@ export default function Category(props) {
       Terror.category = "Please select a category"
     } if (radius === '' && !city.length) {
       Terror.radius = "Please enter radius or select a city"
-    } if (!pincode.length) {
-      Terror.pincode = "Please select pincode"
-    } if (from === '') {
+    } //if (!pincode.length) {
+      //Terror.pincode = "Please select pincode"
+    //} 
+    if (from === '') {
       Terror.from = "Please enter start price"
     } if (to === '') {
       Terror.to = "Please enter end price"
@@ -140,16 +141,20 @@ export default function Category(props) {
 
     setError(Terror)
     setMainError(mainError)
+    console.log("Terror", Terror, mainError)
     if (!Object.keys(Terror).length && !Object.keys(mainError).length) {
       const data = new FormData()
       data.append('title', title);
       data.append('service', category);
       data.append('radius', radius);
-      data.append('pincode', pincode);
+      pincode.map((pin)=>{
+        data.append('pincode[]', pin.value);
+      })
+      
       data.append('from', from);
       data.append('to', to);
       data.append('description', description);
-      data.append('description', description);
+      // data.append('description', description);
       images.map((img) => {
         data.append('images[]', img);
       })
@@ -267,7 +272,10 @@ export default function Category(props) {
                           isMulti={true}
                           value={pincode}
                           placeholder="Select a pincode"
-                          onChange={setPincode}
+                          onChange={(e)=>{
+                            setPincode(e)
+                            setCity([])
+                          }}
                           options={code}
                         />
                         {get(error, 'pincode', '') &&
@@ -307,7 +315,10 @@ export default function Category(props) {
                         <Select
                           isMulti={true}
                           value={city}
-                          onChange={setCity}
+                          onChange={(e)=>{
+                            setCity(e)
+                            setPincode([])
+                          }}
                           placeholder="Select A City"
                           // className="input-field"
                           options={allCity}
