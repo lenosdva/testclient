@@ -194,7 +194,11 @@ export default function Navbar(props) {
         </div>
         <div className="bell-txt">
           <h4>{get(data, 'userId', '')}</h4>
+          {get(data, 'contentType', '') === "customOrder" ?
           <p>{get(JSON.parse(get(data, 'description', {})), 'msg', '')}</p>
+          :
+          <p>{get(data, 'description', '')}</p>
+    }
           <h6>{Moment(get(data, 'createdAt', null)).format('Do MMMM YYYY, hh:mm:ss a')}</h6>
         </div>
       </li>
