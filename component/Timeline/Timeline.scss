@@ -11,6 +11,20 @@
     text-align: center;
     padding: 5px 0;
 }
+.btn-paynow {
+  width: 221px;
+  min-height: 51px;
+  background: #9043C3;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: -0.0018em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin: 40px auto 0;
+  display: block;
+}
 .timeline {
   @media (max-width:980px) {
     margin-top: 50px;
@@ -39,15 +53,16 @@
     }
 
     .view {
-      color: $primary-color;
+      color: $primary-color !important;
       text-decoration: underline;
       font-size: 16px;
       font-weight: 500;
+      cursor: pointer;
     }
 
     .time {
       font-weight: normal;
-      color: $border-color;
+      color: $border-color !important;
     }
   }
   .withLine::after {
@@ -79,15 +94,19 @@
   }
 
   .timeline-item-info {
-    position: absolute;
-    top: 0;
-    left: 70px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     z-index: 4;
     width: 837px;
     min-height: 409px;
     border-radius: 25px;
-    background-color: $white-color;
-
+    background-color: #ffffff;
+    transform: translate(-50%,-50%);
+    padding: 40px;
+    @media (max-width:768px) {
+      width: 100%;
+    }
     .header {
       .image {
         width: 128px;
@@ -98,15 +117,27 @@
       }
 
       .texts {
+        padding-top: 30px;
+        h4 {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 28px;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.28px;
+          color: #2F2F2F;
+          margin: 0 0 10px 0 !important;
+        }
         p {
           font-weight: normal;
+          line-height: normal;
         }
       }
     }
 
     .amount {
-      text-align: center;
-      color: $primary-color;
+      text-align: center !important;
+      color: $primary-color !important;
       font-weight: 600;
       line-height: 64px;
     }

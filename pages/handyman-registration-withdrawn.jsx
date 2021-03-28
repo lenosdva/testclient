@@ -218,7 +218,7 @@ export default function Category(props) {
                       }
                     </div>
 
-                    <div className="d-flex flexwrap margmin15">
+                    <div className="d-flex flexwrap margmin15 align-btm">
 
                       <div className="col-md-5">
                         <h3 className="label">Category</h3>
@@ -339,7 +339,7 @@ export default function Category(props) {
                         height={297}
                       />
                     </div>
-                    <div className="d-flex flexwrap margmin15">
+                    <div className="d-flex flexwrap margmin15 align-btm">
                       <div className="col-md-4">
                         <h3 className="label">Set Your Price Range</h3>
                         <input
@@ -370,7 +370,7 @@ export default function Category(props) {
                         }
                       </div>
                     </div>
-                    <div className="col-md-12 margmin15 mt-5">
+                    <div className="col-md-12 margmin15 mt-5 width-xtra">
                       <h3 className="label">Service Description</h3>
                       <textarea onChange={(e) => setDescription(e.target.value)} value={description} type="text" className="textarea" placeholder="Add a description about your service here" />
                       {get(error, 'description', '') &&
@@ -378,7 +378,7 @@ export default function Category(props) {
                       }
                     </div>
 
-                    <div className="col-md-12 text-center margmin15 mt-5">
+                    <div className="col-md-12 text-center margmin15 mt-5 width-xtra">
                       <button className="btn primarybtn-fill" onClick={nextStep}>Save & Continue</button>
                     </div>
                   </TabPanel>

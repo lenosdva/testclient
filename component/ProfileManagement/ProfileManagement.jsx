@@ -219,7 +219,7 @@ function ProfileManagement(props) {
               {!isChange &&
                 <div className="payment-method">
                   <h3 className="label">Payment Method</h3>
-                  <span onClick={() => changePayment(true)} className="link">
+                <span onClick={() => changePayment(true)} className="link cursur-pointer">
                     Change
                 </span>
                   <p className="mt-4">
@@ -238,10 +238,10 @@ function ProfileManagement(props) {
               </>
             }
             <h3 className="mt-5 mb-4">ACCOUNT SETTINGS</h3>
-            <a className="settings-link">Delete My Account</a>
+            <a className="settings-link cursur-pointer">Delete My Account</a>
             <p>Delete and remove all your data linked with Dein Hausman</p>
             <br />
-            <a className="settings-link">Deactivate my Account</a>
+            <a className="settings-link cursur-pointer">Deactivate my Account</a>
             <p>Temporarily deactivate your account</p>
           </div>
         </div>

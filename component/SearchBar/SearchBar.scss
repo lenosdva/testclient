@@ -56,7 +56,9 @@
       }
       .search-lg {
         width: 500px !important;
-        max-width: 100%;
+        @media (max-width:767px) {
+          width: 100%;
+        }
       }
       .searching-keywords {
         display: none;
@@ -94,6 +96,7 @@
             color: #252525;
             padding: 12px 0;
             cursor: pointer;
+            text-align: left;
             &:first-child {
               padding-bottom: 5px;
               border-bottom: 1px solid #f1f1f1;

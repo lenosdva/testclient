@@ -255,8 +255,21 @@ $font-family-base: "Neue Haas Grotesk Display Pro";
 .cursur-pointer {
   cursor: pointer;
 }
+.align-btm {
+  align-items: flex-end;
+}
 p {
   color: #252525 !important;
+}
+.width-xtra {
+  @media (max-width:767px) {
+      width: calc(100% + 30px);
+    }
+  .primarybtn-fill {
+    @media (max-width:767px) {
+      width: calc(100% + 30px);
+    }
+  }
 }
 // .loader-wrapper {
 //   position: fixed;
