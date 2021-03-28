@@ -71,12 +71,12 @@ const TimelienItem = (props) => {
     setShowInfo('')
     setRevisionAmount('')
   }
-
+  console.log("setShowInfo", showInfo)
   return (
     <div key={get(props, 'key', '')} className={`timeline-item pb-4 ${props.withLine ? "withLine" : ""}`}>
-      {/* <div className="checkbox">
+       <div className="checkbox">
           {Checkbox}
-        </div> */}
+        </div> 
       <h4>{get(props, 'data.status', '')}</h4>
       <p className="description">
         Vendor 11234 sent you his quotation for the service.
