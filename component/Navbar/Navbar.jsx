@@ -18,13 +18,14 @@ import { otp } from "../otp/otp"
 export default function Navbar(props) {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification } = useSelector(state => ({
+  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
     user: state.user.user,
     emailSignData: state.user.emailSignData,
     mobileLoginData: state.user.mobileLoginData,
     emailLoginData: state.user.emailLoginData,
+    mobileSignData: state.user.mobileSignData,
     needLogin: state.user.needLogin,
     getNotification: state.services.notification,
   }));
@@ -98,15 +99,21 @@ export default function Navbar(props) {
         localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
         setOtpModel(false)
         setLoggedStatus(true)
+        if(get(otpData, 'user.fname', '') === ''){
+          router.push('/profilemanagement')
+        }
       }
     }
     if (get(emailSignData, 'token', false)) {
       dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
         localStorage.setItem('token', JSON.stringify(get(emailSignData, 'token', {})))
-        // localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
+        localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
         setSignUpModel(false)
         setLoggedStatus(true)
+        if(get(otpData, 'user.fname', '') === ''){
+          router.push('/profilemanagement')
+        }
       }
     }
 
@@ -114,6 +121,14 @@ export default function Navbar(props) {
       dispatch({ type: 'RESET_LOG' })
       const error = {}
       error.serverError = get(mobileLoginData, 'result.message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
+    }
+
+    if (get(mobileLoginData, 'error', false)) {
+      dispatch({ type: 'RESET_LOG' })
+      const error = {}
+      error.serverError = get(mobileLoginData, 'message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(mobileLoginData, 'result.message', 'Please try again'))
     }
@@ -142,11 +157,14 @@ export default function Navbar(props) {
         localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))
         setLoginModel(false)
         setLoggedStatus(true)
+        if(get(otpData, 'user.fname', '') === ''){
+          router.push('/profilemanagement')
+        }
       }
 
     }
 
-  }, [userData, otpData, emailSignData, mobileLoginData, emailLoginData])
+  }, [userData, otpData, emailSignData, mobileLoginData, emailLoginData, mobileSignData])
 
   const closeModal = () => {
     setOtpModel(false)
@@ -182,7 +200,7 @@ export default function Navbar(props) {
       </li>
     ))
   )
-
+      console.log("user", user)
   return (
     <div className="container">
       <div className="navbar hide-mob">
@@ -384,8 +402,8 @@ export default function Navbar(props) {
                             height={80}
                           />
                         </div>
-                        <h4>Marie Antoinette</h4>
-                        <h6>marieantoinette99@gmail.com</h6>
+                        <h4>{get(user, 'fname', '')}</h4>
+                        <h6>{get(user, 'email', '')}</h6>
                         <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                         <div className="divi"></div>
                         <p onClick={signOut} className="text-center mb-2">Sign Out</p>
@@ -402,8 +420,8 @@ export default function Navbar(props) {
 
           </li>
         </ul>
-        {loginModal(loginModel, closeModal, setSignUpModel, error)}
-        {signUpModal(signUpModel, closeModal, setLoginModel, error)}
+        {loginModal(loginModel, closeModal, setLoginModel, error)}
+        {signUpModal(signUpModel, closeModal, setSignUpModel, error)}
         {otp(otpModel, closeModal, mobile, error)}
       </div>
 

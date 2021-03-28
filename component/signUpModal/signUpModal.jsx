@@ -24,6 +24,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
   const [loginWith, setloginWith] = useState('phone');
   const [country, setCountry] = useState('49')
   const [error, setError] = useState({})
+  const [cPassword, SetCPassword] = useState('')
 
   function openLogin() {
     close()
@@ -77,6 +78,10 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
         error.password = 'Password is required'
       } else if (password.length < 6) {
         error.password = 'minimum password length should 6 characters'
+      } else if (cPassword === '') {
+        error.password = 'Password is required'
+      } else if (password !== cPassword) {
+        error.password = 'Confirm password should match with password'
       }
       setError(error)
       if (!Object.keys(error).length) {
@@ -238,7 +243,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                 <div className="form-group">
                   <div className="p-lr">
                     <div className="labels">Confirm Password</div>
-                    <input type="password" id="password" className="field-input" />
+                    <input value={cPassword} onChange={(e)=> SetCPassword(e.target.value)}  type="password" id="password" className="field-input" />
                   </div>
                 </div>
               </div>

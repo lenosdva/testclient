@@ -22,7 +22,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginWith, setloginWith] = useState('phone');
-  const [country, setCountry] = useState('+49')
+  const [country, setCountry] = useState('49')
   const [error, setError] = useState({})
 
   function openSignup() {
@@ -57,7 +57,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
       }
       setError(error)
       if (!Object.keys(error).length) {
-        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": '+91'+phone.replace(/[^0-9]/g, '') } })
+        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": country+phone.replace(/[^0-9]/g, '') } })
       }
     } else {
       if (email === '') {
@@ -75,7 +75,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
       }
     }
   }
-
+  console.log("serverError", serverError)
   return (
     <div>
       <div className="modal-wrapper">
@@ -108,7 +108,8 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
                       <div className="labels">Country/Region</div>
                       <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
                         {/* <option disabled value=''></option> */}
-                        <option value="+49">Germany</option>
+                        <option value="49">Germany</option>
+                        <option value="91">India</option>
                       </select>
                     </div>
                   </div>

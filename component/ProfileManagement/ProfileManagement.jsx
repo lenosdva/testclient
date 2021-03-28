@@ -41,7 +41,7 @@ function ProfileManagement(props) {
     const error = {}
     if (e.target.name === "fullName") {
       if (fullName) {
-        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName } })
+        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, mobile: phone.replace(/[^0-9]/g, '') } })
       } else {
         error.fullName = "Please enter full name"
       }
@@ -50,7 +50,7 @@ function ProfileManagement(props) {
         if (phone.length < 6) {
           error.phone = 'please enter valid phone'
         } else {
-          dispatch({ type: 'UPDATE_USER', payload: { mobile: phone.replace(/[^0-9]/g, '') } })
+          dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, mobile: phone.replace(/[^0-9]/g, '') } })
         }
       } else {
         error.phone = "Please enter phone"
