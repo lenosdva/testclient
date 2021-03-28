@@ -57,7 +57,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
       }
       setError(error)
       if (!Object.keys(error).length) {
-        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": phone.replace(/[^0-9]/g, '') } })
+        dispatch({ type: 'LOGIN_REQUEST', payload: { "mobile": '+91'+phone.replace(/[^0-9]/g, '') } })
       }
     } else {
       if (email === '') {
