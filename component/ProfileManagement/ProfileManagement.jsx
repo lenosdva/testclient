@@ -183,7 +183,7 @@ function ProfileManagement(props) {
               </div>
             </div>
             <div className="notifications d-flex">
-              <h6 className="icon mr-3">
+              <h6 className="icon mr-3 fz18">
                 <i className="fa fa-check-square" aria-hidden="true"></i>
               </h6>
               <div>
