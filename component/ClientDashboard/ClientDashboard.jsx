@@ -14,11 +14,11 @@ function ClientDashboard({t}) {
       <div className="client-dashboard-top">
         <div className="container">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-lg-8 col-md-12">
               <h1 className="heading">{t("clientDash.hello")} <span>{get(userData, 'fname', '')} {get(userData, 'lname', '')}</span></h1>
               <p className="sub-heading">{t("clientDash.text")}</p>
             </div>
-            <div className="col-md-4">
+            <div className="col-lg-4 col-md-12">
               <div className="d-flex align-items-center flex-end cursur-pointer">
                 <div>
                   <Link href={get(userData, 'role','') === "handyman" ? "/handyman-registration-withdrawn" : "/category-services"}>

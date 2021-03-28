@@ -234,6 +234,13 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                     {/* <label className="form-control-placeholder">Phone Number</label> */}
                   </div>
                 </div>
+                <div className="form-divider"></div>
+                <div className="form-group">
+                  <div className="p-lr">
+                    <div className="labels">Confirm Password</div>
+                    <input type="password" id="password" className="field-input" />
+                  </div>
+                </div>
               </div>
               {get(error, 'phone', '') &&
                 <span className="errormsg">{get(error, 'phone', '')}</span>
@@ -310,7 +317,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
             }
           </div>
 
-          <p className="last-para">Already Have An Account?  <span onClick={openLogin}>Log In</span></p>
+          <p className="last-para">Already Have An Account?  <span onClick={openLogin} className="cursur-pointer">Log In</span></p>
         </div>
       </Modal>
     </div>

@@ -228,7 +228,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
                 </button>
               }
             </div>
-            <p className="last-para">Don't Have An Account? <span onClick={openSignup}>Sign Up</span></p>
+            <p className="last-para">Don't Have An Account? <span onClick={openSignup} className="cursur-pointer">Sign Up</span></p>
 
           </div>
         </Modal>

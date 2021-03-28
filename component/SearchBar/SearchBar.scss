@@ -9,6 +9,11 @@
   border: 1px solid $grey-color;
   background-color: $white-color;
   padding: 20px;
+  @media (max-width:767px) {
+    padding: 0;
+    border: 0;
+    flex-wrap: wrap;
+  }
   .input-search {
     width: 240px;
     height: 26px;

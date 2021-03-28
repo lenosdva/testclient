@@ -116,7 +116,16 @@
         font-size: 18px;
         line-height: 26px;
         color: #9043C3 !important;
-        padding: 20px 0;
+        padding: 15px 0;
+        display: block;
+        border-bottom: 1px solid #f1f1f1;
+      }
+      span {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 26px;
+        color: #9043C3 !important;
+        padding: 15px 0;
         display: block;
         border-bottom: 1px solid #f1f1f1;
       }
@@ -889,6 +898,7 @@
     position: absolute;
     top: 55px;
     width: 650px;
+    max-width: 100%;
     max-height: 500px;
     overflow-y: auto;
     background: #fff;
@@ -896,10 +906,21 @@
     right: -220px;
     z-index: 9;
     padding: 40px 35px;
+    @media (max-width:767px) {
+      max-height: 300px;
+      left: 0 !important;
+      right: auto !important;
+      border: 2px solid #f1f1f1 !important;
+    }
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
+      @media (max-width:767px) {
+        height: auto;
+        padding: 0;
+        width: 100%;
+      }
       li {
         display: flex;
         margin: 0 0 40px 0;
@@ -925,6 +946,8 @@
             margin: 0 0 10px 0;
             padding: 0 0 0 20px;
             position: relative;
+            white-space: pre-line;
+            word-break: break-word;
             &::before {
               content: "";
               position: absolute;

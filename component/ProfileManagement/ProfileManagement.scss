@@ -43,6 +43,11 @@
         font-size: 18px;
         line-height: 26px;
       }
+      .input.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
     }
     .input {
       border: 1px solid $grey-color;

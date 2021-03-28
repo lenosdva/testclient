@@ -4,6 +4,13 @@
     .slick-slide {
       position: relative;
       padding: 10px 0;
+      &:last-child {
+        &:nth-child(odd) {
+          &:before {
+            display: none;
+          }
+        }
+      }
       &:nth-child(odd) {
         @media (max-width:767px) {
           // display: none;
