@@ -108,10 +108,10 @@ export default function Navbar(props) {
       dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
         localStorage.setItem('token', JSON.stringify(get(emailSignData, 'token', {})))
-        localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
+        localStorage.setItem('user', JSON.stringify(get(emailSignData, 'user', {})))
         setSignUpModel(false)
         setLoggedStatus(true)
-        if(get(otpData, 'user.fname', '') === ''){
+        if(get(emailSignData, 'user.fname', '') === ''){
           router.push('/profilemanagement')
         }
       }
@@ -157,7 +157,7 @@ export default function Navbar(props) {
         localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))
         setLoginModel(false)
         setLoggedStatus(true)
-        if(get(otpData, 'user.fname', '') === ''){
+        if(get(emailLoginData, 'user.fname', '') === ''){
           router.push('/profilemanagement')
         }
       }

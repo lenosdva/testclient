@@ -41,6 +41,44 @@ export function* registerByEmail({ payload }) {
   yield put({ type: 'REGISTERWITHEMAIL', data });
 }
 
+export function* registerByFacebook({ payload }) {
+  const data = yield fetch(`${HOST}/v1/auth/facebook`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      getUser()
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'REGISTERWITHEMAIL', data });
+}
+
+export function* registerByGoogle({ payload }) {
+  const data = yield fetch(`${HOST}/v1/auth/google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      getUser()
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'REGISTERWITHEMAIL', data });
+}
+
 export function* loginByMobile({ payload }) {
   const data = yield fetch(`${HOST}/v1/auth/loginWithMobile`, {
     method: 'POST',

@@ -89,7 +89,18 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
       }
     }
   }
-  console.log("serverError======>", serverError)
+  
+  function googleReq(e){
+    console.log("e", e)
+    e.access_token = e.accessToken
+    dispatch({ type: 'GOOGLE_REQUEST', payload: e })
+  }
+
+  function facebookReq(e){
+    e.access_token = e.accessToken
+    dispatch({ type: 'FACEBOOK_REQUEST', payload: e })
+  }
+
   return (
 
     // Open Finish Signing Up
@@ -265,9 +276,9 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
           <div className="social-btns">
           <GoogleLogin
                 clientId={CLIENT_ID}
-                onSuccess={(e) => console.log("e=========>", e)}
+                onSuccess={(e)=> googleReq(e)}
                 onFailure={(e) => console.log("err=========>", e)}
-                isSignedIn={true}
+                // isSignedIn={true}
                 render={renderProps => (
                   <button
                     onClick={renderProps.onClick}
@@ -286,7 +297,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
               <FacebookLogin
                 appId={FB_AAP_ID}
                 autoLoad={false}
-                callback={(e)=> console.log("e=========>", e)}
+                callback={(e)=> facebookReq(e)}
                 render={renderProps => (
                   <button onClick={renderProps.onClick}>
                     <Image
