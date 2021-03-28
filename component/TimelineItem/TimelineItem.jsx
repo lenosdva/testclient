@@ -100,7 +100,7 @@ const TimelienItem = (props) => {
                     : (get(props, 'data.status', '') === "Revision received" && get(props, 'data.for', '') === "handyman") ?
                       <p className="view" onClick={() => setShowInfo("Revision Requested")}>View</p>
                       :
-                      <p className="view">View</p>
+                      <p className="view" onClick={() => setShowInfo(get(props, 'data.status', ''))}>View</p>
         }
         <p className="time">12:57pm</p>
       </div>
@@ -252,7 +252,18 @@ const TimelienItem = (props) => {
                               </div>
                             </>
                             :
-                            <></>
+                            <>
+                            <div className="header d-flex">
+                              <div className="image mr-4"></div>
+                              <div className="texts">
+                                <h4 className="mb-2">{showInfo}</h4>
+                                {/* <p className="mb-0 h5">
+                                  Vendor 11234 sent you his quotation for the service.
+                            </p> */}
+                              </div>
+                            </div>
+                            <p className="h1 amount mt-4 mb-5">€{get(props, 'orderStatus.price', 0)}</p>
+                          </>
             }
           </div>
         </>
