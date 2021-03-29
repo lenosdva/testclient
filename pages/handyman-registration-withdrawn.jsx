@@ -221,7 +221,7 @@ export default function Category(props) {
 
                     <div className="d-flex flexwrap margmin15 align-btm">
 
-                      <div className="col-md-5">
+                      <div className="col-lg-5 col-md-12 marb30">
                         <h3 className="label">Category</h3>
                         {/* <input
                           type="text"
@@ -239,7 +239,7 @@ export default function Category(props) {
                         }
                       </div>
 
-                      <div className="col-md-3">
+                      <div className="col-lg-3 col-md-5">
                         <h3 className="label">Working Area</h3>
                         <input
                           type="text"
@@ -254,9 +254,9 @@ export default function Category(props) {
                         }
                       </div>
 
-                      <div className="col-md-1"><span className="aroundlabel">around</span></div>
+                      <div className="col-lg-1 col-md-2"><span className="aroundlabel">around</span></div>
 
-                      <div className="col-md-3">
+                      <div className="col-lg-3 col-md-5">
                         <h3 className="label">Pincode</h3>
                         {/* <input
                           type="text"
@@ -292,7 +292,7 @@ export default function Category(props) {
                       <div className="col-md-5">
                       </div>
 
-                      <div className="col-md-7">or</div>
+                      <div className="col-lg-7 col-md-12 textcenter">Or</div>
                     </div>
 
 
@@ -341,7 +341,7 @@ export default function Category(props) {
                       />
                     </div>
                     <div className="d-flex flexwrap margmin15 align-btm">
-                      <div className="col-md-4">
+                      <div className="col-lg-4 col-md-5">
                         <h3 className="label">Set Your Price Range</h3>
                         <input
                           type="text"
@@ -355,9 +355,8 @@ export default function Category(props) {
                           <span>{get(error, 'from', '')}</span>
                         }
                       </div>
-                      <div className="col-md-1"><span className="aroundlabel">to</span></div>
-                      <div className="col-md-4">
-                        <h3 className="label ht42"></h3>
+                      <div className="col-lg-1 col-md-2"><span className="aroundlabel">To</span></div>
+                      <div className="col-lg-4 col-md-5">
                         <input
                           type="text"
                           name="to"
@@ -398,12 +397,23 @@ export default function Category(props) {
                           <li>
                             <div accept="image/*" multiple={false} {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <Image
+                              <div className="upload-content">
+                                <Image
+                                  src="/assets/svg/ic-upload.png"
+                                  alt="testimonial2"
+                                  width={111}
+                                  height={129}
+                                />
+                                <h4>Drag a Photo or</h4>
+                                <h5>Browse</h5>
+                              </div>
+                              
+                              {/* <Image
                                 src="/assets/svg/photo-img.svg"
                                 alt="testimonial2"
                                 width={111}
                                 height={129}
-                              />
+                              /> */}
                             </div>
                           </li>
                           : <li>
@@ -420,12 +430,23 @@ export default function Category(props) {
                           <li>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <img
+                              <div className="upload-content">
+
+                                <Image
+                                  src="/assets/svg/ic-upload.png"
+                                  alt=""
+                                  width={83}
+                                  height={71}
+                                />
+                                <h4>Drag a Photo or</h4>
+                                <h5>Browse</h5>
+                              </div>
+                              {/* <img
                                 src="/assets/svg/photo-img.svg"
                                 alt="testimonial2"
                                 width={111}
                                 height={129}
-                              />
+                              /> */}
                             </div>
                           </li>
                           : <li>
@@ -445,12 +466,22 @@ export default function Category(props) {
                           <li>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <Image
+                              <div className="upload-content">
+                                <Image
+                                  src="/assets/svg/ic-upload.png"
+                                  alt="testimonial2"
+                                  width={111}
+                                  height={129}
+                                />
+                                <h4>Drag a Photo or</h4>
+                                <h5>Browse</h5>
+                              </div>
+                              {/* <Image
                                 src="/assets/svg/photo-img.svg"
                                 alt="testimonial2"
                                 width={111}
                                 height={129}
-                              />
+                              /> */}
                             </div>
                           </li>
                           : <li>

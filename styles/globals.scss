@@ -255,19 +255,40 @@ $font-family-base: "Neue Haas Grotesk Display Pro";
 .cursur-pointer {
   cursor: pointer;
 }
+.marb30 {
+  @media (max-width:980px) {
+    margin-bottom: 30px;
+  }
+}
 .align-btm {
   align-items: flex-end;
+  @media (max-width:980px) {
+    flex-wrap: wrap;
+  }
 }
 p {
   color: #252525 !important;
 }
+.textcenter {
+  @media (max-width:980px) {
+      text-align: center;
+    }
+}
 .width-xtra {
-  @media (max-width:767px) {
+  @media (max-width:980px) {
       width: calc(100% + 30px);
     }
   .primarybtn-fill {
     @media (max-width:767px) {
       width: calc(100% + 30px);
+    }
+  }
+  textarea {
+    @media (max-width:980px) {
+      width: calc(100% + 30px);
+    }
+    @media (max-width:767px) {
+      width: 100%;
     }
   }
 }

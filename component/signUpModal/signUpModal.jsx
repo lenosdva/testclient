@@ -299,7 +299,9 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                 autoLoad={false}
                 callback={(e)=> facebookReq(e)}
                 render={renderProps => (
-                  <button onClick={renderProps.onClick}>
+                  <button 
+                  onClick={renderProps.onClick}
+                  >
                     <Image
                       src="/assets/svg/ic-facebook.svg"
                       alt=""
