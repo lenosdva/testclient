@@ -17,7 +17,7 @@ const initialState = {
   continueLoading: true,
   continue: [],
   updateLoading: true,
-  update: []
+  update: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -51,7 +51,8 @@ export default function userReducer(state = initialState, action) {
     case 'RESET_GIG': {
       return {
         ...state,
-        addGigData: {}
+        addGigData: {},
+        update: {}
       }
     }
     case 'UPLOAD': {
@@ -121,7 +122,6 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         updateLoading: true,
-        update: action.data
       }
     };
 
@@ -129,7 +129,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         updateLoading: false,
-
+        update: action.data
       }
     };
     case 'PAUSE_REQUEST': {

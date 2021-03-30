@@ -33,19 +33,20 @@ export default function Category(props) {
 
   const dispatch = useDispatch()
   const router = useRouter()
-  const { searchByIdData, addGigData, gig } = useSelector(state => ({
+  const { searchByIdData, addGigData, gig, update } = useSelector(state => ({
     searchByIdData: state.services.searchByIdData,
     searchByIdLoading: state.services.searchByIdLoading,
     addGigLoading: state.handyman.addGigLoading,
     addGigData: state.handyman.addGigData,
     gigLoading: state.handyman.gigLoading,
     gig: state.handyman.gig,
+    update: state.handyman.update,
   }));
 
   useEffect(() => {
     if (get(router, 'query.id', false)) {
       setTitle(get(gig, 'title', ''))
-      setCategory(get(gig, 'category', ''))
+      setCategory(get(gig, 'service', ''))
       setDescription(get(gig, 'description', ''))
       setPincode(get, (gig, 'pincode', ''))
       setRedius(get, (gig, 'radius', ''))
@@ -58,11 +59,11 @@ export default function Category(props) {
 
   useEffect(() => {
     console.log("addGigData", addGigData)
-    if (get(addGigData, 'data.success', false)) {
+    if (get(addGigData, 'data.success', false) || get(addGigData, 'data.success', false)) {
       router.push('/handyman-registration-services')
       dispatch({ type: 'RESET_GIG' })
     }
-  }, [addGigData])
+  }, [addGigData, update])
 
   useEffect(() => {
     dispatch({ type: 'GET_SERVICE' })
