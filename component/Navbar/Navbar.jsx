@@ -110,6 +110,7 @@ export default function Navbar(props) {
         localStorage.setItem('token', JSON.stringify(get(emailSignData, 'token', {})))
         localStorage.setItem('user', JSON.stringify(get(emailSignData, 'user', {})))
         setSignUpModel(false)
+        setLoginModel(false)
         setLoggedStatus(true)
         if (get(emailSignData, 'user.fname', '') === '') {
           router.push('/profilemanagement')
