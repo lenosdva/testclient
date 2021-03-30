@@ -6,7 +6,8 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from 'lodash'
 import { GoogleLogin } from 'react-google-login'
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const FB_AAP_ID = process.env.NEXT_PUBLIC_FB_AAP_ID
