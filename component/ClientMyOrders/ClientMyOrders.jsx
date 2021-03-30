@@ -43,7 +43,7 @@ const settings = {
 function ClientMyOrders(props) {
 
   const renderOrder = () => (
-    get(props, 'orders', []).map((data, key) => (
+    get(props, 'orders', []) && get(props, 'orders', []).length && get(props, 'orders', []).map((data, key) => (
       <div key={key}>
         <div className="myorder-slide">
           <div className="labels-wrapper">

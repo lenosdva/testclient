@@ -8,10 +8,12 @@ import { get, toPath } from "lodash";
 import Select from 'react-select';
 import { useDropzone } from 'react-dropzone'
 import { useRouter } from 'next/router'
+// import { route } from "next/dist/next-server/server/router";
 // import {get} from "lodash";
 
 
 export default function Category(props) {
+  const route = useDropzone()
   const [pincode, setPincode] = useState([])
   const [city, setCity] = useState([])
   const [radius, setRedius] = useState('')
@@ -31,7 +33,7 @@ export default function Category(props) {
 
   const dispatch = useDispatch()
   const router = useRouter()
-  const { searchByIdData, searchByIdLoading, gig } = useSelector(state => ({
+  const { searchByIdData, addGigData, gig } = useSelector(state => ({
     searchByIdData: state.services.searchByIdData,
     searchByIdLoading: state.services.searchByIdLoading,
     addGigLoading: state.handyman.addGigLoading,
@@ -53,6 +55,15 @@ export default function Category(props) {
 
 
   }, [gig])
+
+  useEffect(() => {
+    console.log("addGigData", addGigData)
+    if (get(addGigData, 'data.success', false)) {
+      router.push('/handyman-registration-services')
+      dispatch({ type: 'RESET_GIG' })
+    }
+  }, [addGigData])
+
   useEffect(() => {
     dispatch({ type: 'GET_SERVICE' })
     if (get(router, 'query.id', false)) {
@@ -188,7 +199,7 @@ export default function Category(props) {
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ maxSize: 26214400, onDrop, multiple: false, accept: "image/*" })
-  console.log(images.length, images[0])
+  // console.log(images.length, images[0])
   return (
     <Layout setWebSoket={props.setWebSoket}>
       <div className="category">
