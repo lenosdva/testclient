@@ -34,21 +34,13 @@ export default function Category(props) {
           />
         </div>
         <div className="anchor-box">
-          <a href="">{get(data, 'title', '')}</a>
-          {/* <h4>{get(data,'title','')}</h4>
-        
-        <h6>{moment(get(data, 'createdAt', null)).format('Do MMMM YYYY, hh:mm:ss a')}</h6>  */}
-
-
+          {get(data, 'title', '')}
         </div>
         <div className="btn-box">
-          {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
-
           <button onClick={() => router.push(`/handyman-registration-withdrawn?id=${data._id}`)}>Edit</button>
           <button onClick={() => dispatch({ type: 'PAUSE_REQUEST', payload: { "gigId": data._id } })}>Pause</button>
           <button onClick={() => dispatch({ type: 'CONTINUE_REQUEST' })}>Share</button>
           <button onClick={() => dispatch({ type: 'DELETE_REQUEST', payload: { "gigId": data._id } })}>Delete</button>
-
         </div>
       </li>
     ))
@@ -66,20 +58,13 @@ export default function Category(props) {
           />
         </div>
         <div className="anchor-box">
-          {/* <h4>{get(data,'userId','')}</h4>
-          <p>{get(JSON.parse(get(data,'description', {})), 'msg', '')}</p> */}
-
-          <a href="">One Line Service Title Goes Here</a>
+          {get(data, 'title', '')}
         </div>
         <div className="btn-box">
-          {/* </div>/dispatch({ type: 'UPDATE_REQUEST' } */}
-
           <button onClick={() => router.push(`/handyman-registration-withdrawn?id=${data._id}`)}>Edit</button>
           <button onClick={() => dispatch({ type: 'PAUSE_REQUEST', payload: { "gigId": data._id } })}>Pause</button>
           <button onClick={() => dispatch({ type: 'CONTINUE_REQUEST' })}>Share</button>
           <button onClick={() => dispatch({ type: 'DELETE_REQUEST', payload: { "gigId": data._id } })}>Delete</button>
-
-
         </div>
       </li>
     ))
