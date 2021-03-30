@@ -424,8 +424,8 @@ export default function Navbar(props) {
 
           </li>
         </ul>
-        {loginModal(loginModel, closeModal, setLoginModel, error)}
-        {signUpModal(signUpModel, closeModal, setSignUpModel, error)}
+        {loginModal(loginModel, closeModal,  setSignUpModel, error)}
+        {signUpModal(signUpModel, closeModal, setLoginModel, error)}
         {otp(otpModel, closeModal, mobile, error)}
       </div>
 

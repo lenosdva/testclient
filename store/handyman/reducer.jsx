@@ -107,7 +107,6 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         deleteLoading: true,
-        delete: action.data
       }
     };
 
@@ -115,7 +114,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         deleteLoading: false,
-
+        delete: action.data
       }
     };
     case 'UPDATE_REQUEST': {
