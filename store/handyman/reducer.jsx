@@ -8,16 +8,16 @@ const initialState = {
   gig: {},
   addGigLoading: false,
   addGigData: {},
-  serviceLoading:true,
-  service:[],
-  deleteLoading:true,
-  delete:[],
-  pauseLoading:true,
-  pause:[],
-  continueLoading:true,
-  continue:[],
-  updateLoading:true,
-  update:[]
+  serviceLoading: true,
+  service: [],
+  deleteLoading: true,
+  delete: [],
+  pauseLoading: true,
+  pause: [],
+  continueLoading: true,
+  continue: [],
+  updateLoading: true,
+  update: []
 }
 
 export default function userReducer(state = initialState, action) {
@@ -48,6 +48,12 @@ export default function userReducer(state = initialState, action) {
         addGigData: action.data
       }
     }
+    case 'RESET_GIG': {
+      return {
+        ...state,
+        addGigData: {}
+      }
+    }
     case 'UPLOAD': {
       return {
         ...state,
@@ -68,7 +74,7 @@ export default function userReducer(state = initialState, action) {
         hyndyman: {}
       }
     }
-    
+
     case 'GET_GIG': {
       return {
         ...state,
@@ -93,7 +99,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         serviceLoading: false,
-        service:action.data
+        service: action.data
       };
     }
     case 'DELETE_REQUEST': {
@@ -108,7 +114,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         deleteLoading: false,
-      
+
       }
     };
     case 'UPDATE_REQUEST': {
@@ -123,7 +129,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         updateLoading: false,
-        
+
       }
     };
     case 'PAUSE_REQUEST': {
@@ -138,7 +144,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         pauseLoading: false,
-        
+
       }
     };
     case 'CONTINUE_REQUEST': {
@@ -153,11 +159,11 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         continueLoading: false,
-        
+
       }
     };
-    
-        default:
+
+    default:
       return state;
   }
 }
