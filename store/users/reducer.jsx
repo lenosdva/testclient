@@ -29,6 +29,8 @@ const initialState = {
   paymentData: {},
   addPaymentLoading:true,
   addPayment:{},
+  updateUserLoading:true,
+  updateUser:{},
 }
 
 export default function userReducer(state = initialState, action) {
@@ -283,6 +285,29 @@ export default function userReducer(state = initialState, action) {
       };
       
     }
+    case 'UPDATE_USER': {
+      return {
+        ...state,
+        updateUserLoading: true
+      }
+    }
+    case 'UPDATED_USER': {
+      return {
+        ...state,
+        updateUserLoading: false,
+        updateUser: action.data
+     
+      };
+      
+    }
+    case 'RESETUPDATED_USER':
+      {
+        return{
+          ...state,
+          updateUser: {}
+        }
+      }
+
     default:
       return state;
   }

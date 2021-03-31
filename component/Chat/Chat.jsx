@@ -15,7 +15,7 @@ const Chat = (props) => {
   const { user } = useSelector(state => ({
     user: state.user.user,
   }));
-
+console.log(props,"props")
   useEffect(() => {
     if (get(props, 'ws.addEventListener', false)) {
       props.ws.addEventListener('message', function (event) {
