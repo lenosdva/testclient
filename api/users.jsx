@@ -52,6 +52,7 @@ export function* registerByFacebook({ payload }) {
       return res.json();
     })
     .then((data) => {
+      data.socialLogin = true
       return data;
     })
     .catch((error) => {
@@ -71,6 +72,7 @@ export function* registerByGoogle({ payload }) {
       return res.json();
     })
     .then((data) => {
+      data.socialLogin = true
       return data;
     })
     .catch((error) => {

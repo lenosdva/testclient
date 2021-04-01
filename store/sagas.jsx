@@ -23,7 +23,7 @@ function* userActionWatcher() {
   yield takeLatest('GOOGLE_REQUEST', Users.registerByGoogle);
   yield takeLatest('FACEBOOK_REQUEST',Users.registerByFacebook);
   yield takeLatest('FORGET_PASSWORD',Users.forgetPassword);
-  yield takeLatest('RESETED_PASSWORD',Users.resetPassword);
+  yield takeLatest('RESET_PASSWORD',Users.resetPassword);
  }
 
  function* servicesActionWatcher() {

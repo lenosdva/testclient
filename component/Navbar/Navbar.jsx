@@ -116,7 +116,11 @@ export default function Navbar(props) {
         setLoginModel(false)
         setLoggedStatus(true)
         if (get(emailSignData, 'user.fname', '') === '') {
-          router.push('/profilemanagement')
+          if(get(emailSignData, 'user.socialLogin', false)){
+            router.push('/profilemanagement?isSocial=true')
+          }else{
+            router.push('/profilemanagement')
+          }
         }
       }
     }

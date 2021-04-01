@@ -4,9 +4,11 @@ import Modal from 'react-modal';
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash";
+import { useRouter } from 'next/router'
 
 export default function loginModal(loginModel, closeModal, setSignUpModel, serverError, setForgetModel) {
     const dispatch = useDispatch()
+    const router = useRouter()
     const { forgetPassword, forgetPasswordLoading, resetPasswordLoading, resetPassword } = useSelector(state => ({
         forgetPasswordLoading: state.user.forgetPasswordLoading,
         forgetPassword: state.user.forgetPassword,
@@ -18,6 +20,26 @@ export default function loginModal(loginModel, closeModal, setSignUpModel, serve
     const [newpassword, setnewpassword] = useState('')
     const [confirmpassword, setconfirmpassword] = useState('')
     const [pwd, setPwd] = useState('')
+
+    useEffect(() => {
+        let error = {}
+        if (get(resetPassword, 'error', false)) {
+            error.message = get(resetPassword, 'message', '')
+            setError(error)
+            dispatch({ type: "RESET_USER" })
+            //   dispatch({ type: "RESET_USER" })
+        }
+        if (get(resetPassword, 'success', false)) {
+            error.sMessage = get(resetPassword, 'message', '')
+            setError(error)
+            dispatch({ type: "RESET_USER" })
+            //   dispatch({ type: "RESET_USER" })
+        }
+        setTimeout(() => {
+            setError({})
+            router.push('/')
+        }, 5000)
+    }, [resetPassword])
 
     function openSignup() {
         close()
@@ -52,11 +74,11 @@ export default function loginModal(loginModel, closeModal, setSignUpModel, serve
         }
         setError(error)
         if (!Object.keys(error).length) {
-            dispatch({ type: 'RESET_PASSWORD', payload: { password: 'newPassword', authKey: '1234' } })
+            console.log("testing")
+            dispatch({ type: 'RESET_PASSWORD', payload: { password: 'newPassword', authKey: get(router, 'query.authKey', '') } })
         }
-        console.log("error======>", error)
     }
-return (
+    return (
         <div>
             <div className="modal-wrapper">
                 <Modal
@@ -78,7 +100,7 @@ return (
                         <h4>Reset Password</h4>
                     </header>
                     <div className="modalbody">
-                         <form onSubmit={onLogin}>
+                        <form onSubmit={onLogin}>
                             <div className="box">
                                 <div className="form-group">
                                     <div className="p-lr">
@@ -97,10 +119,13 @@ return (
                             </div>
                             {get(error, 'password', '') &&
                                 <span className="errormsg">{get(error, 'password', '')}</span>
-                            }{get(serverError, 'serverError', '') &&
-                                <span className="errormsg">{get(serverError, 'serverError', '')}</span>
+                            }{get(error, 'message', '') &&
+                                <span className="errormsg">{get(error, 'message', '')}</span>
                             }
-                             <button className="btn btn-continue" onClick={onLogin}>Submit</button>
+                            {get(error, 'sMessage', '') &&
+                                <span className="errormsg" style={{ color: "green" }}>{get(error, 'sMessage', '')}</span>
+                            }
+                            <button className="btn btn-continue" onClick={onLogin} disabled={resetPasswordLoading}>Submit</button>
                         </form>
                     </div>
                 </Modal>

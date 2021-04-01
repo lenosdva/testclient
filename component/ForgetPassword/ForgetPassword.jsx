@@ -23,7 +23,6 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
 
   function close() {
     closeModal()
-
   }
 
   function ValidateEmail(mail) {
@@ -51,13 +50,17 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
     let error = {}
     if (get(forgetPassword, 'error', false)) {
       error.message = get(forgetPassword, 'message', '')
-      
       setError(error)
       dispatch({ type: "RESET_USER" })
     }
-   
-    console.log(forgetPassword, "forgetPassword")
- 
+    if (get(forgetPassword, 'success', false)) {
+      error.sMessage = get(forgetPassword, 'message', '')
+      setError(error)
+      dispatch({ type: "RESET_USER" })
+    }
+    setTimeout(()=>{
+      setError({})
+    }, 5000)
   }, [forgetPassword])
   
   return (
@@ -83,48 +86,24 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
             <h4>Forget Password</h4>
           </header>
           <div className="modalbody">
-
-            {/* {loginWith === 'phone' ? */}
-            {/* <form onSubmit={onLogin}>
-
-              {get(error, 'phone', '') &&
-                <span className="errormsg">{get(error, 'phone', '')}</span>
-              }{get(error, 'email', '') &&
-                <span className="errormsg">{get(error, 'email', '')}</span>
-              }
-              {get(serverError, 'serverError', '') &&
-                <span >{get(serverError, 'serverError', '')}</span>
-              }
-            </form> */}
-
             <form onSubmit={onLogin}>
               <div className="box">
                 <div className="form-group">
                   <div className="p-lr">
-
                     <div className="labels">Email or Mobile</div>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="field-input" />
                   </div>
                 </div>
-
               </div>
-              {get(error, 'phone', '') &&
-                <span className="errormsg">{get(error, 'phone', '')}</span>
-              }
               {get(error, 'email', '') &&
                 <span className="errormsg">{get(error, 'email', '')}</span>
               }
               {get(error, 'message', '') &&
                 <span className="errormsg">{get(error, 'message', '')}</span>
               }
-
-
-
-              {get(serverError, 'serverError', '') &&
-                <span className="errormsg">{get(serverError, 'serverError', '')}</span>
+              {get(error, 'sMessage', '') &&
+                <span className="errormsg" style={{color: "green"}}>{get(error, 'sMessage', '')}</span>
               }
-
-
               <button className="btn btn-continue" type="submit" disabled={forgetPasswordLoading} >Continue</button>
             </form>
           </div>
