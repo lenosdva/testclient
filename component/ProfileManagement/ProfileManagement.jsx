@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import PaymentCard from "../PaymentCard/PaymentCard";
 import { withTranslation } from "../../constent/i18n/i18n"
-import { get } from "lodash"
+import { get, update } from "lodash"
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import { Elements, CardElement } from '@stripe/react-stripe-js';
@@ -19,7 +20,15 @@ function ProfileManagement(props) {
   const [error, setError] = useState({})
   const [isChange, changePayment] = useState(false)
   const dispatch = useDispatch()
-  
+
+
+  const { getCardLoading, getCardData, updateUserLoading, updateUser } = useSelector(state => ({
+    getCardLoading: state.user.getCardLoading,
+    getCardData: state.user.getCardData,
+    updateUserLoading: state.user.updateUserLoading,
+    updateUser: state.user.updateUser,
+
+  }));
   useEffect(() => {
     setName(get(props, 'user.fname', ''))
     setCompany(get(props, 'user.company', ''))
@@ -28,14 +37,42 @@ function ProfileManagement(props) {
     setAddress(get(props, 'user.address ', ''))
   }, [props.user])
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch({ type: "GET_CARD" })
-  },[])
+  }, [])
 
-  const { getCardLoading, getCardData } = useSelector(state => ({
-    getCardLoading: state.user.getCardLoading,
-    getCardData: state.user.getCardData,
-  }));
+
+  useEffect(() => {
+
+    if (get(updateUser, 'message', false)) {
+      NotificationManager.success(get(updateUser, 'message', false));
+      dispatch({ type: "RESETUPDATED_USER" })
+    }
+    console.log(updateUser, "updateUser")
+  }, [updateUser])
+
+
+  function onSubmit(e) {
+    e.preventDefault()
+    let error = {}
+    if (phone == '') {
+      error.phone = 'Phone number is required'
+    } else if (phone.length < 6) {
+      error.phone = 'Invalid phone number'
+    }
+    if (fullName == '') {
+      error.fullName = 'Full Name is required'
+    }
+    
+
+    setError(error)
+    if (!Object.keys(error).length) {
+      dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
+    }
+
+  }
+
+
 
   function submitData(e) {
     const error = {}
@@ -64,7 +101,7 @@ function ProfileManagement(props) {
     }
     setError(error)
   }
-  console.log("issssss", isChange)
+  
 
   return (
     <div className="profile-management">
@@ -83,21 +120,21 @@ function ProfileManagement(props) {
             <h3 className="thin mb-3">{props.t("ProfileManagement.linkedAccounts")}</h3>
 
             <button className="btn d-flex align-items-center justify-content-start">
-              <h5 className="add mr-3">&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-              <h5>Google</h5>
+              <h5 className="add mr-3">+</h5>
+              <h5>GOOGLE</h5>
             </button>
             <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
-              <h5>Facebook</h5>
+              <h5>FACEBOOK</h5>
             </button>
-            <button className="btn d-flex align-items-center justify-content-start">
+            {/* <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
               <h5>Twitter</h5>
             </button>
             <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
               <h5>Email</h5>
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="col-md-9">
@@ -119,7 +156,7 @@ function ProfileManagement(props) {
                   name="fullName"
                   className="input mr-3"
                   placeholder="Erika Hans"
-                  onBlur={submitData}
+                // onBlur={submitData}
                 />
                 {get(error, 'fullName', false) &&
                   <span className="errormsg"> {get(error, 'fullName', false)}</span>
@@ -127,18 +164,13 @@ function ProfileManagement(props) {
               </div>
               <div className="small d-flex flex-column">
                 <h3 className="label">{props.t("ProfileManagement.phoneNumber")}</h3>
-                <InputMask mask="(999) 999 9999" value={phone} name="phone" onChange={(e) => setPhone(e.target.value)} onBlur={submitData}>
+                <InputMask mask="(999) 999 9999" value={phone} name="phone" onChange={(e) => setPhone(e.target.value)} >
                   {(inputProps) => <input {...inputProps} name="phone" className="input" type="tel" placeholder="(000) 000 0000" />}
                 </InputMask>
                 {get(error, 'phone', false) &&
                   <span className="errormsg"> {get(error, 'phone', false)}</span>
                 }
-                {/* <input
-                  type="text"
-                  name="phone"
-                  className="input"
-                  placeholder="+49 | 597-567-1235"
-                /> */}
+
               </div>
             </div>
             <h3 className="label">{props.t("ProfileManagement.aboutMe")}</h3>
@@ -149,6 +181,11 @@ function ProfileManagement(props) {
             <div className="horizontal-line"></div>
             <h3 className="label">{props.t("ProfileManagement.emailAddress")}</h3>
             <p className="email mb-3">{get(props, 'user.email',)}</p>
+            <button onClick={onSubmit} classname="btn d-flex align-item-center justify -content-start" >
+              <h5 className="add mr-6">SUBMIT</h5>
+            </button>
+
+
             <div className="horizontal-line"></div>
             <h3 className="label">{props.t("ProfileManagement.currentPassword")}</h3>
             <div className="d-flex">
@@ -198,32 +235,14 @@ function ProfileManagement(props) {
               {props.t("ProfileManagement.paymentText")}
             </p>
             <div className="payment-details d-flex flexwrap">
-              {/* <div className="location mr-5">
-                <h3 className="label">{props.t("ProfileManagement.yourLocation")}</h3>
-                <div className="d-flex">
-                  <a href="#" className="link mr-3">
-                    {props.t("ProfileManagement.change")}
-                  </a>
-                  <a href="#" className="link ml-3">
-                    {props.t("ProfileManagement.addServiceInstructions")}
-                  </a>
-                </div>
-
-                <p className="mt-4">
-                  Erika Hans
-                  <br /> Fugger Strasse 63
-                  <br /> Rheinland, Germany <br /> <br />
-                  {props.t("ProfileManagement.phone")}: +49 0261 59 65
-                </p>
-              </div> */}
               {!isChange &&
                 <div className="payment-method">
                   <h3 className="label">Payment Method</h3>
-                <span onClick={() => changePayment(true)} className="link cursur-pointer">
+                  <span onClick={() => changePayment(true)} className="link cursur-pointer">
                     Change
                 </span>
                   <p className="mt-4">
-                  {get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].funding`, 'Credit')} Card Ending <span>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].last4`, '')}</span>
+                    {get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].funding`, 'Credit')} Card Ending <span>{get(getCardData, `cards.data[${get(getCardData, 'cards.data', []).length - 1}].last4`, '')}</span>
                   </p>
                 </div>
               }
@@ -246,6 +265,9 @@ function ProfileManagement(props) {
           </div>
         </div>
       </div>
+
+      <NotificationContainer />
+
     </div>
   );
 }

@@ -62,7 +62,8 @@ export default function InboxWidePage(props) {
             </div>
             <div className="col-lg-4 col-md-12">
               {get(chat, 'id', false) ?
-                <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} />
+              
+                <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} inbox={inbox} />
                 : <></>
               }
             </div>

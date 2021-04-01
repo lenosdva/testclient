@@ -23,12 +23,19 @@ const initialState = {
   chat: [],
   userInfoLoading: false,
   userInfo: {},
-  getCardLoding:true,
+  getCardLoding:false,
   getCardData: {},
   paymentLoding: false,
   paymentData: {},
-  addPaymentLoading:true,
+  addPaymentLoading:false,
   addPayment:{},
+  updateUserLoading:false,
+  updateUser:{},
+  resetPasswordLoading:false,
+  resetPassword:{},
+  forgetPasswordLoading:false,
+  forgetPassword:{},
+  // resetUser:{},
 }
 
 export default function userReducer(state = initialState, action) {
@@ -283,6 +290,70 @@ export default function userReducer(state = initialState, action) {
       };
       
     }
+    case 'UPDATE_USER': {
+      return {
+        ...state,
+        updateUserLoading: true
+      }
+    }
+    case 'UPDATED_USER': {
+      return {
+        ...state,
+        updateUserLoading: false,
+        updateUser: action.data
+     
+      };
+      
+    }
+    case 'RESETUPDATED_USER':
+      {
+        return{
+          ...state,
+          updateUser: {}
+        };
+      }
+      
+      case 'RESET_USER':
+        {
+          return{
+            ...state,
+            
+            forgetPassword: {}
+          };
+        }
+     
+      
+    case 'FORGET_PASSWORD': {
+      return {
+        ...state,
+        forgetPasswordLoading: true,
+        };
+      
+    }
+    case 'FORGOT_PASSWORD': {
+      return {
+        ...state,
+        forgetPasswordLoading: false,
+        forgetPassword: action.data
+     
+      };
+      
+    }
+    case 'RESET_PASSWORD': {
+      return {
+        ...state,
+        resetPasswordLoading: true,
+        };
+      
+    }
+    case 'RESETED_PASSWORD': {
+      return {
+        ...state,
+        resetPasswordLoading: false,
+        resetPassword: action.data
+     
+      };
+    }  
     default:
       return state;
   }
