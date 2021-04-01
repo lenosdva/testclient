@@ -13,12 +13,13 @@ import cookie from 'cookie-cutter';
 import Moment from 'moment';
 import { loginModal } from "../loginModal/loginModal"
 import { signUpModal } from "../signUpModal/signUpModal"
+import { forgotPassword } from "../ForgetPassword/ForgetPassword"
 import { otp } from "../otp/otp"
 
 export default function Navbar(props) {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData } = useSelector(state => ({
+  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData,forgetPassword } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
     user: state.user.user,
@@ -28,6 +29,7 @@ export default function Navbar(props) {
     mobileSignData: state.user.mobileSignData,
     needLogin: state.user.needLogin,
     getNotification: state.services.notification,
+    forgetPassword:state.user.forgetPassword,
   }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
@@ -36,11 +38,12 @@ export default function Navbar(props) {
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
   const [showMessage, setMessage] = useState(false);
+  const [forgetModel, setForgetModel] = useState(true)
   const [error, setError] = useState({});
 
   useEffect(() => {
     setError({})
-  }, [loginModel, signUpModel, otpModel])
+  }, [loginModel, signUpModel, otpModel, forgetModel])
 
   useEffect(() => {
     if (get(user, 'code', false) === 401) {
@@ -171,6 +174,7 @@ export default function Navbar(props) {
     setOtpModel(false)
     setLoginModel(false)
     setSignUpModel(false)
+    setForgetModel(false)
   }
 
   function signOut() {
@@ -425,9 +429,10 @@ export default function Navbar(props) {
 
           </li>
         </ul>
-        {loginModal(loginModel, closeModal,  setSignUpModel, error)}
+        {loginModal(loginModel, closeModal,  setSignUpModel, error, setForgetModel)}
         {signUpModal(signUpModel, closeModal, setLoginModel, error)}
         {otp(otpModel, closeModal, mobile, error)}
+        {forgotPassword(forgetModel, closeModal,  error,setForgetModel)}
       </div>
 
       <div className="mob-menu-wrapper show-mob">

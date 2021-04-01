@@ -375,3 +375,46 @@ export function* checkout({ payload }) {
     });
   yield put({ type: 'PAYMENT', data });
 }
+export function* forgetPassword({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/forgotPassword
+  `, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'FORGOT_PASSWORD', data });
+}
+export function* resetPassword({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${HOST}/v1/users/resetPassword`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'RESETED_PASSWORD', data });
+}

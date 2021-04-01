@@ -63,7 +63,7 @@ function ProfileManagement(props) {
     if (fullName == '') {
       error.fullName = 'Full Name is required'
     }
-    console.log("error", error, phone, fullName)
+    
 
     setError(error)
     if (!Object.keys(error).length) {
@@ -101,7 +101,7 @@ function ProfileManagement(props) {
     }
     setError(error)
   }
-  console.log("issssss", isChange)
+  
 
   return (
     <div className="profile-management">
@@ -181,7 +181,7 @@ function ProfileManagement(props) {
             <div className="horizontal-line"></div>
             <h3 className="label">{props.t("ProfileManagement.emailAddress")}</h3>
             <p className="email mb-3">{get(props, 'user.email',)}</p>
-            <button onClick={onSubmit} classname="btn d-flex align-item-center justify -content-start">
+            <button onClick={onSubmit} classname="btn d-flex align-item-center justify -content-start" >
               <h5 className="add mr-6">SUBMIT</h5>
             </button>
 
