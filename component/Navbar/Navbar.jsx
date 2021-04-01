@@ -38,7 +38,7 @@ export default function Navbar(props) {
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
   const [showMessage, setMessage] = useState(false);
-  const [forgetModel, setForgetModel] = useState(true)
+  const [forgetModel, setForgetModel] = useState(false)
   const [error, setError] = useState({});
 
   useEffect(() => {
