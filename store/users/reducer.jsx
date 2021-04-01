@@ -242,7 +242,6 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'RESET_PAYMENTS': {
-      console.log("dataaaa")
       return {
         ...state,
         addPayment: {}
@@ -317,7 +316,7 @@ export default function userReducer(state = initialState, action) {
         {
           return{
             ...state,
-            
+            resetPassword: {},
             forgetPassword: {}
           };
         }

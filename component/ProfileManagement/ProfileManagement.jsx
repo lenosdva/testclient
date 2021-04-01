@@ -5,6 +5,7 @@ import PaymentCard from "../PaymentCard/PaymentCard";
 import { withTranslation } from "../../constent/i18n/i18n"
 import { get, update } from "lodash"
 import InputMask from 'react-input-mask';
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { Elements, CardElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -17,10 +18,13 @@ function ProfileManagement(props) {
   const [phone, setPhone] = useState('')
   const [about, setAbout] = useState('')
   const [address, setAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const [cPassword, setCPassword] = useState('')
   const [error, setError] = useState({})
   const [isChange, changePayment] = useState(false)
+  const [isSocialLogin, setSocialLogin] = useState(false)
   const dispatch = useDispatch()
-
+  const router = useRouter()
 
   const { getCardLoading, getCardData, updateUserLoading, updateUser } = useSelector(state => ({
     getCardLoading: state.user.getCardLoading,
@@ -38,17 +42,23 @@ function ProfileManagement(props) {
   }, [props.user])
 
   useEffect(() => {
+    if (get(router, 'query.isSocial', false)) {
+      setSocialLogin(true)
+    }
     dispatch({ type: "GET_CARD" })
   }, [])
 
 
   useEffect(() => {
-
     if (get(updateUser, 'message', false)) {
-      NotificationManager.success(get(updateUser, 'message', false));
+      const error = {}
+      error.success = get(updateUser, 'message', false)
+      setError(error)
+      setTimeout(()=>{
+        setError(error)
+      }, 5000)
       dispatch({ type: "RESETUPDATED_USER" })
     }
-    console.log(updateUser, "updateUser")
   }, [updateUser])
 
 
@@ -63,45 +73,58 @@ function ProfileManagement(props) {
     if (fullName == '') {
       error.fullName = 'Full Name is required'
     }
-    
+    if (isSocialLogin) {
+      if (password == '') {
+        error.password = 'Password is required'
+      } if (cPassword == '') {
+        error.cPassword = 'Confirm password is required'
+      }
+      if (cPassword !== cPassword) {
+        error.cPassword = 'Password not match'
+      }
+    }
 
     setError(error)
     if (!Object.keys(error).length) {
-      dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
+      if (isSocialLogin) {
+        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
+      } else {
+        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about, password } })
+      }
     }
 
   }
 
 
 
-  function submitData(e) {
-    const error = {}
-    if (e.target.name === "fullName") {
-      if (fullName) {
-        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, mobile: phone.replace(/[^0-9]/g, '') } })
-      } else {
-        error.fullName = "Please enter full name"
-      }
-    } else if (e.target.name === "phone") {
-      if (phone) {
-        if (phone.length < 6) {
-          error.phone = 'please enter valid phone'
-        } else {
-          dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, mobile: phone.replace(/[^0-9]/g, '') } })
-        }
-      } else {
-        error.phone = "Please enter phone"
-      }
-    } else if (e.target.name === "about") {
-      if (about) {
-        dispatch({ type: 'UPDATE_USER', payload: { description: about } })
-      } else {
-        error.about = "Please enter about me"
-      }
-    }
-    setError(error)
-  }
-  
+  // function submitData(e) {
+  //   const error = {}
+  //   if (e.target.name === "fullName") {
+  //     if (fullName) {
+  //       dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, mobile: phone.replace(/[^0-9]/g, '') } })
+  //     } else {
+  //       error.fullName = "Please enter full name"
+  //     }
+  //   } else if (e.target.name === "phone") {
+  //     if (phone) {
+  //       if (phone.length < 6) {
+  //         error.phone = 'please enter valid phone'
+  //       } else {
+  //         dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, mobile: phone.replace(/[^0-9]/g, '') } })
+  //       }
+  //     } else {
+  //       error.phone = "Please enter phone"
+  //     }
+  //   } else if (e.target.name === "about") {
+  //     if (about) {
+  //       dispatch({ type: 'UPDATE_USER', payload: { description: about } })
+  //     } else {
+  //       error.about = "Please enter about me"
+  //     }
+  //   }
+  //   setError(error)
+  // }
+
 
   return (
     <div className="profile-management">
@@ -178,21 +201,61 @@ function ProfileManagement(props) {
             {get(error, 'about', false) &&
               <span className="errormsg"> {get(error, 'about', false)}</span>
             }
+            {isSocialLogin &&
+              <div className="d-flex flexwrap">
+                <div className="small d-flex flex-column">
+                  <h3 className="label">Password</h3>
+                  <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type="password"
+                    name="password"
+                    className="input mr-3"
+                  // placeholder="Erika Hans"
+                  // onBlur={submitData}
+                  />
+                  {get(error, 'password', false) &&
+                    <span className="errormsg"> {get(error, 'password', false)}</span>
+                  }
+                </div>
+                <div className="small d-flex flex-column">
+                  <h3 className="label">Confirm Password</h3>
+                  <input
+                    value={cPassword}
+                    onChange={(e) => setCPassword(e.target.value)}
+                    type="password"
+                    name="cPassword"
+                    className="input mr-3"
+                  // placeholder="Erika Hans"
+                  // onBlur={submitData}
+                  />
+                  {get(error, 'cPassword', false) &&
+                    <span className="errormsg"> {get(error, 'cPassword', false)}</span>
+                  }
+                </div>
+              </div>
+
+            }
+            {get(error, 'success', false) &&
+              <span className="errormsg" style={{color: 'green'}}> {get(error, 'success', false)}</span>
+            }
+            
+            <button onClick={onSubmit} classname="btn btn-primary mr-2" >
+              SUBMIT
+            </button>
             <div className="horizontal-line"></div>
             <h3 className="label">{props.t("ProfileManagement.emailAddress")}</h3>
             <p className="email mb-3">{get(props, 'user.email',)}</p>
-            <button onClick={onSubmit} classname="btn d-flex align-item-center justify -content-start" >
-              <h5 className="add mr-6">SUBMIT</h5>
-            </button>
-
-
-            <div className="horizontal-line"></div>
-            <h3 className="label">{props.t("ProfileManagement.currentPassword")}</h3>
-            <div className="d-flex">
-              <p className="mr-3">***********</p>
-              <p>(last changed 27 Feb 2020)</p>
-            </div>
-
+            {!isSocialLogin &&
+              <>
+                <div className="horizontal-line"></div>
+                <h3 className="label">{props.t("ProfileManagement.currentPassword")}</h3>
+                <div className="d-flex">
+                  <p className="mr-3">***********</p>
+                  <p>(last changed 27 Feb 2020)</p>
+                </div>
+              </>
+            }
             <h3 className="mt-5">{props.t("ProfileManagement.notification")}</h3>
             <p className="mb-4">
               {props.t("ProfileManagement.notiText")}
@@ -266,7 +329,7 @@ function ProfileManagement(props) {
         </div>
       </div>
 
-      <NotificationContainer />
+      {/* <NotificationContainer /> */}
 
     </div>
   );

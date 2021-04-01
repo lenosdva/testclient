@@ -52,14 +52,14 @@ console.log(props,"props")
     props.ws.send(messageH)
     setMessage('')
   }
-
+  console.log(props)
   return (
     <div className="chat">
       <div className="chat-header">
         <div className="d-flex align-items-center mb-2">
           <div className="online"></div>
-          <h4>Solar Panel Installation</h4>
-          <p className="name">- Hellen Geller</p>
+          <h4>{get(props, 'user.description', '')}</h4>
+          <p className="name">- {get(props, 'user.partyName', '')}</p>
         </div>
         <p className="h6 mb-0">Online | Local Time 11:30am, September 28</p>
       </div>
