@@ -120,8 +120,8 @@ export default function SearchBar(props) {
           <Image
             src="/assets/images/search-img.png"
             alt="search"
-            width={70}
-            height={70}
+            width={50}
+            height={50}
           />
         </div>
         <div className="search-keywords-txt">
@@ -151,8 +151,8 @@ export default function SearchBar(props) {
         <div className="service ml-4">
           <h5 className="mb-0">Pick a Service</h5>
           {/* <h5 className="service-value">What can we assist you with ?</h5> */}
-          <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search" placeholder="What can we assist you with?" />
-          <div className={showService === 'hide' ? "searching-keywords" : "searching-keywords searching-keywords-show"}>
+          <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
+          <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
             <ul>
               {renderSearchResult()}
             </ul>

@@ -52,6 +52,11 @@
       border: 1px solid $gray-border;
       padding: 32px 5px;
       margin-bottom: 15px;
+      transition: transform .1s;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0 0 15px #ccc;
+      }
       @media (max-width:767px) {
         width: 100%;
       }
@@ -63,6 +68,9 @@
         color: $black-color;
         margin: 0;
         padding: 0;
+        a {
+          color: $black-color;
+        }
       }
     }
   }

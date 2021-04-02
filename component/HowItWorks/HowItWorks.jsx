@@ -62,8 +62,9 @@ const renderSteps = ({t}) =>(
         src={data.image}
         alt="howitwork1"
         layout="responsive"
-        width={315}
-        height={338}
+        className="sm-img"
+        width={300}
+        height={300}
       />
       <span className="image-circle">{key + 1}</span>
       <h3 className="mt-5">{data.title}</h3>

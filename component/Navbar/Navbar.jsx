@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Modal from 'react-modal';
 import { useRouter } from 'next/router'
 import InputMask from 'react-input-mask';
@@ -16,6 +17,11 @@ import { signUpModal } from "../signUpModal/signUpModal"
 import { otp } from "../otp/otp"
 
 export default function Navbar(props) {
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+
   const dispatch = useDispatch()
   const router = useRouter()
   const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData } = useSelector(state => ({
@@ -362,12 +368,9 @@ export default function Navbar(props) {
             </button>
           </li> */}
           <li>
-
-
-
             <div className="togglewrapper">
-              <label className="dropdown">
-                <div className="dd-button d-flex">
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle>
                   <i className="fa fa-bars" aria-hidden="true"></i>
                   <Image
                     src="/assets/svg/ic-menu-profile.svg"
@@ -375,11 +378,68 @@ export default function Navbar(props) {
                     width={34}
                     height={34}
                   />
-                </div>
+                </DropdownToggle>
+
+                {!userLogged &&
+                  <>
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => setSignUpModel(true)}>Sign Up</DropdownItem>
+                    <DropdownItem onClick={() => setLoginModel(true)}>Log In</DropdownItem>
+                  </DropdownMenu>
+                  </>
+                }
+
+                {userLogged &&
+                  <>
+                    <DropdownMenu className="profilebox">
+                      <DropdownItem>
+                        <ul className="dd-menu1">
+                          <li>
+                            <div>
+                              <Image
+                                src="/assets/images/profile-pic.png"
+                                alt=""
+                                width={80}
+                                height={80}
+                              />
+                            </div>
+                            <h4>{get(user, 'fname', '')}</h4>
+                            <h6>{get(user, 'email', '')}</h6>
+                            <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
+                            <div className="divi"></div>
+                            <p onClick={signOut} className="text-center mb-2">Sign Out</p>
+                            <p className="text-center"><Link href='/index'>Switch To Selling</Link></p>
+                            <p className="text-center"><Link href='/client-dashboard'>My Dashboard</Link></p>
+                          </li>
+                        </ul>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </>
+                }
+
+              </Dropdown>
+            </div>
+          </li>
+          <li>
+
+            
+
+            {/* <div className="togglewrapper">
+              <label className="dropdown"> */}
+
+                {/* <div className="dd-button d-flex">
+                  <i className="fa fa-bars" aria-hidden="true"></i>
+                  <Image
+                    src="/assets/svg/ic-menu-profile.svg"
+                    alt=""
+                    width={34}
+                    height={34}
+                  />
+                </div> */}
 
 
                 {/* login modal wrapper open */}
-                {!userLogged &&
+                {/* {!userLogged &&
                   <>
                     <input type="checkbox" onBlur={()=> console.log("hide")} className="dd-input" id="test" />
                     <ul className="dd-menu">
@@ -387,13 +447,13 @@ export default function Navbar(props) {
                     <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">Log In</li>
                     </ul>
                   </>
-                }
+                } */}
                 {/* login modal wrapper close */}
 
 
 
                 {/* profile modal wrapper open */}
-                {userLogged &&
+                {/* {userLogged &&
                   <>
                     <input type="checkbox" className="dd-input1" id="test1" />
                     <ul className="dd-menu1">
@@ -416,11 +476,11 @@ export default function Navbar(props) {
                       </li>
                     </ul>
                   </>
-                }
+                } */}
                 {/* profile modal wrapper close */}
 
-              </label>
-            </div>
+              {/* </label>
+            </div> */}
 
           </li>
         </ul>

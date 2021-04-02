@@ -29,6 +29,9 @@
       border: 0;
     }
   }
+  .input-search-lg {
+    width: 300px !important;
+  }
   .search-area {
     flex: 0.75;
     @media (max-width:767px) {
@@ -55,7 +58,7 @@
         display: block !important;
       }
       .search-lg {
-        width: 500px !important;
+        width: 300px !important;
         @media (max-width:767px) {
           width: 100%;
         }
@@ -65,7 +68,7 @@
         position: absolute;
         top: 80px;
         left: -50px;
-        width: 250px;
+        width: 350px;
         background: #fff;
         border-radius: 40px;
         padding: 5px 30px;
@@ -106,19 +109,21 @@
               text-decoration: none;
             }
             .search-keywords-img {
-              width: 85px;
+              width: 60px;
             }
             .search-keywords-txt {
-              width: calc(100% - 85px);
+              width: calc(100% - 60px);
               h5 {
                 font-weight: 500;
                 margin: 0;
                 line-height: normal;
+                font-size: 18px;
               }
               h6 {
                 color: #848484;
                 margin: 0;
                 line-height: normal;
+                font-size: 16px;
               }
             }
           }
@@ -180,7 +185,6 @@
           padding: 0;
           li {
             width: 100%;
-            font-family: Neue Haas Grotesk Display Pro;
             padding: 12px 0;
             font-weight: normal;
             font-size: 22px;
@@ -188,11 +192,9 @@
             letter-spacing: -0.0018em;
             color: #000000;
             cursor: pointer;
-            &:first-child {
-              padding-bottom: 10px;
-              border-bottom: 1px solid #f1f1f1;
-              color: #000000;
-              font-weight: 500;
+            border-bottom: 1px solid #f1f1f1;
+            &:last-child {
+              border-bottom: 0px solid #f1f1f1;
             }
             a {
               color: #000000;
@@ -241,5 +243,16 @@
   display: none;
 @media (max-width:767px) {
     display: block;
+  }
+}
+.search-xl {
+  width: 350px !important;
+  @media (max-width:767px) {
+    width: 100% !important;
+  }
+  ul {
+    li {
+      font-size: 20px !important;
+    }
   }
 }
