@@ -22,6 +22,8 @@ function* userActionWatcher() {
   yield takeLatest('ADD_PAYMENT',Users.addPayment);
   yield takeLatest('GOOGLE_REQUEST', Users.registerByGoogle);
   yield takeLatest('FACEBOOK_REQUEST',Users.registerByFacebook);
+  yield takeLatest('FORGET_PASSWORD',Users.forgetPassword);
+  yield takeLatest('RESET_PASSWORD',Users.resetPassword);
  }
 
  function* servicesActionWatcher() {

@@ -114,6 +114,7 @@ export function* getDelete({payload}) {
       return res.json();
     })
     .then((data) => {
+      getServices()
       return data;
     })
     .catch((error) => {
@@ -156,6 +157,7 @@ export function* getPause({payload}) {
       return res.json();
     })
     .then((data) => {
+      getServices()
       return data;
     })
     .catch((error) => {

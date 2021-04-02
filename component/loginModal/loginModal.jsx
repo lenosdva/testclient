@@ -5,13 +5,14 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash";
 import { GoogleLogin } from 'react-google-login'
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const FB_AAP_ID = process.env.NEXT_PUBLIC_FB_AAP_ID
 
 
-export function loginModal(loginModel, closeModal, setSignUpModel, serverError) {
+export function loginModal(loginModel, closeModal, setSignUpModel, serverError, setForgetModel) {
   const dispatch = useDispatch()
   const { isLoading, emailLoginLoading, userData } = useSelector(state => ({
     isLoading: state.user.mobileLoginLoading,
@@ -28,6 +29,11 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
   function openSignup() {
     close()
     setSignUpModel(true)
+  }
+
+  function openForgot() {
+    close()
+    setForgetModel(true)
   }
 
   function close() {
@@ -174,6 +180,10 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
                 }{get(serverError, 'serverError', '') &&
                   <span className="errormsg">{get(serverError, 'serverError', '')}</span>
                 }
+                <span onClick={openForgot} className="link cursur-pointer" >
+                    ForgetPassword
+                </span>
+                {/* <button className="btn btn-continue" onClick={}>forgetPassword</button> */}
                 <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
                 <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
               </form>
@@ -205,6 +215,13 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError) 
                 appId={FB_AAP_ID}
                 autoLoad={false}
                 callback={(e)=> facebookReq(e)}
+                // icon={<Image
+                //   src="/assets/svg/ic-facebook.svg"
+                //   alt=""
+                //   width={30}
+                //   height={30}
+                // />}
+                // textButton="Continue with Facebook"
                 render={renderProps => (
                   <button onClick={renderProps.onClick}>
                     <Image

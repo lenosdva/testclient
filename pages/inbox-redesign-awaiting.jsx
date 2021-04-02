@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash"
 
 export default function InboxWidePage(props) {
-  const [request, setRequest] = useState({})
+  const [user, setUser] = useState({})
   const [selectedChatId, setId] = useState('')
   const dispatch = useDispatch()
   const { inbox, inboxLoading, chatLoading, chat } = useSelector(state => ({
@@ -15,8 +15,9 @@ export default function InboxWidePage(props) {
     chat: state.user.chat,
   }));
 
-  function onSelectChat(id, mainID) {
+  function onSelectChat(id, mainID, chatUser) {
     setId(mainID)
+    setUser(chatUser)
     if ('addEventListener' in props.ws) {
       props.ws.addEventListener('message', function (event) {
         let message = JSON.parse(event.data);
@@ -62,7 +63,7 @@ export default function InboxWidePage(props) {
             </div>
             <div className="col-lg-4 col-md-12">
               {get(chat, 'id', false) ?
-                <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} />
+                <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} user={user} />
                 : <></>
               }
             </div>

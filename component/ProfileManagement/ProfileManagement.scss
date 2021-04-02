@@ -1,5 +1,6 @@
 .profile-management {
   .linked-accounts {
+    
     img {
       @media (max-width:767px) {
         width: 100%;
@@ -15,6 +16,8 @@
         font-weight: 700;
         font-size: 24px;
       }
+    }
+    
     }
   }
   .profile-manager {
@@ -122,6 +125,6 @@
       text-decoration: underline;
     }
   }
-}
+
 
 

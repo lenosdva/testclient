@@ -8,16 +8,16 @@ const initialState = {
   gig: {},
   addGigLoading: false,
   addGigData: {},
-  serviceLoading:true,
-  service:[],
-  deleteLoading:true,
-  delete:[],
-  pauseLoading:true,
-  pause:[],
-  continueLoading:true,
-  continue:[],
-  updateLoading:true,
-  update:[]
+  serviceLoading: true,
+  service: [],
+  deleteLoading: true,
+  delete: [],
+  pauseLoading: true,
+  pause: [],
+  continueLoading: true,
+  continue: [],
+  updateLoading: true,
+  update: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -48,6 +48,13 @@ export default function userReducer(state = initialState, action) {
         addGigData: action.data
       }
     }
+    case 'RESET_GIG': {
+      return {
+        ...state,
+        addGigData: {},
+        update: {}
+      }
+    }
     case 'UPLOAD': {
       return {
         ...state,
@@ -68,7 +75,7 @@ export default function userReducer(state = initialState, action) {
         hyndyman: {}
       }
     }
-    
+
     case 'GET_GIG': {
       return {
         ...state,
@@ -93,14 +100,13 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         serviceLoading: false,
-        service:action.data
+        service: action.data
       };
     }
     case 'DELETE_REQUEST': {
       return {
         ...state,
         deleteLoading: true,
-        delete: action.data
       }
     };
 
@@ -108,14 +114,13 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         deleteLoading: false,
-      
+        delete: action.data
       }
     };
     case 'UPDATE_REQUEST': {
       return {
         ...state,
         updateLoading: true,
-        update: action.data
       }
     };
 
@@ -123,7 +128,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         updateLoading: false,
-        
+        update: action.data
       }
     };
     case 'PAUSE_REQUEST': {
@@ -138,7 +143,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         pauseLoading: false,
-        
+
       }
     };
     case 'CONTINUE_REQUEST': {
@@ -153,11 +158,11 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         continueLoading: false,
-        
+
       }
     };
-    
-        default:
+
+    default:
       return state;
   }
 }
