@@ -15,7 +15,7 @@ export default function ServicesInSpotlight() {
             height={352}
           />
         </div>
-        <div className="col-md-3 pl-0">
+        <div className="col-md-3 pl-0 hideimg-mob">
         <Image
             src="/assets/images/spotlight2.jpg"
             alt="spotlight2"
@@ -25,7 +25,7 @@ export default function ServicesInSpotlight() {
           />
         </div>
       </div>
-      <div className="row">
+      <div className="row hideimg-mob">
         <div className="col-md-4 pr-0">
           <Image
             src="/assets/images/spotlight3.jpg"

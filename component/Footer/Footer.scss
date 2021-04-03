@@ -44,8 +44,13 @@
       li {
         width: 30%;
         display: inline-block;
+        &:last-child {
+          @media (max-width:767px) {
+            margin-bottom: 0;
+          }
+        }
         @media (max-width:767px) {
-          width: 100%;
+          width: 50%;
           margin-bottom: 40px;
         }
         h5 {

@@ -9,7 +9,7 @@ const settings = {
   infinite: false,
   arrows: true,
   autoplay: false,
-  speed: 500,
+  speed: 900,
   autoplaySpeed: 3000,
   slidesToShow: 3,
   slidesToScroll: 1,
@@ -25,6 +25,7 @@ const settings = {
     {
       breakpoint: 980,
       settings: {
+        autoplay: true,
         arrows: false,
         dots: true,
         slidesToShow: 2,
@@ -36,6 +37,7 @@ const settings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+        autoplay: true,
         arrows: false,
         dots: true
       }
