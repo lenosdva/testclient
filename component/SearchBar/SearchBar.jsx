@@ -115,7 +115,8 @@ export default function SearchBar(props) {
 
   const renderPostalCode = () => (
     filterCode.length && filterCode.map((data, key) => (
-      <li key={key} onClick={() => onSelctCode(data)}>
+
+      key < 4 && <li key={key} onClick={() => onSelctCode(data)}>
         <div className="search-keywords-img">
           <Image
             src="/assets/images/search-img.png"
@@ -140,11 +141,14 @@ export default function SearchBar(props) {
         <div className="postal-code mr-2">
           <h5 className="mb-0">Postal Code</h5>
           <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
-          <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
-            <ul>
-              {renderPostalCode()}
-            </ul>
-          </div>
+          {filterCode.length ?
+            <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
+              <ul>
+                {renderPostalCode()}
+              </ul>
+            </div>
+            :<></>
+          }
           {/* <h5 className="postal-value">Munich, Germany 80331</h5> */}
         </div>
         <div className="vertical-bar mr-2"></div>

@@ -184,7 +184,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError, 
                     ForgetPassword
                 </span>
                 {/* <button className="btn btn-continue" onClick={}>forgetPassword</button> */}
-                <p>We will call you to confirm your number. Standard message and data rates may apply.</p>
+                {/* <p>We will call you to confirm your number. Standard message and data rates may apply.</p> */}
                 <button className="btn btn-continue" disabled={emailLoginLoading}>Continue</button>
               </form>
             }

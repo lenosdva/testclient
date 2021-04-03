@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { Elements, CardElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import moment from "moment";
 const { NEXT_PUBLIC_STRIP_KEY } = process.env
 const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
@@ -141,15 +142,18 @@ function ProfileManagement(props) {
               />
             </div>
             <h3 className="thin mb-3">{props.t("ProfileManagement.linkedAccounts")}</h3>
-
+            {get(props, 'user.services.google', false) &&
             <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
               <h5>GOOGLE</h5>
             </button>
+            }
+            {get(props, 'user.services.facebook', false) &&
             <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
               <h5>FACEBOOK</h5>
             </button>
+            }
             {/* <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
               <h5>Twitter</h5>
@@ -252,7 +256,7 @@ function ProfileManagement(props) {
                 <h3 className="label">{props.t("ProfileManagement.currentPassword")}</h3>
                 <div className="d-flex">
                   <p className="mr-3">***********</p>
-                  <p>(last changed 27 Feb 2020)</p>
+                  <p>(last changed {get(props, 'user.services.lastPassChanged', "never") !== "never" ? moment(get(props, 'user.services.lastPassChanged', null)).format('DD MMM YYYY') : "Never"})</p>
                 </div>
               </>
             }
