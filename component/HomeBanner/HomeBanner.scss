@@ -1,5 +1,8 @@
 .banner {
   position: relative;
+  @media (max-width:980px) {
+    padding-top: 50px;
+  }
   .banner-image {
     transform: matrix(-1, 0, 0, 1, 0, 0);
   }
