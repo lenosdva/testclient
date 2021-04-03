@@ -532,6 +532,17 @@ export default function Navbar(props) {
           }
           {userLogged && (
             <>
+              <div className="text-center">
+                <Image
+                  src="/assets/images/profile-pic.png"
+                  alt=""
+                  width={80}
+                  height={80}
+                />
+                <h4>{get(user, 'fname', '')}</h4>
+                <h6>{get(user, 'email', '')}</h6>
+              </div>
+              
               <li className="align-self-center">
                 <Link href="/client-dashboard">
                   <a>My Bookings</a>
@@ -550,6 +561,16 @@ export default function Navbar(props) {
                 </Link>
                 </li>
               }
+              <li className="align-self-center">
+                <Link href="/index">
+                  Switch To Selling
+                  </Link>
+              </li>
+              <li className="align-self-center">
+                <Link href="/client-dashboard">
+                  My Dashboard
+                  </Link>
+              </li>
               <li className="align-self-center">
                 <Link href="/about">
                   <a>Support</a>
@@ -660,7 +681,8 @@ export default function Navbar(props) {
         </>
       }
         </ul>
-      </div >
-    </div >
+        <div className="sidebar-overlay"></div>
+      </div>
+    </div>
   );
 }
