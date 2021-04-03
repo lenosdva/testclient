@@ -4,7 +4,7 @@ import 'react-chat-elements/dist/main.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from "lodash";
 import cookieCutter from 'cookie-cutter'
-
+import * as moment from "moment-timezone"
 const { NEXT_PUBLIC_WEB_SOCKET } = process.env
 const HOST = NEXT_PUBLIC_WEB_SOCKET
 var ws = ""
@@ -15,7 +15,7 @@ const Chat = (props) => {
   const { user } = useSelector(state => ({
     user: state.user.user,
   }));
-console.log(props,"props")
+
   useEffect(() => {
     if (get(props, 'ws.addEventListener', false)) {
       props.ws.addEventListener('message', function (event) {
@@ -27,7 +27,7 @@ console.log(props,"props")
 
   useEffect(() => {
     const newMessage = []
-    get(props, 'chat.message', []).map((data) => {
+    get(props, 'chat.message.chats', []).map((data) => {
       newMessage.unshift({
         position: get(data, 'messageType', '') === "messageSent" ? 'right' : 'left',
         type: 'text',
@@ -53,6 +53,7 @@ console.log(props,"props")
     setMessage('')
   }
   console.log(props)
+  console.log("moment", moment.tz('India').format('DD MM YYYY'))
   return (
     <div className="chat">
       <div className="chat-header">
@@ -61,7 +62,7 @@ console.log(props,"props")
           <h4>{get(props, 'user.description', '')}</h4>
           <p className="name">- {get(props, 'user.partyName', '')}</p>
         </div>
-        <p className="h6 mb-0">Online | Local Time 11:30am, September 28</p>
+        <p className="h6 mb-0">{get(props, 'chat.message.user.status', '')} | Local Time {moment.tz(get(props, 'chat.message.user.country', '')).format('HH:MMA, MMM DD')}</p>
       </div>
       <hr className="line" />
       <div id="chat-box" className="chat-box">
