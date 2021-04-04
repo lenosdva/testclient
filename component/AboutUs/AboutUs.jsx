@@ -11,7 +11,7 @@ function AboutUs({t}) {
           <ul>
             <li>
                 <Image
-                  src="/assets/images/spotlight2.jpg"
+                  src="/assets/images/aboutus1.png"
                   alt="aboutus photo"
                   layout="intrinsic"
                   height={650}
@@ -20,7 +20,7 @@ function AboutUs({t}) {
             </li>
               <li>
                 <Image
-                  src="/assets/images/spotlight2.jpg"
+                  src="/assets/images/aboutus2.png"
                   alt="aboutus photo"
                   layout="intrinsic"
                   height={650}
@@ -29,7 +29,7 @@ function AboutUs({t}) {
               </li>
               <li>
                 <Image
-                  src="/assets/images/spotlight2.jpg"
+                  src="/assets/images/aboutus3.png"
                   alt="aboutus photo"
                   layout="intrinsic"
                   height={650}
