@@ -136,6 +136,7 @@ export default function SearchBar(props) {
 
 
   return (
+    <>
     <div className="searchbar d-flex justify-content-between align-items-center">
       <div className="search-area pl-4 d-flex justify-content-around align-items-center">
         <div className="postal-code mr-2">
@@ -178,5 +179,48 @@ export default function SearchBar(props) {
       </div>
       {/* <NotificationContainer/> */}
     </div>
+
+    <div className="search-mobile">
+        <input type="search" placeholder="Search" className="search-mobile-input" />
+    </div>
+    <div className="searchbox-mob">
+        <div className="search-area">
+          <div className="postal-code">
+            <h5 className="mb-0">Postal Code</h5>
+            <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
+            {filterCode.length ?
+              <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
+                <ul>
+                  {renderPostalCode()}
+                </ul>
+              </div>
+              : <></>
+            }
+          </div>
+          <div className="service">
+            <h5 className="mb-0">Pick a Service</h5>
+            <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
+            <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
+              <ul>
+                {renderSearchResult()}
+              </ul>
+            </div>
+          </div>
+          <div className="icon-area">
+            <button onClick={onSearchService} className="btn btn-primary">
+              <span className="iconsearch">
+                <Image
+                  src="/assets/svg/ic-search.svg"
+                  alt="search"
+                  width={26}
+                  height={26}
+                />
+              </span>
+              <span className="showmobile">Search</span>
+            </button>
+          </div>
+        </div>
+    </div>
+    </>
   );
 }
