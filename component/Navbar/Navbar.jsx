@@ -404,7 +404,8 @@ export default function Navbar(props) {
                       <DropdownItem>
                         <ul className="dd-menu1">
                           <li>
-                            <div>
+                            <div >
+                            
                               <Image
                                 src="/assets/images/profile-pic.png"
                                 alt=""
@@ -533,11 +534,14 @@ export default function Navbar(props) {
           {userLogged && (
             <>
               <div className="text-center">
+              onclick ={()=>router.push('/profilemanagement')} 
                 <Image
+                
                   src="/assets/images/profile-pic.png"
                   alt=""
                   width={80}
                   height={80}
+                  onclick ={()=>router.push('/profilemanagement')} 
                 />
                 <h4>{get(user, 'fname', '')}</h4>
                 <h6>{get(user, 'email', '')}</h6>

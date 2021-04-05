@@ -1,5 +1,6 @@
 import { put } from 'redux-saga/effects';
 import { get } from "lodash"
+
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
 
@@ -10,6 +11,7 @@ export function* registerByMobile({ payload }) {
     body: JSON.stringify(payload)
   })
     .then((res) => {
+      // getUser()
       return res.json();
     })
     .then((data) => {
@@ -19,8 +21,9 @@ export function* registerByMobile({ payload }) {
     .catch((error) => {
       throw error;
     });
-  yield put({ type: 'REGISTER', data });
+  yield put({ type: 'REGISTERWITHMOBILE', data });
 }
+
 
 export function* registerByEmail({ payload }) {
   const data = yield fetch(`${HOST}/v1/auth/registerByEmail`, {
@@ -419,4 +422,23 @@ export function* resetPassword({ payload }) {
       throw error;
     });
   yield put({ type: 'RESETED_PASSWORD', data });
+}
+export function* mobileSignData({ payload }) {
+  const data = yield fetch(`${HOST}/v1/auth/registerByMobile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      // getUser()
+      return res.json();
+    })
+    .then((data) => {
+      data.mobile = payload.mobile
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'REGISTER', data });
 }

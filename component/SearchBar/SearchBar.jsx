@@ -15,10 +15,12 @@ export default function SearchBar(props) {
   const [showAddress, setAddress] = useState('hide')
   const [showService, setService] = useState('hide')
   const dispatch = useDispatch()
-  const { searchData, searchByIdLoading, searchByIdData } = useSelector(state => ({
+  const { searchData, searchByIdLoading, searchByIdData ,mobileSignLoading, mobileSignData} = useSelector(state => ({
     searchData: state.services.searchData,
     searchByIdLoading: state.services.searchByIdLoading,
     searchByIdData: state.services.searchByIdData,
+    mobileSignLoading:state.user.mobileSignLoading,
+    mobileSignData:state.user.mobileSignData,
   }));
 
   useEffect(() => {
@@ -44,6 +46,10 @@ export default function SearchBar(props) {
     console.log("searchByIdData", searchByIdData)
   }, [searchByIdData])
 
+useEffect(()=>
+{
+  console.log("mobileSignData", mobileSignData)
+},[mobileSignData])
 
 
   function onSearch(e) {
@@ -64,13 +70,22 @@ export default function SearchBar(props) {
   }
 
   function onSearchService() {
-    if (id === '') {
-      NotificationManager.error('Please Pick a Service')
+   
+    if (id === '')
+    {
+      router.push('/category-services')
+      // NotificationManager.error('Please Pick a Service')
     } else {
-      // dispatch({ type: 'SEARCH_BY_ID', payload: id })
       router.push({ pathname: '/category', query: { id, code, name: keyword } })
     }
   }
+  function onSelectService(e) {
+    setId('')
+    setKeyword(e.target.value)
+    dispatch({ type:'REGISTER', payload: e.target.value })
+   console.log("mobileSignData",mobileSignData)
+  }
+
 
   function onSelectSearch(value, id) {
     dispatch({ type: 'RESET_SERVICE' })
@@ -164,8 +179,9 @@ export default function SearchBar(props) {
           </div>
         </div>
       </div>
-      <div className="icon-area">
-        <button onClick={onSearchService} className="btn btn-primary">
+      {/* code of mobile */}
+       <div className="icon-area">
+        <button onClick={onSearchService}  className="btn btn-primary">
           <span className="hidemobile iconsearch">
             <Image
               src="/assets/svg/ic-search.svg"
@@ -177,11 +193,27 @@ export default function SearchBar(props) {
           <span className="showmobile">Search</span>
         </button>
       </div>
-      {/* <NotificationContainer/> */}
+      <NotificationContainer/> 
     </div>
 
     <div className="search-mobile">
-        <input type="search" placeholder="Search" className="search-mobile-input" />
+        <input type="search" placeholder="Search"  onClick={onSearchService}  onChange={onSearch} value={keyword} onBlur={() => onBlurInput()}  className="search-mobile-input" />
+        <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
+              <ul>
+                {renderSearchResult()}
+              </ul>
+            </div>
+        {/* <button onClick={onSearchService} className="btn btn-primary">
+        <span className="iconsearch">
+                <Image
+                  src="/assets/svg/ic-search.svg"
+                  alt="search"
+                  width={26}
+                  height={26}
+                />
+              </span>
+              <span className="showmobile">Search</span>
+        </button> */}
     </div>
     <div className="searchbox-mob">
         <div className="search-area">
@@ -219,7 +251,9 @@ export default function SearchBar(props) {
               <span className="showmobile">Search</span>
             </button>
           </div>
+  
         </div>
+
     </div>
     </>
   );
