@@ -380,7 +380,7 @@ export default function Navbar(props) {
             <div className="togglewrapper">
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle>
-                  <i className="fa fa-bars" aria-hidden="true"></i>
+                  <i className="fa fa-bars menubar" aria-hidden="true"></i>
                   <Image
                     src="/assets/svg/ic-menu-profile.svg"
                     alt=""
@@ -417,7 +417,7 @@ export default function Navbar(props) {
                             <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                             <div className="divi"></div>
                             <p onClick={signOut} className="text-center mb-2">Sign Out</p>
-                            <p className="text-center"><Link href='/index'>Switch To Selling</Link></p>
+                            {/* <p className="text-center"><Link href='/index'>Switch To Selling</Link></p> */}
                             <p className="text-center"><Link href='/client-dashboard'>My Dashboard</Link></p>
                           </li>
                         </ul>
@@ -561,11 +561,11 @@ export default function Navbar(props) {
                 </Link>
                 </li>
               }
-              <li className="align-self-center">
+              {/* <li className="align-self-center">
                 <Link href="/index">
                   Switch To Selling
                   </Link>
-              </li>
+              </li> */}
               <li className="align-self-center">
                 <Link href="/client-dashboard">
                   My Dashboard

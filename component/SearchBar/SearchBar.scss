@@ -16,6 +16,7 @@
     padding: 0;
     border: 0;
     flex-wrap: wrap;
+    display: none !important;
   }
   .input-search {
     width: 240px;
@@ -307,3 +308,25 @@
     }
   }
 }
+
+
+.search-mobile.seachmob-border {
+      display: none;
+      @media (max-width:767px) {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+
+      }
+      .search-mobile-input {
+        width: 100%;
+        height: 48px;
+        padding: 0 10px 0 20px;
+        border-radius: 50px;
+        background: #fff url("/assets/svg/ic-search-blue.svg") no-repeat;
+        background-size: 24px;
+        background-position: calc(100% - 16px) center;
+        font-size: 18px;
+        border: 1px solid #f1f1f1;
+      }
+    }

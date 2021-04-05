@@ -269,7 +269,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                 <span className="errormsg">{get(serverError, 'serverError', '')}</span>
               }
               {/* <p>We will call you to confirm your number. Standard message and data rates may apply.</p> */}
-              <button className="btn btn-continue" disabled={emailSignLoading}>Continue</button>
+              <button className="btn btn-continue mt-4" disabled={emailSignLoading}>Continue</button>
             </form>
           }
           <div className="or">or</div>

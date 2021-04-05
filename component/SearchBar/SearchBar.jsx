@@ -180,7 +180,7 @@ export default function SearchBar(props) {
       {/* <NotificationContainer/> */}
     </div>
 
-    <div className="search-mobile">
+    <div className="search-mobile seachmob-border">
         <input type="search" placeholder="Search" className="search-mobile-input" />
     </div>
     <div className="searchbox-mob">
