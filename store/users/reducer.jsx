@@ -35,6 +35,9 @@ const initialState = {
   resetPassword:{},
   forgetPasswordLoading:false,
   forgetPassword:{},
+  mobileSignLoading:false,
+  mobileSignData:{},
+
   // resetUser:{},
 }
 
@@ -110,6 +113,7 @@ export default function userReducer(state = initialState, action) {
         mobileSignLoading: true,
       };
     }
+    
     case 'REGISTER': {
       cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
       cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
