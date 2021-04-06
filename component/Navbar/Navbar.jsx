@@ -356,26 +356,9 @@ export default function Navbar(props) {
                   About Us
                   </Link>
               </li>
-              {/* <li onClick={() => setLoginModel(true)} className="align-self-center">
-                  Login
-                </li>
-                <li onClick={() => setSignUpModel(true)} className="align-self-center">
-                  SignUp
-                </li> */}
-              {/* <li onClick={() => setOtpModel(true)} className="align-self-center">
-                  otp
-                </li> */}
             </>
           )}
 
-          {/* <li>
-            <button
-              onClick={menuClicked}
-              className="btn btn-primary btn-rounded login-button">
-              <i className="fa fa-bars" aria-hidden="true"></i>
-              <i className="fa fa-user-circle" aria-hidden="true"></i>
-            </button>
-          </li> */}
           <li>
             <div className="togglewrapper">
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
@@ -434,63 +417,7 @@ export default function Navbar(props) {
 
             
 
-            {/* <div className="togglewrapper">
-              <label className="dropdown"> */}
-
-                {/* <div className="dd-button d-flex">
-                  <i className="fa fa-bars" aria-hidden="true"></i>
-                  <Image
-                    src="/assets/svg/ic-menu-profile.svg"
-                    alt=""
-                    width={34}
-                    height={34}
-                  />
-                </div> */}
-
-
-                {/* login modal wrapper open */}
-                {/* {!userLogged &&
-                  <>
-                    <input type="checkbox" onBlur={() => console.log("hide")} className="dd-input" id="test" />
-                    <ul className="dd-menu">
-                      <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer">Sign Up</li>
-                      <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">Log In</li>
-                    </ul>
-                  </>
-                } */}
-                {/* login modal wrapper close */}
-
-
-
-                {/* profile modal wrapper open */}
-                {/* {userLogged &&
-                  <>
-                    <input type="checkbox" className="dd-input1" id="test1" />
-                    <ul className="dd-menu1">
-                      <li>
-                        <div>
-                          <Image
-                            src="/assets/images/profile-pic.png"
-                            alt=""
-                            width={80}
-                            height={80}
-                          />
-                        </div>
-                        <h4>{get(user, 'fname', '')}</h4>
-                        <h6>{get(user, 'email', '')}</h6>
-                        <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
-                        <div className="divi"></div>
-                        <p onClick={signOut} className="text-center mb-2">Sign Out</p>
-                        <p className="text-center"><Link href='/index'>Switch To Selling</Link></p>
-                        <p className="text-center"><Link href='/client-dashboard'>My Dashboard</Link></p>
-                      </li>
-                    </ul>
-                  </>
-                } */}
-                {/* profile modal wrapper close */}
-
-              {/* </label>
-            </div> */}
+           
 
           </li>
         </ul>
@@ -534,15 +461,19 @@ export default function Navbar(props) {
           {userLogged && (
             <>
               <div className="text-center">
-              onclick ={()=>router.push('/profilemanagement')} 
-                <Image
+              {/* onclick ={()=>router.push('/profilemanagement')}  */}
+             
+             
+             
+              <a href="http://localhost:3000/profilemanagement">
+                 <Image
                 
                   src="/assets/images/profile-pic.png"
                   alt=""
                   width={80}
                   height={80}
-                  onclick ={()=>router.push('/profilemanagement')} 
-                />
+                  // onclick ={()=>router.push('/profilemanagement')} 
+                /> </a>
                 <h4>{get(user, 'fname', '')}</h4>
                 <h6>{get(user, 'email', '')}</h6>
               </div>
