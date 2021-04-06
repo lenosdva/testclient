@@ -85,7 +85,7 @@ export function otp(otpModel, closeModal, mobile) {
           <input type="text" className="otp-inp"/>
           <input type="text" className="otp-inp" /> */}
           </div>
-          <p className="last-para">Didn’t got the code?  <span onClick={() => dispatch({ type: 'RESEND_OTP', payload: { mobile } })}>Resend</span></p>
+          <p className="last-para text-center">Didn’t got the code?  <span className="cursur-pointer" onClick={() => dispatch({ type: 'RESEND_OTP', payload: { mobile } })}>Resend</span></p>
         </div>
       </Modal>
     </div>

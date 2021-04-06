@@ -180,8 +180,8 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError, 
                 }{get(serverError, 'serverError', '') &&
                   <span className="errormsg">{get(serverError, 'serverError', '')}</span>
                 }
-                <span onClick={openForgot} className="link cursur-pointer" >
-                    ForgetPassword
+                <span onClick={openForgot} className="link cursur-pointer forgot-pass-btn" >
+                    Forget password?
                 </span>
                 {/* <button className="btn btn-continue" onClick={}>forgetPassword</button> */}
                 {/* <p>We will call you to confirm your number. Standard message and data rates may apply.</p> */}

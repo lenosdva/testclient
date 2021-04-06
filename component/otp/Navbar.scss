@@ -168,7 +168,7 @@
   }
 }
 .otp-modal {
-  max-height: 350px !important;
+  max-height: 280px !important;
 }
 .ReactModal__Content.ReactModal__Content--after-open{
   top: auto;
@@ -1091,4 +1091,7 @@ h4.blank {
     right: auto !important;
     transform: translate(-50%,-50%) !important;
   }
+}
+.last-para.text-center {
+  text-align: center !important;
 }
