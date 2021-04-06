@@ -72,7 +72,7 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
           ariaHideApp={false}
           // style={customStyles}
           contentLabel="Example Modal"
-          className="modal-wrapper-sm middle-modal"
+          className="modal-wrapper-sm middle-modal modal-forgot"
         >
           <header>
             <button onClick={close} className="close-btn">
@@ -85,7 +85,7 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
             </button>
             <h4>Forget Password</h4>
           </header>
-          <div className="modalbody">
+          <div className="modalbody modalbody-forgot">
             <form onSubmit={onLogin}>
               <div className="box">
                 <div className="form-group">
@@ -104,7 +104,7 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
               {get(error, 'sMessage', '') &&
                 <span className="errormsg" style={{color: "green"}}>{get(error, 'sMessage', '')}</span>
               }
-              <button className="btn btn-continue" type="submit" disabled={forgetPasswordLoading} >Continue</button>
+              <button className="btn btn-continue mt-4" type="submit" disabled={forgetPasswordLoading} >Continue</button>
             </form>
           </div>
         </Modal>

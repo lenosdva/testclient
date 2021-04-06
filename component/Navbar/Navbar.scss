@@ -219,7 +219,7 @@ ul + .sidebar-overlay {
   }
 }
 .otp-modal {
-  max-height: 350px !important;
+  max-height: 300px !important;
 }
 .ReactModal__Content.ReactModal__Content--after-open{
   top: auto;
@@ -1238,3 +1238,9 @@ h4.blank {
     transform: translate(-50%,-50%) !important;
   }
 }
+.modalbody-forgot {
+      // height: auto !important;
+    }
+    .ReactModal__Content.ReactModal__Content--after-open.middle-modal.modal-forgot {
+      max-height: 300px !important;
+    }
