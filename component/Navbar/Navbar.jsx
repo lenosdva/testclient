@@ -192,6 +192,7 @@ export default function Navbar(props) {
     cookie.set('token', '/')
     cookie.set('expires', '')
     cookie.set('path', '/')
+    dispatch({type: 'RESET_USER'})
     setLoggedStatus(false)
     router.push('/')
   }

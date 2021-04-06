@@ -137,6 +137,12 @@ export default function userReducer(state = initialState, action) {
         user: action.data
       };
     }
+    case 'RESET_USER': {
+      return {
+        ...state,
+        user: {}
+      };
+    }
     case 'GET_USER_INFO': {
       return {
         ...state,
