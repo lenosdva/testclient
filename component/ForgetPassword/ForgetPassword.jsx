@@ -32,12 +32,21 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
     return (false)
   }
 
+  function ValidateEmail(mail) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+      return (true)
+    }
+    return (false)
+  }
+
   function onLogin(e) {
     e.preventDefault()
     let error = {}
 
     if (email === '') {
       error.email = 'Phone or Email number is required'
+    }else if (!ValidateEmail(email)) {
+      error.phone = 'Invalid Email'
     }
     console.log(error,"error")
     setError(error)
@@ -90,7 +99,7 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
               <div className="box">
                 <div className="form-group">
                   <div className="p-lr">
-                    <div className="labels">Email or Mobile</div>
+                    <div className="labels">Email</div>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="field-input" />
                   </div>
                 </div>
@@ -104,6 +113,7 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
               {get(error, 'sMessage', '') &&
                 <span className="errormsg" style={{color: "green"}}>{get(error, 'sMessage', '')}</span>
               }
+              <p>Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>
               <button className="btn btn-continue mt-4" type="submit" disabled={forgetPasswordLoading} >Continue</button>
             </form>
           </div>

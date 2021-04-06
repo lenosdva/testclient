@@ -15,12 +15,12 @@ export default function SearchBar(props) {
   const [showAddress, setAddress] = useState('hide')
   const [showService, setService] = useState('hide')
   const dispatch = useDispatch()
-  const { searchData, searchByIdLoading, searchByIdData ,mobileSignLoading, mobileSignData} = useSelector(state => ({
+  const { searchData, searchByIdLoading, searchByIdData, mobileSignLoading, mobileSignData } = useSelector(state => ({
     searchData: state.services.searchData,
     searchByIdLoading: state.services.searchByIdLoading,
     searchByIdData: state.services.searchByIdData,
-    mobileSignLoading:state.user.mobileSignLoading,
-    mobileSignData:state.user.mobileSignData,
+    mobileSignLoading: state.user.mobileSignLoading,
+    mobileSignData: state.user.mobileSignData,
   }));
 
   useEffect(() => {
@@ -46,10 +46,9 @@ export default function SearchBar(props) {
     console.log("searchByIdData", searchByIdData)
   }, [searchByIdData])
 
-useEffect(()=>
-{
-  console.log("mobileSignData", mobileSignData)
-},[mobileSignData])
+  useEffect(() => {
+    console.log("mobileSignData", mobileSignData)
+  }, [mobileSignData])
 
 
   function onSearch(e) {
@@ -70,9 +69,8 @@ useEffect(()=>
   }
 
   function onSearchService() {
-   
-    if (id === '')
-    {
+
+    if (id === '') {
       router.push('/category-services')
       // NotificationManager.error('Please Pick a Service')
     } else {
@@ -82,8 +80,8 @@ useEffect(()=>
   function onSelectService(e) {
     setId('')
     setKeyword(e.target.value)
-    dispatch({ type:'REGISTER', payload: e.target.value })
-   console.log("mobileSignData",mobileSignData)
+    dispatch({ type: 'REGISTER', payload: e.target.value })
+    console.log("mobileSignData", mobileSignData)
   }
 
 
@@ -152,57 +150,64 @@ useEffect(()=>
 
   return (
     <>
-    <div className="searchbar d-flex justify-content-between align-items-center">
-      <div className="search-area pl-4 d-flex justify-content-around align-items-center">
-        <div className="postal-code mr-2">
-          <h5 className="mb-0">Postal Code</h5>
-          <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
-          {filterCode.length ?
-            <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
-              <ul>
-                {renderPostalCode()}
-              </ul>
+      <div className="searchbar d-flex justify-content-between align-items-center">
+        <div className="search-area pl-4 d-flex justify-content-around align-items-center">
+          <div className="postal-code mr-2">
+            <h5 className="mb-0">Postal Code</h5>
+            <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
+            {filterCode.length ?
+              <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
+                  <ul>
+                    {renderPostalCode()}
+                  </ul>
+              </div>
+              : <></>
+            }
+            {/* <h5 className="postal-value">Munich, Germany 80331</h5> */}
+          </div>
+          <div className="vertical-bar mr-2"></div>
+          <div className="service ml-4">
+            <h5 className="mb-0">Pick a Service</h5>
+            {/* <h5 className="service-value">What can we assist you with ?</h5> */}
+            <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
+            <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
+              {searchData.length ?
+                <ul>
+                  {renderSearchResult()}
+                </ul>
+                :
+                <></>
+              }
             </div>
-            :<></>
-          }
-          {/* <h5 className="postal-value">Munich, Germany 80331</h5> */}
-        </div>
-        <div className="vertical-bar mr-2"></div>
-        <div className="service ml-4">
-          <h5 className="mb-0">Pick a Service</h5>
-          {/* <h5 className="service-value">What can we assist you with ?</h5> */}
-          <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
-          <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
-            <ul>
-              {renderSearchResult()}
-            </ul>
           </div>
         </div>
+        {/* code of mobile */}
+        <div className="icon-area">
+          <button onClick={onSearchService} className="btn btn-primary">
+            <span className="hidemobile iconsearch">
+              <Image
+                src="/assets/svg/ic-search.svg"
+                alt="search"
+                width={26}
+                height={26}
+              />
+            </span>
+            <span className="showmobile">Search</span>
+          </button>
+        </div>
+        <NotificationContainer />
       </div>
-      {/* code of mobile */}
-       <div className="icon-area">
-        <button onClick={onSearchService}  className="btn btn-primary">
-          <span className="hidemobile iconsearch">
-            <Image
-              src="/assets/svg/ic-search.svg"
-              alt="search"
-              width={26}
-              height={26}
-            />
-          </span>
-          <span className="showmobile">Search</span>
-        </button>
-      </div>
-      <NotificationContainer/> 
-    </div>
 
-    <div className="search-mobile">
-        <input type="search" placeholder="Search"  onClick={onSearchService}  onChange={onSearch} value={keyword} onBlur={() => onBlurInput()}  className="search-mobile-input" />
+      <div className="search-mobile">
+        <input type="search" placeholder="Search" onClick={onSearchService} onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="search-mobile-input" />
         <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
-              <ul>
-                {renderSearchResult()}
-              </ul>
-            </div>
+        {searchData.length ?
+          <ul>
+            {renderSearchResult()}
+          </ul>
+          :<></>
+        }
+        </div>
         {/* <button onClick={onSearchService} className="btn btn-primary">
         <span className="iconsearch">
                 <Image
@@ -214,17 +219,21 @@ useEffect(()=>
               </span>
               <span className="showmobile">Search</span>
         </button> */}
-    </div>
-    <div className="searchbox-mob">
+      </div>
+      <div className="searchbox-mob">
         <div className="search-area">
           <div className="postal-code">
             <h5 className="mb-0">Postal Code</h5>
             <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
             {filterCode.length ?
               <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
+                {filterCode.length ?
                 <ul>
                   {renderPostalCode()}
                 </ul>
+                :
+                <></>
+              }
               </div>
               : <></>
             }
@@ -251,10 +260,10 @@ useEffect(()=>
               <span className="showmobile">Search</span>
             </button>
           </div>
-  
+
         </div>
 
-    </div>
+      </div>
     </>
   );
 }
