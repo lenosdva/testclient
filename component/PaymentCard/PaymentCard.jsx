@@ -91,7 +91,7 @@ function PaymentCard({ t, type = '', edit = false, changePayment }) {
         }
       </div>
       <br />
-      <div className="d-flex flex-column">
+      {/* <div className="d-flex flex-column">
         <div className="d-flex align-items-center">
           <input
             type="radio"
@@ -152,7 +152,7 @@ function PaymentCard({ t, type = '', edit = false, changePayment }) {
           <option value="Bank2">Bank2</option>
           <option value="Bank3">Bank3</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 }
