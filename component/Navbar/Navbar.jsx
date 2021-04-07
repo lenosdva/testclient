@@ -366,7 +366,7 @@ export default function Navbar(props) {
                 <DropdownToggle>
                   <i className="fa fa-bars menubar" aria-hidden="true"></i>
                   <img
-                    src={get(user, 'picture', '') === '' ? '"/assets/svg/ic-menu-profile.svg"' : user.picture}
+                    src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
                     alt=""
                     width={34}
                     height={34}
@@ -391,7 +391,7 @@ export default function Navbar(props) {
                             <div onClick={()=> router.push('/profilemanagement')}>
                             
                               <img
-                               src={get(user, 'picture', '') === '' ? '"/assets/svg/ic-menu-profile.svg"' : user.picture}
+                               src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
                                 alt=""
                                 width={80}
                                 height={80}
@@ -415,11 +415,6 @@ export default function Navbar(props) {
             </div>
           </li>
           <li>
-
-            
-
-           
-
           </li>
         </ul>
         {loginModal(loginModel, closeModal,  setSignUpModel, error, setForgetModel)}
@@ -468,7 +463,7 @@ export default function Navbar(props) {
              
               <a href="http://localhost:3000/profilemanagement">
                  <img
-                  src={get(user, 'picture', '') === '' ? '"/assets/svg/ic-menu-profile.svg"' : user.picture}
+                  src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
                   alt=""
                   width={80}
                   height={80}
