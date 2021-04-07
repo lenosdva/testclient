@@ -1,23 +1,37 @@
+import { useEffect } from "react"
 import Image from "next/image";
 import { withTranslation } from "../../constent/i18n/i18n"
 import Services from "../../constent/services"
 import Link from "next/link"
+import { get } from "lodash"
+import { useDispatch, useSelector } from 'react-redux'
 
-const renderService = (t) => (
-  Services.map((data, key)=>(
+const renderService = (searchByIdData) => (
+  searchByIdData && searchByIdData.length && searchByIdData.map((data, key)=>(
+    <Link key={key} href={`/category?id=${get(data, '_id', '')}&name=${get(data, 'name', '')}`}>
     <li key={key}>
       <Image
-        src={data.image}
+       src="/assets/svg/ic-clean-service.svg"
         alt={data.name}
         width={80}
         height={80}
       />
-      <h4>{t("services."+data.name)}</h4>
+      <h4>{get(data, 'name', '')}</h4>
     </li>
+    </Link>
   ))
 )
 
 function HomeServices({t}) {
+  const dispatch = useDispatch()
+  const { searchByIdData, searchByIdLoading } = useSelector(state => ({
+    searchByIdData: state.services.searchByIdData,
+    searchByIdLoading: state.services.searchByIdLoading,
+  }));
+
+  useEffect(() => {
+    dispatch({ type: 'GET_SERVICE' })
+  }, [])
   return (
     <div className="home-services-list">
       <div className="row">
@@ -32,7 +46,7 @@ function HomeServices({t}) {
         </div>
         <div className="col-lg-9 col-md-12">
           <ul className="service-list">
-            {renderService(t)}
+            {renderService(searchByIdData)}
           </ul>
         </div>
       </div>
