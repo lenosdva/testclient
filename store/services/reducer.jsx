@@ -25,6 +25,12 @@ export default function userReducer(state = initialState, action) {
         searchLoading: true,
       };
     }
+    case 'SEARCH_RESET': {
+      return {
+        ...state,
+        searchData: {},
+      };
+    }
     case 'SET_WISHLIST': {
       return {
         ...state,

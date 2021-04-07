@@ -61,11 +61,11 @@ export default function SearchBar(props) {
     // setKeyword('')
     // setCode('')
     setTimeout(() => {
-      setFilterCode([])
+    dispatch({ type: 'SEARCH_RESET' })
       setAddress('hide')
       setService('hide')
-    }, 500)
-    // dispatch({ type: 'SEARCH_REQUEST', payload: '' })
+      setFilterCode([])
+    }, 200)
   }
 
   function onSearchService() {
