@@ -415,11 +415,6 @@ export default function Navbar(props) {
             </div>
           </li>
           <li>
-
-            
-
-           
-
           </li>
         </ul>
         {loginModal(loginModel, closeModal,  setSignUpModel, error, setForgetModel)}
