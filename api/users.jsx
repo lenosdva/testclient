@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects';
 import { get } from "lodash"
-
+import axios from "axios"
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
 
@@ -203,17 +203,15 @@ export function* getUserInfo({ payload }) {
 }
 
 export function* updateUser({ payload }) {
+  console.log("updateUserupdateUser")
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/update`, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json', 
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '') 
-    },
-    body: JSON.stringify(payload)
-  })
-    .then((res) => {
-      return res.json();
+  const data = yield axios.post(`${HOST}/v1/users/update`, 
+    payload,
+    {
+      headers: { 
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+       }
     })
     .then((data) => {
       return data;

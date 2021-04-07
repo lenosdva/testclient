@@ -125,15 +125,12 @@ export function* getDelete({payload}) {
 
 export function* getUpdate({payload}) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield  yield axios.post(`${HOST}/v1/gigs/update`, payload, {
+  const data = yield axios.post(`${HOST}/v1/gigs/update`, payload, {
     headers: { 
       'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer ' + get(token, 'accessToken', '')
      }
   })
-    .then((res) => {
-      return res.json();
-    })
     .then((data) => {
       return data;
     })

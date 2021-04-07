@@ -365,8 +365,8 @@ export default function Navbar(props) {
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle>
                   <i className="fa fa-bars menubar" aria-hidden="true"></i>
-                  <Image
-                    src="/assets/svg/ic-menu-profile.svg"
+                  <img
+                    src={get(user, 'picture', '') === '' ? '"/assets/svg/ic-menu-profile.svg"' : user.picture}
                     alt=""
                     width={34}
                     height={34}
@@ -388,17 +388,17 @@ export default function Navbar(props) {
                       <DropdownItem>
                         <ul className="dd-menu1">
                           <li>
-                            <div >
+                            <div onClick={()=> router.push('/profilemanagement')}>
                             
-                              <Image
-                                src="/assets/images/profile-pic.png"
+                              <img
+                               src={get(user, 'picture', '') === '' ? '"/assets/svg/ic-menu-profile.svg"' : user.picture}
                                 alt=""
                                 width={80}
                                 height={80}
                               />
                             </div>
-                            <h4>{get(user, 'fname', '')}</h4>
-                            <h6>{get(user, 'email', '')}</h6>
+                            <h4 onClick={()=> router.push('/profilemanagement')}>{get(user, 'fname', '')}</h4>
+                            <h6 onClick={()=> router.push('/profilemanagement')}>{get(user, 'email', '')}</h6>
                             <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                             <div className="divi"></div>
                             <p onClick={signOut} className="text-center mb-2">Sign Out</p>
@@ -467,9 +467,8 @@ export default function Navbar(props) {
              
              
               <a href="http://localhost:3000/profilemanagement">
-                 <Image
-                
-                  src="/assets/images/profile-pic.png"
+                 <img
+                  src={get(user, 'picture', '') === '' ? '"/assets/svg/ic-menu-profile.svg"' : user.picture}
                   alt=""
                   width={80}
                   height={80}

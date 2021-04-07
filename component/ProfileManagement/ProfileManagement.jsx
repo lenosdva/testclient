@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import PaymentCard from "../PaymentCard/PaymentCard";
 import { withTranslation } from "../../constent/i18n/i18n"
@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Elements, CardElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import moment from "moment";
+import { useDropzone } from 'react-dropzone'
+
 const { NEXT_PUBLIC_STRIP_KEY } = process.env
 const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
@@ -23,9 +25,18 @@ function ProfileManagement(props) {
   const [cPassword, setCPassword] = useState('')
   const [error, setError] = useState({})
   const [isChange, changePayment] = useState(false)
+  const [picture, setPicture] = useState('')
   const [isSocialLogin, setSocialLogin] = useState(false)
   const dispatch = useDispatch()
   const router = useRouter()
+
+  const onDrop = useCallback(acceptedFiles => {
+    const image = acceptedFiles[0]
+    image.url =  URL.createObjectURL(image)
+    setPicture(image)
+    // console.log("acceptedFiles", )
+  }, [])
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   const { getCardLoading, getCardData, updateUserLoading, updateUser } = useSelector(state => ({
     getCardLoading: state.user.getCardLoading,
@@ -55,7 +66,7 @@ function ProfileManagement(props) {
       const error = {}
       error.success = get(updateUser, 'message', false)
       setError(error)
-      setTimeout(()=>{
+      setTimeout(() => {
         setError(error)
       }, 5000)
       dispatch({ type: "RESETUPDATED_USER" })
@@ -84,13 +95,24 @@ function ProfileManagement(props) {
         error.cPassword = 'Password not match'
       }
     }
+    
 
     setError(error)
     if (!Object.keys(error).length) {
+      var formData = new FormData(); 
+      formData.append('fname', fullName)
+      formData.append('mobile', phone.replace(/[^0-9]/g, ''))
+      formData.append('description', about)
+      if(picture !== ''){
+        formData.append('picture', picture)
+      }
       if (isSocialLogin) {
-        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
+        formData.append('password', password)
+        dispatch({ type: 'UPDATE_USER', payload: formData})
+        // dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about, password } })
       } else {
-        dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about, password } })
+        dispatch({ type: 'UPDATE_USER', payload: formData})
+        // dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
       }
     }
 
@@ -133,26 +155,37 @@ function ProfileManagement(props) {
         <div className="col-md-3">
           <div className="linked-accounts m-3">
             <div className="col-md-12 mb-5">
-              <Image
-                src="/assets/images/howitwork2.jpg"
-                alt="testimonial2"
-                layout="responsive"
-                width={500}
-                height={500}
-              />
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                {picture === '' ?
+                <img
+                  src={get(props, 'user.picture', '') === '' ? '/assets/images/howitwork2.jpg' : props.user.picture}
+                  alt="testimonial2"
+                  layout="responsive"
+                  style={{ width: 150, height: 150, borderRadius: 75 }}
+                />
+                :
+                <img
+                  src={get(picture, 'url', '/assets/images/howitwork2.jpg')}
+                  alt="testimonial2"
+                  layout="responsive"
+                  style={{ width: 150, height: 150, borderRadius: 75 }}
+                />
+                }
+              </div>
             </div>
             <h3 className="thin mb-3">{props.t("ProfileManagement.linkedAccounts")}</h3>
             {get(props, 'user.services.google', false) &&
-            <button className="btn d-flex align-items-center justify-content-start">
-              <h5 className="add mr-3">+</h5>
-              <h5>GOOGLE</h5>
-            </button>
+              <button className="btn d-flex align-items-center justify-content-start">
+                <h5 className="add mr-3">+</h5>
+                <h5>GOOGLE</h5>
+              </button>
             }
             {get(props, 'user.services.facebook', false) &&
-            <button className="btn d-flex align-items-center justify-content-start">
-              <h5 className="add mr-3">+</h5>
-              <h5>FACEBOOK</h5>
-            </button>
+              <button className="btn d-flex align-items-center justify-content-start">
+                <h5 className="add mr-3">+</h5>
+                <h5>FACEBOOK</h5>
+              </button>
             }
             {/* <button className="btn d-flex align-items-center justify-content-start">
               <h5 className="add mr-3">+</h5>
@@ -168,10 +201,10 @@ function ProfileManagement(props) {
           <div className="profile-manager m-3">
             <h3 className="mb-3">{props.t("ProfileManagement.yourProfile")}</h3>
             <p>
-              {props.t("ProfileManagement.info")}.{" "}
-              <a href="#" className="find-more">
+              {props.t("ProfileManagement.info")}
+              {/* <a href="#" className="find-more">
                 {props.t("ProfileManagement.findOutMore")}
-              </a>
+              </a> */}
             </p>
             <div className="d-flex flexwrap">
               <div className="small d-flex flex-column">
@@ -241,9 +274,9 @@ function ProfileManagement(props) {
 
             }
             {get(error, 'success', false) &&
-              <span className="errormsg" style={{color: 'green'}}> {get(error, 'success', false)}</span>
+              <span className="errormsg" style={{ color: 'green' }}> {get(error, 'success', false)}</span>
             }
-            
+
             <button onClick={onSubmit} classname="btn btn-primary mr-2" >
               SUBMIT
             </button>
@@ -323,12 +356,12 @@ function ProfileManagement(props) {
                 </Elements>
               </>
             }
-            <h3 className="mt-5 mb-4">ACCOUNT SETTINGS</h3>
+            {/* <h3 className="mt-5 mb-4">ACCOUNT SETTINGS</h3>
             <a className="settings-link cursur-pointer">Delete My Account</a>
             <p>Delete and remove all your data linked with Dein Hausman</p>
             <br />
             <a className="settings-link cursur-pointer">Deactivate my Account</a>
-            <p>Temporarily deactivate your account</p>
+            <p>Temporarily deactivate your account</p> */}
           </div>
         </div>
       </div>
