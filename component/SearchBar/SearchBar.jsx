@@ -130,14 +130,14 @@ export default function SearchBar(props) {
     filterCode.length && filterCode.map((data, key) => (
 
       key < 4 && <li key={key} onClick={() => onSelctCode(data)}>
-        <div className="search-keywords-img">
+        {/* <div className="search-keywords-img">
           <Image
             src="/assets/images/search-img.png"
             alt="search"
             width={50}
             height={50}
           />
-        </div>
+        </div> */}
         <div className="search-keywords-txt">
           <h5>{data.code}</h5>
           <h6>{data.city}, Germany</h6>
@@ -198,7 +198,7 @@ export default function SearchBar(props) {
         <NotificationContainer />
       </div>
 
-      <div className="search-mobile">
+      <div className="search-mobile seachmob-border">
         <input type="search" placeholder="Search" onClick={onSearchService} onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="search-mobile-input" />
         <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
         {searchData.length ?

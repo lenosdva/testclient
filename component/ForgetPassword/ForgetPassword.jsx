@@ -96,7 +96,7 @@ export function forgotPassword(loginModel, closeModal, setSignUpModel, serverErr
           </header>
           <div className="modalbody modalbody-forgot">
             <form onSubmit={onLogin}>
-              <div className="box">
+              <div className="box box-pad-btm">
                 <div className="form-group">
                   <div className="p-lr">
                     <div className="labels">Email</div>

@@ -553,7 +553,7 @@ ul + .sidebar-overlay {
   padding: 20px 0 15px 0;
 }
 .p-lr {
-  margin: 0 50px;
+  margin: 0 30px;
   position: relative;
   @media (max-width:767px) {
     margin: 0 20px;
@@ -823,6 +823,8 @@ ul + .sidebar-overlay {
     width: 100%;
     padding: 15px 0;
     text-align: center;
+    text-decoration: underline;
+    font-weight: 500;
   }
 
 
@@ -1242,5 +1244,8 @@ h4.blank {
       // height: auto !important;
     }
     .ReactModal__Content.ReactModal__Content--after-open.middle-modal.modal-forgot {
-      max-height: 300px !important;
+      max-height: 360px !important;
     }
+    .box-pad-btm {
+  padding-bottom: 0 !important;
+}
