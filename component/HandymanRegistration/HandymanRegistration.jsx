@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image";
 import Link from "next/link"
 import PaymentCard from "../PaymentCard/PaymentCard";
@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 import { Elements, CardElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Tab } from "react-tabs";
+import { useDropzone } from 'react-dropzone'
+
 const { NEXT_PUBLIC_STRIP_KEY } = process.env
 const stripePromise = loadStripe(NEXT_PUBLIC_STRIP_KEY);
 
@@ -25,6 +27,15 @@ function ProfileManagement({ t }) {
     addPaymentLoading: state.user.addPaymentLoading,
     addPayment: state.user.addPayment,
   }));
+
+  const onDrop = useCallback(acceptedFiles => {
+    const image = acceptedFiles[0]
+    image.url = URL.createObjectURL(image)
+    setPicture(image)
+    // console.log("acceptedFiles", )
+  }, [])
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [location, setLocation] = useState('')
@@ -38,6 +49,7 @@ function ProfileManagement({ t }) {
   const [workLicense, setWorkLicense] = useState({})
   const [taxationIdentityCard, setTaxationIdentityCard] = useState({})
   const [certificate, setCertificate] = useState([])
+  const [picture, setPicture] = useState('')
   const [saveChanges, setsaveChanges] = useState([])
 
   useEffect(() => {
@@ -146,28 +158,36 @@ function ProfileManagement({ t }) {
     }
     setError(error)
     if (!Object.keys(error).length) {
-      const user = {
-        fname: name,
-        cname: companyName,
-        location: location,
-        description: about,
-      }
+      // const user = {
+      //   fname: name,
+      //   cname: companyName,
+      //   location: location,
+      //   description: about,
+      // }
       const formData = new FormData();
+      const userFormData = new FormData();
+      userFormData.append('fname', name)
+      userFormData.append('cname', companyName)
+      userFormData.append('location', location)
+      userFormData.append('description', about)
       formData.append('doc[]', workLicense)
       formData.append('doc[]', taxationIdentityCard)
-      certificate.map((data) => {
+      certificate.map((data) => { 
         if (get(workLicense, 'name', false) !== false) {
           formData.append('doc[]', data)
         }
       })
+      if(picture !== ''){
+        userFormData.append('picture', picture)
+      }
       // router.push('/handyman-registration-complete')
-      dispatch({ type: "BECOME_HYNDYMAN", payload: user })
+      dispatch({ type: "BECOME_HYNDYMAN", payload: userFormData })
       dispatch({ type: "UPLOAD", payload: formData })
 
 
     }
   }
-
+  console.log("userData", userData)
   return (
     <div className="profile-management">
       <div className="row">
@@ -185,13 +205,26 @@ function ProfileManagement({ t }) {
         <div className="col-lg-3 col-md-12">
           <div className="linked-accounts m-3">
             <div className="col-md-12 mb-5">
-              <Image
-                src="/assets/images/profile-pic.png"
-                alt="testimonial2"
-                layout="responsive"
-                width={236}
-                height={236}
-              />
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                {picture === '' ?
+                  <img
+                    src={get(userData, 'picture', '') === '' ? "/assets/images/profile-pic.png" : userData.picture}
+                    alt="testimonial2"
+                    layout="responsive"
+                    style={{ width: 200, height: 200, borderRadius: 100 }}
+                  // width={236}
+                  // height={236}
+                  />
+                  :
+                  <img
+                    src={get(picture, 'url', '/assets/images/profile-pic.png')}
+                    alt="testimonial2"
+                    layout="responsive"
+                    style={{ width: 200, height: 200, borderRadius: 100 }}
+                  />
+                }
+              </div>
             </div>
           </div>
         </div>

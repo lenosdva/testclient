@@ -7,17 +7,12 @@ const HOST = NEXT_PUBLIC_API_HOST
 
 export function* registerHandyman({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/becomeSeller`, {
-    method: 'POST',
+  const data = yield axios.post(`${HOST}/v1/users/becomeSeller`, payload,{
     headers: { 
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer ' + get(token, 'accessToken', '')
      },
-    body: JSON.stringify(payload)
   })
-    .then((res) => {
-      return res.json();
-    })
     .then((data) => {
       return data;
     })
