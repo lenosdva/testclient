@@ -154,7 +154,7 @@ function ProfileManagement(props) {
       <div className="row">
         <div className="col-md-3">
           <div className="linked-accounts m-3">
-            <div className="col-md-12 mb-5">
+            <div className="col-md-12 mb-3">
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 {picture === '' ?
