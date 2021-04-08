@@ -26,8 +26,14 @@
       border: 1px solid $gray-border;
       padding: 32px 5px;
       margin-bottom: 15px;
+      transition: transform .2s;
+      background: #fff;
       @media (max-width:767px) {
         width: 100%;
+      }
+      &:hover {
+        box-shadow: 0 0 15px #ccc;
+        transform: scale(1.05);
       }
       h4 {
         font-family: $font-family-base;

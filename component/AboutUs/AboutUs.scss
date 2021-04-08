@@ -68,10 +68,10 @@
       margin-bottom: 20px;
     }
     @media (max-width:767px) {
-      text-align: left;
-      position: relative;
-      margin: 0 auto 15px !important;
-      width: 110px;
+      // text-align: left;
+      // position: relative;
+      // margin: 0 auto 15px !important;
+      // width: 110px;
     }
     &:before {
       content: "";
@@ -90,7 +90,7 @@
     color: #252525;
     text-align: left;
     @media (max-width:767px) {
-      text-align: center !important;
+      // text-align: center !important;
     }
   }
   .get-in-touch {

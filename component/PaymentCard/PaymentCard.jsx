@@ -59,7 +59,6 @@ function PaymentCard({ t, type = '', edit = false, changePayment }) {
         </div>
         <img
           src="https://www.diversifiedpondsupplies.com/images/2020/03/31/payment-methods__1003x131.png"
-          className="ml-4"
           height="50px"
           width="450px"
         />
@@ -69,11 +68,11 @@ function PaymentCard({ t, type = '', edit = false, changePayment }) {
               options={{
                 style: {
                   base: {
-                    padding: 10,
+                    padding: '10px',
                     fontSize: '20px',
-                    color: '#424770',
+                    color: '#252525',
                     '::placeholder': {
-                      color: '#aab7c4',
+                      color: '#cccccc',
                     },
                   },
                   invalid: {

@@ -198,7 +198,7 @@ function ProfileManagement(props) {
           </div>
         </div>
         <div className="col-md-9">
-          <div className="profile-manager m-3">
+          <div className="profile-manager">
             <h3 className="mb-3">{props.t("ProfileManagement.yourProfile")}</h3>
             <p>
               {props.t("ProfileManagement.info")}
@@ -277,12 +277,12 @@ function ProfileManagement(props) {
               <span className="errormsg" style={{ color: 'green' }}> {get(error, 'success', false)}</span>
             }
 
-            <button onClick={onSubmit} classname="btn btn-primary mr-2" >
+            <button onClick={onSubmit} className="btn primary-submit" >
               SUBMIT
             </button>
             <div className="horizontal-line"></div>
             <h3 className="label">{props.t("ProfileManagement.emailAddress")}</h3>
-            <p className="email mb-3">{get(props, 'user.email',)}</p>
+            <span className="mb-3 email-readonly">{get(props, 'user.email',)}</span>
             {!isSocialLogin &&
               <>
                 <div className="horizontal-line"></div>

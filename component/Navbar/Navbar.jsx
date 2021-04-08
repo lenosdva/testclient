@@ -370,6 +370,7 @@ export default function Navbar(props) {
                     alt=""
                     width={34}
                     height={34}
+                    className="profile-pic-circle"
                   />
                 </DropdownToggle>
 
@@ -395,6 +396,7 @@ export default function Navbar(props) {
                                 alt=""
                                 width={80}
                                 height={80}
+                                className="profile-pic-circle"
                               />
                             </div>
                             <h4 onClick={()=> router.push('/profilemanagement')}>{get(user, 'fname', '')}</h4>
@@ -467,6 +469,7 @@ export default function Navbar(props) {
                   alt=""
                   width={80}
                   height={80}
+                  className="profile-pic-circle"
                   // onclick ={()=>router.push('/profilemanagement')} 
                 /> </a>
                 <h4>{get(user, 'fname', '')}</h4>

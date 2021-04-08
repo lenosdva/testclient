@@ -817,6 +817,10 @@ ul + .sidebar-overlay {
 }
 .menubar {
     font-size: 16px !important;
+    width: 14px !important;
+    height: 16px !important;
+    max-width: 14px !important;
+    max-height: 16px !important;
   }
   .forgot-pass-btn {
     float: left;
@@ -1248,4 +1252,8 @@ h4.blank {
     }
     .box-pad-btm {
   padding-bottom: 0 !important;
+}
+.profile-pic-circle {
+  object-fit: cover;
+  border-radius: 50%;
 }
