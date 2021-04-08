@@ -25,7 +25,7 @@ export default function Navbar(props) {
 
   const dispatch = useDispatch()
   const router = useRouter()
-  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData,forgetPassword } = useSelector(state => ({
+  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData, forgetPassword } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
     user: state.user.user,
@@ -35,7 +35,7 @@ export default function Navbar(props) {
     mobileSignData: state.user.mobileSignData,
     needLogin: state.user.needLogin,
     getNotification: state.services.notification,
-    forgetPassword:state.user.forgetPassword,
+    forgetPassword: state.user.forgetPassword,
   }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
@@ -122,9 +122,9 @@ export default function Navbar(props) {
         setLoginModel(false)
         setLoggedStatus(true)
         if (get(emailSignData, 'user.fname', '') === '') {
-          if(get(emailSignData, 'user.socialLogin', false)){
+          if (get(emailSignData, 'user.socialLogin', false)) {
             router.push('/profilemanagement?isSocial=true')
-          }else{
+          } else {
             router.push('/profilemanagement')
           }
         }
@@ -192,7 +192,7 @@ export default function Navbar(props) {
     cookie.set('token', '/')
     cookie.set('expires', '')
     cookie.set('path', '/')
-    dispatch({type: 'RESET_USER'})
+    dispatch({ type: 'RESET_USER' })
     setLoggedStatus(false)
     router.push('/')
   }
@@ -376,10 +376,10 @@ export default function Navbar(props) {
 
                 {!userLogged &&
                   <>
-                  <DropdownMenu>
-                    <DropdownItem onClick={() => setSignUpModel(true)}>Sign Up</DropdownItem>
-                    <DropdownItem onClick={() => setLoginModel(true)}>Log In</DropdownItem>
-                  </DropdownMenu>
+                    <DropdownMenu>
+                      <DropdownItem onClick={() => setSignUpModel(true)}>Sign Up</DropdownItem>
+                      <DropdownItem onClick={() => setLoginModel(true)}>Log In</DropdownItem>
+                    </DropdownMenu>
                   </>
                 }
 
@@ -389,18 +389,18 @@ export default function Navbar(props) {
                       <DropdownItem>
                         <ul className="dd-menu1">
                           <li>
-                            <div onClick={()=> router.push('/profilemanagement')}>
-                            
+                            <div onClick={() => router.push('/profilemanagement')}>
+
                               <img
-                               src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
+                                src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
                                 alt=""
                                 width={80}
                                 height={80}
                                 className="profile-pic-circle"
                               />
                             </div>
-                            <h4 onClick={()=> router.push('/profilemanagement')}>{get(user, 'fname', '')}</h4>
-                            <h6 onClick={()=> router.push('/profilemanagement')}>{get(user, 'email', '')}</h6>
+                            <h4 onClick={() => router.push('/profilemanagement')}>{get(user, 'fname', '')}</h4>
+                            <h6 onClick={() => router.push('/profilemanagement')}>{get(user, 'email', '')}</h6>
                             <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
                             <div className="divi"></div>
                             <p onClick={signOut} className="text-center mb-2">Sign Out</p>
@@ -419,10 +419,10 @@ export default function Navbar(props) {
           <li>
           </li>
         </ul>
-        {loginModal(loginModel, closeModal,  setSignUpModel, error, setForgetModel)}
+        {loginModal(loginModel, closeModal, setSignUpModel, error, setForgetModel)}
         {signUpModal(signUpModel, closeModal, setLoginModel, error)}
         {otp(otpModel, closeModal, mobile, error)}
-        {forgotPassword(forgetModel, closeModal,  error,setForgetModel)}
+        {forgotPassword(forgetModel, closeModal, error, setForgetModel)}
       </div>
 
       <div className="mob-menu-wrapper show-mob">
@@ -445,7 +445,7 @@ export default function Navbar(props) {
           </div>
         </header>
         <ul className={menu ? "" : 'hide'}>
-          {get(user, 'role', '') !== "handyman" &&
+          {!userLogged && get(user, 'role', '') !== "handyman" &&
             <li className="align-self-center">
               {userLogged ?
                 <Link href="/handyman-registration">
@@ -459,23 +459,35 @@ export default function Navbar(props) {
           {userLogged && (
             <>
               <div className="text-center">
-              {/* onclick ={()=>router.push('/profilemanagement')}  */}
-             
-             
-             
-              <a href="http://localhost:3000/profilemanagement">
-                 <img
-                  src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
-                  alt=""
-                  width={80}
-                  height={80}
-                  className="profile-pic-circle"
+                {/* onclick ={()=>router.push('/profilemanagement')}  */}
+
+
+
+                <a href="http://localhost:3000/profilemanagement">
+                  <img
+                    src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
+                    alt=""
+                    width={80}
+                    height={80}
+                    className="profile-pic-circle"
                   // onclick ={()=>router.push('/profilemanagement')} 
-                /> </a>
+                  /> </a>
                 <h4>{get(user, 'fname', '')}</h4>
                 <h6>{get(user, 'email', '')}</h6>
               </div>
-              
+
+              {get(user, 'role', '') !== "handyman" &&
+                <li className="align-self-center">
+                  {userLogged ?
+                    <Link href="/handyman-registration">
+                      <a>Become A Handyman</a>
+                    </Link>
+                    :
+                    <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
+                  }
+                </li>
+              }
+
               <li className="align-self-center">
                 <Link href="/client-dashboard">
                   <a>My Bookings</a>
@@ -592,10 +604,10 @@ export default function Navbar(props) {
             </span> */}
 
               </li>
-        <li className="align-self-center">
-          <span onClick={signOut}>Logout</span>
-        </li>
-        {/* <li className="align-self-center">
+              <li className="align-self-center">
+                <span onClick={signOut}>Logout</span>
+              </li>
+              {/* <li className="align-self-center">
                 <Link href="/">
                   <a>Messages</a>
                 </Link>
@@ -603,16 +615,16 @@ export default function Navbar(props) {
             </>
           )
           }
-      {!userLogged &&
-        <>
-          <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">
-            <a>Log In</a>
-          </li>
-          <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer">
-            <a>Sign Up</a>
-          </li>
-        </>
-      }
+          {!userLogged &&
+            <>
+              <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">
+                <a>Log In</a>
+              </li>
+              <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer">
+                <a>Sign Up</a>
+              </li>
+            </>
+          }
         </ul>
         <div className="sidebar-overlay"></div>
       </div>
