@@ -14,6 +14,8 @@ export default function SearchBar(props) {
   const [id, setId] = useState('')
   const [showAddress, setAddress] = useState('hide')
   const [showService, setService] = useState('hide')
+  const [showMobSearch, setMobSearch] = useState('')
+  
   const dispatch = useDispatch()
   const { searchData, searchByIdLoading, searchByIdData, mobileSignLoading, mobileSignData } = useSelector(state => ({
     searchData: state.services.searchData,
@@ -42,14 +44,14 @@ export default function SearchBar(props) {
     }
   }, [searchData])
 
-  useEffect(() => {
-    console.log("searchByIdData", searchByIdData)
-  }, [searchByIdData])
-
-  useEffect(() => {
-    console.log("mobileSignData", mobileSignData)
-  }, [mobileSignData])
-
+  useEffect(()=>{
+    window.addEventListener('resize', function(){
+      var w = window.innerWidth;
+      if((w > 768 && showMobSearch === 'show')){
+        setMobSearch('')
+      }
+    });
+  },[])
 
   function onSearch(e) {
     setId('')
@@ -61,7 +63,8 @@ export default function SearchBar(props) {
     // setKeyword('')
     // setCode('')
     setTimeout(() => {
-    dispatch({ type: 'SEARCH_RESET' })
+      // setMobSearch('')
+      dispatch({ type: 'SEARCH_RESET' })
       setAddress('hide')
       setService('hide')
       setFilterCode([])
@@ -192,22 +195,22 @@ export default function SearchBar(props) {
                 height={26}
               />
             </span>
-            <span className="showmobile">Search</span>
+            <span className="showmobile">Search mobile</span>
           </button>
         </div>
         <NotificationContainer />
       </div>
 
       <div className="search-mobile seachmob-border">
-        <input type="search" placeholder="Search" onClick={onSearchService} onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="search-mobile-input" />
-        <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
+        <input type="search" placeholder="Search mobile" onClick={()=> setMobSearch('show')}  className="search-mobile-input" />
+        {/* <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
         {searchData.length ?
           <ul>
             {renderSearchResult()}
           </ul>
           :<></>
         }
-        </div>
+        </div> */}
         {/* <button onClick={onSearchService} className="btn btn-primary">
         <span className="iconsearch">
                 <Image
@@ -220,7 +223,7 @@ export default function SearchBar(props) {
               <span className="showmobile">Search</span>
         </button> */}
       </div>
-      <div className="searchbox-mob">
+      <div className={"searchbox-mob "+ showMobSearch}>
         <div className="search-area">
           <div className="postal-code">
             <h5 className="mb-0">Postal Code</h5>
@@ -241,12 +244,17 @@ export default function SearchBar(props) {
           <div className="service">
             <h5 className="mb-0">Pick a Service</h5>
             <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
+            {searchData.length ?
             <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
               <ul>
                 {renderSearchResult()}
               </ul>
             </div>
+             :
+              <></>
+            }
           </div>
+         
           <div className="icon-area">
             <button onClick={onSearchService} className="btn btn-primary">
               <span className="iconsearch">
