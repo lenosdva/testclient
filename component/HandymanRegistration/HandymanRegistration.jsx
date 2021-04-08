@@ -71,7 +71,8 @@ function ProfileManagement({ t }) {
   }, [addPayment])
 
   useEffect(() => {
-    if (get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)) {
+    // console.log(hyndyman, uploadDoc)
+    if (get(hyndyman, 'data.success', false) && get(uploadDoc, 'success', false)) {
       router.push('/handyman-registration-complete')
       dispatch({ type: "RESET_HANDYMAN" })
     }
@@ -238,9 +239,9 @@ function ProfileManagement({ t }) {
                 onChange={(e) => setName(e.target.value)}
                 type="text"
                 className="input mr-3"
-                placeholder="Erika Hans"
+                placeholder="Enter your name"
               />
-              <p className="errormsg">{get(error, 'name', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'name', '')}</p>
             </div>
             <div className="small d-flex flex-column">
               <h3 className="label">{t("handyRegis.cName")}</h3>
@@ -249,9 +250,9 @@ function ProfileManagement({ t }) {
                 onChange={(e) => setCompanyName(e.target.value)}
                 type="text"
                 className="input"
-                placeholder="Erika  Home Services Inc."
+                placeholder="Enter your company name"
               />
-              <p className="errormsg">{get(error, 'companyName', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'companyName', '')}</p>
             </div>
           </div>
 
@@ -263,9 +264,9 @@ function ProfileManagement({ t }) {
                 onChange={(e) => setLocation(e.target.value)}
                 type="text"
                 className="input mr-3"
-                placeholder="Berlin, Germany"
+                placeholder="Enter your location"
               />
-              <p className="errormsg">{get(error, 'location', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'location', '')}</p>
             </div>
           </div>
 
@@ -283,9 +284,10 @@ function ProfileManagement({ t }) {
                 type="text"
                 readOnly={true}
                 className="input mr-3"
-                placeholder="+49 | 597 - 567 - 1235"
+                placeholder=""
+
               />
-              <p className="errormsg">{get(error, 'phone', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'phone', '')}</p>
             </div>
             <div className="small d-flex flex-column">
               <h3 className="label">{t("handyRegis.phone")}</h3>
@@ -295,9 +297,10 @@ function ProfileManagement({ t }) {
                 type="text"
                 className="input"
                 readOnly={true}
-                placeholder="erikahans99@gmail.com"
+                placeholder=""
+
               />
-              <p className="errormsg">{get(error, 'email', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'email', '')}</p>
             </div>
           </div>
 
@@ -317,7 +320,7 @@ function ProfileManagement({ t }) {
                 :
                 <div className="remove-btn" onClick={() => setWorkLicense({})}>Remove</div>
               }
-              <p className="errormsg">{get(error, 'workLicense', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'workLicense', '')}</p>
             </li>
             <li>
               <div className="form-group checkbox-wrapper">
@@ -332,7 +335,7 @@ function ProfileManagement({ t }) {
                 :
                 <div className="remove-btn" onClick={(e) => setTaxationIdentityCard({})}>Remove</div>
               }
-              <p className="errormsg">{get(error, 'taxationIdentityCard', '')}</p>
+              <p className="errormsg" style={{color: 'red'}}>{get(error, 'taxationIdentityCard', '')}</p>
             </li>
             {renserCertificate()}
           </ul>
@@ -367,7 +370,7 @@ function ProfileManagement({ t }) {
                   readOnly={false}
                   placeholder="BOI"
                 />
-                <p className="errormsg">{get(error, 'bankName', '')}</p>
+                <p className="errormsg" style={{color: 'red'}}>{get(error, 'bankName', '')}</p>
               </div>
 
 
@@ -381,7 +384,7 @@ function ProfileManagement({ t }) {
                   readOnly={false}
                   placeholder="8833101000000"
                 />
-                <p className="errormsg">{get(error, 'accountNumber', '')}</p>
+                <p className="errormsg" style={{color: 'red'}}>{get(error, 'accountNumber', '')}</p>
               </div>
 
 
@@ -395,7 +398,7 @@ function ProfileManagement({ t }) {
                   readOnly={false}
                   placeholder="BKID23242"
                 />
-                <p className="errormsg">{get(error, 'iFSCCode', '')}</p>
+                <p className="errormsg" style={{color: 'red'}}>{get(error, 'iFSCCode', '')}</p>
               </div>
 
 
