@@ -126,6 +126,7 @@
             }
             .search-keywords-txt {
               // width: calc(100% - 60px);
+              width: 100%;
               h5 {
                 font-weight: 500;
                 margin: 0;
@@ -283,7 +284,9 @@
   }
 }
 .searchbox-mob.show {
-  display: block;
+  @media (max-width:767px) {
+    display: block;
+  }
 }
 .searchbox-mob {
   display: none;
@@ -299,7 +302,7 @@
     background: #fff;
     z-index: 9;
     overflow-y: auto;
-    padding: 20px;
+    padding: 20px 20px 20px 20px;
     .postal-code, .service {
       margin-top: 20px;
       border: 1px solid #e8e8e8;
@@ -307,6 +310,9 @@
       border-radius: 40px;
       input {
         width: 100%;
+      }
+      h5 {
+        text-align: left;
       }
     }
     .btn-primary {
@@ -364,6 +370,7 @@
             }
             .search-keywords-txt {
               // width: calc(100% - 60px);
+              width: 100%;
               h5 {
                 font-weight: 500;
                 margin: 0;
@@ -400,5 +407,12 @@
         background-position: calc(100% - 16px) center;
         font-size: 18px;
         border: 1px solid #f1f1f1;
+      }
+    }
+    .category {
+      .searchbox-mob {
+        @media (max-width:767px) {
+          top: 48px !important;
+        }
       }
     }

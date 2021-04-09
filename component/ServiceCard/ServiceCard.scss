@@ -12,20 +12,30 @@
     }
   }
   .details {
-    padding: 20px;
+    padding: 20px 15px;
     padding-bottom: 0;
     span {
       font-weight: 400;
       color: $text-color;
+    }
+    .mb0 {
+      margin-bottom: 0 !important;
+    }
+    .review {
+      font-weight: 400;
+      color: $text-color;
+      text-align: left;
+      margin-bottom: 5px;
     }
     .name {
       color: $primary-color;
     }
   }
   .booking-section {
-    text-align: center;
+    // text-align: center;
     margin-bottom: 30px;
-    margin-top: 5px;
+    margin-top: 15px;
+    padding-left: 15px;
 
     .btn {
       border-radius: 50px;

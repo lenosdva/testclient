@@ -15,9 +15,10 @@ export default function ServiceCard(props) {
         />
       </div>
       <div className="details">
-        <h5>
-          {get(props, 'data.title', '')} | {get(props, 'data.rating', '5')} <span>(110 Reviews)</span>
+        <h5 className="mb0">
+          {get(props, 'data.title', '')} | {get(props, 'data.rating', '5')} 
         </h5>
+        <div className="review">(110 Reviews)</div>
         <h5 className="name">
           <span>Handyman: </span>Erika Hans
         </h5>
