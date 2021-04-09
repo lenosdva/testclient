@@ -49,7 +49,7 @@ function Category(props) {
               <SearchBar category={category} />
             </div>
             <div className="home-section-padding">
-              <HandymenPagination />
+              <HandymenPagination data={movingOutData} category={category}/>
             </div>
             <div className="home-section-padding">
               <div className="row">
