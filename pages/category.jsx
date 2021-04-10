@@ -33,7 +33,13 @@ function Category(props) {
     const serId = get(props, 'router.query.id', '')
     const category = get(props, 'router.query.name', '')
     setCategory(category)
-    dispatch({ type: 'SEARCH_BY_ID', payload: { serId } })
+    const data ={}
+    if(serId){
+      data.serId = serId
+    }else if(category){
+      data.keywords = category
+    }
+    dispatch({ type: 'SEARCH_BY_ID', payload: data })
   }, [props.router.query])
   console.log(searchByIdLoading, movingOutLoading)
   return (
