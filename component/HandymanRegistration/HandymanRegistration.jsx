@@ -72,7 +72,7 @@ function ProfileManagement({ t }) {
 
   useEffect(() => {
     // console.log(hyndyman, uploadDoc)
-    if (get(hyndyman, 'data.success', false) && get(uploadDoc, 'success', false)) {
+    if (get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)) {
       router.push('/handyman-registration-complete')
       dispatch({ type: "RESET_HANDYMAN" })
     }
@@ -159,18 +159,18 @@ function ProfileManagement({ t }) {
     }
     setError(error)
     if (!Object.keys(error).length) {
-      // const user = {
-      //   fname: name,
-      //   cname: companyName,
-      //   location: location,
-      //   description: about,
-      // }
+      const userFormData = {
+        fname: name,
+        cname: companyName,
+        location: location,
+        description: about,
+      }
       const formData = new FormData();
-      const userFormData = new FormData();
-      userFormData.append('fname', name)
-      userFormData.append('cname', companyName)
-      userFormData.append('location', location)
-      userFormData.append('description', about)
+      // const userFormData = new FormData();
+      // userFormData.append('fname', name)
+      // userFormData.append('cname', companyName)
+      // userFormData.append('location', location)
+      // userFormData.append('description', about)
       formData.append('doc[]', workLicense)
       formData.append('doc[]', taxationIdentityCard)
       certificate.map((data) => { 
@@ -178,9 +178,9 @@ function ProfileManagement({ t }) {
           formData.append('doc[]', data)
         }
       })
-      if(picture !== ''){
-        userFormData.append('picture', picture)
-      }
+      // if(picture !== ''){
+      //   userFormData.append('picture', picture)
+      // }
       // router.push('/handyman-registration-complete')
       dispatch({ type: "BECOME_HYNDYMAN", payload: userFormData })
       dispatch({ type: "UPLOAD", payload: formData })

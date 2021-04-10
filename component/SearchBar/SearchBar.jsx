@@ -74,12 +74,13 @@ export default function SearchBar(props) {
   function onSearchService() {
 
     if (id === '') {
-      router.push('/category-services')
+      router.push({ pathname: '/category', query: { code, name: keyword }})
       // NotificationManager.error('Please Pick a Service')
     } else {
       router.push({ pathname: '/category', query: { id, code, name: keyword } })
     }
   }
+
   function onSelectService(e) {
     setId('')
     setKeyword(e.target.value)
