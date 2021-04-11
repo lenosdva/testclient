@@ -293,11 +293,11 @@ function ProfileManagement(props) {
                 </div>
               </>
             }
-            <h3 className="mt-5">{props.t("ProfileManagement.notification")}</h3>
+            {/* <h3 className="mt-5">{props.t("ProfileManagement.notification")}</h3>
             <p className="mb-4">
               {props.t("ProfileManagement.notiText")}
-            </p>
-            <div className="notifications d-flex">
+            </p> */}
+            {/* <div className="notifications d-flex">
               <h6 className="icon mr-3">
                 <i className="fa fa-check-square" aria-hidden="true"></i>
               </h6>
@@ -329,7 +329,7 @@ function ProfileManagement(props) {
                   {props.t("ProfileManagement.promotionalText")}
                 </p>
               </div>
-            </div>
+            </div> */}
             <h3 className="mt-5">{props.t("ProfileManagement.paymentSetting")}</h3>
             <p className="mb-4">
               {props.t("ProfileManagement.paymentText")}

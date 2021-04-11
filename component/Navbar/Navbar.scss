@@ -1054,17 +1054,20 @@ ul + .sidebar-overlay {
         display: flex;
         margin: 0 0 40px 0;
         .bell-bg {
-          width: 80px;
-          height: 80px;
+          width: 50px;
+          height: 50px;
           background: #F2F0F0;
           border-radius: 50%;
           margin-right: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
+          img {
+            width: 30px;
+          }
         }
         .bell-txt {
-          width: calc(100% - 100px);
+          width: calc(100% - 70px);
           h4 {
             font-family: Neue Haas Grotesk Display Pro;
             font-weight: 500;

@@ -273,6 +273,16 @@ export default function Navbar(props) {
                 <span onClick={() => setMessage(!showMessage)} className="posi-rel">
                   Messages
                   <span className={showMessage ? "message-list" : "message-list message-list-hide"}>
+                  {/* <div className="empty-msg">
+                      <Image
+                        className="banner-image"
+                        src="/assets/images/empty-msg.png"
+                        alt=""
+                        layout="responsive"
+                        width={911}
+                        height={504}
+                      />
+                  </div> */}
                     <ul>
                       {renderNotification()}
                       {/* <li>

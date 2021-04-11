@@ -112,9 +112,8 @@
       padding: 12px 20px;
       color: #252525;
       display: inline-block;
-      @media (max-width:767px) {
-          width: 100%;
-        }
+      font-size: 18px;
+      width: 100%;
     }
     .notifications {
       .icon {
