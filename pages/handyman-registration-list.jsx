@@ -113,7 +113,7 @@ const totalAmount=()=>{
                       <tbody>
                         {renderPendingClearance()}
                         <tr>
-                          <td colSpan="3" className="text-right padt20"><span className="grand-total">€{totalAmount()}</span></td>
+                          <td colSpan="3" className="text-right padt20"><span className="grand-total">€ {totalAmount()}</span></td>
                         </tr>
                       </tbody>
                       
