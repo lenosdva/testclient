@@ -217,7 +217,7 @@ export default function Category(props) {
                   </TabList>
 
                   <TabPanel>
-                    <div className="mb-5">
+                    <div className="mb30">
                       <h3 className="label">Service Title</h3>
                       <input
                         type="text"
@@ -427,6 +427,7 @@ export default function Category(props) {
                                 height={129}
                               /> */}
                             </div>
+                            <button className="delete-btn"></button>
                           </li>
                           : <li>
                             {get(images[0], 'url', '') &&
@@ -437,6 +438,7 @@ export default function Category(props) {
                                 height={129}
                               />
                             }
+                            <button className="delete-btn"></button>
                           </li>
                         }{images.length === 1 ?
                           <li>
@@ -460,6 +462,7 @@ export default function Category(props) {
                                 height={129}
                               /> */}
                             </div>
+                            <button className="delete-btn"></button>
                           </li>
                           : <li>
                             <div>
@@ -473,6 +476,7 @@ export default function Category(props) {
                             
                             }
                               </div>
+                            <button className="delete-btn"></button>
                           </li>
                         }{images.length === 2 ?
                           <li>
@@ -495,6 +499,7 @@ export default function Category(props) {
                                 height={129}
                               /> */}
                             </div>
+                            <button className="delete-btn"></button>
                           </li>
                           : <li>
                             {get(images[2], 'url', '') &&
@@ -505,6 +510,7 @@ export default function Category(props) {
                                 height={129}
                               />
                             }
+                            <button className="delete-btn"></button>
                           </li>
                         }
                         {get(mainError, 'images', '') &&
@@ -512,7 +518,7 @@ export default function Category(props) {
                         }
                       </ul>
 
-                      <div className="form-group mt-5 mb-5 checkbox-wrapper">
+                      <div className="form-group checkbox-wrapper checkbox-margin-t">
                         <input type="checkbox" checked={aggrement} onChange={(e) => setAggrement(e.target.checked)} id="html" />
                         <label for="html">
                           I declare that these materials were created by myself or by my team and do not infringe on any 3rd party rights. I understand that the
