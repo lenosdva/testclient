@@ -267,6 +267,7 @@ body {
       justify-content: center;
       align-items: center;
       position: relative;
+      overflow: hidden;
       @media (max-width:980px) {
         height: 155px;
       }
