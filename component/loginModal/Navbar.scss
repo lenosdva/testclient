@@ -868,6 +868,9 @@
   }
   p {
     margin: 0;
+    &:hover {
+        color: #9043C3 !important;
+      }
     a {
       font-family: Neue Haas Grotesk Display Pro;
       font-weight: normal;
