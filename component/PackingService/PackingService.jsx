@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useCallback } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import moment from "moment"
+import {FacebookShareButton , WhatsappShareButton ,   TwitterShareButton, EmailShareButton } from "react-share"
+import {EmailIcon, FacebookIcon, WhatsappIcon, FacebookMessengerIcon, TwitterIcon} from "react-share";
 
 const questions = [{
   type: "field",
@@ -234,11 +236,11 @@ export default function PackingService(props) {
           <h3>About The Seller</h3>
           <ul>
             <li>
-              <h5>From</h5>
+              <h5>From :</h5>
               <h4>{get(props, 'data.sellerPersonalInfo.state', '')}, {get(props, 'data.sellerPersonalInfo.country', '')}</h4>
             </li>
             <li>
-              <h5>Member Since</h5>
+              <h5>Member Since :</h5>
               <h4>{moment(get(props, 'data.sellerPersonalInfo.createdAt', '')).format('MMM YYYY')}</h4>
             </li>
           </ul>

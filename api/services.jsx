@@ -3,9 +3,10 @@ import { get } from "lodash"
 import * as Users from "./users"
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
+const NEW_HOST = "https://dein-admin.herokuapp.com"
 
 export function* search({ payload }) {
-  const data = yield fetch(`${HOST}/v1/service/search/${payload}`, {
+  const data = yield fetch(`${NEW_HOST}/search?search=${payload}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
@@ -24,7 +25,7 @@ export function* search({ payload }) {
 
 export function* getAllService({ payload }) {
   console.log("APAI calledddddd")
-  const data = yield fetch(`${HOST}/v1/service/`, {
+  const data = yield fetch(`${NEW_HOST}/serivces`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
@@ -167,12 +168,12 @@ export function* removeWishList({ payload }) {
 }
 
 export function* getNotification({ payload }) {
-  const token = JSON.parse(localStorage.getItem('token'))
+  // const token = JSON.parse(localStorage.getItem('token'))
   const data = yield fetch(`${HOST}/v1/users/getNotifications`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      // 'Authorization': 'Bearer ' + get(token, 'accessToken', '')
     },
   })
     .then((res) => {
