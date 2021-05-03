@@ -3,6 +3,7 @@ import { get } from "lodash"
 import axios from "axios"
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
+const NEW_HOST = "https://dein-admin.herokuapp.com"
 
 export function* registerByMobile({ payload }) {
   const data = yield fetch(`${HOST}/v1/auth/registerByMobile`, {
@@ -380,7 +381,7 @@ export function* checkout({ payload }) {
 }
 export function* forgetPassword({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/forgotPassword
+  const data = yield fetch(`${NEW_HOST}/auth/forgot-Password
   `, {
     method: 'POST',
     body: JSON.stringify(payload),
@@ -402,7 +403,7 @@ export function* forgetPassword({ payload }) {
 }
 export function* resetPassword({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/resetPassword`, {
+  const data = yield fetch(`${NEW_HOST}/reset-password`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
