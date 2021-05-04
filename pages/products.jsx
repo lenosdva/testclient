@@ -7,7 +7,7 @@ export default withRouter(function Category(props) {
   const dispatch = useDispatch()
   const { gigLoading, gig, detailLoading, serviceDetails, moreServiceData, moreServiceLoading } = useSelector(state => ({
     moreServiceLoading: state.services.moreServiceLoading,
-    moreServiceData: state.services.moreServiceData,
+    moreServiceData: state.services.gig,
     serviceDetails: state.services.serviceDetails,
     detailLoading: state.services.detailLoading,
     gigLoading: state.handyman.gigLoading,
@@ -15,7 +15,7 @@ export default withRouter(function Category(props) {
   }));
   useEffect(() => {
     const serId = get(props, 'router.query.id', '')
-    dispatch({ type: 'SERVICE_DETAILS', payload: serId })
+    // dispatch({ type: 'SERVICE_DETAILS', payload: serId })
     dispatch({ type: 'GET_GIG', payload: serId })
 
   }, [props.router.query])

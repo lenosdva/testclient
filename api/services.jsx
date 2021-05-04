@@ -43,9 +43,8 @@ export function* getAllService({ payload }) {
 }
 
 export function* MovingOutServices({ payload }) {
-  const data = yield fetch(`${HOST}/v1/gigs/getByService`, {
-    method: 'POST',
-    body: JSON.stringify(payload),
+  const data = yield fetch(`${NEW_HOST}/serivces/${payload}`, {
+    method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
     .then((res) => {
@@ -62,7 +61,7 @@ export function* MovingOutServices({ payload }) {
 }
 
 export function* getServiceDetails({ payload }) {
-  const data = yield fetch(`${HOST}/v1/gigs/${payload}`, {
+  const data = yield fetch(`${NEW_HOST}/gigs/${payload}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })

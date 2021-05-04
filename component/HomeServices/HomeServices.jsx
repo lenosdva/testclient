@@ -7,22 +7,21 @@ import { get } from "lodash"
 import { useDispatch, useSelector } from 'react-redux'
 
 const renderService = (searchByIdData) => (
-  searchByIdData && searchByIdData.length && searchByIdData.map((data, key)=>(
-    <Link key={key} href={`/category?id=${get(data, '_id', '')}&name=${get(data, 'name', '')}`}>
-    <li key={key}>
-      <Image
-       src="/assets/svg/ic-clean-service.svg"
-        alt={data.name}
-        width={80}
-        height={80}
-      />
-      <h4>{get(data, 'name', '')}</h4>
-    </li>
+  searchByIdData && searchByIdData.length && searchByIdData.map((data, key) => (
+    <Link key={key} href={`/gigs?service=${get(data, 'name', '')}&id=${get(data, '_id', '')}&name=${get(data, 'name', '')}`}>
+      <li key={key}>
+        <img
+          src={get(data, 'image.url', "/assets/svg/ic-clean-service.svg")}
+          alt={data.name}
+          style={{ width: 80, height: 80 }}
+        />
+        <h4>{get(data, 'name', '')}</h4>
+      </li>
     </Link>
   ))
 )
 
-function HomeServices({t}) {
+function HomeServices({ t }) {
   const dispatch = useDispatch()
   const { searchByIdData, searchByIdLoading } = useSelector(state => ({
     searchByIdData: state.services.searchByIdData,
@@ -40,7 +39,7 @@ function HomeServices({t}) {
             WE GIVE <br /> OUR BEST SERVICES <br /> FOR YOU
           </h5>
           <p>
-           {t("services.title")}
+            {t("services.title")}
           </p>
           <Link href='/category-services'><button className="btn btnprimary">{t("services.moreButton")}</button></Link>
         </div>

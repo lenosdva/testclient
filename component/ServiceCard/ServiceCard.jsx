@@ -6,8 +6,8 @@ export default function ServiceCard(props) {
     <Link href={`/products?id=${get(props, 'data._id', '')}`}>
     <div className="service-card">
       <div className="image-area">
-        <Image
-          src="/assets/images/spotlight1.jpg"
+        <img
+          src={get(props, 'image.url', "/assets/images/spotlight1.jpg")}
           alt="handyman1"
           layout="responsive"
           width="100%"

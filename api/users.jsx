@@ -105,7 +105,7 @@ export function* loginByMobile({ payload }) {
 }
 
 export function* loginByEmail({ payload }) {
-  const data = yield fetch(`${HOST}/v1/auth/loginWithEmail`, {
+  const data = yield fetch(`${NEW_HOST}/auth/local`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
