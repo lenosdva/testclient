@@ -12,6 +12,7 @@ export default function SearchBar(props) {
   const [filterCode, setFilterCode] = useState([])
   const [code, setCode] = useState('')
   const [id, setId] = useState('')
+  const [link, setLink] = useState('')
   const [showAddress, setAddress] = useState('hide')
   const [showService, setService] = useState('hide')
   const [showMobSearch, setMobSearch] = useState('')
@@ -77,7 +78,9 @@ export default function SearchBar(props) {
       router.push('/category-services')
       // NotificationManager.error('Please Pick a Service')
     } else {
-      router.push({ pathname: '/category', query: { id, code, name: keyword } })
+      router.push({ pathname: '/gigs', query: { service: keyword, id , name: keyword } })
+      // window.location.url(link)
+      
     }
   }
   function onSelectService(e) {
@@ -88,16 +91,17 @@ export default function SearchBar(props) {
   }
 
 
-  function onSelectSearch(value, id) {
+  function onSelectSearch(value, id, link) {
     dispatch({ type: 'RESET_SERVICE' })
     setService('hide')
     setKeyword(value)
+    setLink(link)
     setId(id)
   }
 
   const renderSearchResult = () => (
     searchData.length && searchData.map((data, key) => (
-      <li key={key} onClick={() => onSelectSearch(get(data, 'name', ''), get(data, '_id', ''))}>{get(data, 'name', '')}</li>
+      <li key={key} onClick={() => onSelectSearch(get(data, 'name', ''), get(data, '_id', ''), get(data, 'link', ''))}>{get(data, 'name', '')}</li>
     ))
   )
 
