@@ -115,8 +115,8 @@ export default function userReducer(state = initialState, action) {
     }
     
     case 'REGISTER': {
-      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
-      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.jwt'))
+      // cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
       cookieCutter.set('path', '/')
       return {
         ...state,
@@ -203,8 +203,8 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'REGISTERWITHEMAIL': {
-      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
-      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.jwt'))
+      // cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
       cookieCutter.set('path', '/')
       return {
         ...state,
@@ -236,8 +236,8 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'LOGINWITHEMAIL': {
-      cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
-      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.jwt'))
+      // cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
       cookieCutter.set('path', '/')
       return {
         ...state,

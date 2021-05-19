@@ -27,10 +27,10 @@ export function* registerByMobile({ payload }) {
 
 
 export function* registerByEmail({ payload }) {
-  const data = yield fetch(`${HOST}/v1/auth/registerByEmail`, {
+  const data = yield fetch(`${NEW_HOST}/auth/local/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   })
     .then((res) => {
       getUser()
@@ -162,11 +162,11 @@ export function* resendOtp({ payload }) {
 
 export function* getUser({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/profile`, {
+  const data = yield fetch(`${NEW_HOST}/users/me`, {
     method: 'GET',
     headers: { 
       'Content-Type': 'application/json', 
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '') 
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(payload)
   })
@@ -204,32 +204,37 @@ export function* getUserInfo({ payload }) {
 }
 
 export function* updateUser({ payload }) {
-  console.log("updateUserupdateUser")
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield axios.post(`${HOST}/v1/users/update`, 
-    payload,
-    {
-      headers: { 
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer ' + get(token, 'accessToken', '')
-       }
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      throw error;
-    });
+  const id = payload.id
+  delete payload.id
+  const data = yield yield fetch(`${NEW_HOST}/v1/users/${id}`, 
+  {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
   yield put({ type: 'UPDATED_USER', data });
 }
 
 export function* getOrders({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/orders`, {
+  const data = yield fetch(`${NEW_HOST}/orders`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      'Authorization': 'Bearer ' + token
     },
   })
     .then((res) => {

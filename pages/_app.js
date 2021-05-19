@@ -74,11 +74,11 @@ function MyApp({ Component, pageProps }) {
   }
 
   function setWebSoket() {
-    const token = JSON.parse(localStorage.getItem('token'))
-    if (token !== null && token) {
-      const webS = new WebSocket(WEB_SOCKET, get(token, 'accessToken', ''))
-      setWs(webS)
-    }
+    // const token = JSON.parse(localStorage.getItem('token'))
+    // if (token !== null && token) {
+    //   const webS = new WebSocket(WEB_SOCKET, get(token, 'accessToken', ''))
+    //   setWs(webS)
+    // }
   }
 
   return (

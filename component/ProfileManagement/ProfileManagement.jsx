@@ -46,10 +46,10 @@ function ProfileManagement(props) {
 
   }));
   useEffect(() => {
-    setName(get(props, 'user.fname', ''))
+    setName(get(props, 'user.role.name', ''))
     setCompany(get(props, 'user.company', ''))
-    setPhone(get(props, 'user.mobile', ''))
-    setAbout(get(props, 'user.description ', ''))
+    setPhone(get(props, 'user.phone', ''))
+    setAbout(get(props, 'user.role.description ', ''))
     setAddress(get(props, 'user.address ', ''))
   }, [props.user])
 
@@ -100,18 +100,25 @@ function ProfileManagement(props) {
     setError(error)
     if (!Object.keys(error).length) {
       var formData = new FormData(); 
-      formData.append('fname', fullName)
-      formData.append('mobile', phone.replace(/[^0-9]/g, ''))
-      formData.append('description', about)
-      if(picture !== ''){
-        formData.append('picture', picture)
-      }
+      // formData.append('fname', fullName)
+      // formData.append('mobile', phone.replace(/[^0-9]/g, ''))
+      // formData.append('description', about)
+      const data ={role:{}}
+      data.id = get(props, 'user.role.id', '')
+      data.role.name= fullName
+    // data.company=
+    data.phone= phone.replace(/[^0-9]/g, '')
+    data.role.description = about
+    // data.address =
+      // if(picture !== ''){
+      //   formData.append('picture', picture)
+      // }
       if (isSocialLogin) {
-        formData.append('password', password)
-        dispatch({ type: 'UPDATE_USER', payload: formData})
+        data.password= password
+        dispatch({ type: 'UPDATE_USER', payload: data})
         // dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about, password } })
       } else {
-        dispatch({ type: 'UPDATE_USER', payload: formData})
+        dispatch({ type: 'UPDATE_USER', payload: data})
         // dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
       }
     }
