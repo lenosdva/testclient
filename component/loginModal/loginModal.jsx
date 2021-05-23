@@ -77,7 +77,7 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError, 
       }
       setError(error)
       if (!Object.keys(error).length) {
-        dispatch({ type: 'LOGIN_EMAIL_REQUEST', payload: { email, password } })
+        dispatch({ type: 'LOGIN_EMAIL_REQUEST', payload: { identifier: email, password } })
       }
     }
   }

@@ -85,12 +85,12 @@ export default function Navbar(props) {
 
   useEffect(() => {
     dispatch({ type: 'GET_USER' })
-    if (get(userData, 'success', false)) {
+    if (get(userData, 'error', '') === false) {
       dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
       setSignUpModel(false)
-      if (get(userData, 'mobile', false)) {
-        setMobile(userData.mobile)
+      if (get(userData, 'user.phone', false)) {
+        setMobile(userData.user.phone)
         setOtpModel(true)
       }
     }
@@ -113,10 +113,19 @@ export default function Navbar(props) {
         }
       }
     }
-    if (get(emailSignData, 'token', false)) {
+
+    if (get(emailSignData, 'error', false)) {
+      dispatch({ type: 'RESET_LOG' })
+      const error = {}
+      error.serverError = get(emailSignData, 'message[0].messages[0].message', 'Please try again')
+      setError(error)
+      // NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
+    }
+
+    if (get(emailSignData, 'jwt', false)) {
       dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
-        localStorage.setItem('token', JSON.stringify(get(emailSignData, 'token', {})))
+        localStorage.setItem('token', JSON.stringify(get(emailSignData, 'jwt', {})))
         localStorage.setItem('user', JSON.stringify(get(emailSignData, 'user', {})))
         setSignUpModel(false)
         setLoginModel(false)
@@ -159,15 +168,15 @@ export default function Navbar(props) {
     if (get(emailLoginData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
       const error = {}
-      error.serverError = get(emailLoginData, 'message', 'Please try again')
+      error.serverError = get(emailLoginData, 'message[0].messages[0].message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(emailLoginData, 'message', 'Please try again'))
     }
 
-    if (get(emailLoginData, 'token', false)) {
+    if (get(emailLoginData, 'jwt', false)) {
       dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
-        localStorage.setItem('token', JSON.stringify(get(emailLoginData, 'token', {})))
+        localStorage.setItem('token', JSON.stringify(get(emailLoginData, 'jwt', {})))
         localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))
         setLoginModel(false)
         setLoggedStatus(true)
