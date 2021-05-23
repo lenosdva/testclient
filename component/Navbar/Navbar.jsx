@@ -85,12 +85,12 @@ export default function Navbar(props) {
 
   useEffect(() => {
     dispatch({ type: 'GET_USER' })
-    if (get(userData, 'success', false)) {
+    if (get(userData, 'error', '') === false) {
       dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
       setSignUpModel(false)
-      if (get(userData, 'mobile', false)) {
-        setMobile(userData.mobile)
+      if (get(userData, 'user.phone', false)) {
+        setMobile(userData.user.phone)
         setOtpModel(true)
       }
     }

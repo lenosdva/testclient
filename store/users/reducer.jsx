@@ -203,7 +203,7 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'REGISTERWITHEMAIL': {
-      cookieCutter.set('token', 'Bearer '+get(action, 'data.jwt'))
+      cookieCutter.set('token', 'Bearer '+get(action, 'data.jwt', ''))
       // cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
       cookieCutter.set('path', '/')
       return {
@@ -221,8 +221,6 @@ export default function userReducer(state = initialState, action) {
     }
     case 'LOGIN': {
       cookieCutter.set('token', 'Bearer '+get(action, 'data.token.accessToken'))
-      cookieCutter.set('expires', get(action, 'data.token.expiresIn'))
-      cookieCutter.set('path', '/')
       return {
         ...state,
         mobileLoginLoading: false,

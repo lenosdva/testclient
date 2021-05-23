@@ -6,7 +6,7 @@ const HOST = NEXT_PUBLIC_API_HOST
 const NEW_HOST = "https://dein-admin.herokuapp.com"
 
 export function* registerByMobile({ payload }) {
-  const data = yield fetch(`${HOST}/v1/auth/registerByMobile`, {
+  const data = yield fetch(`${NEW_HOST}/register-with-phone`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -22,7 +22,7 @@ export function* registerByMobile({ payload }) {
     .catch((error) => {
       throw error;
     });
-  yield put({ type: 'REGISTERWITHMOBILE', data });
+  yield put({ type: 'REGISTER', data });
 }
 
 
@@ -124,7 +124,7 @@ export function* loginByEmail({ payload }) {
 }
 
 export function* verifyOtp({ payload }) {
-  const data = yield fetch(`${HOST}/v1/auth/verifyOtp`, {
+  const data = yield fetch(`${NEW_HOST}/verify-user`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
