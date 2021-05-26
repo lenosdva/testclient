@@ -143,7 +143,7 @@ export function* verifyOtp({ payload }) {
 }
 
 export function* resendOtp({ payload }) {
-  const data = yield fetch(`${HOST}/v1/auth/resendMobileOtp`, {
+  const data = yield fetch(`${NEW_HOST}/resend-otp`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -392,7 +392,7 @@ export function* forgetPassword({ payload }) {
     body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      // 'Authorization': 'Bearer ' + get(token, 'accessToken', '')
     },
   })
     .then((res) => {

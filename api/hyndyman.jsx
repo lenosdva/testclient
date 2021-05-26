@@ -4,15 +4,16 @@ import axios from "axios"
 
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
+const NEW_HOST = "https://dein-admin.herokuapp.com"
 
 export function* registerHandyman({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/becomeSeller`,{
+  const data = yield fetch(`${NEW_HOST}/handyman-applications`,{
     method: 'POST',
     body: JSON.stringify(payload),
     headers: { 
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      'Authorization': 'Bearer ' + token
      },
   })
     .then((res) => {

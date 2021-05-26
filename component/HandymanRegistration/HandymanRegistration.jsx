@@ -54,7 +54,7 @@ function ProfileManagement({ t }) {
 
   useEffect(() => {
     setName(get(userData, 'fname', ''))
-    setEmail(get(userData, 'mobile', ''))
+    setEmail(get(userData, 'phone', ''))
     setPhone(get(userData, 'email', ''))
     setbankName(get(userData, 'bankname', ''))
     setaccountNumber(get(userData, 'accountNumber', ''))
@@ -160,8 +160,8 @@ function ProfileManagement({ t }) {
     setError(error)
     if (!Object.keys(error).length) {
       const userFormData = {
-        fname: name,
-        cname: companyName,
+        fullName: name,
+        companyName: companyName,
         location: location,
         description: about,
       }
@@ -183,7 +183,7 @@ function ProfileManagement({ t }) {
       // }
       // router.push('/handyman-registration-complete')
       dispatch({ type: "BECOME_HYNDYMAN", payload: userFormData })
-      dispatch({ type: "UPLOAD", payload: formData })
+      // dispatch({ type: "UPLOAD", payload: formData })
 
 
     }
