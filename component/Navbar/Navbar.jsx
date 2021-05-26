@@ -85,7 +85,7 @@ export default function Navbar(props) {
 
   useEffect(() => {
     dispatch({ type: 'GET_USER' })
-    if (get(userData, 'error', '') === false) {
+    if (get(userData, 'success', false)) {
       dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
       setSignUpModel(false)
@@ -94,7 +94,7 @@ export default function Navbar(props) {
         setOtpModel(true)
       }
     }
-    if (get(userData, 'error', false)) {
+    if (get(userData, 'success', false)) {
       dispatch({ type: 'RESET_LOG' })
       const error = {}
       error.serverError = get(userData, 'message', 'Please try again')

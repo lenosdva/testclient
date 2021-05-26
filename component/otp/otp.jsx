@@ -22,24 +22,31 @@ export function otp(otpModel, closeModal, mobile) {
     }
   }
 
+  useEffect(()=>{
+    dispatch({ type: 'RESEND_OTP', payload: { phone: mobile } })
+  },[mobile])
+
   useEffect(() => {
     // 
-    if (get(otpData, 'result.error', false)) {
+   
+    if (get(otpData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
       const error = {}
-      error.serverError = get(otpData, 'result.message', 'Please try again')
+      error.serverError = get(otpData, 'message[0].messages[0].message', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(otpData, 'result.message', 'Please try again'))
     }
-    if (get(resendOtpData, 'result.error', false)) {
+    if (get(resendOtpData, 'error', false)) {
       dispatch({ type: 'RESET_LOG' })
       const error = {}
-      error.serverError = get(resendOtpData, 'result.message', 'Please try again')
+      error.serverError = get(resendOtpData, 'error', 'Please try again')
       setError(error)
       // NotificationManager.error('Error message', get(resendOtpData, 'result.message', 'Please try again'))
     }
-    if (get(resendOtpData, 'result.success', false)) {
+    if (get(resendOtpData, 'success', false)) {
       dispatch({ type: 'RESET_LOG' })
+      const error = {}
+      setError(error)
       // NotificationManager.success('Success message', get(resendOtpData, 'result.message', 'OTP sent to given number'));
     }
 
@@ -85,7 +92,7 @@ export function otp(otpModel, closeModal, mobile) {
           <input type="text" className="otp-inp"/>
           <input type="text" className="otp-inp" /> */}
           </div>
-          <p className="last-para text-center">Didn’t got the code?  <span className="cursur-pointer" onClick={() => dispatch({ type: 'RESEND_OTP', payload: { mobile } })}>Resend</span></p>
+          <p className="last-para text-center">Didn’t got the code?  <span className="cursur-pointer" onClick={() => dispatch({ type: 'RESEND_OTP', payload: { phone: mobile } })}>Resend</span></p>
         </div>
       </Modal>
     </div>
