@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { withTranslation } from "../../constent/i18n/i18n"
 import { get } from "lodash"
@@ -6,6 +6,17 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Inbox = (props) => {
   const dispatch = useDispatch()
+
+  useEffect(()=>{
+    if(get(props, 'ws.emit', false)){
+      props.ws.emit("getConnectedUsers", {}, (res) => {
+      const rooms = res;
+      console.log("rooms========>", res);
+      // joinRoom(rooms[0]);
+    });
+  }
+  }, [props.ws])
+
   function getChat(_id, mainId, data){
     dispatch({ type: "GET_CHAT", payload: {userId: _id} })
     props.onSelectChat(_id, mainId, data)
@@ -41,7 +52,7 @@ const Inbox = (props) => {
   return (
     <div className="inbox">
       <h4 className="text-center mt-4 mb-4">{props.t("inbox.title")}</h4>
-      {renderInbox()}
+      {/* {renderInbox()} */}
       {/* <div className="inbox-item">
         <div className="inbox-photo">
           <Image

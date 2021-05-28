@@ -52,6 +52,7 @@ function* userActionWatcher() {
   yield takeLatest('PAUSE_REQUEST',Hyndyman.getPause);
   yield takeLatest('UPDATE_REQUEST',Hyndyman.getUpdate);
   yield takeLatest('CONTINUE_REQUEST',Hyndyman.getContinue)
+  yield takeLatest('UPLOAD_REQUEST',Hyndyman.fileUpload)
  }
 
 export default function* rootSaga() {

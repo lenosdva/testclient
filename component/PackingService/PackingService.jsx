@@ -42,11 +42,23 @@ export default function PackingService(props) {
   )
 
   const renderInputs = () => (
-    questions.map((data, key) => (
-      data.type === "field" ?
+    get(props, 'gig.serivce.form', []).map((data, key) => (
+      data.type === "text" ?
         <input
           key={key}
+          id={data.id}
           type="text"
+          className="input large"
+          name={data.name}
+          placeholder={data.name}
+          required={true}
+          validationMessage={data.name + 'is required'}
+        />
+        : data.type === "number" ?
+          <input
+          key={key}
+          id={data.id}
+          type="number"
           className="input large"
           name={data.name}
           placeholder={data.name}
@@ -57,6 +69,7 @@ export default function PackingService(props) {
           <select
             key={key}
             className="input large"
+            id={data.id}
             name={data.name}
             placeholder={data.name}
             required={true}
@@ -75,11 +88,11 @@ export default function PackingService(props) {
     e.preventDefault()
     const allInput = e.target.querySelectorAll('input, select, textarea')
     const input = Array.prototype.slice.call(allInput)
-    const answers = []
+    const answers = {}
     input.map((data) => {
-      answers.push(data.value)
+      answers[data.name] = (data.value)
     })
-    dispatch({ type: 'FORM_REQUEST', payload: { gigId: get(props, 'data._id', ''), answers } })
+    dispatch({ type: 'FORM_REQUEST', payload: { gig: get(props, 'gig._id', ''), initiate: answers } })
   }
 
   useEffect(() => {
@@ -119,7 +132,7 @@ export default function PackingService(props) {
     }, 500)
     setWishList(wish)
   }
-
+  console.log("props========>", props.data)
   return (
     <div className="packing-service">
       <div className="heading d-flex align-items-center justify-content-start flexwrap">
@@ -241,7 +254,7 @@ export default function PackingService(props) {
             </li>
             <li>
               <h5>Member Since :</h5>
-              <h4>{moment(get(props, 'data.sellerPersonalInfo.createdAt', '')).format('MMM YYYY')}</h4>
+              <h4>{moment(get(props, 'data.createdAt', '')).format('MMM YYYY')}</h4>
             </li>
           </ul>
           <p>Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm! </p>

@@ -207,7 +207,7 @@ export function* updateUser({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const id = payload.id
   delete payload.id
-  const data = yield yield fetch(`${NEW_HOST}/v1/users/${id}`, 
+  const data = yield yield fetch(`${NEW_HOST}/users/${id}`, 
   {
     method: 'PUT',
     headers: {

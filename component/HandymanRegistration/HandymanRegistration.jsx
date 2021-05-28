@@ -144,6 +144,13 @@ function ProfileManagement({ t }) {
     // setCertificate(data)
   }
 
+  function uploadWorkLicense(file){
+    const formData = new FormData();
+    formData.append('files', file)
+    dispatch({ type: "UPLOAD_REQUEST", payload: {files: formData, key: 'workLicense' }})
+    setWorkLicense(file)
+  }
+
   function onSubmit() {
     const error = {}
     if (name == '') {
@@ -178,12 +185,12 @@ function ProfileManagement({ t }) {
           formData.append('doc[]', data)
         }
       })
+      // dispatch({ type: "UPLOAD_REQUEST", payload: { formData } })
       // if(picture !== ''){
       //   userFormData.append('picture', picture)
       // }
       // router.push('/handyman-registration-complete')
       dispatch({ type: "BECOME_HYNDYMAN", payload: userFormData })
-      // dispatch({ type: "UPLOAD", payload: formData })
 
 
     }
@@ -314,7 +321,7 @@ function ProfileManagement({ t }) {
               </div>
               {get(workLicense, 'name', false) === false ?
                 <>
-                  <input accept="image/*" type="file" id={'workLicense'} onChange={(e) => setWorkLicense(e.target.files[0])} style={{ display: "none" }} />
+                  <input accept="image/*" type="file" id={'workLicense'} onChange={(e) => uploadWorkLicense(e.target.files[0])} style={{ display: "none" }} />
                   <div className="remove-btn" onClick={() => addCertificate('workLicense')}>Add</div>
                 </>
                 :

@@ -46,7 +46,7 @@ export function* uploadDocument({ payload }) {
 }
 
 export function* getGig({ payload }) {
-  const data = yield fetch(`${HOST}/v1/gigs/${payload}`, {
+  const data = yield fetch(`${NEW_HOST}/gigs/${payload}`, {
     method: 'GET',
     headers: { 
       'Content-Type': 'application/json',
@@ -101,6 +101,7 @@ export function* getServices() {
     });
   yield put({ type: 'GOT_SERVICES', data });
 }
+
 export function* getDelete({payload}) {
   const token = JSON.parse(localStorage.getItem('token'))
   const data = yield fetch(`${HOST}/v1/gigs/delete`, {
@@ -139,6 +140,27 @@ export function* getUpdate({payload}) {
       throw error;
     });
   yield put({ type: 'UPDATED_REQUEST', data });
+}
+
+export function* fileUpload({payload}) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const files = payload.files
+  const data = yield axios.post(`${NEW_HOST}/upload`, files, {
+    headers: { 
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + token
+     }
+  })
+    .then((data) => {
+      if(payload, 'key', false){
+        data.key = payload.key
+      }
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'FILE_UPLOADED', data });
 }
 
 export function* getPause({payload}) {
