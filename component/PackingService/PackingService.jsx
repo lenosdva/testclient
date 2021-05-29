@@ -34,7 +34,7 @@ export default function PackingService(props) {
   }));
 
   const moreService = () => (
-    get(props, 'moreService.gigs', []).map((data, key) => (
+    get(props, 'gig.related', []).map((data, key) => (
       <div key={key} className="col-md-4">
         <ServiceCard data={data} />
       </div>

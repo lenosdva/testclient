@@ -7,7 +7,7 @@ export default function ServiceCard(props) {
     <div className="service-card">
       <div className="image-area">
         <img
-          src={get(props, 'image.url', "/assets/images/spotlight1.jpg")}
+          src={get(props, 'image.display', "/assets/images/spotlight1.jpg")}
           alt="handyman1"
           layout="responsive"
           width="100%"
@@ -23,7 +23,7 @@ export default function ServiceCard(props) {
           <span>Handyman: </span>Erika Hans
         </h5>
         <h5>
-          <span>Price Range: </span> {get(props, 'data.priceRange', '$250 - $450')}
+          <span>Price Range: </span> ${get(props, 'data.minPrice', '0')} - ${get(props, 'data.maxPrice', '0')}
         </h5>
       </div>
       <div className="booking-section">

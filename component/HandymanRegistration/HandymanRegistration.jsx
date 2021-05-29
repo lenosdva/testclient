@@ -20,8 +20,8 @@ function ProfileManagement({ t }) {
   const router = useRouter()
   const { userData, uploadDoc, hyndyman, hyndymanLoading, uploadDocLoading, addPaymentLoading, addPayment } = useSelector(state => ({
     userData: state.user.user,
-    uploadDoc: state.handyman.uploadDoc,
-    uploadDocLoading: state.handyman.uploadDoc,
+    uploadDoc: state.handyman.uploadData,
+    uploadDocLoading: state.handyman.uploadLoading,
     hyndymanLoading: state.handyman.hyndymanLoading,
     hyndyman: state.handyman.hyndyman,
     addPaymentLoading: state.user.addPaymentLoading,
@@ -58,9 +58,7 @@ function ProfileManagement({ t }) {
     setPhone(get(userData, 'email', ''))
     setbankName(get(userData, 'bankname', ''))
     setaccountNumber(get(userData, 'accountNumber', ''))
-
     setiFSCCode(get(userData, 'iFSCCode', ''))
-
   }, [userData])
 
   useEffect(() => {
@@ -71,12 +69,28 @@ function ProfileManagement({ t }) {
   }, [addPayment])
 
   useEffect(() => {
-    // console.log(hyndyman, uploadDoc)
-    if (get(hyndyman, 'success', false) && get(uploadDoc, 'success', false)) {
+    if (get(hyndyman, '_id', false)) {
       router.push('/handyman-registration-complete')
       dispatch({ type: "RESET_HANDYMAN" })
     }
-  }, [hyndyman, uploadDoc])
+  }, [hyndyman])
+
+  useEffect(() => {
+    if(get(uploadDoc, 'data[0].key', '')=== "workLicense"){
+      setWorkLicense(uploadDoc.data[0])
+      dispatch({ type: "RESET_HANDYMAN" })
+    }
+    if(get(uploadDoc, 'data[0].key', '')=== "taxationIdentityCard"){
+      setTaxationIdentityCard(uploadDoc.data[0])
+      dispatch({ type: "RESET_HANDYMAN" })
+    }
+    if(get(uploadDoc, 'data[0].key', '')=== "certificate"){
+      const data = saveChanges
+      data.push(uploadDoc.data[0])
+      setsaveChanges(data)
+      dispatch({ type: "RESET_HANDYMAN" })
+    }
+  }, [uploadDoc])
 
   function onChanges(key) {
 
@@ -100,7 +114,6 @@ function ProfileManagement({ t }) {
         iFSCCode
       }
       dispatch({ type: "ADD_PAYMENT", payload: [data] })
-
     }
   }
   function removeCertificate(key) {
@@ -115,6 +128,9 @@ function ProfileManagement({ t }) {
 
   function uploadCerificate(e, key) {
     certificate[key] = e.target.files[0]
+    const formData = new FormData();
+    formData.append('files', e.target.files[0])
+    dispatch({ type: "UPLOAD_REQUEST", payload: {files: formData, key: 'certificate' }})
     setCertificate([...certificate])
   }
 
@@ -139,9 +155,7 @@ function ProfileManagement({ t }) {
   )
 
   function addMore() {
-    // const data = certificate
     setCertificate(oldArray => [...oldArray, {}]);
-    // setCertificate(data)
   }
 
   function uploadWorkLicense(file){
@@ -149,6 +163,13 @@ function ProfileManagement({ t }) {
     formData.append('files', file)
     dispatch({ type: "UPLOAD_REQUEST", payload: {files: formData, key: 'workLicense' }})
     setWorkLicense(file)
+  }
+
+  function uploadTaxationIdentityCard(file){
+    const formData = new FormData();
+    formData.append('files', file)
+    dispatch({ type: "UPLOAD_REQUEST", payload: {files: formData, key: 'taxationIdentityCard' }})
+    setTaxationIdentityCard (file)
   }
 
   function onSubmit() {
@@ -159,9 +180,9 @@ function ProfileManagement({ t }) {
       error.location = "Required"
     } if (about == '') {
       error.about = "Required"
-    } if (get(workLicense, 'name', false) === false) {
+    } if (get(workLicense, '_id', false) === false) {
       error.workLicense = "Required"
-    } if (get(taxationIdentityCard, 'name', false) === false) {
+    } if (get(taxationIdentityCard, '_id', false) === false) {
       error.taxationIdentityCard = "Required"
     }
     setError(error)
@@ -171,18 +192,23 @@ function ProfileManagement({ t }) {
         companyName: companyName,
         location: location,
         description: about,
+        email: phone,
+        phone: email, 
+        proof: []
       }
-      const formData = new FormData();
+      userFormData.proof.push({"name": "Work License", document: get(workLicense, '_id', '')})
+      userFormData.proof.push({"name": "Taxation Identity Card", document: get(taxationIdentityCard, '_id', '')})
+      // const formData = new FormData();
       // const userFormData = new FormData();
       // userFormData.append('fname', name)
       // userFormData.append('cname', companyName)
       // userFormData.append('location', location)
       // userFormData.append('description', about)
-      formData.append('doc[]', workLicense)
-      formData.append('doc[]', taxationIdentityCard)
-      certificate.map((data) => { 
-        if (get(workLicense, 'name', false) !== false) {
-          formData.append('doc[]', data)
+      // formData.append('doc[]', workLicense)
+      // formData.append('doc[]', taxationIdentityCard)
+      saveChanges.map((data) => { 
+        if (get(data, '_id', false) !== false) {
+          userFormData.proof.push({"name": "Certificate", document: get(data, '_id', '')})
         }
       })
       // dispatch({ type: "UPLOAD_REQUEST", payload: { formData } })
@@ -336,7 +362,7 @@ function ProfileManagement({ t }) {
               </div>
               {get(taxationIdentityCard, 'name', false) === false ?
                 <>
-                  <input accept="image/*" type="file" id={'taxationIdentityCard'} onChange={(e) => setTaxationIdentityCard(e.target.files[0])} style={{ display: "none" }} />
+                  <input accept="image/*" type="file" id={'taxationIdentityCard'} onChange={(e) => uploadTaxationIdentityCard(e.target.files[0])} style={{ display: "none" }} />
                   <div className="remove-btn" onClick={() => addCertificate('taxationIdentityCard')}>Add</div>
                 </>
                 :

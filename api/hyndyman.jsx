@@ -139,7 +139,7 @@ export function* getUpdate({payload}) {
     .catch((error) => {
       throw error;
     });
-  yield put({ type: 'UPDATED_REQUEST', data });
+  yield put({ type: 'UPLOADED_REQUEST', data });
 }
 
 export function* fileUpload({payload}) {
@@ -152,10 +152,11 @@ export function* fileUpload({payload}) {
      }
   })
     .then((data) => {
-      if(payload, 'key', false){
-        data.key = payload.key
+      const sdata = data
+      if(get(payload, 'key', false)){
+        sdata.data[0].key = payload.key
       }
-      return data;
+      return sdata;
     })
     .catch((error) => {
       throw error;

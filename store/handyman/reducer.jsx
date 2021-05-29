@@ -57,17 +57,17 @@ export default function userReducer(state = initialState, action) {
         update: {}
       }
     }
-    case 'UPLOAD': {
+    case 'UPLOAD_REQUEST': {
       return {
         ...state,
         uploadDocLoading: true
       }
     }
-    case 'UPLOADED': {
+    case 'UPLOADED_REQUEST': {
       return {
         ...state,
-        uploadDocLoading: true,
-        uploadDoc: action.data.data
+        uploadDocLoading: false,
+        uploadDoc: action.data
       }
     }
     case 'RESET_HANDYMAN': {
