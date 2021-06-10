@@ -18,14 +18,14 @@ const Inbox = (props) => {
     }
   }, [props.ws])
 
-  function getChat(_id, mainId, data) {
-    dispatch({ type: "GET_CHAT", payload: { userId: _id } })
-    props.onSelectChat(_id, mainId, data)
+  function getChat(id) {
+    dispatch({ type: "GET_CHAT", payload: { users: [id], type: "customer-to-customer" } })
+    // props.onSelectChat(_id, mainId, data)
   }
 
   const renderInbox = (user) => (
-    get(user, 'users', []).map((data, key) => (
-      <div key={key} onClick={() => getChat(get(data, 'partyUserRole', '') === "handyman" ? get(data, 'sellerUser', '') : get(data, 'toUser', ''), get(data, '_id', ''), data)} className="inbox-item">
+    get(props, 'inbox[0].users', []).map((data, key) => (
+      <div key={key} onClick={() => getChat(get(data, 'id', ''))} className="inbox-item">
         <div className="inbox-photo">
           <img
             src={get(data, 'profilePic.url', '') === '' ? "/assets/images/howitwork2.jpg" : data.profilePic.url} 
@@ -46,12 +46,12 @@ const Inbox = (props) => {
       </div>
     ))
   )
-    console.log(get(inboxData, '0.users', []))
+    console.log("props========>", props)
   return (
     <div className="inbox">
       <h4 className="text-center mt-4 mb-4">{props.t("inbox.title")}</h4>
-      {renderInbox(get(inboxData, '0', {}))}
-      {renderInbox(get(inboxData, '1', {}))}
+      {renderInbox()}
+      {/* {renderInbox(get(inboxData, '1', {}))} */}
       {/* <div className="inbox-item">
         <div className="inbox-photo">
           <Image

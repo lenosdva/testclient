@@ -27,33 +27,33 @@ const Chat = (props) => {
 
   useEffect(() => {
     const newMessage = []
-    get(props, 'chat.message.chats', []).map((data) => {
-      newMessage.unshift({
-        position: get(data, 'messageType', '') === "messageSent" ? 'right' : 'left',
+    get(props, 'chat', []).map((data) => {
+      newMessage.push({
+        position: get(data, 'postedBy._id', '') === get(user, '_id', '') ? 'right' : 'left',
         type: 'text',
         text: get(data, 'message', ''),
-        date: new Date()
+        date: new Date(get(data, 'createdAt', '')),
       })
     })
     setChat(newMessage)
     var objDiv = document.getElementById("chat-box");
     objDiv.scroll({ bottom: objDiv.scrollHeight, behavior: 'smooth' });
-  }, [props.chat.message])
+  }, [props.chat])
 
   function onSend() {
-    const SENDING_TO_USER_ID = get(props, 'chat.id', '')
-    const USER_ID = get(user, 'id', '')
-    let messageH = JSON.stringify({
-      request: "sendMessage",
-      user: USER_ID,
-      sendTo: SENDING_TO_USER_ID,
-      message: message
-    })
-    props.ws.send(messageH)
+    // const SENDING_TO_USER_ID = get(props, 'chat.id', '')
+    // const USER_ID = get(user, 'id', '')
+    // let messageH = JSON.stringify({
+    //   request: "sendMessage",
+    //   user: USER_ID,
+    //   sendTo: SENDING_TO_USER_ID,
+    //   message: message
+    // })
+    // props.ws.send(messageH)
+    dispatch({ type: "SEND_MESSAGE", payload: { roomId: props.roomId,  messageText: message } })  
     setMessage('')
   }
-  console.log(props)
-  console.log("moment", moment.tz('India').format('DD MM YYYY'))
+
   return (
     <div className="chat">
       <div className="chat-header">
