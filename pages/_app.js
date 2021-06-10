@@ -11,13 +11,13 @@ import appReducer from '../store';
 import rootSaga from '../store/sagas';
 import { appWithTranslation } from '../constent/i18n/i18n'
 import { get } from "lodash"
+import { io } from "socket.io-client";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
 import 'react-notifications/lib/notifications.css';
 
-
-const WEB_SOCKET = process.env.NEXT_PUBLIC_WEB_SOCKET
+const WEB_SOCKET = 'https://dein-admin.herokuapp.com'//process.env.NEXT_PUBLIC_WEB_SOCKET
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 const AUTH_DOMAIN = process.env.NEXT_PUBLIC_AUTH_DOMAIN
 const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID
@@ -31,6 +31,7 @@ const store = createStore(appReducer, applyMiddleware(sagaMiddleware, logger));
 sagaMiddleware.run(rootSaga);
 
 function MyApp({ Component, pageProps }) {
+  // const socket = io();
   const [ws, setWs] = useState({})
   useEffect(() => {
     initFirebase()
@@ -53,18 +54,18 @@ function MyApp({ Component, pageProps }) {
 
   async function messageHandler(messaging) {
     messaging.requestPermission()
-    .then(async function() {
-      const token = await messaging.getToken();
-      console.log("token", token)
-      messaging.onMessage((payload) => {
+      .then(async function () {
+        const token = await messaging.getToken();
+        console.log("token", token)
+        messaging.onMessage((payload) => {
           console.log('Message received. ', payload);
           NotificationManager.success(get(payload, 'notification.body', ''), get(payload, 'notification.title', ''))
-          
+
         });
-    })
-    .catch(function(err) {
-      console.log("Unable to get permission to notify.", err);
-    });
+      })
+      .catch(function (err) {
+        console.log("Unable to get permission to notify.", err);
+      });
     // const token = await messaging.getToken({ vapidKey: VAPID_KEY })
     // console.log("token", token)
     // messaging.onMessage((payload) => {
@@ -74,17 +75,40 @@ function MyApp({ Component, pageProps }) {
   }
 
   function setWebSoket() {
-    // const token = JSON.parse(localStorage.getItem('token'))
-    // if (token !== null && token) {
-    //   const webS = new WebSocket(WEB_SOCKET, get(token, 'accessToken', ''))
-    //   setWs(webS)
-    // }
+    const token = JSON.parse(localStorage.getItem('token'))
+    
+    if (token !== null && token) {
+      const sData = io(WEB_SOCKET, {
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              Authorization: 'Bearer '+ token
+            },
+          },
+        },
+      })
+
+      // const sData = io(WEB_SOCKET, {
+      //   auth: {
+      //     token: token
+      //   }
+      // })
+      // const webS = new WebSocket(WEB_SOCKET, token)
+      console.log("testing socket", sData)
+
+      // sData.emit("getConnectedUsers", {}, (res) => {
+      //    const rooms = res;
+      //     console.log("rooms========>", res);
+      //     // joinRoom(rooms[0]);
+      //   });
+      setWs(sData)
+    }
   }
 
   return (
     <StoreProvider store={store}>
       <Component ws={ws} setWebSoket={setWebSoket} {...pageProps} />
-      <NotificationContainer/>
+      <NotificationContainer />
     </StoreProvider>
   )
 }

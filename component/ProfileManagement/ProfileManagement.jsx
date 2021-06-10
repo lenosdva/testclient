@@ -32,24 +32,28 @@ function ProfileManagement(props) {
 
   const onDrop = useCallback(acceptedFiles => {
     const image = acceptedFiles[0]
-    image.url =  URL.createObjectURL(image)
+    image.url = URL.createObjectURL(image)
+    var formData = new FormData();
+    formData.append('files', image)
+    dispatch({ type: 'UPLOAD_REQUEST', payload: {files: formData} })
     setPicture(image)
     // console.log("acceptedFiles", )
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-  const { getCardLoading, getCardData, updateUserLoading, updateUser } = useSelector(state => ({
+  const { uploadDoc, getCardData, uploadDocLoading, updateUser } = useSelector(state => ({
     getCardLoading: state.user.getCardLoading,
     getCardData: state.user.getCardData,
     updateUserLoading: state.user.updateUserLoading,
     updateUser: state.user.updateUser,
-
+    uploadDocLoading: state.handyman.uploadDocLoading,
+    uploadDoc: state.handyman.uploadData,
   }));
   useEffect(() => {
-    setName(get(props, 'user.role.name', ''))
+    setName(get(props, 'user.name', ''))
     setCompany(get(props, 'user.company', ''))
     setPhone(get(props, 'user.phone', ''))
-    setAbout(get(props, 'user.role.description ', ''))
+    setAbout(get(props, 'user.aboutMe ', ''))
     setAddress(get(props, 'user.address ', ''))
   }, [props.user])
 
@@ -65,6 +69,14 @@ function ProfileManagement(props) {
     if (get(updateUser, 'message', false)) {
       const error = {}
       error.success = get(updateUser, 'message', false)
+      setError(error)
+      setTimeout(() => {
+        setError(error)
+      }, 5000)
+      dispatch({ type: "RESETUPDATED_USER" })
+    } if (get(updateUser, '_id', false)) {
+      const error = {}
+      error.success = get(updateUser, 'message', 'Data saved')
       setError(error)
       setTimeout(() => {
         setError(error)
@@ -94,31 +106,38 @@ function ProfileManagement(props) {
       if (cPassword !== cPassword) {
         error.cPassword = 'Password not match'
       }
+      if(uploadDocLoading === true){
+        error.image = 'Image upload in progress'
+      }
     }
-    
+
 
     setError(error)
     if (!Object.keys(error).length) {
-      var formData = new FormData(); 
+      var formData = new FormData();
       // formData.append('fname', fullName)
       // formData.append('mobile', phone.replace(/[^0-9]/g, ''))
       // formData.append('description', about)
-      const data ={role:{}}
-      data.id = get(props, 'user.role.id', '')
-      data.role.name= fullName
-    // data.company=
-    data.phone= phone.replace(/[^0-9]/g, '')
-    data.role.description = about
-    // data.address =
+      const data = {}
+      data.id = get(props, 'user._id', '')
+      data.name = fullName
+      // data.company=
+      data.phone = phone.replace(/[^0-9]/g, '')
+      data.aboutMe = about
+      if(get(uploadDoc, 'data[0]._id', false)){
+        data.profilePic = get(uploadDoc, 'data[0]._id', '')
+      }
+      // data.email = 
+      // data.address =
       // if(picture !== ''){
       //   formData.append('picture', picture)
       // }
       if (isSocialLogin) {
-        data.password= password
-        dispatch({ type: 'UPDATE_USER', payload: data})
+        data.password = password
+        dispatch({ type: 'UPDATE_USER', payload: data })
         // dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about, password } })
       } else {
-        dispatch({ type: 'UPDATE_USER', payload: data})
+        dispatch({ type: 'UPDATE_USER', payload: data })
         // dispatch({ type: 'UPDATE_USER', payload: { fname: fullName, "mobile": phone.replace(/[^0-9]/g, ''), description: about } })
       }
     }
@@ -155,7 +174,7 @@ function ProfileManagement(props) {
   //   setError(error)
   // }
 
-
+  console.log("uploadDoc", get(props, 'user.profilePic.url', ''))
   return (
     <div className="profile-management">
       <div className="row">
@@ -165,19 +184,19 @@ function ProfileManagement(props) {
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 {picture === '' ?
-                <img
-                  src={get(props, 'user.picture', '') === '' ? '/assets/images/howitwork2.jpg' : props.user.picture}
-                  alt="testimonial2"
-                  layout="responsive"
-                  style={{ width: 150, height: 150, borderRadius: 75 }}
-                />
-                :
-                <img
-                  src={get(picture, 'url', '/assets/images/howitwork2.jpg')}
-                  alt="testimonial2"
-                  layout="responsive"
-                  style={{ width: 150, height: 150, borderRadius: 75 }}
-                />
+                  <img
+                    src={get(props, 'user.profilePic.url', '') === '' ? '/assets/images/howitwork2.jpg' : props.user.profilePic.url}
+                    alt="testimonial2"
+                    layout="responsive"
+                    style={{ width: 150, height: 150, borderRadius: 75 }}
+                  />
+                  :
+                  <img
+                    src={get(picture, 'url', '/assets/images/howitwork2.jpg')}
+                    alt="testimonial2"
+                    layout="responsive"
+                    style={{ width: 150, height: 150, borderRadius: 75 }}
+                  />
                 }
               </div>
             </div>
@@ -280,6 +299,10 @@ function ProfileManagement(props) {
               </div>
 
             }
+            
+            {get(error, 'image', false) &&
+              <span className="errormsg"> {get(error, 'image', false)}</span>
+            } 
             {get(error, 'success', false) &&
               <span className="errormsg" style={{ color: 'green' }}> {get(error, 'success', false)}</span>
             }

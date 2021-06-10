@@ -14,6 +14,8 @@ function* userActionWatcher() {
   yield takeLatest('GET_ORDER', Users.getOrders);
   yield takeLatest('GET_INBOX', Users.getInbox);
   yield takeLatest('GET_CHAT', Users.getChat);
+  yield takeLatest('GET_MESSAGES', Users.getChatMessage);
+  yield takeLatest('SEND_MESSAGE', Users.sendMessage);
   yield takeLatest('GET_USER_INFO', Users.getUserInfo);
   yield takeLatest('UPDATE_USER', Users.updateUser);
   yield takeLatest('DO_PAYMENT', Users.payment);
@@ -52,6 +54,7 @@ function* userActionWatcher() {
   yield takeLatest('PAUSE_REQUEST',Hyndyman.getPause);
   yield takeLatest('UPDATE_REQUEST',Hyndyman.getUpdate);
   yield takeLatest('CONTINUE_REQUEST',Hyndyman.getContinue)
+  yield takeLatest('UPLOAD_REQUEST',Hyndyman.fileUpload)
  }
 
 export default function* rootSaga() {

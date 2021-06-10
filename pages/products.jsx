@@ -39,7 +39,12 @@ export default withRouter(function Category(props) {
             <SearchBar />
           </div>
           <div className="home-section-padding">
-            <PackingService gig={gig} moreService={moreServiceData} data={serviceDetails} />
+            <PackingService 
+              gig={gig} 
+              moreService={moreServiceData} 
+              // data={serviceDetails} 
+              data={gig}
+            />
           </div>
         </div>
         <div className="home-section-padding">

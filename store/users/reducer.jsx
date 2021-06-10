@@ -37,6 +37,9 @@ const initialState = {
   forgetPassword:{},
   mobileSignLoading:false,
   mobileSignData:{},
+  messageLoading: false,
+  messages: {},
+  sendMszLoading: true
 
   // resetUser:{},
 }
@@ -60,6 +63,34 @@ export default function userReducer(state = initialState, action) {
         ...state,
         cardLoding: false,
         cardData: action.data
+      }
+    }
+    case 'GET_MESSAGES': {
+      return {
+        ...state,
+        messageLoading: true,
+        messages: {}
+      }
+    }
+    case 'GOT_MESSAGE': {
+      return {
+        ...state,
+        messageLoading: false,
+        messages: action.data
+      }
+    }
+    case 'SEND_MESSAGE': {
+      return {
+        ...state,
+        sendMszLoading: true,
+        // messages: {}
+      }
+    }
+    case 'SENT_MESSAGE': {
+      return {
+        ...state,
+        sendMszLoading: false,
+        // messages: {}
       }
     }
     case 'CHECKOUT': {

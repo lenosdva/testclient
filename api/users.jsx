@@ -207,7 +207,7 @@ export function* updateUser({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const id = payload.id
   delete payload.id
-  const data = yield yield fetch(`${NEW_HOST}/v1/users/${id}`, 
+  const data = yield yield fetch(`${NEW_HOST}/users/${id}`, 
   {
     method: 'PUT',
     headers: {
@@ -249,13 +249,13 @@ export function* getOrders({ payload }) {
   yield put({ type: 'GOT_ORDER', data });
 }
 
-export function* getInbox({ payload }) {
+export function* getInbox() {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/getKnownUsers`, {
+  const data = yield fetch(`${NEW_HOST}/chat-rooms`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      'Authorization': 'Bearer ' + token
     },
   })
     .then((res) => {
@@ -291,14 +291,59 @@ export function* addPayment({ payload }) {
   yield put({ type: 'ADDED_PAYMENT', data });
 }
 
-
-export function* getChat({ payload }) {
+export function* sendMessage({payload}){
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/getChatsBetween`, {
+  const roomId = get(payload, 'roomId', '')
+  const data = yield fetch(`${NEW_HOST}/chat-messages/room/${roomId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify({
+      "messageText": payload.messageText
+    })
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+    yield put({ type: 'SENT_MESSAGE', data });
+}
+
+export function* getChatMessage({payload}) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${NEW_HOST}/chat-rooms/${payload}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+    yield put({ type: 'GOT_MESSAGE', data });
+}
+
+export function* getChat({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${NEW_HOST}/chat-rooms`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(payload)
   })
@@ -306,11 +351,7 @@ export function* getChat({ payload }) {
       return res.json();
     })
     .then((data) => {
-      const message = {
-        id: payload.userId,
-        message: data
-      }
-      return message;
+      return data;
     })
     .catch((error) => {
       throw error;

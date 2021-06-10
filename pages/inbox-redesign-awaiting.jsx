@@ -8,12 +8,20 @@ export default function InboxWidePage(props) {
   const [user, setUser] = useState({})
   const [selectedChatId, setId] = useState('')
   const dispatch = useDispatch()
-  const { inbox, inboxLoading, chatLoading, chat } = useSelector(state => ({
+  const { inbox, inboxLoading, chatLoading, chat, messageLoading, messages } = useSelector(state => ({
     inbox: state.user.inbox,
     inboxLoading: state.user.inboxLoading,
     chatLoading: state.user.chatLoading,
     chat: state.user.chat,
+    messageLoading: state.user.messageLoading,
+    messages: state.user.messages,
   }));
+
+  useEffect(()=>{
+    if(get(chat, 'chatRoom.chatRoom', false)){
+      dispatch({ type: "GET_MESSAGES", payload:  chat.chatRoom.chatRoom})
+    }
+  }, [chat])
 
   function onSelectChat(id, mainID, chatUser) {
     setId(mainID)
@@ -41,6 +49,8 @@ export default function InboxWidePage(props) {
     dispatch({ type: "GET_INBOX" })
   }, [])
 
+  console.log("message=========>", messages)
+
   return (
     <Layout setWebSoket={props.setWebSoket}>
       { (inboxLoading) &&
@@ -62,8 +72,8 @@ export default function InboxWidePage(props) {
               }
             </div>
             <div className="col-lg-4 col-md-12">
-              {get(chat, 'id', false) ?
-                <Chat onSelectChat={onSelectChat} chat={chat} ws={props.ws} user={user} />
+              {get(chat, 'chatRoom.chatRoom', false) ?
+                <Chat onSelectChat={onSelectChat} roomId={chat.chatRoom.chatRoom} chat={get(messages, 'conversation', [])} ws={props.ws} user={user} />
                 : <></>
               }
             </div>

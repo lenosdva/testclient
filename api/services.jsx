@@ -98,12 +98,12 @@ export function* getMoreService({ payload }) {
 
 export function* postServiceForm({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/gigs/apply`, {
+  const data = yield fetch(`${NEW_HOST}/rooms/me`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      'Authorization': 'Bearer ' + token
     },
   })
     .then((res) => {
