@@ -41,7 +41,9 @@ const initialState = {
   messages: {},
   sendMszLoading: true,
   quotationsLoading: false,
-  quotations: {}
+  quotations: {},
+  revisionLoading: false,
+  revision: {}
 
   // resetUser:{},
 }
@@ -215,6 +217,26 @@ export default function userReducer(state = initialState, action) {
         ...state,
         quotationsLoading: false,
         quotations: action.data
+      };
+    }
+
+    case 'ASK_REVISION': {
+      return {
+        ...state,
+        revisionLoading: true,
+      };
+    }
+    case 'ASKED_REVISION': {
+      return {
+        ...state,
+        revisionLoading: false,
+        revision: action.data
+      };
+    }
+    case 'RESET_REVISION': {
+      return {
+        ...state,
+        revision: {}
       };
     }
 

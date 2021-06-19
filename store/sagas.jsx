@@ -27,6 +27,7 @@ function* userActionWatcher() {
   yield takeLatest('FORGET_PASSWORD',Users.forgetPassword);
   yield takeLatest('RESET_PASSWORD',Users.resetPassword);
   yield takeLatest('GET_QUOTATIONS', Users.getQuotations)
+  yield takeLatest('ASK_REVISION', Users.askRevision)
   // yield takeLatest('REGISTER',Users.mobileSignData);
  }
 

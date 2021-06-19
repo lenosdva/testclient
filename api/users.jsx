@@ -383,6 +383,31 @@ export function* getQuotations({ payload }) {
   yield put({ type: 'GOT_QUOTATIONS', data });
 }
 
+export function* askRevision({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const roomID = payload.roomID
+  delete payload.roomID
+  const data = yield fetch(`${NEW_HOST}/proposals/room/${roomID}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      data.roomID = payload
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'ASKED_REVISION', data });
+}
+
 export function* payment({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const data = yield fetch(`${HOST}/v1/payments/addCards `, {
