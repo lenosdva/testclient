@@ -1,9 +1,16 @@
 import { get } from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 
 const TimelienItem = (props) => {
   const [showInfo, setShowInfo] = useState('');
   const [revisionAmount, setRevisionAmount] = useState('');
+  const dispatch = useDispatch()
+  const { revision,  revisionLoading } = useSelector(state => ({
+    revisionLoading: state.user.revisionLoading,
+    revision: state.user.revision,
+  }));
+
   function userAcceptOffer() {
     let offer = JSON.stringify({
       request: "acceptCustomOffer",
@@ -14,17 +21,26 @@ const TimelienItem = (props) => {
     setShowInfo('')
   }
 
-  function askForRivision() {
-    let offer = JSON.stringify({
-      request: "askForRevision", 
-      price: revisionAmount, 
-      orderId: get(props, 'orderStatus._id', 0)
-    })
-    const data = props.ws.send(offer)
-    setShowInfo('')
-    setRevisionAmount('')
-  }
+  useEffect(()=>{
+    if(get(revision, 'success', false)){
+      dispatch({ type: "RESET_REVISION"})
+      setShowInfo('')
+      setRevisionAmount('')
+    }
+  }, [revision])
+  
 
+  function askForRivision() {
+    dispatch({ type: "ASK_REVISION", payload: {roomID: props.roomId, amount: revisionAmount}})
+    // let offer = JSON.stringify({
+    //   request: "askForRevision", 
+    //   price: revisionAmount, 
+    //   orderId: get(props, 'orderStatus._id', 0)
+    // })
+    // const data = props.ws.send(offer)
+    
+  }
+  console.log("revision=========>", revision)
   function setAmount(e) {
     const re = /^[0-9,\b]+$/;
     if (e.target.value === '' || re.test(e.target.value)) {

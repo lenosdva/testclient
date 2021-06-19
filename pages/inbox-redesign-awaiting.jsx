@@ -68,7 +68,7 @@ export default function InboxWidePage(props) {
             </div>
             <div className="col-lg-4 col-md-12">
               {get(quotations, 'conversation', false) ?
-                <Timeline orderStatus={get(quotations, 'conversation', [])} ws={props.ws} />
+                <Timeline orderStatus={get(quotations, 'conversation', [])} roomId={chat.roomID} ws={props.ws} />
                 :
                 <TimelineOrder ws={props.ws} />
               }
