@@ -15,7 +15,7 @@ const Timeline = (props) => {
       ))
       }
       
-       <TimelineItem withLine />
+       {/* <TimelineItem withLine /> */}
       {/* <TimelineItem /> */} 
     </div>
     <button className="btn-paynow" onClick={()=> router.push(`/paymentgateway?id=${get(props, 'orderStatus._id', '')}`)}>Pay Now</button>

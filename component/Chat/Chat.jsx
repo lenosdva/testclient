@@ -33,6 +33,9 @@ const Chat = (props) => {
       props.ws.on("new message", (data) => {
         dispatch({ type: "GET_CHAT", payload: props.roomId})
       });
+      props.ws.on("new proposal", (data) => {
+        dispatch({ type: "GET_QUOTATIONS", payload: props.roomId})
+      });
     }
     // console.log("roomsrooms=====>", props.ws)
   }, [props.ws])
