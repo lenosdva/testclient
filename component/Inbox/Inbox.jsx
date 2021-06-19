@@ -9,39 +9,42 @@ const Inbox = (props) => {
   const [inboxData, setInbox] = useState([])
 
   useEffect(() => {
-    if (get(props, 'ws.emit', false)) {
-      props.ws.emit("getConnectedUsers", {}, (res) => {
-        const rooms = res;
-        console.log("rooms", rooms)
-        setInbox(rooms)
-      });
-    }
+   // if (get(props, 'ws.emit', false)) {
+      // props.ws.emit("getConnectedUsers", {}, (res) => {
+      //   const rooms = res;
+      //   console.log("rooms", rooms)
+      //   setInbox(rooms)
+      // });
+    //}
   }, [props.ws])
 
-  function getChat(id) {
-    dispatch({ type: "GET_CHAT", payload: { users: [id], type: "customer-to-customer" } })
+  function getChat(roomID) {
+    console.log("roomID============>", roomID)
+    dispatch({ type: "GET_CHAT", payload: roomID })
+    dispatch({ type: "GET_QUOTATIONS", payload: roomID})
+    // dispatch({ type: "GET_CHAT", payload: roomID})
     // props.onSelectChat(_id, mainId, data)
   }
 
   const renderInbox = (user) => (
-    get(props, 'inbox[0].users', []).map((data, key) => (
+    get(props, 'inbox', []).length && get(props, 'inbox', []).map((data, key) => (
       <div key={key} onClick={() => getChat(get(data, 'id', ''))} className="inbox-item">
         <div className="inbox-photo">
           <img
-            src={get(data, 'profilePic.url', '') === '' ? "/assets/images/howitwork2.jpg" : data.profilePic.url} 
+            src={get(data, 'users[0].profilePic.url', '') === '' ? "/assets/images/howitwork2.jpg" : data.users[0].profilePic.url} 
             alt="profile"
             style={{width:52, height: 52}}
           />
         </div>
         <div className="inbox-info">
           <div className="inbox-info-top">
-            <p className="inbox-title text-truncate mb-0">{get(data, 'description', '')}</p>
+            <p className="inbox-title text-truncate mb-0">{get(data, 'users[0].description', '')}</p>
             <p className="project-status orange-label">
               <span>{props.t("inbox.awaitingQuote")}</span>
             </p>
           </div>
-          <p className="project-id mb-0 mt-0">{props.t("projectID")}: {get(data, '_id', '')}</p>
-          <p className="inbox-name">{get(data, 'name', '')}</p>
+          <p className="project-id mb-0 mt-0">{props.t("projectID")}: {get(data, 'users[0]._id', '')}</p>
+          <p className="inbox-name">{get(data, 'users[0].name', '')}</p>
         </div>
       </div>
     ))

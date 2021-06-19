@@ -101,14 +101,14 @@ export default function Navbar(props) {
       setError(error)
       // NotificationManager.error('Error message', get(userData, 'message', 'Please try again'))
     }
-    if (get(otpData, 'token', false)) {
+    if (get(otpData, 'jwt', false)) {
       dispatch({ type: 'RESET_LOG' })
       if (typeof window !== "undefined") {
-        localStorage.setItem('token', JSON.stringify(get(otpData, 'token', {})))
+        localStorage.setItem('token', JSON.stringify(get(otpData, 'jwt', {})))
         localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
         setOtpModel(false)
         setLoggedStatus(true)
-        if (get(otpData, 'user.fname', '') === '') {
+        if (get(otpData, 'user.name', '') === '') {
           router.push('/profilemanagement')
         }
       }
@@ -130,7 +130,7 @@ export default function Navbar(props) {
         setSignUpModel(false)
         setLoginModel(false)
         setLoggedStatus(true)
-        if (get(emailSignData, 'user.fname', '') === '') {
+        if (get(emailSignData, 'user.name', '') === '') {
           if (get(emailSignData, 'user.socialLogin', false)) {
             router.push('/profilemanagement?isSocial=true')
           } else {
@@ -180,7 +180,7 @@ export default function Navbar(props) {
         localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))
         setLoginModel(false)
         setLoggedStatus(true)
-        if (get(emailLoginData, 'user.fname', '') === '') {
+        if (get(emailLoginData, 'user.name', '') === '') {
           router.push('/profilemanagement')
         }
       }

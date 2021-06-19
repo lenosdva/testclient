@@ -18,13 +18,13 @@ export function otp(otpModel, closeModal, mobile) {
     setOtp(e)
     setError({})
     if (e.length === 6) {
-      dispatch({ type: 'VERIFY_OTP', payload: { otp: e, mobile } })
+      dispatch({ type: 'VERIFY_OTP', payload: { otp: e, phone: mobile } })
     }
   }
 
-  useEffect(()=>{
-    dispatch({ type: 'RESEND_OTP', payload: { phone: mobile } })
-  },[mobile])
+  // useEffect(()=>{
+  //   dispatch({ type: 'RESEND_OTP', payload: { phone: mobile } })
+  // },[mobile])
 
   useEffect(() => {
     // 

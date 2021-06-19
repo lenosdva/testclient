@@ -33,6 +33,14 @@ sagaMiddleware.run(rootSaga);
 function MyApp({ Component, pageProps }) {
   // const socket = io();
   const [ws, setWs] = useState({})
+
+  get(ws, 'on', false) && ws.on("new message", (data) => {
+    // const rooms = res;
+    // dispatch({ type: "GET_CHAT", payload: props.roomId})
+    console.log("message=======>", data)
+    // setInbox(rooms)
+  });
+
   useEffect(() => {
     initFirebase()
     setWebSoket()
@@ -87,7 +95,7 @@ function MyApp({ Component, pageProps }) {
           },
         },
       })
-
+     
       // const sData = io(WEB_SOCKET, {
       //   auth: {
       //     token: token
@@ -95,7 +103,10 @@ function MyApp({ Component, pageProps }) {
       // })
       // const webS = new WebSocket(WEB_SOCKET, token)
       console.log("testing socket", sData)
-
+      // sData.on("new message", (data) => {
+      //   const rooms = data;
+      //       console.log("rooms========>", data);
+      // })
       // sData.emit("getConnectedUsers", {}, (res) => {
       //    const rooms = res;
       //     console.log("rooms========>", res);

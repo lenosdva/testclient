@@ -16,14 +16,29 @@ const Chat = (props) => {
     user: state.user.user,
   }));
 
-  useEffect(() => {
-    if (get(props, 'ws.addEventListener', false)) {
-      props.ws.addEventListener('message', function (event) {
-        let message = event;
-        dispatch({ type: "GET_CHAT", payload: { userId: get(props, 'chat.id', '') } })
-      })
+  // useEffect(() => {
+  //   if (get(props, 'ws.addEventListener', false)) {
+  //     props.ws.addEventListener('message', function (event) {
+  //       let message = event;
+  //       dispatch({ type: "GET_CHAT", payload: { userId: get(props, 'chat.id', '') } })
+  //     })
+  //   }
+  // }, [props.chat.id])
+
+  useEffect(()=>{
+    if (get(props, 'ws.on', false)) {
+      props.ws.emit("subscribe", props.roomId, (data) => {
+        console.log("subscribe", data);
+      });
+      props.ws.on("new message", (data) => {
+        dispatch({ type: "GET_CHAT", payload: props.roomId})
+      });
+      props.ws.on("new proposal", (data) => {
+        dispatch({ type: "GET_QUOTATIONS", payload: props.roomId})
+      });
     }
-  }, [props.chat.id])
+    // console.log("roomsrooms=====>", props.ws)
+  }, [props.ws])
 
   useEffect(() => {
     const newMessage = []

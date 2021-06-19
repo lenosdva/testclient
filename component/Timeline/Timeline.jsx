@@ -10,12 +10,12 @@ const Timeline = (props) => {
     <>
     <div className="timeline">
       <p className="timeline-title mb-5">Saturday, 23 February </p>
-      {get(props, 'orderStatus.orderHistory', []).map((data, key)=>(
+      {get(props, 'orderStatus', []).map((data, key)=>(
           <TimelineItem withLine data={data} key={key} {...props}/>
       ))
       }
       
-       <TimelineItem withLine />
+       {/* <TimelineItem withLine /> */}
       {/* <TimelineItem /> */} 
     </div>
     <button className="btn-paynow" onClick={()=> router.push(`/paymentgateway?id=${get(props, 'orderStatus._id', '')}`)}>Pay Now</button>

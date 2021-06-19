@@ -8,20 +8,22 @@ export default function InboxWidePage(props) {
   const [user, setUser] = useState({})
   const [selectedChatId, setId] = useState('')
   const dispatch = useDispatch()
-  const { inbox, inboxLoading, chatLoading, chat, messageLoading, messages } = useSelector(state => ({
+  const { inbox, inboxLoading, chatLoading, quotations, chat, messageLoading, messages } = useSelector(state => ({
     inbox: state.user.inbox,
     inboxLoading: state.user.inboxLoading,
     chatLoading: state.user.chatLoading,
     chat: state.user.chat,
     messageLoading: state.user.messageLoading,
     messages: state.user.messages,
+    quotations: state.user.quotations,
+    quotationsLoading: state.user.quotationsLoading,
   }));
 
-  useEffect(()=>{
-    if(get(chat, 'chatRoom.chatRoom', false)){
-      dispatch({ type: "GET_MESSAGES", payload:  chat.chatRoom.chatRoom})
-    }
-  }, [chat])
+  // useEffect(()=>{
+  //   if(get(chat, 'chatRoom.chatRoom', false)){
+  //     dispatch({ type: "GET_MESSAGES", payload:  chat.chatRoom.chatRoom})
+  //   }
+  // }, [chat])
 
   function onSelectChat(id, mainID, chatUser) {
     setId(mainID)
@@ -49,8 +51,8 @@ export default function InboxWidePage(props) {
     dispatch({ type: "GET_INBOX" })
   }, [])
 
-  console.log("message=========>", messages)
-
+  // console.log("message=========>", messages)
+  console.log("quotations========>", quotations)
   return (
     <Layout setWebSoket={props.setWebSoket}>
       { (inboxLoading) &&
@@ -65,15 +67,15 @@ export default function InboxWidePage(props) {
               <Inbox onSelectChat={onSelectChat} ws={props.ws} inbox={inbox} />
             </div>
             <div className="col-lg-4 col-md-12">
-              {getOrderStatus() ?
-                <Timeline orderStatus={getOrderStatus()} ws={props.ws} />
+              {get(quotations, 'conversation', false) ?
+                <Timeline orderStatus={get(quotations, 'conversation', [])} ws={props.ws} />
                 :
                 <TimelineOrder ws={props.ws} />
               }
             </div>
             <div className="col-lg-4 col-md-12">
-              {get(chat, 'chatRoom.chatRoom', false) ?
-                <Chat onSelectChat={onSelectChat} roomId={chat.chatRoom.chatRoom} chat={get(messages, 'conversation', [])} ws={props.ws} user={user} />
+              {get(chat, 'conversation', false) ?
+                <Chat onSelectChat={onSelectChat} roomId={chat.roomID} chat={get(chat, 'conversation', [])} ws={props.ws} user={user} />
                 : <></>
               }
             </div>
