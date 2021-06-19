@@ -339,24 +339,48 @@ export function* getChatMessage({payload}) {
 
 export function* getChat({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${NEW_HOST}/chat-rooms`, {
-    method: 'POST',
+  const data = yield fetch(`${NEW_HOST}/chat-rooms/${payload}?type=messages`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     },
-    body: JSON.stringify(payload)
+    // body: JSON.stringify(payload)
   })
     .then((res) => {
       return res.json();
     })
     .then((data) => {
+      data.roomID = payload
       return data;
     })
     .catch((error) => {
       throw error;
     });
   yield put({ type: 'GOT_CHAT', data });
+}
+
+export function* getQuotations({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${NEW_HOST}/chat-rooms/${payload}?type=offers`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    // body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      data.roomID = payload
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_QUOTATIONS', data });
 }
 
 export function* payment({ payload }) {

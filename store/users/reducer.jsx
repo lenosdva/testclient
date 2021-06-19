@@ -39,7 +39,9 @@ const initialState = {
   mobileSignData:{},
   messageLoading: false,
   messages: {},
-  sendMszLoading: true
+  sendMszLoading: true,
+  quotationsLoading: false,
+  quotations: {}
 
   // resetUser:{},
 }
@@ -201,6 +203,21 @@ export default function userReducer(state = initialState, action) {
         chat: action.data
       };
     }
+
+    case 'GET_QUOTATIONS': {
+      return {
+        ...state,
+        quotationsLoading: true,
+      };
+    }
+    case 'GOT_QUOTATIONS': {
+      return {
+        ...state,
+        quotationsLoading: false,
+        quotations: action.data
+      };
+    }
+
     case 'GET_INBOX': {
       return {
         ...state,

@@ -77,9 +77,10 @@ const TimelienItem = (props) => {
        <div className="checkbox">
           {Checkbox}
         </div> 
-      <h4>{get(props, 'data.status', '')}</h4>
+      {/* <h4>{get(props, 'data.status', '')}</h4> */}
+    <h4>{'Quotation received'}</h4> 
       <p className="description">
-        Vendor 11234 sent you his quotation for the service.
+        {get(props, 'data.postedBy.name', 'User')} sent you his quotation for the service.
       </p>
 
       <div className="d-flex justify-content-between">
@@ -101,6 +102,7 @@ const TimelienItem = (props) => {
                       <p className="view" onClick={() => setShowInfo("Revision Requested")}>View</p>
                       :
                       <p className="view" onClick={() => setShowInfo(get(props, 'data.status', ''))}>View</p>
+
         }
         <p className="time">12:57pm</p>
       </div>

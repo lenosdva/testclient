@@ -26,6 +26,7 @@ function* userActionWatcher() {
   yield takeLatest('FACEBOOK_REQUEST',Users.registerByFacebook);
   yield takeLatest('FORGET_PASSWORD',Users.forgetPassword);
   yield takeLatest('RESET_PASSWORD',Users.resetPassword);
+  yield takeLatest('GET_QUOTATIONS', Users.getQuotations)
   // yield takeLatest('REGISTER',Users.mobileSignData);
  }
 
