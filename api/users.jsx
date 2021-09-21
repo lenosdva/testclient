@@ -3,7 +3,7 @@ import { get } from "lodash"
 import axios from "axios"
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
-const NEW_HOST = "https://dein-admin.herokuapp.com"
+const NEW_HOST = "http://52.59.247.23:1337"
 
 export function* registerByMobile({ payload }) {
   const data = yield fetch(`${NEW_HOST}/register-with-phone`, {

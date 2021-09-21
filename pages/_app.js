@@ -17,7 +17,7 @@ import firebase from 'firebase/app';
 import 'firebase/messaging';
 import 'react-notifications/lib/notifications.css';
 
-const WEB_SOCKET = 'https://dein-admin.herokuapp.com'//process.env.NEXT_PUBLIC_WEB_SOCKET
+const WEB_SOCKET = 'http://52.59.247.23:1337'//process.env.NEXT_PUBLIC_WEB_SOCKET
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 const AUTH_DOMAIN = process.env.NEXT_PUBLIC_AUTH_DOMAIN
 const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID
