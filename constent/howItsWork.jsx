@@ -16,6 +16,6 @@ const Steps = [
         title: 'Share Your Needs',   
         text: "With our client-handyman dashboard, sharing your needs is easier than ever. Upload photos, share quotations and leave no gaps unfilled in your communication",
         image: '/assets/images/howitwork3.jpg'
-    },
+    }
 ]
 export default Steps

@@ -8,6 +8,8 @@ const initialState = {
   gig: {},
   addGigLoading: false,
   addGigData: {},
+  updateGigLoading: false,
+  updateGigData: {},
   serviceLoading: true,
   service: [],
   deleteLoading: true,
@@ -16,10 +18,22 @@ const initialState = {
   pause: [],
   continueLoading: true,
   continue: [],
-  updateLoading: true,
-  update: {},
+  updateHyndymanLoading: true,
+  updateHyndyman: {},
   uploadLoading: false,
-  uploadData: {}
+  uploadData: {},
+  gigsLoading: false,
+  gigs: {},
+  deleteGigLoading: false,
+  deleteGig: {},
+  userGigsLoading: false,
+  userGigs: {},
+  servicesLoading: true,
+  services: [],
+  updateFreeStatusLoading: false,
+  firmLoading: false,
+  firm: false
+
 }
 
 export default function userReducer(state = initialState, action) {
@@ -30,6 +44,78 @@ export default function userReducer(state = initialState, action) {
         hyndymanLoading: true
       }
     }
+    case 'GET_HYNDYMAN': {
+      return {
+        ...state,
+        hyndymanLoading: true,
+      };
+    }
+
+    case 'GOT_HYNDYMAN': {
+      return {
+        ...state,
+        hyndymanLoading: false,
+        hyndyman: action.data
+      }
+    }
+
+    case 'GET_FIRM': {
+      return {
+        ...state,
+        firmLoading: true,
+      };
+    }
+
+    case 'GOT_FIRM': {
+      return {
+        ...state,
+        firmLoading: false,
+        firm: action.data
+      }
+    }
+
+    case 'UPDATE_HYNDYMAN': {
+      return {
+        ...state,
+        updateHyndymanLoading: true
+      }
+    }
+
+    case 'UPDATE_FREE_STATUS': {
+      return {
+        ...state,
+        updateFreeStatusLoading: true
+      }
+    }
+
+    case 'UPDATED_HYNDYMAN': {
+      return {
+        ...state,
+        updateHyndymanLoading: false,
+        updateFreeStatusLoading: false,
+        updateHyndyman: action.data
+     
+      };
+      
+    }
+
+
+
+    case 'RESET_HYNDYMAN': {
+      return {
+        ...state,
+        hyndyman: {}
+      };
+    }
+
+    case 'DELETE_HYNDYMAN': {
+      return {
+        ...state,
+        hyndyman: {}
+      };
+    }
+
+
     case 'HYNDYMAN': {
       return {
         ...state,
@@ -37,6 +123,8 @@ export default function userReducer(state = initialState, action) {
         hyndyman: action.data
       }
     }
+
+
     case 'ADD_GIG': {
       return {
         ...state,
@@ -46,10 +134,39 @@ export default function userReducer(state = initialState, action) {
     case 'ADDED_GIG': {
       return {
         ...state,
-        addGigLoading: true,
+        addGigLoading: false,
         addGigData: action.data
       }
     }
+
+    case 'UPDATE_GIG': {
+      return {
+        ...state,
+        updateGigLoading: true
+      }
+    }
+    case 'UPDATED_GIG': {
+      return {
+        ...state,
+        updateGigLoading: false,
+        updateGigData: action.data
+      }
+    }
+
+    case 'DELETE_GIG': {
+      return {
+        ...state,
+        deleteGigLoading: true
+      }
+    }
+    case 'DELETED_GIG': {
+      return {
+        ...state,
+        deleteGigLoading: false,
+        deleteGig: {}
+      }
+    }
+
     case 'RESET_GIG': {
       return {
         ...state,
@@ -91,18 +208,44 @@ export default function userReducer(state = initialState, action) {
         gig: action.data
       }
     }
+    case 'GET_GIGS': {
+      return {
+        ...state,
+        gigsLoading: true
+      }
+    }
+    case 'GOT_GIGS': {
+      return {
+        ...state,
+        gigsLoading: false,
+        gigs: action.data
+      }
+    }
+    case 'GET_USER_GIGS': {
+      return {
+        ...state,
+        userGigsLoading: true
+      }
+    }
+    case 'GOT_USER_GIGS': {
+      return {
+        ...state,
+        userGigsLoading: false,
+        userGigs: action.data
+      }
+    }
     case 'GET_SERVICES': {
       return {
         ...state,
-        serviceLoading: true,
+        servicesLoading: true,
       };
     }
 
     case 'GOT_SERVICES': {
       return {
         ...state,
-        serviceLoading: false,
-        service: action.data
+        servicesLoading: false,
+        services: action.data
       };
     }
     case 'DELETE_REQUEST': {
@@ -124,6 +267,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         uploadLoading: false,
+        uploadDocLoading: false,
         uploadData: action.data
       }
     };

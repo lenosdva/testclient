@@ -1,0 +1,125 @@
+.waiting-addgig {
+  height: 100%;
+  margin: 130px auto auto auto;
+  @media (max-width:767px) {
+    margin: 100px auto auto auto;
+    
+  }
+  .waiting-wrapper {
+    text-align: center;
+    width: 1100;    
+    background: url("/assets/images/addgigcompleteicon.png") no-repeat top;
+    background-size: 130px 140px;
+    @media (max-width:767px) {
+      
+      background-size: 60px 65px;
+    }
+    //@media (max-width:767px) {
+    //  margin: 100px auto 50px;
+    //  background-size: 15%;
+    //}
+    .waiting-text {
+      padding: 184px 0 40px 0; 
+      @media (max-width:767px) {
+        padding: 85px 0 30px 0; 
+      }
+      .clipboard {
+        background-color: #ffffff;        
+      }  
+      .primarybtn-fill1 {
+        border-radius: 50px;
+        width: 270px;
+        height: 50px;
+        font-size: 18px;
+        line-height: 20px;
+        margin: 50px auto 150px auto;
+        padding: 12px 50px;
+        background: #9043C3;
+        font-family: Neue Haas Grotesk Display Pro;
+        font-weight: 500;
+        color: #FFFFFF;
+        @media (max-width:767px) {
+          margin: 30px auto 100px auto;
+          width: 220px;
+          height: 40px;
+          font-size: 14px;
+          line-height: 16px;
+          padding: 12px 30px;
+        }
+      }
+      h4 {
+        font-family: Neue Haas Grotesk Display Pro;
+        font-weight: 500;
+        font-size: 64px;
+        line-height: normal !important;
+        letter-spacing: -0.0018em;
+        color: #252525;
+        margin: 0 0 15px 0;
+        @media (max-width:767px) {
+          font-size: 40px;
+        }
+      }
+      .input {
+        width: 365px;
+        height: 60px;
+        border: 1px solid #746f6f;
+        border-radius: 5px;
+        padding-left: 45px;
+        color: #8b8888;
+        outline: none;
+        margin: 50px auto auto auto;
+        font-size: 18px;
+        line-height: 26px;
+        background-image: url(/assets/images/sharelink.png);
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        &:hover {
+         // background-image: url(/assets/images/sharelink.png);
+          //background: #e1e5e9;
+          cursor: copy;
+        }
+        //background-origin: content-box;      
+        @media (max-width:767px) {
+          width: 250px;
+          height: 40px;
+          font-size: 14px;
+        line-height: 20px;
+        }
+      }
+      .input:active {
+        background-size: 20px;
+      }
+
+      a {
+        color: $primary-color;
+        font-weight: 500;
+        text-decoration: underline;
+      }
+
+      p {
+        font-family: Neue Haas Grotesk Display Pro;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 36px;
+        letter-spacing: -0.0018em;
+        color: #252525;
+        margin-left: auto;
+        margin-right: auto;   
+        @media (max-width:767px) {
+          font-size: 16px;
+          line-height: normal;
+          margin-left: 10%;
+          margin-right: 10%;
+          margin-top: 30px;
+          font-weight: 600;
+          //margin: 0 0 0 0;
+        }
+        a {
+          color: $primary-color;
+          font-weight: 500;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

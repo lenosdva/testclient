@@ -7,8 +7,8 @@ export default function Category(props) {
         <div className="support-section">
           <div className="container">
             <div className="row">
-              <div className="col-lg-6 col-md-12 col-sm-12"><Support /></div>
-              <div className="col-lg-6 col-md-12 col-sm-12 about-us-and-contact"><FAQ /></div>
+              <div className="col-lg-12 col-md-12 col-sm-12"><Support /></div>
+              {/*<div className="col-lg-6 col-md-12 col-sm-12 about-us-and-contact"><FAQ /></div>*/}
             </div>
           </div>
           </div>

@@ -3,7 +3,7 @@ import { get } from "lodash"
 import * as Users from "./users"
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
-const NEW_HOST = "http://52.59.247.23:1337"
+const NEW_HOST = "https://strapi.deinhausmann.com"
 
 export function* search({ payload }) {
   const data = yield fetch(`${NEW_HOST}/search?search=${payload}`, {
@@ -24,7 +24,6 @@ export function* search({ payload }) {
 }
 
 export function* getAllService({ payload }) {
-  console.log("APAI calledddddd")
   const data = yield fetch(`${NEW_HOST}/serivces`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +32,7 @@ export function* getAllService({ payload }) {
       return res.json();
     })
     .then((data) => {
-      // data.mobile = payload.mobile
+      console.log("SERACH all: ", data)
       return data;
     })
     .catch((error) => {
@@ -43,7 +42,9 @@ export function* getAllService({ payload }) {
 }
 
 export function* MovingOutServices({ payload }) {
-  const data = yield fetch(`${NEW_HOST}/serivces/${payload}`, {
+  const id = payload.serId
+  delete payload.serId 
+  const data = yield fetch(`${NEW_HOST}/serivces/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
@@ -51,7 +52,6 @@ export function* MovingOutServices({ payload }) {
       return res.json();
     })
     .then((data) => {
-      data.mobile = payload.mobile
       return data;
     })
     .catch((error) => {

@@ -37,8 +37,8 @@ export default function ServicesInSpotlight() {
         </div>
         <div className="col-md-4 pr-0 pl-0">
           <Image
-            src="/assets/images/spotlight3.jpg"
-            alt="spotlight3"
+            src="/assets/images/spotlight4.jpg"
+            alt="spotlight4"
             layout="responsive"
             width={390}
             height={142}
@@ -46,8 +46,8 @@ export default function ServicesInSpotlight() {
         </div>
         <div className="col-md-4 pl-0">
           <Image
-            src="/assets/images/spotlight3.jpg"
-            alt="spotlight3"
+            src="/assets/images/spotlight5.jpg"
+            alt="spotlight5"
             layout="responsive"
             width={390}
             height={148}

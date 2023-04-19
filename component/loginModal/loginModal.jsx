@@ -126,7 +126,6 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError, 
                       <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
                         {/* <option disabled value=''></option> */}
                         <option value="49">Germany</option>
-                        <option value="91">India</option>
                       </select>
                     </div>
                   </div>
@@ -134,8 +133,8 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError, 
                   <div className="form-group">
                     <div className="p-lr">
                       <div className="labels">Phone Number</div>
-                      <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                        {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
+                      <InputMask mask="(+4\9) 999 999 99999" value={phone} onChange={(e) => setPhone(e.target.value)}>
+                        {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(+49) --- --- -----" />}
                       </InputMask>
                     </div>
                   </div>
@@ -248,10 +247,11 @@ export function loginModal(loginModel, closeModal, setSignUpModel, serverError, 
                 :
                 <button onClick={() => setloginWith('phone')}>
                   <Image
-                    src="/assets/svg/ic-email.svg"
+                    src="/assets/svg/phone.svg"
                     alt=""
-                    width={30}
-                    height={30}
+                    width={27}
+                    height={27}
+                    className="pl-1"
                   />
                   <span>Continue with Phone</span>
                 </button>

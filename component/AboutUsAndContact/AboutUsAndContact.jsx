@@ -1,23 +1,43 @@
 import { withTranslation } from "../../constent/i18n/i18n"
+import Image from 'next/image';
+import { useEffect, useState } from "react"
 
 function AboutUsAndContact({t}) {
+  const [isOpera, setIsOpera] = useState(false)
+  useEffect(() => {
+    setIsOpera((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0);
+}, [])
   return (
-    <div className="about-us-and-contact d-flex justify-content-end flexwrap">
-      <div className="form-area p-5">
-        <h1 className="mb-4">{t("aboutUs.title")}</h1>
-        <p className="mb-3 mt-3">
+    
+    <div className="about-us-and-contact d-flex flexwrap">
+      <div className={isOpera? "form-area-op p-5" :"form-area p-5"}>
+        <h1>{t("aboutUs.title")}</h1>
+        <p className="disp">
         {t("aboutUs.text1")}
         </p>
+        <div className="mob d-flex">
+            <p>
+              {t("aboutUs.text1")}
+            </p>
+            <div className="mob1"> 
+                                <img
+                                      src="/assets/images/map.png"
+                                      alt="map"                                      
+                            
+                                  />
+                    
+            </div>
+        </div>
         <br />
         <p className="mb-3">
         {t("aboutUs.text2")}
         </p>
         <br />
         <br />
-        <h1 className="mb-3">{t("aboutUs.cTitle")}</h1>
-        <h3 className="subtitle mb-4">
+        <h3>Any Suggestions For Cooperation?</h3>
+        <p className="subtitle">
         {t("aboutUs.cText")}
-        </h3>
+        </p>
         <div className="form">
           <div className="d-flex flexwrap">
             <input type="text" className="input large mr-2" placeholder={t("aboutUs.name")} />
@@ -46,12 +66,7 @@ function AboutUsAndContact({t}) {
             <a className="btn facebook ">
               <i className="fab fa-facebook-f"></i>
             </a>
-          </div>
-          <div className="m-3">
-            <a className="btn google ">
-              <i className="fab fa-google-plus-g"></i>
-            </a>
-          </div>
+          </div>          
           <div className="m-3">
             <a className="btn btn-primary ">
               <i className="fab fa-instagram"></i>
@@ -64,19 +79,15 @@ function AboutUsAndContact({t}) {
           </div>
         </div>
       </div>
-      <div className="map-area">
+      <div className="disp map-area">
         <div className="mapouter">
           <div className="gmap_canvas">
-            <iframe
-              width="600"
-              height="1150"
-              id="gmap_canvas"
-              src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              frameBorder="0"
-              scrolling="no"
-              marginHeight="0"
-              marginWidth="0"></iframe>
-            <a href="#"></a>
+                      <Image
+                            src="/assets/images/map.png"
+                            alt="map"
+                            width={482}
+                            height={485}
+                        />
           </div>
         </div>
       </div>

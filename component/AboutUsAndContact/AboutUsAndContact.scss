@@ -1,27 +1,77 @@
 .about-us-and-contact {
   padding-top: 60px;
+  align-items: top center;
+  .mob1 {
+    display: none;
+    @media (max-width:767px) {
+      display: inline-flex; 
+      width: 50%;  
+      img {
+        width: 114px;
+        height: 143px;
+        margin: 20px 0 0 20px;
+      }   
+    }
+  }
+  .mob {
+    display: none;
+    @media (max-width:767px) {
+      display: inline-flex;
+      width: 100%;      
+      p {
+        margin-left: 0 !important;
+        width: 50%;
+      }
+    }
+  }
+  .disp {
+    @media (max-width:767px) {
+      display: none;
+    }
+  }
   p {
     font-size: 18px;
     color: $text-color;
     line-height: 24px;
     letter-spacing: 0.28px;
+    @media (max-width:767px) {
+      font-size: 12px;
+    }
   }
 
+
+
   .form-area {
-    width: 70%;
+    width: 30%;
+    margin-left: 25%;
+    
     @media (max-width:767px) {
       width: 100%;
       padding: 40px 20px !important;
     }
+
     h1 {
+      font-size: 64px;
+      margin: 0 0 40px 0;
       @media (max-width:767px) {
-        font-size: 40px;
+        font-size: 24px;
+      }
+    }
+    h3 {
+      font-size: 48px;
+      line-height: 57px !important;
+      margin: 0 0 40px 0;
+      @media (max-width:767px) {
+        font-size: 24px;
+        line-height: 30px !important;
       }
     }
     .subtitle {
-      font-weight: 400;
+      font-weight: 600;
+      margin: 0 0 20px 0;
       @media (max-width:767px) {
-        font-size: 24px;
+        font-size: 16px;
+        font-weight: 400;
         line-height: normal !important;
       }
     }
@@ -53,9 +103,9 @@
 
     .button-area {
       button {
-        border-radius: 10px;
-        margin: 10px auto;
-        margin-bottom: 20px;
+        width: 270px;
+        border-radius: 50px;
+        margin: 30px auto 63px auto;
         padding: 12px 42px;
         text-align: center;
         font-weight: 500;
@@ -65,6 +115,7 @@
         color: $white-color;
         @media (max-width:767px) {
           width: 100%;
+          margin: 30px auto 41px auto;
         }
       }
     }
@@ -83,6 +134,10 @@
     }
 
     .icon-section {
+      margin: 0 0 150px 0;
+      @media (max-width:767px) {
+        margin: 0 0 80px 0;
+      }
       .btn {
         color: white;
         border-radius: 50%;
@@ -105,9 +160,261 @@
       }
     }
   }
+
+
+  @-moz-document url-prefix() {
+    
+    .form-area {
+      width: 30%;
+      margin-left: 19%;
+      
+      @media (max-width:767px) {
+        width: 100%;
+        padding: 40px 20px !important;
+      }
+  
+      h1 {
+        font-size: 64px;
+        margin: 0 0 40px 0;
+        @media (max-width:767px) {
+          font-size: 24px;
+        }
+      }
+      h3 {
+        font-size: 48px;
+        line-height: 57px !important;
+        margin: 0 0 40px 0;
+        @media (max-width:767px) {
+          font-size: 24px;
+          line-height: 30px !important;
+        }
+      }
+      .subtitle {
+        font-weight: 600;
+        margin: 0 0 20px 0;
+        @media (max-width:767px) {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: normal !important;
+        }
+      }
+  
+      .form {
+        .input {
+          padding: 12px;
+          background-color: $box-background;
+          color: $grey-color;
+          border: none;
+          outline: none;
+          margin-bottom: 10px;
+          font-size: 18px;
+          line-height: 26px;
+        }
+        .small {
+          width: 60%;
+        }
+        .large {
+          width: 100%;
+        }
+        .mr-2,.ml-2 {
+          @media (max-width:768px) {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+        }
+      }
+  
+      .button-area {
+        button {
+          width: 270px;
+          border-radius: 50px;
+          margin: 30px auto 63px auto;
+          padding: 12px 42px;
+          text-align: center;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 26px;
+          letter-spacing: -0.0018em;
+          color: $white-color;
+          @media (max-width:767px) {
+            width: 100%;
+            margin: 30px auto 41px auto;
+          }
+        }
+      }
+  
+      .or {
+        &::after {
+          @media (max-width:767px) {
+            width: 200px;
+          }
+        }
+        .horizontal-line {
+          width: 40%;
+          height: 1px;
+          background-color: $grey-color;
+        }
+      }
+  
+      .icon-section {
+        margin: 0 0 150px 0;
+        @media (max-width:767px) {
+          margin: 0 0 80px 0;
+        }
+        .btn {
+          color: white;
+          border-radius: 50%;
+          height: 60px;
+          width: 60px;
+          font-size: 36px;
+  
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .facebook {
+          background-color: #274d91;
+        }
+        .google {
+          background-color: #d43d27;
+        }
+        .linkedin {
+          background-color: #0072b4;
+        }
+      }
+    }
+
+
+  }
+
+
+  .form-area-op {
+    width: 35%;
+    margin-left: 330px;
+    
+    @media (max-width:767px) {
+      width: 100%;
+      padding: 40px 20px !important;
+    }
+    @media (max-width:1200px) {
+      margin-left: 0px;
+    }
+    h1 {
+      font-size: 64px;
+      margin: 0 0 40px 0;
+      @media (max-width:767px) {
+        font-size: 24px;
+      }
+    }
+    h3 {
+      font-size: 48px;
+      line-height: 57px !important;
+      margin: 0 0 40px 0;
+      @media (max-width:767px) {
+        font-size: 24px;
+        line-height: 30px !important;
+      }
+    }
+    .subtitle {
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      @media (max-width:767px) {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: normal !important;
+      }
+    }
+
+    .form {
+      .input {
+        padding: 12px;
+        background-color: $box-background;
+        color: $grey-color;
+        border: none;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;
+      }
+      .small {
+        width: 60%;
+      }
+      .large {
+        width: 100%;
+      }
+      .mr-2,.ml-2 {
+        @media (max-width:768px) {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+      }
+    }
+
+    .button-area {
+      button {
+        width: 270px;
+        border-radius: 50px;
+        margin: 30px auto 63px auto;
+        padding: 12px 42px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 26px;
+        letter-spacing: -0.0018em;
+        color: $white-color;
+        @media (max-width:767px) {
+          width: 100%;
+          margin: 30px auto 41px auto;
+        }
+      }
+    }
+
+    .or {
+      &::after {
+        @media (max-width:767px) {
+          width: 200px;
+        }
+      }
+      .horizontal-line {
+        width: 40%;
+        height: 1px;
+        background-color: $grey-color;
+      }
+    }
+
+    .icon-section {
+      margin: 0 0 150px 0;
+      @media (max-width:767px) {
+        margin: 0 0 80px 0;
+      }
+      .btn {
+        color: white;
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+        font-size: 36px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .facebook {
+        background-color: #274d91;
+      }
+      .google {
+        background-color: #d43d27;
+      }
+      .linkedin {
+        background-color: #0072b4;
+      }
+    }
+  }
+
+
   .map-area {
-    width: 30%;
+    width: 45%;
     overflow: hidden;
+    margin-top: 200px;
     @media (max-width:767px) {
       width: 100%;
     }

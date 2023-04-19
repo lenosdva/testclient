@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import {  Dropdown, DropdownToggle, DropdownMenu, DropdownItem, DropdownButton } from 'reactstrap';
 import Modal from 'react-modal';
 import { useRouter } from 'next/router'
 import InputMask from 'react-input-mask';
@@ -14,18 +14,29 @@ import cookie from 'cookie-cutter';
 import Moment from 'moment';
 import { loginModal } from "../loginModal/loginModal"
 import { signUpModal } from "../signUpModal/signUpModal"
+import { PaySubModule } from "../PaySubModule/PaySubModule"
+import { AprrovedNot } from "../AprrovedNot/AprrovedNot"
+import { AprrovedFree } from "../AprrovedFree/AprrovedFree"
+import {Dropdown as DropdownB} from 'react-bootstrap';
+import {DropdownButton as DropdownButtonB} from 'react-bootstrap';
+
+
 import { forgotPassword } from "../ForgetPassword/ForgetPassword"
-import { otp } from "../otp/otp"
+import { otp } from "../otp/otp";
 
 export default function Navbar(props) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [engMenu, setEngMenu] = useState(false);
+  
 
   const toggle = () => setDropdownOpen(prevState => !prevState);
+  const engToggle = () => setEngMenu(prevState => !prevState);
+  
 
   const dispatch = useDispatch()
   const router = useRouter()
-  const { user, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData, forgetPassword } = useSelector(state => ({
+  const { user, userLoading, needLogin, userData, otpData, emailSignData, mobileLoginData, emailLoginData, getNotification, mobileSignData, forgetPassword, handyman, updateHyndymanLoading, handymanLoading } = useSelector(state => ({
     userData: state.user.mobileSignData,
     otpData: state.user.otpData,
     user: state.user.user,
@@ -36,22 +47,41 @@ export default function Navbar(props) {
     needLogin: state.user.needLogin,
     getNotification: state.services.notification,
     forgetPassword: state.user.forgetPassword,
+    handyman: state.handyman.hyndyman,
+    updateHyndymanLoading: state.handyman.updateLoading,
+    handymanLoading: state.handyman.hyndymanLoading,
+    userLoading: state.user.userLoading
   }));
   const [userLogged, setLoggedStatus] = useState(false);
   const [loginModel, setLoginModel] = useState(false);
   const [signUpModel, setSignUpModel] = useState(false);
   const [otpModel, setOtpModel] = useState(false);
+  const [paySubModel, setPaySubModel] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [menu, setMenu] = useState(false);
   const [showMessage, setMessage] = useState(false);
   const [forgetModel, setForgetModel] = useState(false)
   const [error, setError] = useState({});
+  const [handymanStatus, setHandymanStatus] = useState('');
+  const [handymanApproved, setHandymanApproved] = useState('');
+  const [handymanApprovedNotification, setHandymanApprovedNotification] = useState(false);
+  const [approvedFree, setApprovedFree] = useState(false);
+
+  const [isHandyman, setIsHandyman] = useState(false);
+  const [isBuyer, setIsBuyer] = useState(false);
+  const [isBecomeHandyman, setIsBecomeHandyman] = useState(false);
+
+  const mobileMenuRef = useRef();
+
+  function pause(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   useEffect(() => {
     setError({})
   }, [loginModel, signUpModel, otpModel, forgetModel])
 
-  useEffect(() => {
+  useEffect(() => {    
     if (get(user, 'code', false) === 401) {
       if (userLogged === true) {
         setLoggedStatus(false)
@@ -59,14 +89,70 @@ export default function Navbar(props) {
       }
     } else {
       dispatch({ type: 'GET_NOTIFICATION' })
+      if(get(user, 'handyman_application', false)){  
+        const data = {}
+        data.id = get(user, 'handyman_application', null);        
+        dispatch({ type: 'GET_HYNDYMAN', payload: data });
+        setIsBuyer(get(user, 'buyer', false));
+        console.log("USER: ", user)
+      }
     }
-  }, [user])
+  }, [user, updateHyndymanLoading, userLoading])
 
-  useEffect(() => {
+  useEffect(() => {    
     if (userLogged) {
       props.setWebSoket()
     }
+    dispatch({ type: 'GET_USER' })
+    setIsBuyer(get(user, 'buyer', false));
+    
   }, [userLogged])
+
+  useEffect(() => {
+    if(get(handyman, 'status', false)){
+      setHandymanStatus(get(handyman, 'status', ''));
+      setHandymanApproved(get(handyman, 'sendNotification', ''));
+      setIsHandyman(true);
+      if(get(handyman, 'status', '') == "approved" && get(handyman, 'sendNotification', '') == "not") {          
+        setHandymanApprovedNotification(true);
+        const dataH = {};
+        dataH.id = get(handyman, 'id', '')
+        dataH.sendNotification = 'sent';
+        dispatch({ type: "UPDATE_HYNDYMAN", payload: dataH });
+      } else {
+        pause(5000).then(console.log("HERE AM"))
+                
+        if(!approvedFree && !handymanApprovedNotification && (get(handyman, 'sendTrial', 'not') == "not") && (get(handyman, 'status', '') == "approved") && (get(handyman, 'freeTrial', '') == '' || get(handyman, 'freeTrial', '') == null || get(handyman, 'freeTrial', '') == undefined)) {
+          const idI = get(handyman, 'id', '');
+          if(idI != '') {
+            let url = 'https://strapi.deinhausmann.com/handyman-applications/' + idI;
+            fetch(url)
+              .then((response) => response.json())
+              .then((data) => {
+                    if(data.freeTrial == '' || data.freeTrial == null || data.freeTrial == underfined) {
+                      console.log("MY IDDDD1: ", data.freeTrial)
+                      setPaySubModel(true)
+                    }
+                }
+              )
+          }
+          
+        }
+      }
+      
+
+    }
+    
+  }, [handymanLoading])
+
+  useEffect(() => {    
+      setHandymanStatus(get(handyman, 'status', ''));
+      setHandymanApproved(get(handyman, 'sendNotification', ''));
+      if(get(handyman, 'status', false)){
+        setIsHandyman(true);
+      }
+        
+  }, [handymanStatus])
 
   useEffect(() => {
 
@@ -74,6 +160,8 @@ export default function Navbar(props) {
       setLoggedStatus(true)
     }
     dispatch({ type: 'GET_USER' })
+    setIsHandyman(get(user, 'handyman_application', null) != null)
+      
   }, [])
 
   useEffect(() => {
@@ -85,6 +173,7 @@ export default function Navbar(props) {
 
   useEffect(() => {
     dispatch({ type: 'GET_USER' })
+    setIsHandyman(get(user, 'handyman_application', null) != null)
     if (get(userData, 'success', false)) {
       dispatch({ type: 'RESET_LOG' })
       setLoginModel(false)
@@ -108,8 +197,13 @@ export default function Navbar(props) {
         localStorage.setItem('user', JSON.stringify(get(otpData, 'user', {})))
         setOtpModel(false)
         setLoggedStatus(true)
-        if (get(otpData, 'user.name', '') === '') {
-          router.push('/profilemanagement')
+        if (get(otpData, 'user.fname', '') === '') {
+          if(isBecomeHandyman) {
+            router.push('/handyman-registration/')
+          } else {
+            router.push('/profilemanagement')
+          }
+          
         }
       }
     }
@@ -132,9 +226,17 @@ export default function Navbar(props) {
         setLoggedStatus(true)
         if (get(emailSignData, 'user.name', '') === '') {
           if (get(emailSignData, 'user.socialLogin', false)) {
-            router.push('/profilemanagement?isSocial=true')
+            if(isBecomeHandyman) {
+              router.push('/handyman-registration/')
+            } else {
+              router.push('/profilemanagement')
+            }
           } else {
-            router.push('/profilemanagement')
+            if(isBecomeHandyman) {
+              router.push('/handyman-registration/')
+            } else {
+              router.push('/profilemanagement')
+            }
           }
         }
       }
@@ -180,12 +282,22 @@ export default function Navbar(props) {
         localStorage.setItem('user', JSON.stringify(get(emailLoginData, 'user', {})))
         setLoginModel(false)
         setLoggedStatus(true)
-        if (get(emailLoginData, 'user.name', '') === '') {
-          router.push('/profilemanagement')
+        if (get(emailLoginData, 'user.fname', '') === '') {          
+          if(isBecomeHandyman) {
+            router.push('/handyman-registration/')
+          } else {
+            router.push('/profilemanagement')
+          }
+        } else {
+          if(isBecomeHandyman) {
+            router.push('/handyman-registration/')
+          } else {
+            router.push('/profilemanagement')
+          }
         }
       }
 
-    }
+    }    
 
   }, [userData, otpData, emailSignData, mobileLoginData, emailLoginData, mobileSignData])
 
@@ -205,6 +317,7 @@ export default function Navbar(props) {
     setLoggedStatus(false)
     router.push('/')
   }
+  
 
   const renderNotification = () => (
     getNotification && getNotification.length && getNotification.map((data, key) => (
@@ -229,145 +342,152 @@ export default function Navbar(props) {
       </li>
     ))
   )
-  console.log("user", user)
+  //console.log("user", user)
+  //console.log("user", user.profilePic.url)
+  //console.log("PROPS: ", props)
+  function myLocation() {
+    //const location = useLocation();
+    //console.log("LINK: ", location.pathname);
+    //console.log("LINK1: ", (location.pathname === "/payments"));
+    //return location.pathname;
+  }
+  function changeLang() {
+    
+  }
+
+  function setAbecomeModel() {
+    setSignUpModel(true) 
+    setIsBecomeHandyman(true)
+  }
+
+  const closeOpenMenus = useCallback(
+    (e) => {
+      if (
+        mobileMenuRef.current &&
+        menu &&
+        !mobileMenuRef.current.contains(e.target)
+      ) {
+        setMenu(false);
+      }
+    },
+    [menu]
+  );
+
+  const closeNotification = useCallback(
+    (e) => {
+      if (
+        mobileMenuRef.current &&
+        menu &&
+        !mobileMenuRef.current.contains(e.target)
+      ) {
+        setHandymanApprovedNotification(false);
+      }
+    },
+    [handymanApprovedNotification]
+  );
+
+
+  useEffect(() => {
+    document.addEventListener("mousedown", closeOpenMenus);
+  }, [closeOpenMenus]);
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    if (html) {
+      html.style.overflow = menu ? "hidden" : "auto";
+    }
+  }, [menu]);
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    if (html) {
+      html.style.overflow = engMenu ? "hidden" : "auto";
+    }
+  }, [engMenu]);
+
+  const switchTo = (e) => {
+      e.preventDefault();
+      const data = {}
+      let link = '/';
+      data.id = get(user, 'id', '')
+      if(isBuyer) {
+        setIsBuyer(false);
+        data.buyer = false;
+        link = "/handyman-dashboard";        
+      } else {
+        setIsBuyer(true);
+        data.buyer = true;
+        link = "/category-services";  
+      }      
+      dispatch({ type: 'UPDATE_USER', payload: data })
+      router.push(link)
+  }
+
+  
+  
+
   return (
     <div className="container">
       <div className="navbar hide-mob">
         <div onClick={() => router.push('/')} className="logo pointer">
           <Image
-            src="/assets/svg/logo.svg"
+            //src="/assets/svg/logo.svg"
+            src="/assets/images/logo.png"
             alt="company logo"
             width={276}
             height={48}
           />
         </div>
         <ul className="menu">
-          {get(user, 'role', '') !== "handyman" &&
-            <li className="align-self-center">
+          {(!isHandyman || isBuyer) &&
+            <li className={"align-self-center " +  ((myLocation() == "/handyman-registration") ? "tl": "")}>
               {userLogged ?
-                <Link href="/handyman-registration">
-                  Become A Handyman
+                <Link href="/category-services">
+                  Find a Handyman
                 </Link>
                 :
-                <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
+                <span onClick={() => setAbecomeModel()}> Become A Handyman</span>
               }
-            </li>
+            </li>           
           }
           {userLogged ? (
             <React.Fragment>
-              <li className="align-self-center">
+              {(isHandyman && !isBuyer) &&
+                  <li className={"align-self-center " +  ((myLocation() == "/handyman-registration-services") ? "tl": "")}>
+                    <Link href="/my-services">
+                      My Services
+                  </Link>
+                  </li>
+              }
+              <li className={"align-self-center " +  ((myLocation() == "/client-dashboard") ? "tl": "")}>
+              {(isHandyman && !isBuyer) ?
+                <Link href="/handyman-dashboard">
+                  My Dashboard
+                </Link>
+                :
                 <Link href="/client-dashboard">
-                  My Bookings
+                  My Dashboard
                 </Link>
+              }
               </li>
-              {get(user, 'role', '') === "handyman" &&
-                <li className="align-self-center">
-                  <Link href="/handyman-registration-services">
-                    My Services
-                </Link>
-                </li>
-              }{get(user, 'role', '') === "handyman" &&
-                <li className="align-self-center">
-                  <Link href="/handyman-registration-list">
+             {get(user, 'role', '') === "handyman" &&
+                <li className={"align-self-center " +  ((myLocation() == "/handyman-registration-list") ? "tl": "")}>
+                  <Link href="/earnings">
                     Earnings
                 </Link>
                 </li>
               }
-              <li className="align-self-center">
-                <Link href="/about">
-                  Support
-                </Link>
-              </li>
-              <li className="align-self-center">
-                <span onClick={() => setMessage(!showMessage)} className="posi-rel">
-                  Messages
-                  <span className={showMessage ? "message-list" : "message-list message-list-hide"}>
-                  {/* <div className="empty-msg">
-                      <Image
-                        className="banner-image"
-                        src="/assets/images/empty-msg.png"
-                        alt=""
-                        layout="responsive"
-                        width={911}
-                        height={504}
-                      />
-                  </div> */}
-                    <ul>
-                      {renderNotification()}
-                      {/* <li>
-                        <div className="bell-bg">
-                          <Image
-                            src="/assets/svg/ic-bell.svg"
-                            alt=""
-                            height={40}
-                            width={46}
-                          />
-                        </div>
-
-                        <div className="bell-txt" >
-                          {/* changes from here */}
-                      {/* render() {
-                          getNotification = this.state.toDoList.map(function(getNotification){
-                          return <li> {getNotification} </li>;
-                          }); */}
-
-                      {/* <h4>Moving Out Services</h4>
-                          <p>Your request for a quotation for <a href="">Moving Out Services</a> has been sent to<a href=""> user1234</a>...</p>
-                          <moment> {moment().format('Do MMMM YYYY, hh:mm:ss a')}</moment> */}
-
-                      {/* <Moment>{showMessage.dateToFormat }</Moment> */}
-                      {/* const dateToFormat = '1976-04-19T12:59-0500'; */}
-
-                      {/* <Moment>{showMessage}</Moment> */}
-                      {/* <h6>12:58pm 29-09-2020</h6> */}
-                      {/* {
-                           this.state.getNotification.map((getNotification)=>
-                           <div></div> */}
-
-
-                      {/* </div>
-
-
-                      </li>  */}
-
-
-                      {/* <li>
-                        <div className="bell-bg">
-                          <Image
-                            src="/assets/svg/ic-bell.svg"
-                            alt=""
-                            height={40}
-                            width={46}
-                          />
-                        </div>
-                        <div className="bell-txt">
-                          <h4>user123456</h4>
-                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
-                          <h6>12:58pm 29-09-2020</h6>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="bell-bg">
-                          <Image
-                            src="/assets/svg/ic-bell.svg"
-                            alt=""
-                            height={40}
-                            width={46}
-                          />
-                        </div>
-                        <div className="bell-txt">
-                          <h4>user123456</h4>
-                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
-                          <h6>12:58pm 29-09-2020</h6>
-                        </div>
-                      </li> */}
-                    </ul>
-                    <Link href="/inbox-redesign-awaiting">
-                      <button className="btn btn-primary">View My Inbox</button></Link>
-                  </span>
-                </span>
-
-              </li>
+              <li className={"align-self-center " +  ((myLocation() == "/payments") ? "tl": "")}>
+                {userLogged ?
+                  <Link href="/inbox">
+                  Orders
+                  </Link>
+                  :
+                  <Link href="/about">
+                    About Us
+                  </Link>
+                }
+              </li>              
             </React.Fragment>
           ) : (
             <>
@@ -377,7 +497,21 @@ export default function Navbar(props) {
                   </Link>
               </li>
             </>
-          )}
+          )} 
+
+          <li>
+
+          
+          
+          <div className="togglewrapper-lang">
+            <DropdownButtonB id="" title="De" className="">
+                  <DropdownB.Item onClick={changeLang}>Deutsch</DropdownB.Item>
+                  <DropdownB.Item onClick={changeLang}>English</DropdownB.Item>
+          </DropdownButtonB>
+            </div>
+
+          </li> 
+            
 
           <li>
             <div className="togglewrapper">
@@ -385,7 +519,7 @@ export default function Navbar(props) {
                 <DropdownToggle>
                   <i className="fa fa-bars menubar" aria-hidden="true"></i>
                   <img
-                    src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
+                    src={get(user, 'profilePic.url', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.profilePic.url}
                     alt=""
                     width={34}
                     height={34}
@@ -402,7 +536,7 @@ export default function Navbar(props) {
                   </>
                 }
 
-                {userLogged &&
+                {(userLogged && (!isHandyman)) &&
                   <>
                     <DropdownMenu className="profilebox">
                       <DropdownItem>
@@ -411,7 +545,7 @@ export default function Navbar(props) {
                             <div onClick={() => router.push('/profilemanagement')}>
 
                               <img
-                                src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
+                                src={get(user, 'profilePic.url', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.profilePic.url}
                                 alt=""
                                 width={80}
                                 height={80}
@@ -420,11 +554,50 @@ export default function Navbar(props) {
                             </div>
                             <h4 onClick={() => router.push('/profilemanagement')}>{get(user, 'fname', '')}</h4>
                             <h6 onClick={() => router.push('/profilemanagement')}>{get(user, 'email', '')}</h6>
-                            <Link href='/profilemanagement'><button className="btn btn-manage">Manage Your Account</button></Link>
+                            <Link href='/profilesaved'><button className="btn btn-manage">Your Account</button></Link>
                             <div className="divi"></div>
-                            <p onClick={signOut} className="text-center mb-2">Sign Out</p>
-                            {/* <p className="text-center"><Link href='/index'>Switch To Selling</Link></p> */}
-                            <p className="text-center"><Link href='/client-dashboard'>My Dashboard</Link></p>
+                            <p className="text-center"><Link href='/payments'>My Payments</Link></p>
+                            <p className="text-center"><Link href='/handyman-registration'>Become A Handyman</Link></p>
+                            <p onClick={signOut} className="text-center mb-2"><Link href='/handyman-registration'>Sign Out</Link></p>
+                            {/* <p className="text-center"><Link href='/index'>Switch To Selling</Link></p> */}                            
+                          </li>
+                        </ul>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </>
+                }
+
+                {(userLogged && (isHandyman)) &&
+                  <>
+                    <DropdownMenu className="profilebox">
+                      <DropdownItem>
+                        <ul className="dd-menu1">
+                          <li>
+                            <div onClick={() => router.push('/profilemanagement')}>
+
+                              <img
+                                src={get(user, 'profilePic.url', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.profilePic.url}
+                                alt=""
+                                width={80}
+                                height={80}
+                                className="profile-pic-circle"
+                              />
+                            </div>
+                            <h4 onClick={() => router.push('/profilemanagement')}>{get(user, 'fname', '')}</h4>
+                            <h6 onClick={() => router.push('/profilemanagement')}>{get(user, 'email', '')}</h6>
+                            <Link href='/handyman-registration'><button className="btn btn-manage">Your Account</button></Link>
+                            <div className="divi"></div>
+                            {(userLogged && (isBuyer)) ?
+                            <p className="text-center"><Link href='/payments'>My Payments</Link></p>
+                            :
+                            <p className="text-center"><Link href='/earnings'>My Earnings</Link></p>
+                            }
+                            {(userLogged && (!isBuyer)) &&
+                            <p className="text-center"><Link href='/archive'>Archive</Link></p>
+                            }
+                            <p className="text-center"><a href='' onClick={switchTo}>{isBuyer ? "Switch to Selling" : "Switch to Buying"}</a></p>
+                            <p onClick={signOut} className="text-center mb-2"><Link href='/'>Sign Out</Link></p>
+                            {/* <p className="text-center"><Link href='/index'>Switch To Selling</Link></p> */}                            
                           </li>
                         </ul>
                       </DropdownItem>
@@ -440,6 +613,9 @@ export default function Navbar(props) {
         </ul>
         {loginModal(loginModel, closeModal, setSignUpModel, error, setForgetModel)}
         {signUpModal(signUpModel, closeModal, setLoginModel, error)}
+        {PaySubModule(paySubModel, setPaySubModel, approvedFree, setApprovedFree)}
+        {AprrovedNot(handymanApprovedNotification, setHandymanApprovedNotification, paySubModel, setPaySubModel)}
+        {AprrovedFree(approvedFree, setApprovedFree)}
         {otp(otpModel, closeModal, mobile, error)}
         {forgotPassword(forgetModel, closeModal, error, setForgetModel)}
       </div>
@@ -448,53 +624,88 @@ export default function Navbar(props) {
         <header>
           <div onClick={() => router.push('/')} className="pointer">
             <Image
-              src="/assets/svg/logo.svg"
+              //src="/assets/svg/logo.svg"
+              src="/assets/images/logo.png"
               alt="company logo"
               width={180}
               height={31}
             />
-          </div>
-          <div onClick={() => setMenu(!menu)}>
-            <Image
-              src="/assets/svg/ic-menu.svg"
-              alt=""
-              width={34}
-              height={34}
-            />
-          </div>
-        </header>
-        <ul className={menu ? "" : 'hide'}>
-          {!userLogged && get(user, 'role', '') !== "handyman" &&
-            <li className="align-self-center">
-              {userLogged ?
-                <Link href="/handyman-registration">
-                  <a>Become A Handyman</a>
-                </Link>
-                :
-                <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
-              }
-            </li>
-          }
-          {userLogged && (
-            <>
-              <div className="text-center">
-                {/* onclick ={()=>router.push('/profilemanagement')}  */}
+          </div>         
+          
+          <div className="togglewrapper-lang">              
+                  <DropdownButtonB id="" title="De" className="">
+                        <DropdownB.Item onClick={changeLang}>Deutsch</DropdownB.Item>
+                        <DropdownB.Item onClick={changeLang}>English</DropdownB.Item>
+                  </DropdownButtonB>
+            </div>
 
-
-
-                <a href="http://localhost:3000/profilemanagement">
+               
+          <div onClick={() => setMenu(!menu)} className="mymenu pointer">
+                  <i className="fa fa-bars menubar" aria-hidden="true"></i>
                   <img
-                    src={get(user, 'picture', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.picture}
+                    src={get(user, 'profilePic.url', '') === '' ? '/assets/svg/ic-menu-profile.svg' : user.profilePic.url}
                     alt=""
-                    width={80}
-                    height={80}
+                    width={24}
+                    height={24}
                     className="profile-pic-circle"
-                  // onclick ={()=>router.push('/profilemanagement')} 
-                  /> </a>
-                <h4>{get(user, 'fname', '')}</h4>
-                <h6>{get(user, 'email', '')}</h6>
-              </div>
-
+                  />
+          </div>
+        </header>        
+          {(userLogged && (!isHandyman)) && (
+            <ul className={menu ? "dd-menu1-mob text-center" : 'hide'} ref={mobileMenuRef}>
+            <li>
+              <button onClick={() => setMenu(!menu)} className="close-btn">
+                  <Image
+                    src="/assets/svg/close-modal.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
+                </button>
+            </li>
+            <>
+              <li>
+              <Link href='/profilesaved'><button className="btn btn-manage">Your Account</button></Link>
+              </li>           
+              {get(user, 'role', '') !== "handyman" &&
+                    <li className="align-self-center">
+                      {userLogged ?
+                        <Link href="/category-services">
+                          Find a Handyman
+                        </Link>
+                        :
+                        <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
+                      }
+                    </li>
+              }              
+              {(isHandyman && handymanStatus == "approved") &&
+                <li className="align-self-center">
+                  <Link href="/my-services">
+                    My Services
+                </Link>
+                </li>
+              }{(isHandyman && handymanStatus == "approved") &&
+                <li className="align-self-center">
+                  <Link href="/earnings">
+                    Earnings
+                </Link>
+                </li>
+              }
+              <li className="align-self-center">
+                <Link href="/client-dashboard">
+                  My Dashboard
+                  </Link>
+              </li>
+              <li className="align-self-center">
+                <Link href="/inbox">
+                  Orders
+                </Link>
+              </li>
+              <li className="align-self-center">
+                <Link href="/payments">
+                  <a>My Payments</a>
+                </Link>
+              </li>              
               {get(user, 'role', '') !== "handyman" &&
                 <li className="align-self-center">
                   {userLogged ?
@@ -505,146 +716,121 @@ export default function Navbar(props) {
                     <span onClick={() => setLoginModel(true)}> Become A Handyman</span>
                   }
                 </li>
-              }
-
+              }              
               <li className="align-self-center">
-                <Link href="/client-dashboard">
-                  <a>My Bookings</a>
-                </Link>
+              <Link href="/"><a onClick={signOut}>Sign Out</a></Link>
               </li>
-              {get(user, 'role', '') === "handyman" &&
-                <li className="align-self-center">
-                  <Link href="/handyman-registration-services">
+            </>
+            </ul>
+          )          
+          }
+
+          {(userLogged && (isHandyman)) && (
+            <ul className={menu ? "dd-menu1-mob text-center" : 'hide'} ref={mobileMenuRef}>
+            <li>
+              <button onClick={() => setMenu(!menu)} className="close-btn">
+                  <Image
+                    src="/assets/svg/close-modal.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
+                </button>
+            </li>
+            <>
+              <li>
+              <Link href='/handyman-registration'><button className="btn btn-manage">Your Account</button></Link>
+              </li>           
+              <li className="align-self-center">
+              {(userLogged && (!isBuyer)) ?
+                  <Link href="/my-services">
                     My Services
                 </Link>
-                </li>
-              }{get(user, 'role', '') === "handyman" &&
-                <li className="align-self-center">
-                  <Link href="/handyman-registration-list">
-                    Earnings
+                :
+                <Link href="/category-services">
+                  Find a Handyman
                 </Link>
-                </li>
               }
-              {/* <li className="align-self-center">
-                <Link href="/index">
-                  Switch To Selling
-                  </Link>
-              </li> */}
-              <li className="align-self-center">
+                </li>
+                <li className="align-self-center">
+                {(userLogged && (!isBuyer)) ?
+                  <Link href="/handyman-dashboard">
+                    My Dashboard
+                </Link>
+                :
                 <Link href="/client-dashboard">
-                  My Dashboard
-                  </Link>
-              </li>
-              <li className="align-self-center">
-                <Link href="/about">
-                  <a>Support</a>
+                    My Dashboard
                 </Link>
-              </li>
-              <li className="align-self-center">
-                <Link href="/inbox-redesign-awaiting">
-                  Messages
+                }
+                </li>
+                <li className="align-self-center">
+                {(userLogged && (!isBuyer)) ?
+                  <Link href="/inbox">
+                    Orders
                 </Link>
-                {/* <span onClick={() => setMessage(!showMessage)} className="posi-rel"> */}
-                {/* Messages */}
-                {/* <span className={showMessage ? "message-list" : "message-list message-list-hide"}> */}
-                {/* <ul>
-                      {renderNotification()} */}
-                {/* <li>
-                        <div className="bell-bg">
-                          <Image
-                            src="/assets/svg/ic-bell.svg"
-                            alt=""
-                            height={40}
-                            width={46}
-                          />
-                        </div>
-
-                        <div className="bell-txt" >
-                          {/* changes from here */}
-                {/* render() {
-                          getNotification = this.state.toDoList.map(function(getNotification){
-                          return <li> {getNotification} </li>;
-                          }); */}
-
-                {/* <h4>Moving Out Services</h4>
-                          <p>Your request for a quotation for <a href="">Moving Out Services</a> has been sent to<a href=""> user1234</a>...</p>
-                          <moment> {moment().format('Do MMMM YYYY, hh:mm:ss a')}</moment> */}
-
-                {/* <Moment>{showMessage.dateToFormat }</Moment> */}
-                {/* const dateToFormat = '1976-04-19T12:59-0500'; */}
-
-                {/* <Moment>{showMessage}</Moment> */}
-                {/* <h6>12:58pm 29-09-2020</h6> */}
-                {/* {
-                           this.state.getNotification.map((getNotification)=>
-                           <div></div> */}
-
-
-                {/* </div>
-
-
-                      </li>  */}
-
-
-                {/* <li>
-                        <div className="bell-bg">
-                          <Image
-                            src="/assets/svg/ic-bell.svg"
-                            alt=""
-                            height={40}
-                            width={46}
-                          />
-                        </div>
-                        <div className="bell-txt">
-                          <h4>user123456</h4>
-                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
-                          <h6>12:58pm 29-09-2020</h6>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="bell-bg">
-                          <Image
-                            src="/assets/svg/ic-bell.svg"
-                            alt=""
-                            height={40}
-                            width={46}
-                          />
-                        </div>
-                        <div className="bell-txt">
-                          <h4>user123456</h4>
-                          <p>Can you send me a photo of the lawn that is supposed to be mowed so that ...</p>
-                          <h6>12:58pm 29-09-2020</h6>
-                        </div>
-                      </li> */}
-                {/* </ul> */}
-                {/* <Link href="/inbox-redesign-awaiting">
-                  <button className="btn btn-primary">View My Inbox</button></Link>
-                  </span>
-            </span> */}
-
-              </li>
-              <li className="align-self-center">
-                <span onClick={signOut}>Logout</span>
-              </li>
-              {/* <li className="align-self-center">
-                <Link href="/">
-                  <a>Messages</a>
+                :
+                <Link href="/inbox">
+                    Orders
                 </Link>
-              </li> */}
+                }
+                </li>
+                <li className="align-self-center">
+                {(userLogged && (!isBuyer)) ?
+                  <Link href="/earnings">
+                    My Earnings
+                </Link>
+                :
+                <Link href="/payments">
+                    My Payments
+                </Link>
+                }
+                </li>
+                {(userLogged && (!isBuyer)) &&
+                <li className="align-self-center">
+                  <Link href="/archive">
+                    Archive
+                </Link>
+                </li>
+                }
+                <li className="align-self-center">
+                  <a href=''  onClick={switchTo}>
+                  {isBuyer ? "Switch to Selling" : "Switch to Buying"}
+                </a>
+                </li>     
+              <li className="align-self-center">
+              <Link href="/"><a onClick={signOut}>Sign Out</a></Link>
+              </li>
             </>
-          )
+            </ul>
+          )          
           }
+                    
           {!userLogged &&
-            <>
-              <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">
-                <a>Log In</a>
-              </li>
-              <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer">
-                <a>Sign Up</a>
-              </li>
+            <ul className={menu ? "dd-menu1-mob text-center tt" : 'hide'} ref={mobileMenuRef}>
+            <li>
+            <button onClick={() => setMenu(!menu)} className="close-btn">
+                <Image
+                  src="/assets/svg/close-modal.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </li>
+            <>   
+                  
+                  <li></li>
+                    <li onClick={() => setSignUpModel(true)} className="align-self-center cursur-pointer ">
+                      <a>Sign Up</a>
+                    </li>
+                    <li onClick={() => setLoginModel(true)} className="align-self-center cursur-pointer">
+                      <a>Log In</a>
+                    </li>
+              
             </>
-          }
-        </ul>
+            </ul>
+          }          
+        
         <div className="sidebar-overlay"></div>
       </div>
     </div>

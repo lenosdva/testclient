@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Layout, Footer, SearchBar, ProfileGigsWithReview } from "../component";
 import { useDispatch, useSelector } from 'react-redux'
 import { withRouter } from 'next/router'
@@ -6,16 +6,28 @@ import { get } from "lodash"
 
 export default withRouter(function Category(props) {
   const dispatch = useDispatch()
-  const { gigLoading, gig, moreServiceLoading, moreServiceData } = useSelector(state => ({
+  const { gigLoading, gig, gigs, gigsLoading, userInfoLoading, userInfo, userGigs, userGigsLoading } = useSelector(state => ({
     gigLoading: state.handyman.gigLoading,
+    gigsLoading:state.handyman.gigsLoading,
     gig: state.handyman.gig,
-    moreServiceLoading: state.services.moreServiceLoading,
-    moreServiceData: state.services.moreServiceData,
+    gigs: state.handyman.gigs,
+    userInfoLoading: state.user.userInfoLoading,
+    userInfo: state.user.userInfo,
+    userGigsLoading:state.handyman.userGigsLoading,
+    userGigs: state.handyman.userGigs,
   }));
 
+  const [userID, setUserID] = useState(get(props, 'router.query.id', '')) 
+
   useEffect(() => {
-    const serId = get(props, 'router.query.id', '')
-    dispatch({ type: 'GET_GIG', payload: serId })
+    setUserID(get(props, 'router.query.id', ''))
+    console.log("ROUTER: ", userID)
+    const data = {}
+    const data1 = {}
+    data.id = userID
+    data1.id = userID  
+    dispatch({ type: 'GET_USER_GIGS', payload: data })
+    dispatch({ type: 'GET_USER_INFO', payload: data1 })
     // dispatch({ type: 'MORE_SERVICE', payload: { userId: serId } })
   }, [props.router.query])
 
@@ -28,7 +40,7 @@ export default withRouter(function Category(props) {
 
   return (
     <Layout setWebSoket={props.setWebSoket}>
-      { (gigLoading || moreServiceLoading) &&
+      { (userInfoLoading || gigsLoading) &&
         <div className="loading-wrapper">
           <div className="loader"></div>
         </div>
@@ -39,7 +51,7 @@ export default withRouter(function Category(props) {
             <SearchBar />
           </div>
           <div className="home-section-padding">
-            <ProfileGigsWithReview moreServiceData={moreServiceData} gig={gig} />
+            <ProfileGigsWithReview moreServiceData={userGigs} user={userInfo} />
           </div>
         </div>
         <div className="home-section-padding">

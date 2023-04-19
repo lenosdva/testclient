@@ -1,4 +1,8 @@
 .profile-management {
+  margin: 0 0 0 15%;
+  @media (max-width:767px) {
+    margin: 0 0 0 0;
+  }
   .primary-submit {
     width: 180px;
     height: 50px;
@@ -9,24 +13,35 @@
     letter-spacing: 0.28px;
     color: #FFFFFF;
     margin-top: 10px;
+    margin-top: 60px;
     @media (max-width:767px) {
         width: 100%;
       }
 }
   .linked-accounts {
+    padding-top: 20px;
     @media (max-width:1023px) {
         text-align: center;
       }
+    h3 {
+      padding-left: 40px;
+      text-align: center;
+    }
     img {
       @media (max-width:767px) {
         width: 100%;
       }
+      .add {
+        margin: 20px 0 0 0;
+        padding: 20px 0 0 0;
+      }
     }
+    
     .thin {
       font-size: 24px;
     }
     .btn {
-      padding: 0;
+      padding-left: 40px;
       .add {
         color: $primary-color;
         font-weight: 700;
@@ -35,9 +50,33 @@
     }
     
     }
+    .first {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      @media (max-width:767px) {
+        margin-left: 20px;
+      }
+    }
   }
   .profile-manager {
+    padding-left: 100px;
+    @media (max-width:767px) {
+      padding-left: 20px;
+    }
+    .agreement {
+      margin-top: 12px;
+      font-size: 16px !important;
+      @media (max-width:767px) {
+        font-size: 13px !important;
+      }
+    }
     flex: 1;
+    .input-check {
+      margin-top: 10px;
+      @media (max-width:767px) {
+        margin-top: 5px;
+      }      
+    }
     h3 {
       @media (max-width:767px) {
         font-size: 30px;
@@ -52,6 +91,18 @@
       @media (max-width:767px) {
         width: 100%;
       }
+      .timg {   
+        margin-top: 20px;
+        margin-left: 20px;
+        @media (max-width:767px) {
+          margin-right: auto;
+          margin-left: auto;
+          padding-left: 15%;
+          padding-right: auto;
+        }
+        
+        //margin-bottom: 10px;
+      }
       .input {
         border: 1px solid #000;
         border-radius: 5px;
@@ -61,12 +112,97 @@
         margin-bottom: 10px;
         font-size: 18px;
         line-height: 26px;
+        background-image: url(https://deinhausmann.com/assets/images/Vector.jpg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-origin: content-box;
+        img {
+          padding-left: auto;
+          padding-right: auto;
+          margin-right: auto;
+          margin-left: auto;
+          //margin-bottom: 10px;
+        }
+        @media (max-width:767px) {
+          background-image: none;
+        }
+      }
+      .input.mr-3 {
+        @media (max-width:767px) {
+          //margin-right: 0 !important;
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+
+      .span {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;        
+      }
+      .span.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+
+    }
+    .names {
+      width: 50%;
+      @media (max-width:767px) {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .input {
+        width: 100%;
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        display: block;
+        font-size: 18px;
+        line-height: 26px;
+        background-image: url(https://deinhausmann.com/assets/images/Vector.jpg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-origin: content-box;
+        @media (max-width:767px) {
+          width: 97%;
+          background-image: none;
+          //margin-right: 5px;
+        }
       }
       .input.mr-3 {
         @media (max-width:767px) {
           margin-right: 0 !important;
         }
       }
+
+      .span {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;        
+      }
+      .span.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+
     }
     .input {
       border: 1px solid #000;
@@ -76,7 +212,22 @@
       outline: none;
       margin-bottom: 5px;
       font-size: 18px;
-      line-height: 26px;
+      line-height: 26px;      
+    }
+    .input.mr-3 {
+      @media (max-width:767px) {
+        //margin-right: 0 !important;
+        padding: 0;
+        font-size: 20px;
+        line-height: 28px;
+        width: 30%;
+        height: 40px;
+      }
+    }
+    .input.mr-4 {
+      @media (max-width:767px) {
+        margin-right: 0 !important;
+      }
     }
     .large {
       width: 100%;
@@ -108,20 +259,25 @@
     }
     .email-readonly {
       border: 1px solid #000;
-      border-radius: 4px;
-      padding: 12px 20px;
+      border-radius: 5px;
+      padding: 12px;
       color: #252525;
-      display: inline-block;
+      //display: inline-block;
       font-size: 18px;
-      width: 100%;
+      //width: 100%;
     }
     .notifications {
+      margin-bottom: 15px;
       .icon {
         color: $primary-color;
         font-size: 20px;
       }
       h6 {
-        line-height: 16px;
+        line-height: 26px;
+        font-weight: 500;
+      }
+      p {
+        line-height: 26px;
       }
     }
     .payment-details {
@@ -149,5 +305,42 @@
       font-weight: 500;
       text-decoration: underline;
     }
+    .ml-10 {
+      margin-left: ($spacer * 1.25) !important;
+    }
+    .mt-10 {
+      margin-top: ($spacer * 2.25) !important;
+    }
+    .mb-4 {
+      margin-bottom: ($spacer * 2.25) !important;
+    }
+    .pl-20 {
+      padding-left: ($spacer * 4.25) !important;
+      @media (max-width:767px) {
+        padding: auto !important;
+        margin: auto;
+      }
+    }
+    .pt-20 {
+      padding-top: ($spacer * 3.25) !important;
+    }
   }
 
+  .link {
+    color: $primary-color;
+      font-size: 18px;
+      font-weight: 500;
+      text-decoration: underline;
+  }
+
+  p {
+    margin: auto 0 auto 0;    
+    padding-bottom: 0px;
+    @media (max-width:767px) {
+      margin: 0 0 0 0;
+    }
+  }
+
+  .mbrr {
+    margin-bottom: 15px;
+  }

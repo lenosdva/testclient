@@ -31,6 +31,7 @@
 @import "../component/ProfileGigsWithReview/ProfileGigsWithReview.scss";
 @import "../component/AboutUsAndContact/AboutUsAndContact.scss";
 @import "../component/ProfileManagement/ProfileManagement.scss";
+@import "../component/ProfileSaved/ProfileManagement.scss";
 @import "../component/PaymentCard/PaymentCard.scss";
 @import "../component/Inbox/Inbox.scss";
 @import "../component/Timeline/Timeline.scss";
@@ -45,6 +46,23 @@
 @import "../component/OtherOrders/OtherOrders.scss";
 @import "../component/HandymanRegistration/HandymanRegistration.scss";
 @import "../component/HandymanRegistrationComplete/HandymanRegistrationComplete.scss";
+@import "../component/Payments/Payments.scss";
+@import "../component/PaymentsCleared/PaymentsCleared.scss";
+@import "../component/PaymentsPendingClearance/PaymentsPendingClearance.scss";
+@import "../component/Orders/Orders.scss";
+@import "../component/AddGig/AddGig.scss";
+@import "../component/AddGigComplete/AddGigComplete.scss";
+@import "../component/HandymanDashboard/HandymanDashboard.scss";
+@import "../component/MyServices/MyServices.scss";
+@import "../component/GigCard/GigCard.scss";
+@import "../component/ShareGig/ShareGig.scss";
+@import "../component/Earnings/Earnings.scss";
+@import "../component/Archive/Archive.scss";
+@import "../component/ServiceCards/ServiceCards.scss";
+
+
+
+
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -66,6 +84,7 @@ body {
   position: relative;
   background: $white-color;
   color: $text-color;
+
 }
 
 .container-fluid {

@@ -52,7 +52,7 @@ const Inbox = (props) => {
     console.log("props========>", props)
   return (
     <div className="inbox">
-      <h4 className="text-center mt-4 mb-4">{props.t("inbox.title")}</h4>
+      <h4 className="text-center mt-4 mb-4">Orders</h4>
       {renderInbox()}
       {/* {renderInbox(get(inboxData, '1', {}))} */}
       {/* <div className="inbox-item">

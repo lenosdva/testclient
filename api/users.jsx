@@ -3,7 +3,7 @@ import { get } from "lodash"
 import axios from "axios"
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
-const NEW_HOST = "http://52.59.247.23:1337"
+const NEW_HOST = "https://strapi.deinhausmann.com"
 
 export function* registerByMobile({ payload }) {
   const data = yield fetch(`${NEW_HOST}/register-with-phone`, {
@@ -182,19 +182,69 @@ export function* getUser({ payload }) {
   yield put({ type: 'GOT_USER', data });
 }
 
-export function* getUserInfo({ payload }) {
+export function* getUsers({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/users/`, {
+  const data = yield fetch(`${NEW_HOST}/users`, {
     method: 'GET',
     headers: { 
       'Content-Type': 'application/json', 
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '') 
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_USERS', data });
+}
+
+export function* deleteUser({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield yield fetch(`${NEW_HOST}/users/${id}`, 
+  {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
+  yield put({ type: 'RESET_USER', data });
+}
+
+export function* getUserInfo({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield fetch(`${NEW_HOST}/users/${id}`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + token 
     }
   })
     .then((res) => {
       return res.json();
     })
     .then((data) => {
+      console.log("GOT USER: ", data)
       return data;
     })
     .catch((error) => {
@@ -207,6 +257,9 @@ export function* updateUser({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const id = payload.id
   delete payload.id
+  console.log("MY ID USER: ", id)
+  console.log("MY token: ", token)
+  console.log("NY PAYLOAD: ", payload)
   const data = yield yield fetch(`${NEW_HOST}/users/${id}`, 
   {
     method: 'PUT',

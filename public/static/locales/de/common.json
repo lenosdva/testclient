@@ -23,13 +23,14 @@
         "text": "Please fill out the details in this form and submit your profile. Once your profile is reviewed and approved you will be notified.",
         "formTitle": "PERSONAL DETAILS",
         "fName": "Full Name",
-        "cName": "Company Name (optional)",
+        "cName": "Company Name",
         "location": "Location",
-        "about": "About You/Company",
+        "about": "About Me/Company",
         "cDetails": "CONTACT DETAILS",
         "phone": "Phone Number",
         "email": "E-Mail Address",
         "dDetails": "UPLOAD DOCUMENTS",
+        "dtDetails": "DOCUMENTS",
         "note": "Note",
         "nText":  "Dein Hausman keeps 10% of your earnings as commision",
         "submitBtn": "Submit Profile For Review",
@@ -38,15 +39,28 @@
         "accountNumber":"Account Number of Holder",
         "iFSCCode":"IFSC Code of Bank",
         "saveChanges":"Save Bank Detail",
-        "bDetails":"BANK DETAILS"
+        "bDetails":"PAYMENT DETAILS FOR PAY OUT",
+        "socialmedia": "Social Media",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "xing": "Xing",
+        "instagram": "Instagram",
+        "whatsapp": "Whatsapp",
+        "youtube": "Youtube",
+        "other": "Other",
+        "kontoinhaber": "Kontoinhaber",
+        "iban": "IBAN",
+        "bic": "BIC",
+        "bankinstitut": "Bankinstitut",
+        "steuer": "Steuer Nr."
 
     },
     "aboutUs": {
         "title": "About Us",
-        "text1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        "text2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "text1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+        "text2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
         "cTitle": "Let's Connect",
-        "cText": "We would love to help you start exceeding your CX",
+        "cText": "Contact us via this form and share your ideas!",
         "name": "Name",
         "phone": "Phone",
         "email": "Email",
@@ -85,15 +99,18 @@
         "instagram": "Instagram",
         "linkedln":"Linkedln",
         "contactUs": "Contact Us",
-        "copyRights": "Service with love © Dein Hausman 2021. All Rights Reserved",
-        "claim": "Claim",
-        "privacy": "Privacy",
-        "terms": "Terms"
+        "copyRights": "Service with love © Dein Hausman 2023. All Rights Reserved",
+        "claim": "AGB",
+        "privacy": "Impressum",
+        "terms": "Datenschutz",
+        "support": "Support",
+        "about": "About Us"
     },
     "registrationComplete":{
         "title": "Your profile is under review.",
         "text": "We will email you within 24 hours to let you know if your profile was approved.",
-        "btn": "Return to Homepage"
+        "text1": "You can already add your first service!",
+        "btn": "Add First Gig"
     },
     "payment": {
         "card": "Add Debit/Credit/ATM Card",
@@ -104,8 +121,8 @@
     },
     "pagination": {
         "title": "Handymen found in your area",
-        "subTitle": "Handymen Near You",
-        "cancellation": "Cancellation",
+        "subTitle": "",
+        "cancellation": "CancellatioHandymen Near Youn",
         "budget": "Budget",
         "language": "Language",
         "outServices": "Moving Out Services"
@@ -130,14 +147,27 @@
         "contactMe": "Contact Me",
         "from": "From",
         "memberSince": "Member Since",
-        "text": "Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm!"
+        "text": "Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm!",
+        "addGig": "Add a New Gig",
+        "editGig": "Edit Your Gig",
+        "serviceTitle": "Service Title",
+        "category": "Category",
+        "area": "Working Area",
+        "priceRange": "Set Your Price Range",
+        "description": "Service Description",
+        "photo": "Service Photos",
+        "addgigcomplete": "Congratulations! Your service is now live for buyers to view.",
+        "shareGig": "Share your gig"
     },
     "ProfileManagement": {
+        "deactivatedAccount": "Your account is deactivated",
         "linkedAccounts": "Linked Accounts",
-        "yourProfile": "YOUR PROFILE",
+        "yourProfile": "Your profile",
+        "changeYourProfile": "Edit profile",
         "info": "Some of this information may be visible to other people using our services.",
         "findOutMore.": "Find out more.",
-        "fullName": "Full Name",
+        "fullName": "First Name",
+        "lastName": "Last Name",
         "phoneNumber": "Phone Number",
         "aboutMe": "About Me",
         "emailAddress": "Email Address",
@@ -162,6 +192,10 @@
         "deleteAccount": "Delete My Account",
         "deleteText": "Delete and remove all your data linked with Dein Hausman",
         "DeactivateAccount": "Deactivate my Account",
-        "DeactivateText": "Temporarily deactivate your account"
+        "DeactivateText": "Temporarily deactivate your account",
+        "ContactDetails":"CONTACT DETAILS",
+        "Registration": "Registration",
+        "password": "PASSWORD",
+        "subscribtion": "SUBSCRIPTION"
     }
 }

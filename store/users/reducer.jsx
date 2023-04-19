@@ -43,7 +43,9 @@ const initialState = {
   quotationsLoading: false,
   quotations: {},
   revisionLoading: false,
-  revision: {}
+  revision: {},
+  users: {},
+  usersLoading: false
 
   // resetUser:{},
 }
@@ -165,6 +167,14 @@ export default function userReducer(state = initialState, action) {
         userLoading: true,
       };
     }
+
+    case 'DELETE_USER': {
+      return {
+        ...state,
+        user: {}
+      };
+    }
+
     case 'GOT_USER': {
       return {
         ...state,
@@ -172,6 +182,24 @@ export default function userReducer(state = initialState, action) {
         user: action.data
       };
     }
+
+    case 'GET_USERS': {
+      return {
+        ...state,
+        usersLoading: true,
+      };
+    }
+
+
+    case 'GOT_USERS': {
+      return {
+        ...state,
+        usersLoading: false,
+        users: action.data
+      };
+    }
+
+
     case 'RESET_USER': {
       return {
         ...state,
@@ -388,16 +416,8 @@ export default function userReducer(state = initialState, action) {
           ...state,
           updateUser: {}
         };
-      }
-      
-      case 'RESET_USER':
-        {
-          return{
-            ...state,
-            resetPassword: {},
-            forgetPassword: {}
-          };
-        }
+      }    
+
      
       
     case 'FORGET_PASSWORD': {

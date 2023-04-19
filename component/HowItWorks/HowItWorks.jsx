@@ -12,43 +12,48 @@ const settings = {
   speed: 900,
   autoplaySpeed: 3000,
   slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToScroll: 0,
   cssEase: "linear",
   responsive: [
     {
       breakpoint: 1024,
       settings: {
+        arrows: true,
+        //vertical: true,
         slidesToShow: 3,
-        slidesToScroll: 1
+        slidesToScroll: 0
       }
     },
     {
       breakpoint: 980,
       settings: {
         autoplay: true,
-        arrows: false,
-        dots: true,
-        slidesToShow: 2,
-        slidesToScroll: 1
+        arrows: true,
+        dots: false,
+        //vertical: true,
+        slidesToShow: 3,
+        slidesToScroll: 0
       }
     },
     {
-      breakpoint: 600,
+      breakpoint: 767,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
+        slidesToShow: 2,
+        slidesToScroll: 0,
+        autoplay: false,
         arrows: false,
-        dots: true
+        dots: false,
+        vertical: true,
       }
     },
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
+        slidesToShow: 2,
+        slidesToScroll: 2,
         arrows: false,
-        dots: true
+        dots: false,
+        vertical: true,
       }
     }
     // You can unslick at a given breakpoint now by adding:

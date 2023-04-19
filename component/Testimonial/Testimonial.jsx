@@ -13,9 +13,10 @@ const settings = {
   cssEase: "linear",
   responsive: [
     {
-      breakpoint: 600,
+      breakpoint: 767,
       settings: {
-        arrows: false
+        arrows: true,
+
       }
     }
   ]
@@ -29,9 +30,9 @@ export default function Testimonial() {
           <div className="full-container">
             <div>
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-3 desc">
                   <Image
-                    src="/assets/images/howitwork2.jpg"
+                    src="/assets/images/testimonial1.jpg"
                     alt="testimonial2"
                     layout="responsive"
                     width={228}
@@ -45,7 +46,17 @@ export default function Testimonial() {
                     quick and extremely professional. She even worked on repairing
                     a broken window in our lawn outside in a rain storm.
                   </p>
-                  <div>
+                  <div className="mob-1">
+                      <Image
+                          src="/assets/images/testimonial1.jpg"
+                          alt="testimonial2"
+                          width={35}
+                          height={35}      
+                        />
+                    <p className="name">Suzzane Merkel, <br/>- A Web Developer at German IT Solutions</p>
+                    
+                  </div>
+                  <div className="desc">                      
                     <h5 className="name mb-1">Suzzane Merkel,</h5>
                     <h5 className="job">
                       - A Web Developer at German IT Solutions
@@ -59,9 +70,9 @@ export default function Testimonial() {
           <div className="full-container">
             <div>
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-3 desc">
                   <Image
-                    src="/assets/images/howitwork2.jpg"
+                    src="/assets/images/testimonial1.jpg"
                     alt="testimonial2"
                     layout="responsive"
                     width={228}
@@ -75,7 +86,17 @@ export default function Testimonial() {
                     quick and extremely professional. She even worked on repairing
                     a broken window in our lawn outside in a rain storm.
                   </p>
-                  <div>
+                  <div className="mob-1">
+                      <Image
+                          src="/assets/images/testimonial1.jpg"
+                          alt="testimonial2"
+                          width={35}
+                          height={35}      
+                        />
+                    <p className="name">Suzzane Merkel, <br/>- A Web Developer at German IT Solutions</p>
+                    
+                  </div>
+                  <div className="desc">                      
                     <h5 className="name mb-1">Suzzane Merkel,</h5>
                     <h5 className="job">
                       - A Web Developer at German IT Solutions
@@ -89,9 +110,9 @@ export default function Testimonial() {
           <div className="full-container">
             <div>
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-3 desc">
                   <Image
-                    src="/assets/images/howitwork2.jpg"
+                    src="/assets/images/testimonial1.jpg"
                     alt="testimonial2"
                     layout="responsive"
                     width={228}
@@ -105,7 +126,17 @@ export default function Testimonial() {
                     quick and extremely professional. She even worked on repairing
                     a broken window in our lawn outside in a rain storm.
                   </p>
-                  <div>
+                  <div className="mob-1">
+                      <Image
+                          src="/assets/images/testimonial1.jpg"
+                          alt="testimonial2"
+                          width={35}
+                          height={35}      
+                        />
+                    <p className="name">Suzzane Merkel, <br/>- A Web Developer at German IT Solutions</p>
+                    
+                  </div>
+                  <div className="desc">                      
                     <h5 className="name mb-1">Suzzane Merkel,</h5>
                     <h5 className="job">
                       - A Web Developer at German IT Solutions

@@ -1,10 +1,11 @@
 import { put } from 'redux-saga/effects';
 import { get } from "lodash"
 import axios from "axios"
+import qs from 'qs'
 
 const { NEXT_PUBLIC_API_HOST } = process.env
 const HOST = NEXT_PUBLIC_API_HOST
-const NEW_HOST = "http://52.59.247.23:1337"
+const NEW_HOST = "https://strapi.deinhausmann.com"
 
 export function* registerHandyman({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
@@ -28,6 +29,111 @@ export function* registerHandyman({ payload }) {
   yield put({ type: 'HYNDYMAN', data });
 }
 
+export function* getHandyman({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  console.log("HANDY ID", id)
+  delete payload.id
+  const data = yield fetch(`${NEW_HOST}/handyman-applications/${id}`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + token
+    },
+    //body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;      
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_HYNDYMAN', data });
+}
+
+export function* checkFirm({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const firm = payload
+  const data = yield fetch(`${NEW_HOST}/handyman-applications`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + token
+    },
+    //body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("ALL FIRMS: ", data)
+      let firmExists = false;
+      for(let i=0; i < data.length; i++) {
+        if(data[i].companyName == firm) {
+          firmExists = true
+        }
+      }
+      return firmExists;      
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_FIRM', data });
+}
+
+export function* updateHandyman({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield yield fetch(`${NEW_HOST}/handyman-applications/${id}`, 
+  {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
+  yield put({ type: 'UPDATED_HYNDYMAN', data });
+}
+
+export function* deleteHandyman({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield yield fetch(`${NEW_HOST}/handyman-applications/${id}`, 
+  {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
+  yield put({ type: 'RESET_HYNDYMAN', data });
+}
+
 export function* uploadDocument({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
   const data = yield axios.post(`${HOST}/v1/users/addDocument`, payload,{
@@ -46,11 +152,16 @@ export function* uploadDocument({ payload }) {
 }
 
 export function* getGig({ payload }) {
-  const data = yield fetch(`${NEW_HOST}/gigs/${payload}`, {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield fetch(`${NEW_HOST}/gigs/${id}`, {
     method: 'GET',
     headers: { 
-      'Content-Type': 'application/json',
-     }
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + token
+    },
+    //body: JSON.stringify(payload)
   })
     .then((res) => {
       return res.json();
@@ -64,14 +175,45 @@ export function* getGig({ payload }) {
   yield put({ type: 'GOT_GIG', data });
 }
 
+
+export function* getUserGigs({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id  
+  const data = yield fetch(`${NEW_HOST}/gigs?user=${id}`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + token
+    },
+    //body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_USER_GIGS', data });
+}
+
+
 export function* addGig({ payload }) {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data =  yield axios.post(`${HOST}/v1/gigs/add`, payload,{
-    headers: { 
-      'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+  const data =  yield fetch(`${NEW_HOST}/gigs`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {      
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
      },
   })
+    .then((res) => {
+      return res.json();
+    })
     .then((data) => {
       return data;
     })
@@ -80,14 +222,64 @@ export function* addGig({ payload }) {
     });
   yield put({ type: 'ADDED_GIG', data });
 }
+
+export function* updateGig({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield yield fetch(`${NEW_HOST}/gigs/${id}`, 
+  {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {    
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
+  yield put({ type: 'UPDATED_GIG', data });
+}
+
+export function* deleteGig({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const id = payload.id
+  delete payload.id
+  const data = yield yield fetch(`${NEW_HOST}/gigs/${id}`, 
+  {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw error;
+  });
+  yield put({ type: 'DELETED_GIG', data });
+}
 // GET SERVICES
 export function* getServices() {
   const token = JSON.parse(localStorage.getItem('token'))
-  const data = yield fetch(`${HOST}/v1/gigs`, {
+  const data = yield fetch(`${NEW_HOST}/gigs`, {
     method: 'GET',
     headers: { 
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + get(token, 'accessToken', '')
+      'Authorization': 'Bearer ' + token
      }
   })
     .then((res) => {
@@ -100,6 +292,28 @@ export function* getServices() {
       throw error;
     });
   yield put({ type: 'GOT_SERVICES', data });
+}
+
+export function* getGigs({ payload }) {
+  const token = JSON.parse(localStorage.getItem('token'))
+  const data = yield fetch(`${NEW_HOST}/gigs/me`, {
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  yield put({ type: 'GOT_GIGS', data });
 }
 
 export function* getDelete({payload}) {
@@ -148,7 +362,8 @@ export function* fileUpload({payload}) {
   const data = yield axios.post(`${NEW_HOST}/upload`, files, {
     headers: { 
       'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token,
+
      }
   })
     .then((data) => {

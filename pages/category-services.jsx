@@ -30,7 +30,7 @@ export default function Category(props) {
       }
       <div className="category">
         <div className="container">
-          <div className="home-section-padding text-center">
+          <div className="home-section-padding-services text-center">
             <SearchBar />
           </div>
           <div className="home-section-padding">

@@ -5,15 +5,14 @@ import { get } from "lodash"
 const renderServices= (services)=> (
   services && services.length && services.map((data, key)=>(
     <Link key={key} href={`/category?id=${get(data, '_id', '')}&name=${get(data, 'name', '')}`}>
-      <li className="cursur-pointer">
-    <Image
-      src="/assets/svg/ic-clean-service.svg"
-      alt="clean-service"
-      width={80}
-      height={80}
-    />
-    <h4>{get(data, 'name', '')}</h4>
-  </li>
+      <li key={key}>
+        <img
+          src={get(data, 'image.url', "/assets/svg/ic-clean-service.svg")}
+          alt={data.name}
+          style={{ width: 80, height: 80 }}
+        />
+        <h4>{get(data, 'name', '')}</h4>
+      </li>
   </Link>
   ))
 )

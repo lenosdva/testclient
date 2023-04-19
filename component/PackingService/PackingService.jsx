@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useCallback } from "react";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import moment from "moment"
+import { useRouter } from 'next/router'
 import {FacebookShareButton , WhatsappShareButton ,   TwitterShareButton, EmailShareButton } from "react-share"
 import {EmailIcon, FacebookIcon, WhatsappIcon, FacebookMessengerIcon, TwitterIcon} from "react-share";
 
@@ -21,79 +22,142 @@ const questions = [{
   name: "Select Country",
   required: true
 }]
+
 export default function PackingService(props) {
   const dispatch = useDispatch()
   const [formSubmit, setForm] = useState(false)
   const [wishList, setWishList] = useState(false)
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
-  const { inqueryForm, inqueryData, userData } = useSelector(state => ({
+  
+
+  
+  const { inqueryForm, inqueryData, userData, userDataLoading } = useSelector(state => ({
     inqueryForm: state.services.inqueryForm,
     inqueryData: state.services.inqueryData,
     userData: state.user.user,
+    userDataLoading: state.user.userLoading,
   }));
 
-  const moreService = () => (
-    get(props, 'gig.related', []).map((data, key) => (
+  const router = useRouter();
+console.log("TUTUUUU: ", props)
+const [saved, setSaved] = useState(get(userData, 'savedgigs', []).includes(get(props, 'gig.id', "1")))
+
+  useEffect(() => {
+    
+}, [])
+
+useEffect(() => {
+  setSaved(get(userData, 'savedgigs', []).includes(get(props, 'gig.id', "1")))
+}, [userDataLoading])
+
+
+  const moreService = (user) => (
+    get(props, 'gig.related', []).filter(card => (card.status == 'active' && card.id != get(props, 'gig.id', ''))).map((data, key) => (
       <div key={key} className="col-md-4">
-        <ServiceCard data={data} />
+        <ServiceCard data={data} userInfo={user} />
       </div>
     ))
   )
 
-  const renderInputs = () => (
-    get(props, 'gig.serivce.form', []).map((data, key) => (
-      data.type === "text" ?
-        <input
-          key={key}
-          id={data.id}
-          type="text"
-          className="input large"
-          name={data.name}
-          placeholder={data.name}
-          required={true}
-          validationMessage={data.name + 'is required'}
-        />
-        : data.type === "number" ?
-          <input
-          key={key}
-          id={data.id}
-          type="number"
-          className="input large"
-          name={data.name}
-          placeholder={data.name}
-          required={true}
-          validationMessage={data.name + 'is required'}
-        />
-        : data.type === "option" ?
-          <select
-            key={key}
-            className="input large"
-            id={data.id}
-            name={data.name}
-            placeholder={data.name}
-            required={true}
-            validationMessage={data.name + 'is required'}
-          >
-            {data.options.map((opt, key) => (
-              <option key={key} value={opt}>{opt}</option>
-            ))
-            }
-          </select>
-          : <></>
-    ))
-  )
+  function renderInputs() {
+    const data = get(props, 'user', '')
+    const form = (
+      <>
+          <input type="text" className="input small" placeholder="Name" />
+              <input type="email" className="input small" placeholder="Email" />
+              <div className="d-flex flexwrap">
+                <input
+                  type="text"
+                  className="input mr-2"
+                  placeholder="Shifting From?"
+                />
+                <input
+                  type="text"
+                  className="input ml-2"
+                  placeholder="Shifting To?"
+                />
+              </div>
+              <input
+                type="text"
+                className="input large"
+                placeholder="Date of Service"
+              />
+              <input
+                type="text"
+                className="input large"
+                placeholder="Time of Service"
+              />
+      </>      
+    )
+    return form
+  }
+
+
+
 
   function submitForm(e) {
     e.preventDefault()
+    setForm(true)
     const allInput = e.target.querySelectorAll('input, select, textarea')
     const input = Array.prototype.slice.call(allInput)
     const answers = {}
     input.map((data) => {
       answers[data.name] = (data.value)
     })
-    dispatch({ type: 'FORM_REQUEST', payload: { gig: get(props, 'gig._id', ''), initiate: answers } })
+    //dispatch({ type: 'FORM_REQUEST', payload: { gig: get(props, 'gig._id', ''), initiate: answers } })
   }
+
+  function Share(e) {
+    e.preventDefault()
+    const id = get(props, 'gig.id', "")
+    if(id != "") {
+
+      router.push(
+        {
+          pathname: '/share-gig',
+          query: { id: id }
+        }
+      )
+      
+    }
+  }
+
+  
+
+  function Save(e) {
+    e.preventDefault()
+    const id = get(props, 'gig.id', "")
+    const userId = get(userData, 'id', "")
+    const userSavedGigs = get(userData, 'savedgigs', [])
+    if(userSavedGigs.includes(id)) {
+      setSaved(false)
+      const tempSavedGigs = []
+      if(id != "" && userId != "") {
+        userSavedGigs.forEach((item) => {
+          if(item != id) {
+            tempSavedGigs.push(item)
+            console.log("ITEM: ", item)
+          }
+        });
+        const data = {}
+        data.savedgigs = tempSavedGigs
+        data.id = userId
+        dispatch({ type: 'UPDATE_USER', payload: data })  
+        setSaved(false)
+      }
+    } else {
+      if(id != "" && userId != "") {
+        userSavedGigs.push(id)
+        const data = {}
+        data.savedgigs = userSavedGigs
+        data.id = userId
+        dispatch({ type: 'UPDATE_USER', payload: data })  
+        setSaved(true)    
+      }
+    }    
+  }
+  
 
   useEffect(() => {
     if (get(inqueryData, 'error', false)) {
@@ -115,11 +179,13 @@ export default function PackingService(props) {
     }
   }, [inqueryData])
 
+
   useEffect(() => {
     const getWish = get(userData, 'wishlist', [])
     const wish = getWish.includes(get(props, 'data._id', false))
     setWishList(wish)
   }, [userData.wishlist])
+
 
   function setWish() {
     const wish = !wishList
@@ -132,114 +198,108 @@ export default function PackingService(props) {
     }, 500)
     setWishList(wish)
   }
-  console.log("props========>", props.data)
+  
+  
   return (
     <div className="packing-service">
-      <div className="heading d-flex align-items-center justify-content-start flexwrap">
-        <div className="col-md-2 mr-4 service-image">
-          <Image
-            src="/assets/images/howitwork2.jpg"
-            alt="image"
-            layout="responsive"
-            width={100}
-            height={100}
-          />
+      <div className="heading align-items-start">
+        <div className="d-flex">
+                  <div className="service-image">
+                    <img
+                      src={get(props, 'user.profilePic.url', '/assets/images/profile-pic.png')}
+                      alt="image"
+                      //layout="responsive"
+                      //width={90}
+                      //height={90}
+                    /> 
+                  </div>
+                  <div className="title-section align-top">
+                    <h2>{get(props, 'gig.title', '')}</h2>
+                    <h4 className="secondary"><Link href={`/sellerprofile?id=${get(props, 'gig.user.id', '')}`}>{get(props, 'user.handyman_application.companyName', '')}</Link></h4>{" "}
+                  </div>
         </div>
-        <div className="title-section d-flex flex-column justify-content-center flexwrap">
-          <h2 className="mb-3">{get(props, 'data.title', '')}</h2>
-          <div className="d-flex justify-content-between flexwrap">
-            <div className="d-flex align-items-center flexwrap">
-              <h4 className="secondary handyman-name"><Link href={`/sellerprofile?id=${get(props, 'gig._id', '')}`}>{get(props, 'data.sellerPersonalInfo.fname', '')}</Link></h4>{" "}
-              <div className="ml-3 mr-3">
-                <i className="fa fa-star" aria-hidden="true"></i>
-              </div>
-              <h5>4.68 (110 Reviews)</h5>
-            </div>
-            <div className="d-flex align-items-center justify-content-end flex-wrap">
-              <div>
-                <button className="btn d-flex align-items-center justify-content-center share-save">
-                  <i className="fa fa-share-square" aria-hidden="true"></i>
-                  <p className="ml-2 h4">Share</p>
-                </button>
-              </div>
-              <div>
-              {wishList === true ?
-                <button onClick={setWish} className="btn m-2 d-flex align-items-center justify-content-center share-save true">                  
-                    <i className="fa fa-heart selected" fill="#9043C3" style={{fill: "#9043C3"}} aria-hidden="true"></i>
-                  <p className="ml-2 h4">Save</p>
-                </button>
-                :
-                <button onClick={setWish} className="btn m-2 d-flex align-items-center justify-content-center share-save false">                  
-                <i className="fa fa-heart" style={{fill :"#000"}} aria-hidden="true"></i>
-              <p className="ml-2 h4">Save</p>
-            </button>
-                }
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="body mt-5 d-flex align-items-center justify-content-between flexwrap">
-        <div className="image m-4">
-          <div className="image-area">
-            <Image
-              src="/assets/images/spotlight1.jpg"
-              alt="handyman1"
-              layout="responsive"
-              width={600}
-              height={550}
-            />
-          </div>
-        </div>
-        <div className="d-flex flex-column align-items-start justify-content-center width-full">
-          {formSubmit ?
-            <>Your details have been submitted, once the handyman confirms you will receive a notification in the messages tab on the menu.</>
-            :
-            <div className="form p-5 form-full">
-              <p className="mb-3 h5 font-weight-bold">
-                Fill This Form & Get A Free Price Quote
-            </p>
-              <form onSubmit={submitForm}>
-                {renderInputs()}
-                {/* <input type="text" className="input small" placeholder="Name" />
-            <input type="email" className="input small" placeholder="Email" />
-            <div className="d-flex flexwrap">
-              <input
-                type="text"
-                className="input mr-2"
-                placeholder="Shifting From?"
-              />
-              <input
-                type="text"
-                className="input ml-2"
-                placeholder="Shifting To?"
-              />
-            </div>
-            <input
-              type="text"
-              className="input large"
-              placeholder="Date of Service"
-            />
-            <input
-              type="text"
-              className="input large"
-              placeholder="Time of Service"
-            /> */}
 
-                <div className="m-4 text-center">
-                  <button type="submit" className="btn btn-primary" disabled={inqueryForm}>Submit</button>
-                </div>
-              </form>
+        <div className="body d-flex flexwrap">
+          <div className="image">
+            <div className="image-area">
+              <img
+                src={get(props, 'gig.gallery[0].document.url', '')}
+                alt="handyman1"
+                layout="fill"
+                //width={600}
+                //height={550}
+              />
             </div>
-          }
+          </div>
+          <div className="d-flex form">
+            {formSubmit ?
+              <><div className="d-flex flex-column justify-content-center flexwrap mt-5">Your details have been submitted, once the handyman confirms you will receive a notification in the Orders tab on the menu.</div></>
+              :
+              <div className="form p-5 form-full">
+                <p className="mb-3 h5 font-weight-bold">
+                  Fill This Form & Get A Free Price Quote
+              </p>
+                <form onSubmit={submitForm}>
+                  {renderInputs()}             
+
+                <div className="d-flex align-items-center justify-content-start mt-5">
+                  <div className="text-center">
+                    <button type="submit" className="btn btn-primary" disabled={formSubmit} onClick={submitForm}>Submit</button>
+                  </div>
+                  <div className="d-flex share">
+                    <a className="" onClick={Share}>
+                    <img
+                        src='/assets/images/share.png'
+                        alt="handyman1"
+                        layout="responsive"
+                        //width={600}
+                        //height={550}
+                      />
+                      <span className="ml-2">Share</span>
+                    </a>
+                  </div>
+                  <div className="d-flex share">
+                    <a className="" onClick={Save}>
+                    { saved ?
+                      <img
+                        src='/assets/images/saved.png'
+                        alt="handyman1"
+                        layout="responsive"
+                        //width={600}
+                        //height={550}
+                      />
+                      :
+                      <img
+                        src='/assets/images/save.png'
+                        alt="handyman1"
+                        layout="responsive"
+                        //width={600}
+                        //height={550}
+                      />
+                    }
+                      <span className="ml-2">Save</span>
+                    </a>
+                  </div>
+
+
+                </div>                 
+              
+              
+
+                </form>
+              </div>
+            }
+          </div>
         </div>
+
       </div>
+
 
       <div className="row about-services">
         <div className="col-lg-6 col-sm-12">
           <h3>About This Service</h3>
           <p>
-            {get(props, 'data.description', '')}
+            {get(props, 'gig.description', '')}
           </p>
           {/* <p>
               We aim at customer satisfaction and continual quality improvement. Therefore all our services are modified to suit client’s needs and requirements. 
@@ -250,18 +310,18 @@ export default function PackingService(props) {
           <ul>
             <li>
               <h5>From :</h5>
-              <h4>{get(props, 'data.sellerPersonalInfo.state', '')}, {get(props, 'data.sellerPersonalInfo.country', '')}</h4>
+              <h4>{get(props, 'user.handyman_application.location', '')}</h4>
             </li>
             <li>
               <h5>Member Since :</h5>
-              <h4>{moment(get(props, 'data.createdAt', '')).format('MMM YYYY')}</h4>
+              <h4>{moment(get(props, 'user.handyman_application.createdAt', '')).format('MMM YYYY')}</h4>
             </li>
           </ul>
-          <p>Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm! </p>
+          <p>{get(props, 'user.handyman_application.description', '')}</p>
         </div>
       </div>
 
-
+{/*
       <div className="rating-section p-5">
         <h3 className="text-center mb-5">Customer Reviews and Ratings</h3>
         <div className="row">
@@ -284,12 +344,14 @@ export default function PackingService(props) {
           <Link href='/sellerprofile'><button className="btn btn-primary-rd">Read all 112+ Reviews</button></Link>
         </div>
       </div>
+
+*/}
       <div className="more-services mt-5">
         <h1 className="mb-5 span-cursur">
-          More Services by <Link href={`/sellerprofile?id=${get(props, 'gig._id', '')}`}><span className="name">{get(props, 'gig.sellerPersonalInfo.fname', '')}</span></Link>
+          More Services by <Link href={`/sellerprofile?id=${get(props, 'gig.user.id', '')}`}><span className="name">{get(props, 'user.handyman_application.companyName', '')}</span></Link>
         </h1>
         <div className="row ">
-          {moreService()}
+          {moreService(get(props, 'user', ''))}
           {/* <div className="col-md-4">
             <ServiceCard />
           </div>

@@ -23,13 +23,14 @@
         "text": "Please fill out the details in this form and submit your profile. Once your profile is reviewed and approved you will be notified.",
         "formTitle": "PERSONAL DETAILS",
         "fName": "Full Name",
-        "cName": "Company Name (optional)",
+        "cName": "Company Name",
         "location": "Location",
-        "about": "About You/Company",
+        "about": "About Me/Company",
         "cDetails": "CONTACT DETAILS",
         "phone": "Phone Number",
         "email": "E-Mail Address",
         "dDetails": "UPLOAD DOCUMENTS",
+        "dtDetails": "DOCUMENTS",
         "note": "Note",
         "nText": "Dein Hausman keeps 10% of your earnings as commision",
         "submitBtn": "Submit Profile For Review",
@@ -38,7 +39,22 @@
         "accountNumber":"Account Number of Holder",
         "iFSCCode":"IFSC Code of Bank",
         "saveChanges":"Save Bank Detail",
-        "bDetails":"BANK DETAILS"
+        "bDetails":"PAYMENT DETAILS FOR PAY OUT",
+        "socialmedia": "Social Media",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "xing": "Xing",
+        "instagram": "Instagram",
+        "whatsapp": "Whatsapp",
+        "youtube": "Youtube",
+        "other": "Other",
+        "kontoinhaber": "Kontoinhaber",
+        "iban": "IBAN",
+        "bic": "BIC",
+        "bankinstitut": "Bankinstitut",
+        "steuer": "Steuer Nr."
+
+
     },
     "aboutUs": {
         "title": "About Us",
@@ -84,15 +100,16 @@
         "instagram": "Instagram",
         "linkedln": "Linkedln",
         "contactUs": "Contact Us",
-        "copyRights": "Service with love © Dein Hausman 2021. All Rights Reserved",
+        "copyRights": "Service with love © Dein Hausman 2023. All Rights Reserved",
         "claim": "Claim",
         "privacy": "Privacy",
-        "terms": "Terms"
+        "terms": "Terms",
+        "support": "Support"
     },
     "registrationComplete": {
         "title": "Your profile is under review.",
         "text": "We will email you within 24 hours to let you know if your profile was approved.",
-        "btn": "Return to Homepage"
+        "btn": "Create your first GIG"
     },
     "payment": {
         "card": "Add Debit/Credit/ATM Card",
@@ -129,7 +146,16 @@
         "contactMe": "Contact Me",
         "from": "From",
         "memberSince": "Member Since",
-        "text": "Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm!"
+        "text": "Marie Adolfo was our Handyman. She went above and beyond the assigned call of duty. All of her work was first class, very quick and extremely professional. She even worked on repairing a broken window in our lawn outside in a rain storm!",
+        "addGig": "Add a New Gig",
+        "editGig": "Edit Your Gig",
+        "serviceTitle": "Service Title",
+        "category": "Category",
+        "area": "Working Area",
+        "priceRange": "Set Your Price Range",
+        "description": "Service Description",
+        "photo": "Service Photos",
+        "addgigcomplete": "Congratulations! Your service is now live for buyers to view."
     },
     "ProfileManagement": {
         "linkedAccounts": "Linked Accounts",
@@ -161,6 +187,8 @@
         "deleteAccount": "Delete My Account",
         "deleteText": "Delete and remove all your data linked with Dein Hausman",
         "DeactivateAccount": "Deactivate my Account",
-        "DeactivateText": "Temporarily deactivate your account"
+        "DeactivateText": "Temporarily deactivate your account",
+        "password": "PASSWORD",
+        "subscribtion": "SUBSCRIPTION"
     }
 }

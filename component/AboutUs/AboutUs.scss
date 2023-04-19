@@ -1,9 +1,12 @@
 .aboutus {
-  width: 95%;
+  width: 90%;
   margin-top: 20px;
-  @media (max-width:980px) {
-    width: 100%;
-    padding: 0 15px;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  @media (max-width:767px) {
+    width: 90%;
+    padding: 0 0px;
   }
   .about-flex {
     display: flex;
@@ -11,17 +14,17 @@
       flex-direction: column-reverse;
     }
     .about-imglist {
-      width: calc(100% - 375px);
-      @media (max-width:980px) {
+      width: calc(100% - 25%);
+      @media (max-width:767px) {
         width: 100%;
       }
       ul {
         display: flex;
         list-style: none;
-        margin: 0;
+        margin: 0 0 0 0px;
         padding: 0;
         li {
-          width: 33.3333%;
+          width: 100%;
           img {
             width: 100%;
           }
@@ -29,12 +32,30 @@
       }
     }
     .about-imgtext {
-      width: 375px;
+      width: 25%;
+      height: 70%;
       padding-left: 40px;
-      @media (max-width:980px) {
+      font-size: 16px;
+      line-height: 24px;
+      .desc {
+        @media (max-width:767px) {
+          display: none;
+        }
+      }
+      .mob {
+        display: none;
+        @media (max-width:767px) {
+          display: inline;
+          width: 100%;
+          padding-left: 0px;
+          padding-bottom: 0px;
+        }
+      }
+      
+      @media (max-width:767px) {
         width: 100%;
         padding-left: 0px;
-        padding-bottom: 30px;
+        padding-bottom: 0px;
       }
     }
   }
@@ -43,7 +64,7 @@
 
   .d-flex {
     @media (max-width:767px) {
-      flex-wrap: wrap;
+      display: none;
     }
   }
   img {
@@ -52,7 +73,7 @@
   .col-lg-3,
   .col-md-4 {
     margin: 0;
-    padding: 0;
+    padding: 2px;
   }
   h5 {
     position: relative;
@@ -64,7 +85,7 @@
     font-size: 18px;
     line-height: 26px;
     color: #252525;
-    @media (max-width:980px) {
+    @media (max-width:767px) {
       margin-bottom: 20px;
     }
     @media (max-width:767px) {
@@ -90,6 +111,7 @@
     color: #252525;
     text-align: left;
     @media (max-width:767px) {
+      margin-top: 10px;
       // text-align: center !important;
     }
   }
@@ -122,17 +144,17 @@
       padding: 8px 0;
     }
     @media (max-width:767px) {
-      width: 100%;
+      display: none;
     }
   }
   .info {
     padding: 0px 40px;
-    @media (max-width:980px) {
+    @media (max-width:767px) {
       padding: 40px 10px 0px 10px;
     }
   }
   .imgflex {
-    @media (max-width:980px) {
+    @media (max-width:767px) {
       flex-wrap: wrap;
     }
   }

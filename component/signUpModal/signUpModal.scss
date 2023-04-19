@@ -369,7 +369,7 @@
       position: relative;
       .close-btn {
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0px;
         background: none;
       }
@@ -1090,5 +1090,13 @@ h4.blank {
     bottom: auto !important;
     right: auto !important;
     transform: translate(-50%,-50%) !important;
+  }
+}
+
+.agreement {
+  margin-top: 50px;
+  @media (max-width: 767px) {
+    padding-top: 5px;
+    max-width: 100% !important;
   }
 }

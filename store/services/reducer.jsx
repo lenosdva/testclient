@@ -15,6 +15,7 @@ const initialState = {
   notification:[],
   earningLoading:true,
   earning:[],
+  searchByIdData:{},
 };
 
 export default function userReducer(state = initialState, action) {

@@ -4,7 +4,8 @@ import SearchBar from "../SearchBar/SearchBar";
 
 export default function HomeBanner() {
   return (
-    <div className="banner">
+    <>
+    <div className="banner hidemobile">
       <Image
         className="banner-image"
         src="/assets/images/banner.jpeg"
@@ -17,5 +18,19 @@ export default function HomeBanner() {
         <SearchBar />
       </div>
     </div>
+    <div className="banner showmobile">
+      <Image
+        className="banner-image"
+        src="/assets/images/banner-mob.jpg"
+        alt="company logo"
+        layout="responsive"
+        width={360}
+        height={230}
+      />
+      <div className="home-search">
+        <SearchBar />
+      </div>
+    </div>
+    </>
   );
 }

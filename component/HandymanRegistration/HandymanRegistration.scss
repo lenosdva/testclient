@@ -1,105 +1,872 @@
-.profile-manager {
-  h1 {
-    @media (max-width:767px) {
-      font-size: 40px;
-      line-height: normal;
-    }
-  }
-}
-.head-regis {
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 24px;
-  letter-spacing: 0.28px;
-  color: #252525;
-  margin: 10px 0 20px 0;
-}
-.upload-list {
-  list-style: none;
-  margin: 55px 0 0 50px;
-  padding: 0;
-  width: 600px;
-  max-width: 100%;
+.handyman-profile-management {
   @media (max-width:767px) {
-    margin: 55px 0 0 0;
+    margin: 50px 0 0 0;
   }
-  li {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
+  .primary-submit {
+    width: 270px;
+    height: 50px;
+    background: #9043C3;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.28px;
+    color: #FFFFFF;
+    margin-top: 10px;
+    margin-top: 60px;
+    margin-bottom: 10px;
     @media (max-width:767px) {
-      flex-wrap: wrap;
+        width: 100%;
+        height: 40px;
+        margin-top: 10px;
+        //margin-left: 20px;
+        padding-left: 20px;
+      }
+  }
+  .primary-submit-e {
+    width: 210px;
+    height: 50px;
+    background: #9043C3;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.28px;
+    color: #FFFFFF;
+    margin-top: 10px;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    @media (max-width:767px) {
+        width: 50%;
+        height: 40px;
+        margin: 1px 0 15px 10px;
+        //margin-left: 20px;
+        padding-left: 20px;
+      }
+  }
+  .linked-accounts {
+    padding-top: 20px;
+    @media (max-width:1023px) {
+        text-align: center;
+      }
+    h3 {
+      padding-left: 40px;
+      text-align: center;
     }
-    .checkbox-wrapper {
-      width: 600px;
-      max-width: 100%;
-      label {
-        font-size: 24px !important;
+    img {
+      @media (max-width:767px) {
+        width: 100%;
+      }
+      .add {
+        margin: 20px 0 0 0;
+        padding: 20px 0 0 0;
       }
     }
-    .remove-btn {
-      font-family: Neue Haas Grotesk Display Pro;
-      font-weight: normal;
+    
+    .thin {
       font-size: 24px;
-      line-height: 24px;
-      letter-spacing: 0.28px;
-      text-decoration-line: underline;
+    }
+    .btn {
+      padding-left: 40px;
+      .add {
+        color: $primary-color;
+        font-weight: 700;
+        font-size: 24px;
+      }
+    }
+    
+    }
+    .first {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      //margin-left: 8%;
+      font-size: 64px;
+      @media (max-width:767px) {
+        margin-left: 20px;
+        font-size: 24px;
+      }
+      .exists {
+        p {
+          color: red !important;
+          font-size: 24px !important;
+          @media (max-width:767px) {
+            font-size: 18px !important;
+          }
+        }
+        
+      }
+    }
+
+    .second {
+      display: flex;
+      justify-content: flex-end;
+      //margin-top: auto; 
+      margin-bottom: auto;
+      padding-top: auto;
+      padding-bottom: auto;
+      @media (max-width:767px) {
+        justify-content: flex-start;
+        margin: 0 0 25px 10px;
+      }
+      //padding: 0 0 10px 20px;
+      //margin: 0 0 0 0;
+    }
+  }
+  .handyman-profile-manager {    
+    margin: 20px 0 0 0 ;
+    //padding-left: 100px;
+    @media (max-width:767px) {
+      //padding-left: 20px;
+    }    
+    .imgnum {
+      width: 235px;
+      height: 80px;
+      @media (max-width:767px) {
+        width: 40%;
+        height: 40%;
+      }
+    }
+    .contactdet {
+      margin: 25px 0 0 10px;
+      @media (max-width:767px) {
+        margin: 10px 0 0 10px;
+      }
+    }
+
+    .profl {
+      margin: 0 0 0 22%;
+      @media (max-width:767px) {
+        margin: 0 0 0 0;
+      }
+
+      .lastchange {
+        @media (max-width:767px) {
+          margin: 3% 0 0 0; 
+        }
+      }
+    }
+    .profl-center {
+      margin: 0 auto 0 10%;
+      @media (max-width:767px) {
+        margin: 0 0 0 0;
+      }
+      .trialfree {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 25px 0 0 0;
+        @media (max-width:767px) {
+          font-size: 14px;
+          margin: 20px 0 0 0;
+        }
+
+      }
+
+      .timefreetrial {
+        font-size: 18px;
+        font-weight: 400;
+        margin: 5px 0 20px 0;
+        @media (max-width:767px) {
+          font-size: 14px;
+          margin: 20px 0 10px 0;
+        }
+        span {
+          font-weight: 600;
+          @media (max-width:767px) {
+            font-weight: 400;
+          }
+        }
+      }
+
+      .choose {
+        font-size: 18px;
+        margin: 0px 0 50px 0;
+        @media (max-width:767px) {
+          font-size: 14px;
+          margin: px 0 10px 0;
+        }
+      }
+      .linked {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0px 0 50px 0;
+        @media (max-width:767px) {
+          font-size: 14px;
+          margin: 0px 0 30px 0;
+        }
+      }
+
+      .lastchange {
+        @media (max-width:767px) {
+          margin: 3% 0 0 0; 
+        }
+      }
+      p.pss {
+        margin: 0 0 10px 0;
+        font-size: 20px;
+        font-weight: 600;
+        @media (max-width:767px) {
+          margin: 0 0 5px 0;
+          font-size: 16px; 
+        }
+      }
+    }
+    .agreement {
+      font-size: 16px;
+      @media (max-width:767px) {
+        font-size: 12px;
+      }
+    }
+    .settingsacc {
+      p {
+        font-size: 18px;
+        margin: 8px 0 8px 0;
+        @media (max-width:767px) {
+          font-size: 14px;
+          margin: 4px 0 4px 0;
+          }
+      }
+      a {
+        margin: 8px 0 0 0;
+        font-size: 18px;
+        @media (max-width:767px) {
+          margin: 4px 0 0 0;
+          font-size: 14px;
+          }
+      }
+    }
+    flex: 1;
+    .input-check {
+      margin-top: 10px;
+      @media (max-width:767px) {
+        margin-top: 5px;
+      }
+    }
+    h3 {
+      @media (max-width:767px) {
+        font-size: 30px;
+      }
+    }
+    h4 {
+      font-size: 24px;
+      @media (max-width:767px) {
+        font-size: 18px;
+      }
+    }
+    .find-more {
+      color: $primary-color;
+      font-weight: bold;
+    }
+    .small {
+      width: 50%;
+      margin-top: 10px;
+      @media (max-width:767px) {
+        width: 100%;
+      }
+      .timg {   
+        margin-top: 20px;
+        margin-left: 20px;
+        @media (max-width:767px) {
+          margin-right: auto;
+          margin-left: auto;
+          padding-left: 15%;
+          padding-right: auto;
+        }
+        
+        //margin-bottom: 10px;
+      }
+      .input {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;
+        //background-image: url(https://deinhausmann.com/assets/images/Vector.jpg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-origin: content-box;
+        img {
+          padding-left: auto;
+          padding-right: auto;
+          margin-right: auto;
+          margin-left: auto;
+          //margin-bottom: 10px;
+        }
+        @media (max-width:767px) {
+          background-image: none;
+        }
+      }
+      .input.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+
+      .span {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;        
+      }
+      .span.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+      .fileupload {
+        font-size: 18px;
+        font-weight: 600;
+        @media (max-width:767px) {
+          font-size: 14px;
+          font-weight: 500;
+        }
+        &:hover {
+          cursor: none;
+        }
+      }
+      .filename {
+        width: 70%;
+        input {
+          background-image: none;
+          width: 100%;
+          height: 50px;
+          @media (max-width:767px) {
+            height: 40px;
+          }
+        }
+        
+      }
+      .edit-aria {
+        position: relative;
+        z-index: 10;
+        margin-right: 20px !important;
+        width: 30%;
+        margin-top: 4px;
+        .remove-btn {          
+          margin-left: 15%;
+          text-decoration: underline;
+          color: #9043C3;
+          font-size: 14px;
+          font-weight: 600;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        input[type=file] {
+          width: 0.1px;
+          height: 0.1px; 
+          opacity: 0;
+          position: absolute;
+          z-index: -100; 
+        }
+      }
+
+      .edit-aria-1 {
+        position: relative;
+        z-index: 10;
+        margin-right: 10px !important;
+        width: 20%;
+        margin-top: 4px;
+        .remove-btn {          
+          margin-left: 65%;
+          text-decoration: underline;
+          color: #9043C3;
+          font-size: 14px;
+          font-weight: 600;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        input[type=file] {
+          width: 0.1px;
+          height: 0.1px; 
+          opacity: 0;
+          position: absolute;
+          z-index: -100; 
+        }
+      }
+      
+
+    }
+
+    .small-edit {
+      width: 100%;
+      margin-top: 10px;
+      @media (max-width:767px) {
+        width: 50%;
+      }
+      .timg {   
+        margin-top: 20px;
+        margin-left: 20px;
+        @media (max-width:767px) {
+          margin-right: auto;
+          margin-left: auto;
+          padding-left: 15%;
+          padding-right: auto;
+        }
+        
+        //margin-bottom: 10px;
+      }
+      .input {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;
+        //background-image: url(https://deinhausmann.com/assets/images/Vector.jpg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-origin: content-box;
+        img {
+          padding-left: auto;
+          padding-right: auto;
+          margin-right: auto;
+          margin-left: auto;
+          //margin-bottom: 10px;
+        }
+        @media (max-width:767px) {
+          background-image: none;
+        }
+      }
+      .input.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+
+      .span {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;        
+      }
+      .span.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+      .fileupload {
+        font-size: 18px;
+        font-weight: 600;
+        @media (max-width:767px) {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+      .filename {
+        width: 100%;
+        input {
+          background-image: none;
+          width: 100%;
+          height: 50px;
+          @media (max-width:767px) {
+            height: 40px;
+          }
+        }
+      }
+      .edit-aria {
+        position: relative;
+        z-index: 10;
+        margin-right: 20px !important;
+        width: 30%;
+        margin-top: 4px;
+        .remove-btn {          
+          margin-left: 15%;
+          text-decoration: underline;
+          color: #9043C3;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        input[type=file] {
+          width: 0.1px;
+          height: 0.1px; 
+          opacity: 0;
+          position: absolute;
+          z-index: -100; 
+        }
+      }
+
+      .edit-aria-1 {
+        position: relative;
+        z-index: 10;
+        margin-right: 10px !important;
+        width: 20%;
+        margin-top: 4px;
+        .remove-btn {          
+          margin-left: 65%;
+          text-decoration: underline;
+          color: #9043C3;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        input[type=file] {
+          width: 0.1px;
+          height: 0.1px; 
+          opacity: 0;
+          position: absolute;
+          z-index: -100; 
+        }
+      }
+      
+
+    }
+
+    .small1 {
+      width: 100%;
+      margin-top: 10px;
+      @media (max-width:767px) {
+        width: 100%;
+      }
+      .timg {   
+        margin-top: 20px;
+        margin-left: 20px;
+        @media (max-width:767px) {
+          margin-right: auto;
+          margin-left: auto;
+          padding-left: 15%;
+          padding-right: auto;
+        }
+        
+        //margin-bottom: 10px;
+      }
+      .input {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;
+        //background-image: url(https://deinhausmann.com/assets/images/Vector.jpg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-origin: content-box;
+        img {
+          padding-left: auto;
+          padding-right: auto;
+          margin-right: auto;
+          margin-left: auto;
+          //margin-bottom: 10px;
+        }
+        @media (max-width:767px) {
+          background-image: none;
+        }
+      }
+      .input.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+
+      .span {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;        
+      }
+      .span.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+      .fileupload {
+        font-size: 18px;
+        font-weight: 600;
+        @media (max-width:767px) {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+      .edit-aria {
+        //margin-left: 20% !important;
+        margin-right: 5px !important;
+        margin-top: 4px;
+        .remove-btn {          
+          margin-left: 15%;
+          text-decoration: underline;
+          color: #9043C3;
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .image-upload {
+          display: none;
+          width: 0% !important;
+          visibility: hidden;          
+        }
+      }
+      
+
+    }
+
+    .names {
+      width: 50%;
+      @media (max-width:767px) {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .input {
+        width: 100%;
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        display: block;
+        font-size: 18px;
+        line-height: 26px;
+        //background-image: url(https://deinhausmann.com/assets/images/Vector.jpg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-origin: content-box;
+        @media (max-width:767px) {
+          width: 97%;
+          background-image: none;
+          //margin-right: 5px;
+        }
+      }
+      .input.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+
+      .span {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 12px;
+        color: #252525;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 26px;        
+      }
+      .span.mr-3 {
+        @media (max-width:767px) {
+          margin-right: 0 !important;
+        }
+      }
+
+    }
+    .input {
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 12px;
       color: #252525;
-      cursor: pointer;
+      outline: none;
+      margin-bottom: 5px;
+      font-size: 18px;
+      line-height: 26px;      
+    }
+    .input.mr-3 {
+      @media (max-width:767px) {
+        //margin-right: 0 !important;
+        padding: 0;
+        font-size: 20px;
+        line-height: 28px;
+        width: 30%;
+        height: 40px;
+      }
+    }
+    .input.mr-4 {
+      @media (max-width:767px) {
+        margin-right: 0 !important;
+        padding-left: 3%;
+        font-size: 20px;
+        line-height: 28px;
+        width: 100%;
+        height: 50px;
+      }
+    }
+    .large {
+      width: 78%;
       @media (max-width:767px) {
         width: 100%;
       }
     }
+    .large1 {
+      width: 90%;
+      @media (max-width:767px) {
+        width: 100%;
+      }
+    }
+    .textarea {
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 12px;
+      color: #252525;
+      outline: none;
+      margin-bottom: 10px;
+      font-size: 18px;
+      line-height: 26px;
+      height: 110px;
+    }
+    .horizontal-line {
+      margin: 30px 0;
+      width: 100%;
+      height: 1px;
+      background-color: $grey-color;
+    }
+    .label {
+      font-size: 24px;
+      margin-top: 15px;
+    }
+    .email {
+      color: $primary-color;
+      cursor: pointer;
+    }
+    .email-readonly {
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 12px;
+      color: #252525;
+      //display: inline-block;
+      font-size: 18px;
+      //width: 100%;
+    }
+    .notifications {
+      .icon {
+        color: $primary-color;
+        font-size: 20px;
+      }
+      h6 {
+        line-height: 26px;
+        font-weight: 500;
+      }
+      p {
+        font-size: 18px;
+        margin: 0 0 15px 0;
+        @media (max-width:767px) {
+          font-size: 14px;
+          margin: 0 0 10px 0;
+        }
+      }
+    }
+    .payment-details {
+      .link {
+        color: $primary-color;
+      }
+      .payment-method {
+        span {
+          font-weight: bold;
+        }
+      }
+      .location {
+        @media (max-width:767px) {
+          width: 100%;
+          margin-right: 0 !important;
+        }
+        .details {
+          line-height: 5px;
+        }
+      }
+    }
+    .settings-link {
+      color: $primary-color;
+      font-size: 24px;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+    .ml-10 {
+      margin-left: ($spacer * 1.25) !important;
+    }
+    .ml-20 {
+      margin-left: ($spacer * 0.25) !important;
+    }
+    .mt-10 {
+      margin-top: ($spacer * 2.25) !important;
+    }
+    .mb-4 {
+      margin-bottom: ($spacer * 2.25) !important;
+    }
+    .pl-20 {
+      padding-left: ($spacer * 4.25) !important;
+      @media (max-width:767px) {
+        padding: auto !important;
+        margin: auto;
+      }
+    }
+    .pt-20 {
+      padding-top: ($spacer * 3.25) !important;
+    }
   }
-}
-.addmore-btn {
-  font-family: Neue Haas Grotesk Display Pro;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 24px;
-  letter-spacing: 0.28px;
-  text-decoration-line: underline;
-  color: #9043C3;
-  margin: 40px 0 0 50px;
-  display: inline-block;
-  @media (max-width:767px) {
-    margin: 40px 0 0 0;
+  .visible {
+    font-size: 16px;
+    @media (max-width:767px) {
+      font-size: 12px;
+    }
   }
-}
-.note {
-  font-family: Neue Haas Grotesk Display Pro;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 24px;
-  letter-spacing: 0.28px;
-  color: #252525;
-  margin: 70px 0 25px 0;
-  span {
+
+  .link {
+    color: $primary-color;
+      font-size: 18px;
+      font-weight: 500;
+      text-decoration: underline;
+  }
+
+  p {
+    margin: auto 0 auto 0;    
+    padding-bottom: 0px;
+    @media (max-width:767px) {
+      margin: 0 0 0 0;
+    }
+  }
+
+  .errormsg {
+    color: red;
+    display: block;
+  }
+
+  .primarybtn-fill {
+    width: auto;
+    max-width: 100%;
+    min-height: 70px;
+    padding: 0 50px;
+    background: #9043C3;
+    border-radius: 5px;
+    font-family: Neue Haas Grotesk Display Pro;
     font-weight: 500;
-  }
-}
-.primarybtn-fill {
-  width: auto;
-  max-width: 100%;
-  min-height: 70px;
-  padding: 0 50px;
-  background: #9043C3;
-  border-radius: 5px;
-  font-family: Neue Haas Grotesk Display Pro;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 24px;
-  letter-spacing: 0.28px;
-  color: #FFFFFF;
-  &:hover {
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0.28px;
     color: #FFFFFF;
+    &:hover {
+      color: #FFFFFF;
+    }
+    @media (max-width:767px) {
+      padding: 0 20px;
+      width: 100%;
+    }
   }
-  @media (max-width:767px) {
-    padding: 0 20px;
-    width: 100%;
-  }
-}
-.errormsg {
-  color: red;
-  display: block;
-}

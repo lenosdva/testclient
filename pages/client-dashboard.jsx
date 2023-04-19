@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { Layout, Footer, ClientDashboard, ClientMyOrders, FAQ } from "../component";
 import { useDispatch, useSelector } from 'react-redux'
 
+
 export default function Category(props) {
   const dispatch = useDispatch()
   const { userData, orderLoading, userLoading, orders } = useSelector(state => ({
@@ -14,6 +15,9 @@ export default function Category(props) {
   useEffect(() => {
     dispatch({ type: "GET_ORDER" })
   }, [])
+
+ 
+  
   return (
     
       <Layout setWebSoket={props.setWebSoket}>
@@ -27,15 +31,20 @@ export default function Category(props) {
           <div className="about-section-padding">
             <ClientDashboard />
           </div>
-          <div className="section-padding">
+          {/*<div className="section-padding">
             <ClientMyOrders orders={orders}/>
           </div>
-          <div className="about-section-padding">
+          */}
+          <div className="about-section-padding-dashboard">
             <FAQ />
           </div>
           <Footer ws={props.ws}/>
         </div>
       
+  
+      
       </Layout>
+
+          
   );
 }

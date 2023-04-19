@@ -46,24 +46,56 @@ function Footer({ t, ws }) {
                                 <ul>
                                     <li>
                                         <h5>{t("footer.services")}</h5>
-                                        <a href="">{t("footer.cleaning")}</a>
-                                        <a href="">{t("footer.electronic")}</a>
-                                        <a href="">{t("footer.restoration")}</a>
-                                        <a href="">{t("footer.computerSetup")}</a>
-                                        <a href="">{t("footer.otherServices")}</a>
+                                        <Link href="/category?id=63ec42321e567d9347d0b8ae&name=Cleaning%20Services">{t("footer.cleaning")}</Link>
+                                        <Link href="/category?id=63ec42cf1e567d9347d0b8ba&name=Electronic%20Installation">{t("footer.electronic")}</Link>
+                                        <Link href="/category?id=63ec42a11e567d9347d0b8b7&name=Restoration%20Services">{t("footer.restoration")}</Link>
+                                        <Link href="/category?id=63ec42751e567d9347d0b8b4&name=Computer%20Setup">{t("footer.computerSetup")}</Link>
+                                        <Link href="/category?id=63ec439c1e567d9347d0b8cc&name=Electrical%20Services">Electrical Services</Link>
                                     </li>
                                     <li>
                                         <h5>{t("footer.followUs")}</h5>
-                                        <a href="">{t("footer.facebook")}</a>
-                                        <a href="">{t("footer.twitter")}</a>
-                                        <a href="">{t("footer.instagram")}</a>
-                                        <a href="">{t("footer.linkedln")}</a>
+                                        <a href="https://www.facebook.com/">{t("footer.facebook")}</a>
+                                        <a href="https://twitter.com/">{t("footer.twitter")}</a>
+                                        <a href="https://www.instagram.com/">{t("footer.instagram")}</a>
+                                        <a href="https://www.linkedin.com/">{t("footer.linkedln")}</a>
                                     </li>
-                                    <li>
+                                    <li>                                    
                                         <h5>{t("footer.contactUs")}</h5>
                                         <a href="">contact@deinhausman.de</a>
+                                        <span className="aboutusadded">
+                                                    <h5>
+                                                        <Link href="/support">
+                                                            {t("footer.support")}
+                                                        </Link>
+                                                    </h5>
+                                                    <h5 className="space">
+                                                            <Link href="/about">
+                                                                {t("footer.about")}
+                                                            </Link>
+                                                    </h5>
+                                        </span>
+                                        <div>
+                                            <Link href="/claim">{t("footer.claim")}</Link>
+                                            <Link href="/privacy">{t("footer.privacy")}</Link>
+                                            <Link href="/terms">{t("footer.terms")}</Link>
+                                        </div>                                     
                                     </li>
-                                </ul>
+                                    <li className="notvisible">
+                                        <div>
+                                            <h5>
+                                                <Link href="/support">
+                                                    {t("footer.support")}
+                                                </Link>
+                                            </h5>
+                                            <h5>
+                                                <Link href="/about">
+                                                    {t("footer.about")}
+                                                </Link>
+                                            </h5>  
+                                        </div>                                   
+                                                                           
+                                    </li>
+                                </ul>                                
                             </div>
                         </div>
                     </div>
@@ -78,18 +110,29 @@ function Footer({ t, ws }) {
                     <div className="row">
                         <div className="col-md-12 footer-btm">
                             <div className="left-sec">
+                                <div>
+                                    <Link href="/claim">{t("footer.claim")}</Link>
+                                    <Link href="/privacy">{t("footer.privacy")}</Link>
+                                    <Link href="/terms">{t("footer.terms")}</Link>
+                                </div>
                                 <p>{t("footer.copyRights")}</p>
-                            </div>
+                            </div>                            
                             <div className="right-sec">
-                                <a href="">{t("footer.claim")}</a>
-                                <a href="">{t("footer.privacy")}</a>
-                                <a href="">{t("footer.terms")}</a>
+                                <div className="ssl">
+                                    <Image
+                                        src="/assets/images/ssl.png"
+                                        alt="ssl logo"
+                                        width={80}
+                                        height={80}
+                                    />
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={quotationNotification ? "payment-succes" : "payment-succes payment-hide"}>
+            {/*<div className={quotationNotification ? "payment-succes" : "payment-succes payment-hide"}>
                 <span className="profilepic">
                     <Image
                         src="/assets/images/profile-pic.png"
@@ -104,6 +147,7 @@ function Footer({ t, ws }) {
                 <h6>{message}</h6>
                 <p>{moment().format('hh:mm A')}</p>
             </div>
+            */}
         </div>
     );
 }

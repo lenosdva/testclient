@@ -23,6 +23,7 @@
     text-align: center;
     @media (max-width:767px) {
       text-align: center !important;
+      width: 90%;
     }
   }
   .choose-list {
@@ -43,7 +44,7 @@
         width: 60%;
       }
       @media (max-width:767px) {
-        width: 100%;
+        width: 85%;
       }
       h3 {
         font-family: $font-family-base;

@@ -22,10 +22,11 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loginWith, setloginWith] = useState('phone');
+  const [loginWith, setloginWith] = useState('email');
   const [country, setCountry] = useState('49')
   const [error, setError] = useState({})
   const [cPassword, SetCPassword] = useState('')
+  const [agreement, setAgreement] = useState(false);
 
   function openLogin() {
     close()
@@ -54,9 +55,19 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
     return (false)
   }
 
+  function ValidatePassword(str) {
+    const specialChars = /[!@#$%^&*()]/;
+    console.log("TTTT:       ", specialChars.test(str));
+    return !specialChars.test(str);
+  }
+
   function onSignUp(e) {
     e.preventDefault()
     let error = {}
+    if(!agreement) {
+      error.email = 'You have to agree with the processing of your personal data'
+      setError(error)
+    }
     if (loginWith === 'phone') {
       if (phone === '') {
         error.phone = 'Phone number is required'
@@ -83,6 +94,8 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
         error.password = 'Password is required'
       } else if (password !== cPassword) {
         error.password = 'Confirm password should match with password'
+      } else if (ValidatePassword(password)) {
+        error.password = 'password should contains spesial symbol !@#$%^&*()'
       }
       setError(error)
       if (!Object.keys(error).length) {
@@ -209,7 +222,6 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                     <div className="labels">Country/Region</div>
                     <select value={country} onChange={(e) => setCountry(e.target.value)} id="name" className="custom-select" required >
                       <option value="49">Germany(+49)</option>
-                      <option value="91">India(+91)</option>
                     </select>
                   </div>
                 </div>
@@ -218,13 +230,14 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                   <div className="p-lr">
                     <div className="labels">Phone Number</div>
                     {/* <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="text" className="field-input" required /> */}
-                    <InputMask mask="(999) 999 9999" value={phone} onChange={(e) => setPhone(e.target.value)}>
-                      {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(000) 000 0000" />}
+                    <InputMask mask="(+4\9) 999 999 99999" value={phone} onChange={(e) => setPhone(e.target.value)}>
+                      {(inputProps) => <input {...inputProps} className="field-input" type="tel" placeholder="(+49) --- --- -----" />}
                     </InputMask>
                     {/* <label className="form-control-placeholder">Phone Number</label> */}
                   </div>
                 </div>
               </div>
+              <input className="input-check" type="checkbox" checked={agreement} onChange={() => setAgreement(!agreement)} /><span className="agreement">I hereby consent to the processing of my personal data.</span>
               {get(error, 'phone', '') &&
                 <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(serverError, 'serverError', '') &&
@@ -259,6 +272,7 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                   </div>
                 </div>
               </div>
+              <input className="input-check" type="checkbox" checked={agreement} onChange={() => setAgreement(!agreement)} /><span className="agreement">I hereby consent to the processing of my personal data.</span>
               {get(error, 'phone', '') &&
                 <span className="errormsg">{get(error, 'phone', '')}</span>
               }{get(error, 'email', '') &&
@@ -324,12 +338,13 @@ export function signUpModal (signUpModel, closeModal, setLoginModel, serverError
                 <span>Continue with E-Mail</span>
               </button>
               :
-              <button onClick={() => setloginWith('phone')}>
+              <button onClick={() => setloginWith('phone')} className="tt">
                 <Image
-                  src="/assets/svg/ic-email.svg"
+                  src="/assets/svg/phone.svg"
                   alt=""
-                  width={30}
-                  height={30}
+                  width={27}
+                  height={27}
+                  className="pl-1"                
                 />
                 <span>Continue with Phone</span>
               </button>

@@ -8,8 +8,13 @@ function HandymanRegistrationComplete({t}) {
         <div className="waiting-wrapper">
           <div className="waiting-text">
             <h4>{t("registrationComplete.title")}</h4>
-            <p>{t("registrationComplete.text")}</p>
-          <Link href="/"><button className="btn primarybtn-fill mt-5">{t("registrationComplete.btn")}</button></Link>
+            <p className="text-center">{t("registrationComplete.text")}</p>
+            <p className="text-center">{t("registrationComplete.text1")}</p>
+          <Link href="/add-gig"><button className="btn primarybtn-fill mt-5 btng">{t("registrationComplete.btn")}</button></Link>
+          <div>
+              <Link href="/">Return to Homepage</Link>
+          </div>
+          
           </div>
         </div>
       </div>

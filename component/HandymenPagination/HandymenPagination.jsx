@@ -6,6 +6,7 @@ function HandymenPagination({t, data = [], category=""}) {
     <div className="handyman-pagination">
       <h4>{data && data.length} {t("pagination.title")}</h4>
       <h1>{t("pagination.subTitle")}</h1>
+      
       <div className="row">
         <button className="btn btn-primary d-flex justify-content-center align-items-center">
           <h4 className="add-icon mr-2">+</h4>
@@ -19,7 +20,7 @@ function HandymenPagination({t, data = [], category=""}) {
           <h4 className="add-icon mr-2">+</h4>
           <h4>{t("pagination.language")}</h4>
         </button>
-      </div>
+      </div> 
       <div className="row">
         <div className="col-md-12">
           <h5>{category}</h5>

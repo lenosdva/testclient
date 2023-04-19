@@ -5,6 +5,9 @@ import _, { get } from "lodash"
 import PostalCode from "../../constent/postal"
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { useRouter } from 'next/router'
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, DropdownButton } from 'reactstrap';
+import Select from 'react-select'
+import {CodeCityOptions as options} from '../../utils/codes'
 
 export default function SearchBar(props) {
   const router = useRouter()
@@ -12,10 +15,15 @@ export default function SearchBar(props) {
   const [filterCode, setFilterCode] = useState([])
   const [code, setCode] = useState('')
   const [id, setId] = useState('')
+  const [category, setCategory] = useState('')
   const [link, setLink] = useState('')
   const [showAddress, setAddress] = useState('hide')
   const [showService, setService] = useState('hide')
   const [showMobSearch, setMobSearch] = useState('')
+  const [listServices, setListServices] = useState(false)
+  const [choosedService, setChoosedService] = useState("What can we assist you with?")
+
+  const toggle = () => setListServices(prevState => !prevState);
   
   const dispatch = useDispatch()
   const { searchData, searchByIdLoading, searchByIdData, mobileSignLoading, mobileSignData } = useSelector(state => ({
@@ -73,12 +81,21 @@ export default function SearchBar(props) {
   }
 
   function onSearchService() {
-
     if (id === '') {
-      router.push('/category-services')
+      setChoosedService(<><div className='red-font'>REQUIRED</div></>)
       // NotificationManager.error('Please Pick a Service')
     } else {
-      router.push({ pathname: '/gigs', query: { service: keyword, id , name: keyword } })
+      router.push(
+        { 
+          pathname: '/category', 
+          query: 
+              { 
+                id: id, 
+                name: choosedService, 
+                code: code.split(',')[0]
+              } 
+        }
+      )
       // window.location.url(link)
       
     }
@@ -153,14 +170,35 @@ export default function SearchBar(props) {
     ))
   )
 
+  function services() {
+    setListServices(!listServices)
+  }
+  function setSearchInput(id, name) {
+    setId(id);
+    setChoosedService(name);
+    //router.push(`/category?id=${id}&name=${name}`)
+  }
+
+
 
 
   return (
     <>
       <div className="searchbar d-flex justify-content-between align-items-center">
-        <div className="search-area pl-4 d-flex justify-content-around align-items-center">
-          <div className="postal-code mr-2">
-            <h5 className="mb-0">Postal Code</h5>
+        <div className="search-area d-flex justify-content-around align-items-center">
+          <div className="postal-code">
+            <h5 className="">Postal Code</h5>
+                                                <Select 
+                                                    options={options}
+                                                    placeholder="80331,Munich,Germany"
+                                                    onChange={(code) => (code != null) ? setCode(code.value) : setCode('')}
+                                                    isClearable={true}
+                                                    isSearchable={true}
+                                                    className="react-select-search"
+                                                    classNamePrefix="react-select-search-n"
+                                                    
+                                                  />
+            {/*
             <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
             {filterCode.length ?
               <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
@@ -169,25 +207,58 @@ export default function SearchBar(props) {
                   </ul>
               </div>
               : <></>
-            }
+            } */}
             {/* <h5 className="postal-value">Munich, Germany 80331</h5> */}
           </div>
           <div className="vertical-bar mr-2"></div>
-          <div className="service ml-4">
+          <div className="divi showmobile mt-2 mb-2"></div>
+          <div className="service pl-4 ml-4">
             <h5 className="mb-0">Pick a Service</h5>
             {/* <h5 className="service-value">What can we assist you with ?</h5> */}
-            <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
-            <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
-              {searchData.length ?
-                <ul>
-                  {renderSearchResult()}
-                </ul>
-                :
-                <></>
-              }
-            </div>
+            {/*<input type="text" onChange={onSearch} onClick={services} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you?" /> */}
+                  <div onClick={services} className="togglewrapper-search">
+                    <Dropdown isOpen={listServices} toggle={services} autoClose="outside" >
+                        <DropdownToggle  tag="span" className="input-search input-search-lg">{choosedService}</DropdownToggle>
+                          <DropdownMenu>
+                              <ul className="dd-menu-services">
+                                <li>                            
+                                    <h6 onClick={() => setSearchInput("63ec415e1e567d9347d0b8ab", "Roof Services")}>Roof Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec42321e567d9347d0b8ae", "Cleaning Services")}>Cleaning Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec424c1e567d9347d0b8b1", "Bathroom Installation")}>Bathroom Installation & Repair</h6>
+                                    <h6 onClick={() => setSearchInput("63ec42751e567d9347d0b8b4", "Computer Setup")}>Computer Setup & Repair</h6>
+                                    <h6 onClick={() => setSearchInput("63ec42a11e567d9347d0b8b7", "Restoration Services")}>Restoration Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec42cf1e567d9347d0b8ba", "Electronic Installation")}>Electronic Installation & Repair</h6>
+                                    <h6 onClick={() => setSearchInput("63ec42ee1e567d9347d0b8bd", "Painting Services")}>Painting & Wallpapering Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec43151e567d9347d0b8c0", "Transportation Services")}>Transportation Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec434c1e567d9347d0b8c3", "Garden & Outdoor Services")}>Garden & Outdoor Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec43671e567d9347d0b8c6", "Building Services")}>Building & Renovating Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec43811e567d9347d0b8c9", "Plumbing Services")}>Plumbing Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec439c1e567d9347d0b8cc", "Electrical Services")}>Electrical Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec43b91e567d9347d0b8cf", "Kitchen Installation")}>Kitchen Installation & Repair</h6>
+                                    <h6 onClick={() => setSearchInput("63ec43d01e567d9347d0b8d2", "Carpentry Services")}>Carpentry Services</h6>
+                                    <h6 onClick={() => setSearchInput("63ec43ec1e567d9347d0b8d5", "Floor & Tile Services")}>Floor & Tile Services</h6>                
+                                </li>
+                              </ul>
+                          </DropdownMenu>                 
+                    </Dropdown>
+                  </div>
+                        
+                
+              {/*
+              <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
+                {searchData.length ?
+                  <ul>
+                    {renderSearchResult()}
+                  </ul>
+                  :
+                  <></>
+                }
+              </div>
+              */}
+            
           </div>
         </div>
+        
         {/* code of mobile */}
         <div className="icon-area">
           <button onClick={onSearchService} className="btn btn-primary">
@@ -202,80 +273,15 @@ export default function SearchBar(props) {
             <span className="showmobile">Search mobile</span>
           </button>
         </div>
+
         <NotificationContainer />
       </div>
-
-      <div className="search-mobile seachmob-border">
-        <input type="search" placeholder="Search mobile" onClick={()=> setMobSearch('show')}  className="search-mobile-input" />
-        {/* <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
-        {searchData.length ?
-          <ul>
-            {renderSearchResult()}
-          </ul>
-          :<></>
-        }
-        </div> */}
-        {/* <button onClick={onSearchService} className="btn btn-primary">
-        <span className="iconsearch">
-                <Image
-                  src="/assets/svg/ic-search.svg"
-                  alt="search"
-                  width={26}
-                  height={26}
-                />
-              </span>
-              <span className="showmobile">Search</span>
-        </button> */}
+      <div className="icon-area-mob showmobile">
+          <button onClick={onSearchService} className="btn">
+            <span className="showmobile">Search</span>
+          </button>
       </div>
-      <div className={"searchbox-mob "+ showMobSearch}>
-        <div className="search-area">
-          <div className="postal-code">
-            <h5 className="mb-0">Postal Code</h5>
-            <input type="search" value={code} onChange={onSearchPostalCode} onBlur={onBlurInput} className="input-search" placeholder="Munich, Germany 80331" />
-            {filterCode.length ?
-              <div className={showAddress === 'hide' ? "searching-keywords search-lg" : "searching-keywords search-lg searching-keywords-show"}>
-                {filterCode.length ?
-                <ul>
-                  {renderPostalCode()}
-                </ul>
-                :
-                <></>
-              }
-              </div>
-              : <></>
-            }
-          </div>
-          <div className="service">
-            <h5 className="mb-0">Pick a Service</h5>
-            <input type="search" onChange={onSearch} value={keyword} onBlur={() => onBlurInput()} className="input-search input-search-lg" placeholder="What can we assist you with?" />
-            {searchData.length ?
-            <div className={showService === 'hide' ? "searching-keywords search-xl" : "searching-keywords search-xl searching-keywords-show"}>
-              <ul>
-                {renderSearchResult()}
-              </ul>
-            </div>
-             :
-              <></>
-            }
-          </div>
-         
-          <div className="icon-area">
-            <button onClick={onSearchService} className="btn btn-primary">
-              <span className="iconsearch">
-                <Image
-                  src="/assets/svg/ic-search.svg"
-                  alt="search"
-                  width={26}
-                  height={26}
-                />
-              </span>
-              <span className="showmobile">Search</span>
-            </button>
-          </div>
 
-        </div>
-
-      </div>
     </>
   );
 }
