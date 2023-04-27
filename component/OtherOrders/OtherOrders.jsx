@@ -14,9 +14,9 @@ const settings = {
   slidesToScroll: 1,
   responsive: [
     {
-      breakpoint: 1024,
+      breakpoint: 10241,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 31,
         slidesToScroll: 1
       }
     },
